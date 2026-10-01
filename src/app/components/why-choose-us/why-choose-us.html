@@ -1,0 +1,28 @@
+<section class="section-spacing why-choose-section">
+  <div class="container">
+    <div class="text-center section-header-wrap">
+      <div class="section-badge">
+        <i class="ri-thumb-up-line"></i>
+        <span>{{ adminService.websiteContent().whyChooseBadge }}</span>
+      </div>
+      <h2 class="section-title">
+        {{ adminService.websiteContent().whyChooseHeading }}
+      </h2>
+      <p class="section-subtitle mx-auto">
+        {{ adminService.websiteContent().whyChooseSubtitle }}
+      </p>
+    </div>
+
+    <div class="pillars-grid">
+      @for (pillar of pillars; track pillar.title) {
+        <div class="luxury-card pillar-card">
+          <div class="pillar-icon-box">
+            <i [class]="pillar.icon"></i>
+          </div>
+          <h3 class="pillar-title">{{ pillar.title }}</h3>
+          <p class="pillar-desc">{{ pillar.desc }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>

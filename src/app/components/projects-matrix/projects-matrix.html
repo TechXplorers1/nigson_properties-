@@ -1,0 +1,233 @@
+<section id="projects" class="section-spacing projects-matrix-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="text-center section-header-wrap">
+      <div class="section-badge">
+        <i class="ri-folder-shared-line"></i>
+        <span>Track Record of Excellence</span>
+      </div>
+      <h2 class="section-title">
+        Project <span class="text-gold">Development Matrix</span>
+      </h2>
+      <p class="section-subtitle mx-auto">
+        A documented track record of completed, sold-out, and active properties managed by Nigson Properties across Lekki, Ikoyi, and Banana Island.
+      </p>
+    </div>
+
+    <!-- Controls Toolbar: Category Filters & View Toggle -->
+    <div class="projects-toolbar">
+      <div class="projects-filter-pills">
+        @for (tab of filterTabs; track tab.id) {
+          <button 
+            type="button" 
+            class="filter-pill-btn" 
+            [class.active]="activeFilter() === tab.id"
+            (click)="setFilter(tab.id)">
+            {{ tab.label }}
+          </button>
+        }
+      </div>
+
+      <div class="view-toggle-wrap">
+        <button 
+          type="button" 
+          class="view-toggle-btn" 
+          [class.active]="viewMode() === 'cards'"
+          (click)="setViewMode('cards')">
+          <i class="ri-grid-fill"></i>
+          <span>Cards View</span>
+        </button>
+        <button 
+          type="button" 
+          class="view-toggle-btn" 
+          [class.active]="viewMode() === 'table'"
+          (click)="setViewMode('table')">
+          <i class="ri-table-line"></i>
+          <span>Table View</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: PROJECTS AS LUXURY CARDS (Default View) -->
+    @if (viewMode() === 'cards') {
+      <div class="projects-grid">
+        @for (project of filteredProjects(); track project.name) {
+          <div class="luxury-card property-card project-card" (click)="openProject(project)">
+            <!-- Card Image Box -->
+            <div class="property-image-box">
+              <img 
+                [src]="project.image" 
+                [alt]="project.name" 
+                class="property-img" 
+                loading="lazy" 
+                (error)="onImageError($event)" 
+              />
+              <div class="property-img-overlay"></div>
+              
+              <!-- Badges -->
+              <div class="card-badges-top">
+                <span class="badge" [ngClass]="getStatusBadgeClass(project.status)">
+                  <i class="ri-checkbox-circle-fill"></i> {{ project.status }}
+                </span>
+                <span class="badge badge-gold">
+                  {{ project.categoryLabel }}
+                </span>
+              </div>
+
+              <!-- Price Tag Floating -->
+              <div class="card-price-tag">
+                <span class="price-val">{{ project.price }}</span>
+                @if (project.priceSubtext) {
+                  <span class="price-sub">{{ project.priceSubtext }}</span>
+                }
+              </div>
+            </div>
+
+            <!-- Card Body Content -->
+            <div class="property-body">
+              <div class="property-location-tag">
+                <i class="ri-map-pin-2-fill text-gold"></i>
+                <span>{{ project.location }}</span>
+              </div>
+
+              <h3 class="property-card-title">{{ project.displayTitle }}</h3>
+
+              <p class="property-card-desc">
+                {{ project.description }}
+              </p>
+
+              <!-- Specs Row -->
+              <div class="property-specs-row">
+                @if (project.bedrooms) {
+                  <div class="spec-item">
+                    <i class="ri-hotel-bed-line text-gold"></i>
+                    <span><strong>{{ project.bedrooms }}</strong> Beds</span>
+                  </div>
+                  <div class="spec-divider"></div>
+                }
+                @if (project.bathrooms) {
+                  <div class="spec-item">
+                    <i class="ri-drop-line text-gold"></i>
+                    <span><strong>{{ project.bathrooms }}</strong> Baths</span>
+                  </div>
+                  <div class="spec-divider"></div>
+                }
+                <div class="spec-item">
+                  <i class="ri-building-line text-gold"></i>
+                  <span><strong>{{ project.units }}</strong> Units</span>
+                </div>
+                @if (project.size) {
+                  <div class="spec-divider"></div>
+                  <div class="spec-item">
+                    <i class="ri-ruler-line text-gold"></i>
+                    <span>{{ project.size }}</span>
+                  </div>
+                }
+              </div>
+
+              <!-- Key Features Chips -->
+              <div class="property-amenity-chips">
+                @for (amenity of project.amenities.slice(0, 3); track amenity.label) {
+                  <span class="amenity-chip">
+                    <i [class]="amenity.icon + ' text-gold'"></i>
+                    <span>{{ amenity.label }}</span>
+                  </span>
+                }
+              </div>
+
+              <!-- Card Action Buttons -->
+              <div class="property-card-actions">
+                <button class="btn btn-outline-gold btn-sm view-btn" (click)="openProject(project); $event.stopPropagation()">
+                  <i class="ri-eye-line"></i>
+                  <span>View Details</span>
+                </button>
+
+                <button class="btn btn-gold btn-sm action-btn" (click)="openInspection(project, $event)">
+                  <i class="ri-calendar-check-line"></i>
+                  <span>Inspect</span>
+                </button>
+
+                <button class="whatsapp-card-btn" (click)="openWhatsApp(project, $event)" title="Inquire on WhatsApp">
+                  <i class="ri-whatsapp-line"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- VIEW 2: CORPORATE MATRIX TABLE -->
+    @if (viewMode() === 'table') {
+      <div class="matrix-card">
+        <div class="matrix-table-wrap">
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th>Property / Project</th>
+                <th>Location</th>
+                <th>Units</th>
+                <th>Status</th>
+                <th>Category</th>
+                <th>Delivery Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (project of filteredProjects(); track project.name) {
+                <tr (click)="openProject(project)">
+                  <td class="project-cell">
+                    <div class="project-thumb-name">
+                      <img [src]="project.image" [alt]="project.name" class="project-thumb" (error)="onImageError($event)" />
+                      <div>
+                        <span class="project-name-text">{{ project.displayTitle }}</span>
+                        <span class="project-name-sub">Nigson Development</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="location-cell">
+                    <i class="ri-map-pin-line text-gold"></i>
+                    <span>{{ project.location }}</span>
+                  </td>
+                  <td class="units-cell">
+                    <span class="units-badge">{{ project.units }} Units</span>
+                  </td>
+                  <td class="status-cell">
+                    <span class="badge" [ngClass]="getStatusBadgeClass(project.status)">
+                      {{ project.status }}
+                    </span>
+                  </td>
+                  <td class="category-cell">
+                    <span class="category-pill">{{ project.category }}</span>
+                  </td>
+                  <td class="year-cell">
+                    <span class="year-text">{{ project.completionYear }}</span>
+                  </td>
+                  <td class="action-cell">
+                    <button class="btn btn-outline-gold btn-sm matrix-action-btn" (click)="openProject(project); $event.stopPropagation()">
+                      <i class="ri-arrow-right-up-line"></i>
+                      <span>View</span>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Trust note at bottom of table -->
+        <div class="matrix-footer-strip">
+          <div class="matrix-note-item">
+            <i class="ri-shield-check-fill text-gold"></i>
+            <span>100% On-time Construction Delivery Milestone Track Record</span>
+          </div>
+          <div class="matrix-note-item">
+            <i class="ri-sun-fill text-gold"></i>
+            <span>Integrated Solar & Renewable Hybrid Energy Architecture Standardized</span>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div>
+</section>

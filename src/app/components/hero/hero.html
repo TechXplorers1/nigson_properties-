@@ -1,0 +1,75 @@
+<section id="hero" class="hero-section">
+  <!-- Hero Background Layer -->
+  <div class="hero-bg-layer">
+    <img 
+      src="/images/hero-drone-shot.jpg" 
+      alt="Nigson Properties Luxury Real Estate Lagos - Aerial Drone View" 
+      class="hero-bg-image"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+    <div class="hero-gradient-overlay"></div>
+    <div class="hero-mesh-overlay"></div>
+  </div>
+
+  <div class="container hero-container">
+    <!-- Hero Text Content -->
+    <div class="hero-content">
+      <div class="hero-brand-badge">
+        <i class="ri-shield-check-fill text-gold"></i>
+        <span>{{ adminService.websiteContent().heroBadge }}</span>
+      </div>
+
+      <h1 class="hero-title">
+        {{ adminService.websiteContent().heroHeading }}
+      </h1>
+
+      <p class="hero-statement">
+        {{ adminService.websiteContent().heroSubheading }}
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="hero-cta-group">
+        <a routerLink="/properties" class="btn btn-gold btn-lg">
+          <i class="ri-compass-3-line"></i>
+          <span>{{ adminService.websiteContent().heroCtaExplore }}</span>
+        </a>
+
+        <button class="btn btn-outline-gold btn-lg" (click)="openInspection()">
+          <i class="ri-calendar-check-line"></i>
+          <span>{{ adminService.websiteContent().heroCtaInspection }}</span>
+        </button>
+
+        <button class="btn btn-whatsapp btn-lg" (click)="openWhatsApp()">
+          <i class="ri-whatsapp-line"></i>
+          <span>{{ adminService.websiteContent().heroCtaWhatsapp }}</span>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- Trust Metrics Strip -->
+    <div class="hero-stats-strip">
+      <div class="stat-card">
+        <span class="stat-value">{{ adminService.websiteContent().stat1Value }}</span>
+        <span class="stat-label">{{ adminService.websiteContent().stat1Label }}</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-card">
+        <span class="stat-value">{{ adminService.websiteContent().stat2Value }}</span>
+        <span class="stat-label">{{ adminService.websiteContent().stat2Label }}</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-card">
+        <span class="stat-value">{{ adminService.websiteContent().stat3Value }}</span>
+        <span class="stat-label">{{ adminService.websiteContent().stat3Label }}</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-card">
+        <span class="stat-value">{{ adminService.websiteContent().stat4Value }}</span>
+        <span class="stat-label">{{ adminService.websiteContent().stat4Label }}</span>
+      </div>
+    </div>
+  </div>
+</section>

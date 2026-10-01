@@ -1,0 +1,77 @@
+.nigson-app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-primary-dark);
+  position: relative;
+}
+
+.nigson-app-layout.admin-active {
+  display: block;
+  min-height: 100vh;
+  background-color: #060b17;
+}
+
+main {
+  flex: 1;
+}
+
+.admin-main-full {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Floating Actions */
+.floating-actions {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  z-index: 900;
+}
+
+.float-inspection-btn {
+  width: 54px;
+  height: 54px;
+  background: linear-gradient(135deg, #dfbe7d 0%, #c5a059 100%);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #070e1e;
+  font-size: 1.6rem;
+  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.45);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.float-inspection-btn:hover {
+  transform: scale(1.08) translateY(-3px);
+  box-shadow: 0 12px 30px rgba(197, 160, 89, 0.6);
+}
+
+.float-inspection-btn .tooltip {
+  position: absolute;
+  right: 66px;
+  background: #0c1830;
+  color: #ffffff;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+  border: 1px solid var(--color-gold-border);
+}
+
+.float-inspection-btn:hover .tooltip {
+  opacity: 1;
+}

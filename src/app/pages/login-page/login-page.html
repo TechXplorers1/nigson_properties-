@@ -1,0 +1,398 @@
+<div class="login-page-section">
+  <div class="container login-container">
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+      <a routerLink="/" class="breadcrumb-link"><i class="ri-home-4-line"></i> Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-curr">Client Portal & Login</span>
+    </div>
+
+    @if (!authService.isLoggedIn()) {
+      <div class="login-grid-layout">
+        <!-- Left Column: Nigson Private Client Privileges -->
+        <div class="login-brand-showcase">
+          <div class="privilege-crest">
+            <i class="ri-vip-crown-fill text-gold"></i>
+          </div>
+          <span class="showcase-badge">Exclusive Access</span>
+          <h1 class="showcase-title">Nigson Private Client & Investor Portal</h1>
+          <p class="showcase-desc">
+            Welcome to the premier digital concierge for high-net-worth property investors, diaspora clients, and luxury homeowners in Lagos.
+          </p>
+
+          <div class="privileges-list">
+            <div class="privilege-item">
+              <div class="privilege-icon">
+                <i class="ri-shield-check-fill text-gold"></i>
+              </div>
+              <div>
+                <h5>Off-Market Investment Access</h5>
+                <p>Early bird allocation and discounted pre-launch pricing on all Lekki and Ikoyi developments.</p>
+              </div>
+            </div>
+
+            <div class="privilege-item">
+              <div class="privilege-icon">
+                <i class="ri-calendar-check-fill text-gold"></i>
+              </div>
+              <div>
+                <h5>VIP Inspection Priority</h5>
+                <p>Direct chauffeur-assisted site inspections with senior structural project engineers.</p>
+              </div>
+            </div>
+
+            <div class="privilege-item">
+              <div class="privilege-icon">
+                <i class="ri-file-chart-fill text-gold"></i>
+              </div>
+              <div>
+                <h5>Portfolio & ROI Tracking</h5>
+                <p>Real-time capital appreciation matrices, rental yield projections, and milestone updates.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="privilege-support-box">
+            <i class="ri-customer-service-2-fill text-gold"></i>
+            <div>
+              <span>Need Direct Concierge Assistance?</span>
+              <p>Call our Executive Sales Desk: <strong>+234 807 346 7809</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Login & Register Card -->
+        <div class="login-card">
+          <!-- Tabs -->
+          <div class="auth-tabs-header">
+            <button 
+              type="button" 
+              class="auth-tab-btn" 
+              [class.active]="activeTab() === 'login'"
+              (click)="setTab('login')"
+            >
+              <i class="ri-login-box-line"></i> Sign In
+            </button>
+            <button 
+              type="button" 
+              class="auth-tab-btn" 
+              [class.active]="activeTab() === 'register'"
+              (click)="setTab('register')"
+            >
+              <i class="ri-user-add-line"></i> Create Account
+            </button>
+          </div>
+
+          <!-- Quick 1-Click Demo Accounts -->
+          <div class="demo-box-inline">
+            <span class="demo-label"><i class="ri-flashlight-fill text-gold"></i> Instant 1-Click Demo Testing:</span>
+            <div class="demo-chips-grid">
+              <button type="button" class="demo-chip-btn admin-chip" (click)="onQuickDemo('admin')">
+                🛡️ Admin (Engr. Nnamdi)
+              </button>
+              <button type="button" class="demo-chip-btn" (click)="onQuickDemo('investor')">
+                👑 Chief Adeleke (Investor)
+              </button>
+              <button type="button" class="demo-chip-btn" (click)="onQuickDemo('client')">
+                💎 Dr. Obi (Buyer)
+              </button>
+              <button type="button" class="demo-chip-btn" (click)="onQuickDemo('diaspora')">
+                🌍 Amara (Diaspora)
+              </button>
+            </div>
+          </div>
+
+          <!-- Error Message Banner -->
+          @if (errorMessage()) {
+            <div class="auth-error-banner">
+              <i class="ri-error-warning-fill"></i>
+              <span>{{ errorMessage() }}</span>
+            </div>
+          }
+
+          <!-- TAB 1: SIGN IN -->
+          @if (activeTab() === 'login') {
+            <form (ngSubmit)="onLogin()" class="page-auth-form">
+              <div class="form-group">
+                <label for="page-email">Email Address</label>
+                <div class="input-box">
+                  <i class="ri-mail-line"></i>
+                  <input 
+                    type="email" 
+                    id="page-email" 
+                    name="email"
+                    [ngModel]="loginEmail()"
+                    (ngModelChange)="loginEmail.set($event)"
+                    placeholder="e.g. investor@nigson.com" 
+                    required 
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="label-flex">
+                  <label for="page-password">Password</label>
+                  <a (click)="authService.openAuthModal('forgot')" class="forgot-btn">Forgot Password?</a>
+                </div>
+                <div class="input-box">
+                  <i class="ri-lock-2-line"></i>
+                  <input 
+                    [type]="showPassword() ? 'text' : 'password'" 
+                    id="page-password" 
+                    name="password"
+                    [ngModel]="loginPassword()"
+                    (ngModelChange)="loginPassword.set($event)"
+                    placeholder="Enter password (e.g. investor123)" 
+                    required 
+                  />
+                  <button type="button" class="eye-btn" (click)="togglePassword()">
+                    <i [class]="showPassword() ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="options-flex">
+                <label class="check-label">
+                  <input 
+                    type="checkbox" 
+                    name="remember"
+                    [ngModel]="rememberMe()"
+                    (ngModelChange)="rememberMe.set($event)" 
+                  />
+                  <span>Keep me authenticated</span>
+                </label>
+              </div>
+
+              <button type="submit" class="btn btn-gold w-full page-submit-btn" [disabled]="isSubmitting()">
+                @if (isSubmitting()) {
+                  <i class="ri-loader-4-line spin-anim"></i> Authenticating...
+                } @else {
+                  <span>Sign In to Private Portal</span>
+                  <i class="ri-arrow-right-line"></i>
+                }
+              </button>
+            </form>
+          }
+
+          <!-- TAB 2: REGISTER -->
+          @if (activeTab() === 'register') {
+            <form (ngSubmit)="onRegister()" class="page-auth-form">
+              <div class="form-group">
+                <label for="p-reg-name">Full Legal Name</label>
+                <div class="input-box">
+                  <i class="ri-user-3-line"></i>
+                  <input 
+                    type="text" 
+                    id="p-reg-name" 
+                    name="name"
+                    [ngModel]="regName()"
+                    (ngModelChange)="regName.set($event)"
+                    placeholder="Chief / Dr. / Engr. Full Name" 
+                    required 
+                  />
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="p-reg-email">Email Address</label>
+                  <div class="input-box">
+                    <i class="ri-mail-line"></i>
+                    <input 
+                      type="email" 
+                      id="p-reg-email" 
+                      name="email"
+                      [ngModel]="regEmail()"
+                      (ngModelChange)="regEmail.set($event)"
+                      placeholder="name@example.com" 
+                      required 
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="p-reg-phone">Phone Number</label>
+                  <div class="input-box">
+                    <i class="ri-phone-line"></i>
+                    <input 
+                      type="tel" 
+                      id="p-reg-phone" 
+                      name="phone"
+                      [ngModel]="regPhone()"
+                      (ngModelChange)="regPhone.set($event)"
+                      placeholder="+234..." 
+                      required 
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="p-reg-role">Investor / Client Category</label>
+                <div class="input-box">
+                  <i class="ri-building-line"></i>
+                  <select 
+                    id="p-reg-role" 
+                    name="role"
+                    [ngModel]="regRole()"
+                    (ngModelChange)="regRole.set($event)"
+                    class="custom-select"
+                  >
+                    <option value="investor">High-Net-Worth Property Investor</option>
+                    <option value="client">Private Residence Homebuyer</option>
+                    <option value="diaspora">Diaspora Real Estate Client</option>
+                    <option value="corporate">Corporate / Institutional Partner</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="p-reg-pass">Create Master Password</label>
+                <div class="input-box">
+                  <i class="ri-lock-2-line"></i>
+                  <input 
+                    [type]="showPassword() ? 'text' : 'password'" 
+                    id="p-reg-pass" 
+                    name="password"
+                    [ngModel]="regPassword()"
+                    (ngModelChange)="regPassword.set($event)"
+                    placeholder="Min 6 characters" 
+                    required 
+                  />
+                  <button type="button" class="eye-btn" (click)="togglePassword()">
+                    <i [class]="showPassword() ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="p-reg-confirm-pass">Confirm Password</label>
+                <div class="input-box">
+                  <i class="ri-lock-check-line"></i>
+                  <input 
+                    [type]="showConfirmPassword() ? 'text' : 'password'" 
+                    id="p-reg-confirm-pass" 
+                    name="confirmPassword"
+                    [ngModel]="regConfirmPassword()"
+                    (ngModelChange)="regConfirmPassword.set($event)"
+                    placeholder="Re-enter your password" 
+                    required 
+                  />
+                  <button type="button" class="eye-btn" (click)="toggleConfirmPassword()">
+                    <i [class]="showConfirmPassword() ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                  </button>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-gold w-full page-submit-btn" [disabled]="isSubmitting()">
+                @if (isSubmitting()) {
+                  <i class="ri-loader-4-line spin-anim"></i> Creating Account...
+                } @else {
+                  <span>Create Account</span>
+                  <i class="ri-check-line"></i>
+                }
+              </button>
+            </form>
+          }
+        </div>
+      </div>
+    } @else if (authService.currentUser(); as user) {
+      <!-- LOGGED IN DASHBOARD VIEW -->
+      <div class="dashboard-wrapper">
+        <div class="dashboard-hero-banner">
+          <div class="dash-user-meta">
+            @if (user.avatar) {
+              <img [src]="user.avatar" [alt]="user.name" class="dash-avatar" />
+            } @else {
+              <div class="dash-avatar-initial">{{ user.name.charAt(0) }}</div>
+            }
+            <div>
+              <span class="dash-vip-tag"><i class="ri-vip-crown-fill text-gold"></i> {{ user.membershipTier }}</span>
+              <h2>{{ user.name }}</h2>
+              <p class="dash-email"><i class="ri-mail-line"></i> {{ user.email }} • <i class="ri-shield-user-line"></i> {{ user.roleLabel }}</p>
+            </div>
+          </div>
+
+          <div class="dash-hero-actions">
+            <button class="btn btn-gold btn-sm" (click)="openInspection()">
+              <i class="ri-calendar-check-line"></i> Schedule Inspection
+            </button>
+            <button class="btn btn-outline-light btn-sm" (click)="logout()">
+              <i class="ri-logout-box-r-line"></i> Sign Out
+            </button>
+          </div>
+        </div>
+
+        <div class="dash-content-grid">
+          <!-- Left: Saved Properties -->
+          <div class="dash-main-card">
+            <div class="card-head">
+              <h3><i class="ri-heart-3-fill text-gold"></i> Saved Luxury Properties ({{ user.savedPropertyIds.length }})</h3>
+              <a routerLink="/properties" class="browse-link">Browse Full Catalog <i class="ri-arrow-right-line"></i></a>
+            </div>
+
+            @if (getSavedProperties().length === 0) {
+              <div class="empty-state">
+                <i class="ri-heart-add-line"></i>
+                <p>No saved properties in your portfolio yet.</p>
+                <a routerLink="/properties" class="btn btn-gold btn-sm">Explore Luxury Properties</a>
+              </div>
+            } @else {
+              <div class="dash-props-grid">
+                @for (prop of getSavedProperties(); track prop.id) {
+                  <div class="dash-prop-card" (click)="viewProperty(prop)">
+                    <div class="prop-thumb-wrap">
+                      <img [src]="prop.heroImage" [alt]="prop.title" />
+                      <span class="prop-status-tag">{{ prop.status }}</span>
+                      <button class="remove-fav-btn" (click)="removeSaved(prop.id, $event)" title="Remove">
+                        <i class="ri-heart-fill"></i>
+                      </button>
+                    </div>
+                    <div class="prop-info-wrap">
+                      <h4>{{ prop.title }}</h4>
+                      <p class="prop-loc"><i class="ri-map-pin-2-fill text-gold"></i> {{ prop.location }}</p>
+                      <div class="prop-specs-row">
+                        <span><i class="ri-hotel-bed-line"></i> {{ prop.bedrooms }} Beds</span>
+                        <span><i class="ri-drop-line"></i> {{ prop.bathrooms }} Baths</span>
+                      </div>
+                      <div class="prop-price-row">
+                        <span class="prop-price">{{ prop.price }}</span>
+                        <span class="prop-btn text-gold">View Details →</span>
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Right: Investment Concierge -->
+          <div class="dash-side-col">
+            <div class="dash-info-card">
+              <h4><i class="ri-vip-diamond-line text-gold"></i> Dedicated Concierge</h4>
+              <p>Your personal Nigson investment officer is available 24/7 for private site tours, legal documentation, and title verification.</p>
+              <div class="advisor-box">
+                <div class="advisor-crest"><i class="ri-user-star-fill"></i></div>
+                <div>
+                  <strong>Engr. Babatunde Nigson</strong>
+                  <span>Principal Executive Partner</span>
+                </div>
+              </div>
+              <a href="https://wa.me/2348073467809" target="_blank" class="btn btn-whatsapp w-full">
+                <i class="ri-whatsapp-line"></i> WhatsApp Direct Concierge
+              </a>
+            </div>
+
+            <div class="dash-info-card">
+              <h4><i class="ri-calculator-line text-gold"></i> Financial Estimator</h4>
+              <p>Plan your payment milestones, calculate projected capital gains, and evaluate mortgage options.</p>
+              <a routerLink="/calculator" class="btn btn-outline-gold w-full">
+                Open ROI Calculator
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

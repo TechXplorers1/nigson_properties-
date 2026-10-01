@@ -1,0 +1,194 @@
+<!-- Live Announcement Banner (If active in Admin Content Management) -->
+@if (adminService.websiteContent().announcementActive && adminService.websiteContent().announcementText) {
+  <div class="announcement-banner">
+    <div class="container announcement-container">
+      <span class="announcement-badge"><i class="ri-megaphone-fill"></i> UPDATE</span>
+      <span class="announcement-text">{{ adminService.websiteContent().announcementText }}</span>
+      @if (adminService.websiteContent().announcementLink) {
+        <a [routerLink]="adminService.websiteContent().announcementLink" class="announcement-link">
+          <span>Explore</span> <i class="ri-arrow-right-s-line"></i>
+        </a>
+      }
+    </div>
+  </div>
+}
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="container top-bar-container">
+    <div class="top-bar-left">
+      <span class="top-bar-item">
+        <i class="ri-map-pin-2-fill text-gold"></i>
+        <span>{{ adminService.websiteContent().companyAddress }}</span>
+      </span>
+      <span class="top-bar-divider">|</span>
+      <span class="top-bar-item">
+        <i class="ri-time-line text-gold"></i>
+        <span>{{ adminService.websiteContent().officeHours }}</span>
+      </span>
+    </div>
+
+    <div class="top-bar-right">
+      <a [href]="'tel:' + adminService.websiteContent().companyPhone" class="top-bar-link">
+        <i class="ri-phone-fill text-gold"></i>
+        <span>{{ adminService.websiteContent().companyPhone }}</span>
+      </a>
+      <span class="top-bar-divider">/</span>
+      <a [href]="'tel:' + adminService.websiteContent().companyPhone2" class="top-bar-link">
+        <span>{{ adminService.websiteContent().companyPhone2 }}</span>
+      </a>
+      <span class="top-bar-divider">|</span>
+      <a [href]="'mailto:' + adminService.websiteContent().companyEmail" class="top-bar-link">
+        <i class="ri-mail-line text-gold"></i>
+        <span>{{ adminService.websiteContent().companyEmail }}</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Main Sticky Header -->
+<header class="main-header" [class.scrolled]="isScrolled()">
+  <div class="container nav-container">
+    <!-- Brand Logo -->
+    <a routerLink="/" class="brand-logo">
+      <div class="brand-crest">
+        <i class="ri-building-4-fill"></i>
+      </div>
+      <div class="brand-text-wrap">
+        <span class="brand-name">NIGSON <span class="text-gold">PROPERTIES</span></span>
+        <span class="brand-subtext">A NIGSON GROUP COMPANY</span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="desktop-nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Home</a>
+      <a routerLink="/properties" routerLinkActive="active" class="nav-link">Properties</a>
+      <a routerLink="/short-stay" routerLinkActive="active" class="nav-link">Short Stay</a>
+      <a routerLink="/services" routerLinkActive="active" class="nav-link">Services</a>
+      <a routerLink="/projects" routerLinkActive="active" class="nav-link">Projects</a>
+      <a routerLink="/about" routerLinkActive="active" class="nav-link">About Us</a>
+      <a routerLink="/gallery" routerLinkActive="active" class="nav-link">Gallery</a>
+      <a routerLink="/contact" routerLinkActive="active" class="nav-link">Contact</a>
+    </nav>
+
+    <!-- Header Actions (Login / Client Portal & Mobile Toggle) -->
+    <div class="header-actions">
+      @if (!authService.isLoggedIn()) {
+        <button class="header-login-btn" (click)="openLogin()" title="Sign In to Client Portal">
+          <i class="ri-user-3-line"></i>
+          <span>Client Login</span>
+        </button>
+      } @else if (authService.currentUser(); as user) {
+        @if (user.role === 'admin') {
+          <a routerLink="/admin" class="header-admin-btn" title="Open Executive Admin Dashboard">
+            <i class="ri-shield-keyhole-line"></i>
+            <span>Admin Panel</span>
+          </a>
+        }
+        <button class="header-user-badge" (click)="user.role === 'admin' ? navigateToAdmin() : openProfile()" title="Open Profile / Portal">
+          @if (user.avatar) {
+            <img [src]="user.avatar" [alt]="user.name" class="header-avatar-img" />
+          } @else {
+            <span class="header-avatar-initial">{{ user.name.charAt(0) }}</span>
+          }
+          <div class="header-user-info">
+            <span class="header-user-name">{{ user.name }}</span>
+            <span class="header-user-tier">
+              @if (user.role === 'admin') {
+                <i class="ri-shield-check-fill text-gold"></i> Executive Admin
+              } @else {
+                <i class="ri-vip-crown-fill text-gold"></i> VIP Portal
+              }
+            </span>
+          </div>
+        </button>
+      }
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-toggle-btn" (click)="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
+        <i class="ri-menu-4-line"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Backdrop Overlay -->
+  @if (isMobileMenuOpen()) {
+    <div class="mobile-menu-backdrop" (click)="closeMobileMenu()"></div>
+  }
+
+  <!-- Mobile Slide-out Drawer Menu -->
+  <div class="mobile-menu-drawer" [class.open]="isMobileMenuOpen()">
+    <div class="mobile-drawer-header">
+      <div class="brand-text-wrap">
+        <span class="brand-name">NIGSON <span class="text-gold">PROPERTIES</span></span>
+        <span class="brand-subtext">A Nigson Group Company</span>
+      </div>
+      <button class="modal-close-btn" (click)="closeMobileMenu()">
+        <i class="ri-close-line"></i>
+      </button>
+    </div>
+
+    <div class="mobile-drawer-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMobileMenu()" class="mobile-nav-link">
+        <i class="ri-home-5-line text-gold"></i> Home
+      </a>
+      <a routerLink="/properties" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-nav-link">
+        <i class="ri-building-line text-gold"></i> Properties
+      </a>
+      <a routerLink="/short-stay" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-nav-link">
+        <i class="ri-hotel-bed-line text-gold"></i> Short Stay Booking
+      </a>
+      <a routerLink="/services" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-nav-link">
+        <i class="ri-service-line text-gold"></i> Our Services
+      </a>
+      <a routerLink="/projects" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-nav-link">
+        <i class="ri-projector-line text-gold"></i> Projects & Portfolio
+      </a>
+      <a routerLink="/about" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-nav-link">
+        <i class="ri-team-line text-gold"></i> About Us
+      </a>
+      <a routerLink="/gallery" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-nav-link">
+        <i class="ri-image-line text-gold"></i> Gallery
+      </a>
+      <a routerLink="/contact" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-nav-link">
+        <i class="ri-map-pin-line text-gold"></i> Contact Us
+      </a>
+    </div>
+
+    <div class="mobile-drawer-actions">
+      @if (authService.currentUser()?.role === 'admin') {
+        <a routerLink="/admin" class="btn btn-gold w-full" (click)="closeMobileMenu()" style="margin-bottom: 0.75rem; text-decoration: none;">
+          <i class="ri-shield-keyhole-line"></i> Executive Admin Dashboard
+        </a>
+      }
+      @if (!authService.isLoggedIn()) {
+        <button class="btn btn-outline-gold w-full" (click)="openLogin()">
+          <i class="ri-user-3-line"></i> Client Portal & Sign In
+        </button>
+      } @else if (authService.currentUser(); as user) {
+        <div class="mobile-user-card" (click)="user.role === 'admin' ? navigateToAdmin() : openProfile()">
+          <div class="mobile-user-card-head">
+            @if (user.avatar) {
+              <img [src]="user.avatar" [alt]="user.name" class="mobile-card-avatar" />
+            } @else {
+              <div class="mobile-card-avatar initial">{{ user.name.charAt(0) }}</div>
+            }
+            <div>
+              <h6>{{ user.name }}</h6>
+              <span>{{ user.membershipTier }}</span>
+            </div>
+          </div>
+          <span class="mobile-view-portal-link text-gold">View My Saved Properties & Portal →</span>
+        </div>
+      }
+
+      <button class="btn btn-gold w-full" (click)="openInspection()">
+        <i class="ri-calendar-check-line"></i> Schedule Inspection
+      </button>
+      <button class="btn btn-whatsapp w-full" (click)="openWhatsApp()">
+        <i class="ri-whatsapp-line"></i> WhatsApp Concierge
+      </button>
+    </div>
+  </div>
+</header>

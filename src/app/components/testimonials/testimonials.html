@@ -1,0 +1,46 @@
+<section id="testimonials" class="section-spacing testimonials-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="text-center section-header-wrap">
+      <div class="section-badge">
+        <i class="ri-chat-smile-2-line"></i>
+        <span>{{ adminService.websiteContent().testimonialsBadge }}</span>
+      </div>
+      <h2 class="section-title">
+        {{ adminService.websiteContent().testimonialsHeading }}
+      </h2>
+      <p class="section-subtitle mx-auto">
+        {{ adminService.websiteContent().testimonialsSubtitle }}
+      </p>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="testimonials-grid">
+      @for (t of propertyService.testimonials(); track t.id) {
+        <div class="luxury-card testimonial-card">
+          <!-- Rating Stars -->
+          <div class="test-rating-stars">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+              <i class="ri-star-fill text-gold"></i>
+            }
+          </div>
+
+          <!-- Quote -->
+          <p class="test-quote">
+            &ldquo;{{ t.quote }}&rdquo;
+          </p>
+
+          <!-- Client Profile Footer -->
+          <div class="test-client-footer">
+            <img [src]="t.avatar" [alt]="t.clientName" class="test-avatar" />
+            <div class="test-client-meta">
+              <span class="test-client-name">{{ t.clientName }}</span>
+              <span class="test-property-tag text-gold">{{ t.propertyOrProject }}</span>
+              <span class="badge badge-gold test-badge">{{ t.clientType }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

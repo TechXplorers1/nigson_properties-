@@ -1,0 +1,173 @@
+<section id="contact" class="section-spacing contact-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="text-center section-header-wrap">
+      <div class="section-badge">
+        <i class="ri-map-pin-line"></i>
+        <span>Headquarters & Advisory Desk</span>
+      </div>
+      <h2 class="section-title">
+        Visit or Contact <span class="text-gold">Our Lagos Office</span>
+      </h2>
+      <p class="section-subtitle mx-auto">
+        We welcome you to our corporate office in Lekki Phase 1 for private property consultations, architectural reviews, or inspection arrangements.
+      </p>
+    </div>
+
+    <!-- Contact Grid -->
+    <div class="contact-grid">
+      <!-- Left: Office Card & Map -->
+      <div class="luxury-card office-card">
+        <div class="office-header">
+          <div class="office-icon-wrap">
+            <i class="ri-building-line text-gold"></i>
+          </div>
+          <div>
+            <h3 class="office-name">Nigson Properties Limited</h3>
+            <span class="office-sub text-gold">Corporate Headquarters</span>
+          </div>
+        </div>
+
+        <div class="office-details-list">
+          <div class="office-item">
+            <i class="ri-map-pin-2-fill text-gold"></i>
+            <div>
+              <strong>Head Office Address</strong>
+              <p>Plot 30B, Block 110, Oladimeji Alo Street, Lekki Phase 1, Lagos, Nigeria</p>
+            </div>
+          </div>
+
+          <div class="office-item">
+            <i class="ri-phone-fill text-gold"></i>
+            <div>
+              <strong>Telephone Enquiries</strong>
+              <p>
+                <a href="tel:08073467809" class="phone-link">08073467809</a> &bull; 
+                <a href="tel:09134446722" class="phone-link">09134446722</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="office-item">
+            <i class="ri-mail-line text-gold"></i>
+            <div>
+              <strong>Email Communications</strong>
+              <p><a href="mailto:Hello@Nigson.com" class="mail-link">Hello&#64;Nigson.com</a></p>
+            </div>
+          </div>
+
+          <div class="office-item">
+            <i class="ri-time-line text-gold"></i>
+            <div>
+              <strong>Working Hours</strong>
+              <p>Monday – Friday: 9:00 AM – 5:00 PM (West Africa Time)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Map Visual Frame -->
+        <div class="map-visual-box" (click)="openMapDirections()">
+          <div class="map-mockup-layer">
+            <div class="map-pin-pulse">
+              <i class="ri-map-pin-2-fill"></i>
+              <span class="map-pin-label">Nigson HQ Lekki Phase 1</span>
+            </div>
+          </div>
+          <div class="map-overlay-bar">
+            <span><i class="ri-road-map-line text-gold"></i> Oladimeji Alo St, Lekki Phase 1</span>
+            <button class="btn btn-outline-gold btn-sm" (click)="openMapDirections(); $event.stopPropagation()">
+              <span>Google Maps</span>
+              <i class="ri-external-link-line"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Fast Contact Form -->
+      <div class="luxury-card contact-form-card">
+        <h3 class="form-title">
+          <i class="ri-message-3-line text-gold"></i> Send Us an Instant Message
+        </h3>
+
+        <form (ngSubmit)="sendMessage()" class="contact-form">
+          <div class="form-group">
+            <label class="form-label">Full Name <span class="req">*</span></label>
+            <input 
+              type="text" 
+              class="form-control" 
+              placeholder="e.g. Arc. Babatunde Williams" 
+              [ngModel]="contactName()" 
+              (ngModelChange)="contactName.set($event)" 
+              name="name" 
+              required 
+            />
+          </div>
+
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label class="form-label">Email Address <span class="req">*</span></label>
+              <input 
+                type="email" 
+                class="form-control" 
+                placeholder="e.g. b.williams@firm.com" 
+                [ngModel]="contactEmail()" 
+                (ngModelChange)="contactEmail.set($event)" 
+                name="email" 
+                required 
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Phone Number <span class="req">*</span></label>
+              <input 
+                type="tel" 
+                class="form-control" 
+                placeholder="e.g. 08073467809" 
+                [ngModel]="contactPhone()" 
+                (ngModelChange)="contactPhone.set($event)" 
+                name="phone" 
+                required 
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Subject of Message</label>
+            <select class="form-control" [ngModel]="contactSubject()" (ngModelChange)="contactSubject.set($event)" name="subject">
+              <option value="General Property Inquiry">General Property Inquiry</option>
+              <option value="Schedule Property Inspection">Schedule Property Inspection</option>
+              <option value="Property Management Services">Property Management Services</option>
+              <option value="Project Development Joint-Venture">Project Development Joint-Venture</option>
+              <option value="Building Construction Proposal">Building Construction Proposal</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Detailed Message <span class="req">*</span></label>
+            <textarea 
+              class="form-control" 
+              placeholder="Write your inquiry or question here..." 
+              [ngModel]="contactMessage()" 
+              (ngModelChange)="contactMessage.set($event)" 
+              name="message" 
+              rows="4"
+              required>
+            </textarea>
+          </div>
+
+          <div class="contact-actions-row">
+            <button type="submit" class="btn btn-gold btn-lg btn-send-message">
+              <i class="ri-mail-send-fill"></i>
+              <span>Send Message</span>
+            </button>
+
+            <button type="button" class="btn btn-whatsapp btn-lg" (click)="chatWhatsApp()">
+              <i class="ri-whatsapp-line"></i>
+              <span>Chat via WhatsApp</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

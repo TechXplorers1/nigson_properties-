@@ -1,0 +1,420 @@
+@if (authService.isAuthModalOpen()) {
+  <div class="auth-modal-backdrop" (click)="authService.closeAuthModal()">
+    <div class="auth-modal-dialog" (click)="$event.stopPropagation()">
+      <!-- Close Button -->
+      <button class="modal-close-btn" (click)="authService.closeAuthModal()" aria-label="Close modal">
+        <i class="ri-close-line"></i>
+      </button>
+
+      <!-- Brand Header Banner -->
+      <div class="auth-modal-header">
+        <div class="brand-crest-small">
+          <i class="ri-building-4-fill"></i>
+        </div>
+        <div>
+          <h3 class="auth-brand-name">NIGSON <span class="text-gold">PROPERTIES</span></h3>
+          <p class="auth-brand-sub">Private Client & Investor Portal</p>
+        </div>
+      </div>
+
+      <!-- Error Alert Message -->
+      @if (errorMessage()) {
+        <div class="auth-alert error">
+          <i class="ri-error-warning-fill"></i>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <!-- ============================================== -->
+      <!-- VIEW 1: SIGN IN                               -->
+      <!-- ============================================== -->
+      @if (authService.authMode() === 'login') {
+        <div class="auth-form-container">
+          <div class="auth-titles">
+            <h4>Sign In to Your Account</h4>
+            <p>Access your saved luxury residences, inspection schedules, and investment portfolio.</p>
+          </div>
+
+          <!-- Quick 1-Click Demo Login Bar -->
+          <div class="demo-login-box">
+            <span class="demo-box-label"><i class="ri-flashlight-fill text-gold"></i> Quick 1-Click Demo Accounts:</span>
+            <div class="demo-buttons-row">
+              <button type="button" class="demo-chip admin-chip" (click)="onQuickDemo('admin')">
+                <i class="ri-shield-keyhole-fill text-gold"></i> Admin (Engr. Nnamdi)
+              </button>
+              <button type="button" class="demo-chip" (click)="onQuickDemo('investor')">
+                <i class="ri-vip-crown-fill text-gold"></i> Investor (Chief Adeleke)
+              </button>
+              <button type="button" class="demo-chip" (click)="onQuickDemo('client')">
+                <i class="ri-home-heart-fill text-gold"></i> Client (Dr. Obi)
+              </button>
+              <button type="button" class="demo-chip" (click)="onQuickDemo('diaspora')">
+                <i class="ri-global-fill text-gold"></i> Diaspora Client (UK)
+              </button>
+            </div>
+          </div>
+
+          <form (ngSubmit)="onLoginSubmit()" class="auth-form">
+            <!-- Email Input -->
+            <div class="input-group">
+              <label for="login-email">Email Address</label>
+              <div class="input-wrapper">
+                <i class="ri-mail-line input-icon"></i>
+                <input 
+                  type="email" 
+                  id="login-email" 
+                  name="email"
+                  [ngModel]="loginEmail()"
+                  (ngModelChange)="loginEmail.set($event)"
+                  placeholder="e.g. investor@nigson.com" 
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Password Input -->
+            <div class="input-group">
+              <div class="label-row">
+                <label for="login-password">Password</label>
+                <button type="button" class="forgot-link" (click)="authService.switchMode('forgot')">
+                  Forgot Password?
+                </button>
+              </div>
+              <div class="input-wrapper">
+                <i class="ri-lock-2-line input-icon"></i>
+                <input 
+                  [type]="showPassword() ? 'text' : 'password'" 
+                  id="login-password" 
+                  name="password"
+                  [ngModel]="loginPassword()"
+                  (ngModelChange)="loginPassword.set($event)"
+                  placeholder="Enter your password (min 6 chars)" 
+                  required
+                />
+                <button type="button" class="password-toggle-btn" (click)="togglePasswordVisibility()" aria-label="Toggle password visibility">
+                  <i [class]="showPassword() ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Remember Me Checkbox -->
+            <div class="auth-options-row">
+              <label class="remember-checkbox">
+                <input 
+                  type="checkbox" 
+                  name="remember"
+                  [ngModel]="rememberMe()"
+                  (ngModelChange)="rememberMe.set($event)"
+                />
+                <span>Keep me signed in</span>
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-gold btn-block auth-submit-btn" [disabled]="isSubmitting()">
+              @if (isSubmitting()) {
+                <i class="ri-loader-4-line spin-icon"></i> Authenticating...
+              } @else {
+                <span>Sign In to Portal</span>
+                <i class="ri-arrow-right-line"></i>
+              }
+            </button>
+          </form>
+
+          <!-- Switch to Register -->
+          <div class="auth-switch-footer">
+            <span>Don't have a private client account?</span>
+            <button type="button" class="switch-link text-gold" (click)="authService.switchMode('register')">
+              Register as Private Client
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- ============================================== -->
+      <!-- VIEW 2: REGISTER / CREATE ACCOUNT              -->
+      <!-- ============================================== -->
+      @if (authService.authMode() === 'register') {
+        <div class="auth-form-container">
+          <div class="auth-titles">
+            <h4>Create Private Client Account</h4>
+            <p>Join an elite community of luxury homeowners and institutional property investors.</p>
+          </div>
+
+          <form (ngSubmit)="onRegisterSubmit()" class="auth-form">
+            <!-- Full Name -->
+            <div class="input-group">
+              <label for="reg-name">Full Name</label>
+              <div class="input-wrapper">
+                <i class="ri-user-3-line input-icon"></i>
+                <input 
+                  type="text" 
+                  id="reg-name" 
+                  name="name"
+                  [ngModel]="regName()"
+                  (ngModelChange)="regName.set($event)"
+                  placeholder="e.g. Chief Adeleke / Engr. Fatima" 
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Email & Phone Grid -->
+            <div class="input-row-grid">
+              <div class="input-group">
+                <label for="reg-email">Email Address</label>
+                <div class="input-wrapper">
+                  <i class="ri-mail-line input-icon"></i>
+                  <input 
+                    type="email" 
+                    id="reg-email" 
+                    name="email"
+                    [ngModel]="regEmail()"
+                    (ngModelChange)="regEmail.set($event)"
+                    placeholder="name@company.com" 
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="reg-phone">Phone Number</label>
+                <div class="input-wrapper">
+                  <i class="ri-phone-line input-icon"></i>
+                  <input 
+                    type="tel" 
+                    id="reg-phone" 
+                    name="phone"
+                    [ngModel]="regPhone()"
+                    (ngModelChange)="regPhone.set($event)"
+                    placeholder="+234 800 000 0000" 
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Account Category -->
+            <div class="input-group">
+              <label for="reg-role">Account Category</label>
+              <div class="input-wrapper">
+                <i class="ri-building-line input-icon"></i>
+                <select 
+                  id="reg-role" 
+                  name="role"
+                  [ngModel]="regRole()"
+                  (ngModelChange)="regRole.set($event)"
+                  class="select-input"
+                >
+                  <option value="investor">High-Net-Worth Property Investor</option>
+                  <option value="client">Private Residence Homebuyer</option>
+                  <option value="diaspora">Diaspora Real Estate Client</option>
+                  <option value="corporate">Corporate / Institutional Partner</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="input-group">
+              <label for="reg-password">Create Password</label>
+              <div class="input-wrapper">
+                <i class="ri-lock-2-line input-icon"></i>
+                <input 
+                  [type]="showPassword() ? 'text' : 'password'" 
+                  id="reg-password" 
+                  name="password"
+                  [ngModel]="regPassword()"
+                  (ngModelChange)="regPassword.set($event)"
+                  placeholder="At least 6 characters" 
+                  required
+                />
+                <button type="button" class="password-toggle-btn" (click)="togglePasswordVisibility()" aria-label="Toggle password visibility">
+                  <i [class]="showPassword() ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="input-group">
+              <label for="reg-confirm-password">Confirm Password</label>
+              <div class="input-wrapper">
+                <i class="ri-lock-check-line input-icon"></i>
+                <input 
+                  [type]="showConfirmPassword() ? 'text' : 'password'" 
+                  id="reg-confirm-password" 
+                  name="confirmPassword"
+                  [ngModel]="regConfirmPassword()"
+                  (ngModelChange)="regConfirmPassword.set($event)"
+                  placeholder="Re-enter your password" 
+                  required
+                />
+                <button type="button" class="password-toggle-btn" (click)="toggleConfirmPasswordVisibility()" aria-label="Toggle confirm password visibility">
+                  <i [class]="showConfirmPassword() ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-gold btn-block auth-submit-btn" [disabled]="isSubmitting()">
+              @if (isSubmitting()) {
+                <i class="ri-loader-4-line spin-icon"></i> Creating Account...
+              } @else {
+                <span>Create Exclusive Account</span>
+                <i class="ri-check-line"></i>
+              }
+            </button>
+          </form>
+
+          <!-- Switch to Login -->
+          <div class="auth-switch-footer">
+            <span>Already have a client account?</span>
+            <button type="button" class="switch-link text-gold" (click)="authService.switchMode('login')">
+              Sign In
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- ============================================== -->
+      <!-- VIEW 3: FORGOT PASSWORD                        -->
+      <!-- ============================================== -->
+      @if (authService.authMode() === 'forgot') {
+        <div class="auth-form-container">
+          <div class="auth-titles">
+            <h4>Password Recovery</h4>
+            <p>Enter the email associated with your Nigson account to receive recovery instructions.</p>
+          </div>
+
+          <form (ngSubmit)="onForgotSubmit()" class="auth-form">
+            <div class="input-group">
+              <label for="forgot-email">Registered Email</label>
+              <div class="input-wrapper">
+                <i class="ri-mail-line input-icon"></i>
+                <input 
+                  type="email" 
+                  id="forgot-email" 
+                  name="email"
+                  [ngModel]="forgotEmail()"
+                  (ngModelChange)="forgotEmail.set($event)"
+                  placeholder="e.g. investor@nigson.com" 
+                  required
+                />
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-block auth-submit-btn">
+              <span>Send Recovery Link</span>
+              <i class="ri-send-plane-fill"></i>
+            </button>
+          </form>
+
+          <div class="auth-switch-footer">
+            <button type="button" class="switch-link text-gold" (click)="authService.switchMode('login')">
+              <i class="ri-arrow-left-line"></i> Return to Sign In
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- ============================================== -->
+      <!-- VIEW 4: USER PROFILE / CLIENT PORTAL           -->
+      <!-- ============================================== -->
+      @if (authService.authMode() === 'profile' && authService.currentUser(); as user) {
+        <div class="auth-profile-container">
+          <!-- Profile Badge Header -->
+          <div class="profile-header-card">
+            <div class="profile-avatar-wrap">
+              @if (user.avatar) {
+                <img [src]="user.avatar" [alt]="user.name" class="profile-avatar-img" />
+              } @else {
+                <div class="profile-avatar-placeholder">
+                  {{ user.name.charAt(0) }}
+                </div>
+              }
+              <span class="online-indicator"></span>
+            </div>
+
+            <div class="profile-user-info">
+              <div class="profile-name-row">
+                <h4>{{ user.name }}</h4>
+                <span class="membership-badge">
+                  <i class="ri-vip-crown-fill text-gold"></i> {{ user.membershipTier }}
+                </span>
+              </div>
+              <p class="profile-meta"><i class="ri-mail-line"></i> {{ user.email }}</p>
+              @if (user.phone) {
+                <p class="profile-meta"><i class="ri-phone-line"></i> {{ user.phone }}</p>
+              }
+              <span class="profile-role-tag">{{ user.roleLabel }}</span>
+            </div>
+          </div>
+
+          <!-- Quick Statistics Grid -->
+          <div class="profile-stats-grid">
+            <div class="profile-stat-card">
+              <span class="stat-num">{{ user.savedPropertyIds.length }}</span>
+              <span class="stat-label">Saved Properties</span>
+            </div>
+            <div class="profile-stat-card">
+              <span class="stat-num">VIP</span>
+              <span class="stat-label">Concierge Access</span>
+            </div>
+            <div class="profile-stat-card">
+              <span class="stat-num">Active</span>
+              <span class="stat-label">Account Status</span>
+            </div>
+          </div>
+
+          <!-- Saved Properties Section -->
+          <div class="saved-props-section">
+            <div class="section-title-row">
+              <h5><i class="ri-heart-3-fill text-gold"></i> My Saved Luxury Properties</h5>
+              <button class="browse-more-btn" (click)="navigateToProperties()">
+                Browse Catalog <i class="ri-arrow-right-s-line"></i>
+              </button>
+            </div>
+
+            @if (getSavedProperties().length === 0) {
+              <div class="empty-saved-state">
+                <i class="ri-heart-add-line empty-icon"></i>
+                <p>You haven't bookmarked any properties yet.</p>
+                <button class="btn btn-outline-gold btn-sm" (click)="navigateToProperties()">
+                  Explore Available Properties
+                </button>
+              </div>
+            } @else {
+              <div class="saved-props-list">
+                @for (prop of getSavedProperties(); track prop.id) {
+                  <div class="saved-prop-item" (click)="viewProperty(prop)">
+                    <img [src]="prop.heroImage" [alt]="prop.title" class="saved-prop-thumb" />
+                    <div class="saved-prop-details">
+                      <h6 class="saved-prop-title">{{ prop.title }}</h6>
+                      <p class="saved-prop-location"><i class="ri-map-pin-2-line text-gold"></i> {{ prop.location }}</p>
+                      <span class="saved-prop-price">{{ prop.price }}</span>
+                    </div>
+                    <button class="remove-saved-btn" (click)="removeSaved(prop.id, $event)" title="Remove from favorites">
+                      <i class="ri-delete-bin-line"></i>
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="profile-footer-actions">
+            <button class="btn btn-gold btn-sm" (click)="goToProfileDashboard()">
+              <i class="ri-dashboard-line"></i> Full Dashboard
+            </button>
+            <button class="btn btn-outline-gold btn-sm" (click)="openInspection()">
+              <i class="ri-calendar-check-line"></i> Inspect
+            </button>
+            <button class="btn btn-danger-outline btn-sm" (click)="logout()">
+              <i class="ri-logout-box-r-line"></i> Sign Out
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

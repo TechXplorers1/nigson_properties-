@@ -1,0 +1,205 @@
+<section id="inquiry" class="section-spacing inquiry-section">
+  <div class="container">
+    <div class="inquiry-grid">
+      <!-- Left Column: Interactive Lead Generation Form (BRD Section 14) -->
+      <div class="luxury-card inquiry-form-card">
+        <h3 class="form-card-title">
+          <i class="ri-file-list-3-line text-gold"></i> Send a Direct Property Inquiry
+        </h3>
+
+        <form (ngSubmit)="submitForm()" class="lead-form">
+          <!-- Inquiry Type Tabs -->
+          <div class="form-group">
+            <label class="form-label">Inquiry Purpose <span class="req">*</span></label>
+            <div class="inquiry-type-pills">
+              @for (type of ['Buy', 'Lease', 'Property Management', 'Investment', 'General Inquiry']; track type) {
+                <button 
+                  type="button" 
+                  class="type-pill-btn" 
+                  [class.active]="inquiryType() === type"
+                  (click)="inquiryType.set($any(type))">
+                  {{ type }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Property Selector -->
+          <div class="form-group">
+            <label class="form-label">Property or Development Interested In</label>
+            <select class="form-control" [ngModel]="propertyInterestedIn()" (ngModelChange)="propertyInterestedIn.set($event)" name="propInterest">
+              @for (prop of propertyService.properties(); track prop.id) {
+                <option [value]="prop.title">{{ prop.title }} ({{ prop.location }})</option>
+              }
+              <option value="New Off-Plan Developments">Upcoming Off-Plan Developments</option>
+              <option value="Facility & Asset Management Service">Facility & Asset Management Service</option>
+              <option value="General Consultation">General Property Consultation</option>
+            </select>
+          </div>
+
+          <!-- Name & Phone -->
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label class="form-label">Full Name <span class="req">*</span></label>
+              <input 
+                type="text" 
+                class="form-control" 
+                placeholder="e.g. Barrister Chika Okafor" 
+                [ngModel]="fullName()" 
+                (ngModelChange)="fullName.set($event)" 
+                name="name" 
+                required 
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Phone / WhatsApp <span class="req">*</span></label>
+              <input 
+                type="tel" 
+                class="form-control" 
+                placeholder="e.g. 08073467809" 
+                [ngModel]="phone()" 
+                (ngModelChange)="phone.set($event)" 
+                name="phoneNum" 
+                required 
+              />
+            </div>
+          </div>
+
+          <!-- Email & Budget Range -->
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label class="form-label">Email Address <span class="req">*</span></label>
+              <input 
+                type="email" 
+                class="form-control" 
+                placeholder="e.g. chika@company.com" 
+                [ngModel]="email()" 
+                (ngModelChange)="email.set($event)" 
+                name="userEmail" 
+                required 
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Budget Range</label>
+              <select class="form-control" [ngModel]="budgetRange()" (ngModelChange)="budgetRange.set($event)" name="budget">
+                <option value="Under ₦150M">Under ₦150M</option>
+                <option value="₦150M – ₦250M">₦150M – ₦250M</option>
+                <option value="₦250M – ₦400M">₦250M – ₦400M</option>
+                <option value="Above ₦400M">Above ₦400M (Ultra Luxury)</option>
+                <option value="Leasing: ₦15M - ₦30M/annum">Leasing: ₦15M – ₦30M / annum</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Preferred Inspection Date (BRD Section 14) -->
+          <div class="form-group">
+            <label class="form-label">Preferred Viewing / Inspection Date (Optional)</label>
+            <input 
+              type="date" 
+              class="form-control" 
+              [ngModel]="preferredInspectionDate()" 
+              (ngModelChange)="preferredInspectionDate.set($event)" 
+              name="inspectDate" 
+            />
+          </div>
+
+          <!-- Message -->
+          <div class="form-group">
+            <label class="form-label">Your Message or Requirements</label>
+            <textarea 
+              class="form-control" 
+              placeholder="Tell us about your timeline, specific lifestyle requirements, or investment goals..." 
+              [ngModel]="message()" 
+              (ngModelChange)="message.set($event)" 
+              name="msg">
+            </textarea>
+          </div>
+
+          <!-- Action Button -->
+          <button type="submit" class="btn btn-gold btn-full btn-lg">
+            <i class="ri-send-plane-fill"></i>
+            <span>Submit Property Inquiry</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Right Column: Trust & Contact Details -->
+      <div class="inquiry-info-col">
+        <div class="section-badge">
+          <i class="ri-mail-send-line"></i>
+          <span>Direct Client Engagement</span>
+        </div>
+
+        <h2 class="inquiry-title">
+          Connect with <span class="text-gold">Nigson Properties</span>
+        </h2>
+
+        <p class="inquiry-desc">
+          Whether you are acquiring a completed luxury home in Lekki, seeking prime corporate leasing in Ikoyi, or exploring joint-venture project development, our team is at your service.
+        </p>
+
+        <!-- Direct Contact Points (BRD Section 16) -->
+        <div class="inquiry-contact-points">
+          <div class="point-item">
+            <div class="point-icon">
+              <i class="ri-phone-fill"></i>
+            </div>
+            <div>
+              <span class="point-label">Direct Sales Inquiries</span>
+              <a href="tel:08073467809" class="point-val">08073467809</a>
+              <span class="point-sub">/</span>
+              <a href="tel:09134446722" class="point-val">09134446722</a>
+            </div>
+          </div>
+
+          <div class="point-item">
+            <div class="point-icon">
+              <i class="ri-mail-line"></i>
+            </div>
+            <div>
+              <span class="point-label">Corporate Email</span>
+              <a href="mailto:Hello@Nigson.com" class="point-val">Hello&#64;Nigson.com</a>
+            </div>
+          </div>
+
+          <div class="point-item">
+            <div class="point-icon">
+              <i class="ri-map-pin-2-fill"></i>
+            </div>
+            <div>
+              <span class="point-label">Corporate Headquarters</span>
+              <span class="point-text">Plot 30B, Block 110, Oladimeji Alo Street, Lekki Phase 1, Lagos</span>
+            </div>
+          </div>
+
+          <div class="point-item">
+            <div class="point-icon">
+              <i class="ri-time-line"></i>
+            </div>
+            <div>
+              <span class="point-label">Business Hours</span>
+              <span class="point-text">Monday – Friday: 9:00 AM – 5:00 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- WhatsApp Quick Chat Strip -->
+        <div class="whatsapp-direct-card">
+          <div class="wa-card-content">
+            <i class="ri-whatsapp-fill wa-card-icon"></i>
+            <div>
+              <strong>Instant WhatsApp Sales Concierge</strong>
+              <span>Get rapid responses, property videos, and brochures on WhatsApp.</span>
+            </div>
+          </div>
+          <button class="btn btn-whatsapp btn-sm" (click)="chatWhatsApp()">
+            <span>Start Chat</span>
+            <i class="ri-external-link-line"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

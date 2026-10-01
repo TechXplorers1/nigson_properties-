@@ -1,0 +1,59 @@
+<div class="nigson-app-layout" [class.admin-active]="isAdminView()">
+  <!-- Top Navigation & Contact Header (Hidden for Admin / Admin Portal) -->
+  @if (!isAdminView()) {
+    <app-header></app-header>
+  }
+
+  <!-- Routed Page Outlet (Home, Properties, About, Projects, Services, Calculator, Gallery, Contact, Admin) -->
+  <main [class.main-content-routed]="!isAdminView()" [class.admin-main-full]="isAdminView()">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Corporate Footer (Hidden for Admin / Admin Portal) -->
+  @if (!isAdminView()) {
+    <app-footer></app-footer>
+  }
+
+  <!-- Full-Screen Interactive Modals (Globally Available across all pages) -->
+  <app-property-modal></app-property-modal>
+  <app-inspection-modal></app-inspection-modal>
+  <app-auth-modal></app-auth-modal>
+
+  <!-- Global Toast Notification Banner -->
+  @if (propertyService.toastMessage(); as toast) {
+    <div class="toast-container">
+      <div class="toast" role="alert">
+        <div class="toast-icon">
+          @if (toast.type === 'success') {
+            <i class="ri-checkbox-circle-fill"></i>
+          } @else if (toast.type === 'error') {
+            <i class="ri-error-warning-fill"></i>
+          } @else {
+            <i class="ri-information-fill"></i>
+          }
+        </div>
+        <div>
+          <h4 class="toast-title">{{ toast.title }}</h4>
+          <p class="toast-desc">{{ toast.message }}</p>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Floating Concierge Actions (WhatsApp & Schedule Inspection - Hidden for Admin) -->
+  @if (!isAdminView()) {
+    <div class="floating-actions">
+      <!-- Floating Inspection Quick Button -->
+      <button class="float-inspection-btn" (click)="openFloatingInspection()" title="Schedule an Inspection">
+        <i class="ri-calendar-check-fill"></i>
+        <span class="tooltip">Schedule Inspection</span>
+      </button>
+
+      <!-- Floating WhatsApp Concierge -->
+      <button class="float-whatsapp-btn" (click)="openFloatingWhatsApp()" title="Chat with Nigson Sales on WhatsApp">
+        <i class="ri-whatsapp-fill"></i>
+        <span class="tooltip">WhatsApp Concierge</span>
+      </button>
+    </div>
+  }
+</div>

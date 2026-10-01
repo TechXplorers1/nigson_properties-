@@ -1,0 +1,165 @@
+<section id="services" class="section-spacing services-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="text-center section-header-wrap">
+      <div class="section-badge">
+        <i class="ri-service-fill"></i>
+        <span>{{ adminService.websiteContent().servicesBadge }}</span>
+      </div>
+      <h2 class="section-title">
+        {{ adminService.websiteContent().servicesHeading }}
+      </h2>
+      <p class="section-subtitle mx-auto">
+        {{ adminService.websiteContent().servicesSubtitle }}
+      </p>
+    </div>
+
+    <!-- Services Grid (6 Core Services) -->
+    <div class="services-grid">
+      @for (service of propertyService.services(); track service.id) {
+        <div 
+          class="luxury-card service-card" 
+          [class.is-expanded]="hoveredServiceId() === service.id"
+          (mouseenter)="setHoveredService(service.id)"
+          (mouseleave)="setHoveredService(null)"
+          (click)="openServiceDetails(service)"
+          tabindex="0"
+          role="button"
+          [attr.aria-label]="service.title + ' details'">
+          <!-- Service Hero Image Box -->
+          <div class="service-image-box">
+            <img 
+              [src]="service.image" 
+              [alt]="service.title" 
+              class="service-img" 
+              loading="lazy" 
+              (error)="onImageError($event)" 
+            />
+            <div class="service-img-overlay"></div>
+
+            <!-- Floating Badges Top Row -->
+            <div class="service-card-top-floating">
+              <div class="service-icon-wrap">
+                <i [class]="service.icon"></i>
+              </div>
+              <span class="service-number-badge">Service {{ service.number }}</span>
+            </div>
+          </div>
+
+          <!-- Service Content Body -->
+          <div class="service-card-body">
+            <h3 class="service-title">{{ service.title }}</h3>
+            <span class="service-tagline text-gold">{{ service.tagline }}</span>
+
+            <!-- Compact Initial Hint (Shown on small card, hidden when expanded) -->
+            <div class="service-expand-hint">
+              <span>Hover to expand</span>
+              <span class="hint-icon-wrap">
+                <i class="ri-arrow-down-s-line"></i>
+              </span>
+            </div>
+
+            <!-- Expandable Body Details (Unfolds on hover) -->
+            <div class="service-expand-wrapper">
+              <div class="service-expand-inner">
+                <p class="service-desc">
+                  {{ service.shortDescription }}
+                </p>
+
+                <!-- Key Highlights Checklist -->
+                <div class="service-highlights-list">
+                  @for (h of service.highlights.slice(0, 3); track h) {
+                    <div class="highlight-item">
+                      <i class="ri-check-line text-gold"></i>
+                      <span>{{ h }}</span>
+                    </div>
+                  }
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="service-card-footer">
+                  <button class="btn btn-outline-gold btn-sm" (click)="openServiceDetails(service); $event.stopPropagation()">
+                    <span>Explore Scope</span>
+                    <i class="ri-arrow-right-line"></i>
+                  </button>
+
+                  <button class="service-consult-btn" (click)="requestConsultation(service, $event)" title="Request Service Consultation">
+                    <i class="ri-customer-service-2-line"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Service Scope Modal Dialog -->
+@if (propertyService.isServiceModalOpen() && propertyService.activeService(); as svc) {
+  <div class="modal-backdrop" (click)="propertyService.closeServiceModal()">
+    <div class="modal-content service-modal-dialog" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div class="service-modal-header-text">
+          <span class="badge badge-gold">Service {{ svc.number }}</span>
+          <h2 class="modal-service-title">{{ svc.title }}</h2>
+          <span class="modal-service-tagline text-gold">{{ svc.tagline }}</span>
+        </div>
+        <button class="modal-close-btn" (click)="propertyService.closeServiceModal()">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="service-modal-image-wrap">
+          <img [src]="svc.image" [alt]="svc.title" class="service-modal-img" />
+          <div class="service-modal-img-overlay"></div>
+        </div>
+
+        <div class="modal-section-block">
+          <h4 class="block-title">
+            <i class="ri-information-line text-gold"></i> Detailed Capability & Approach
+          </h4>
+          <p class="block-paragraph">{{ svc.fullDescription }}</p>
+        </div>
+
+        <div class="modal-section-block">
+          <h4 class="block-title">
+            <i class="ri-checkbox-circle-line text-gold"></i> Key Value Deliverables
+          </h4>
+          <div class="service-modal-deliverables-grid">
+            @for (d of svc.deliverables; track d) {
+              <div class="deliverable-item">
+                <i class="ri-check-double-line text-gold"></i>
+                <span>{{ d }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="modal-section-block">
+          <h4 class="block-title">
+            <i class="ri-sparkles-line text-gold"></i> Service Features & Capabilities
+          </h4>
+          <div class="service-modal-features-list">
+            @for (h of svc.highlights; track h) {
+              <div class="modal-highlight-item">
+                <i class="ri-arrow-right-s-line text-gold"></i>
+                <span>{{ h }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <span class="footer-prompt">Partner with Nigson Properties for this service:</span>
+        <button class="btn btn-gold btn-sm" (click)="requestConsultation(svc)">
+          <i class="ri-customer-service-2-line"></i>
+          <span>Schedule Service Consultation</span>
+        </button>
+      </div>
+    </div>
+  </div>
+}

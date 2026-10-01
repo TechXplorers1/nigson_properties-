@@ -1,0 +1,208 @@
+<section id="showcase" class="section-spacing showcase-section">
+  <div class="container">
+    
+    <!-- Section Header -->
+    <div class="text-center section-header-wrap">
+      <div class="section-badge">
+        <i class="ri-sparkles-line"></i>
+        <span>{{ adminService.websiteContent().showcaseBadge }}</span>
+      </div>
+      <h2 class="section-title">
+        {{ adminService.websiteContent().showcaseHeading }}
+      </h2>
+      <p class="section-subtitle mx-auto">
+        {{ adminService.websiteContent().showcaseSubtitle }}
+      </p>
+    </div>
+
+    <!-- Featured Properties Grid (Top 3 Signature Listings) -->
+    <div class="featured-properties-grid">
+      @for (property of propertyService.properties().slice(0, 3); track property.id) {
+        <div class="luxury-card featured-prop-card" (click)="openPropertyDetails(property)">
+          <!-- Image Box -->
+          <div class="prop-img-box">
+            <img 
+              [src]="property.heroImage" 
+              [alt]="property.title" 
+              class="prop-img" 
+              loading="lazy"
+              (error)="onImageError($event)" 
+            />
+            <div class="prop-img-gradient"></div>
+
+            <!-- Top Floating Badges -->
+            <div class="prop-top-badges">
+              <span class="badge" [ngClass]="property.status.includes('Sold') ? 'badge-sold' : 'badge-gold'">
+                {{ property.status }}
+              </span>
+              <span class="badge badge-sale">
+                {{ property.categoryLabel }}
+              </span>
+            </div>
+
+            <!-- Price Tag on Image -->
+            <div class="prop-price-tag">
+              <span class="price-val">{{ property.price }}</span>
+              <span class="price-sub">Verified Title</span>
+            </div>
+          </div>
+
+          <!-- Card Content -->
+          <div class="prop-card-body">
+            <div class="prop-location">
+              <i class="ri-map-pin-2-fill text-gold"></i>
+              <span>{{ property.location }}</span>
+            </div>
+
+            <h3 class="prop-card-title">{{ property.title }}</h3>
+            <p class="prop-card-desc">{{ property.description | slice:0:110 }}...</p>
+
+            <!-- Key Specs Ribbon -->
+            <div class="prop-specs-row">
+              @if (property.bedrooms) {
+                <div class="spec-pill">
+                  <i class="ri-hotel-bed-line"></i>
+                  <span>{{ property.bedrooms }} Beds</span>
+                </div>
+              }
+              @if (property.bathrooms) {
+                <div class="spec-pill">
+                  <i class="ri-drop-line"></i>
+                  <span>{{ property.bathrooms }} Baths</span>
+                </div>
+              }
+              @if (property.units) {
+                <div class="spec-pill">
+                  <i class="ri-building-line"></i>
+                  <span>{{ property.units }} Units</span>
+                </div>
+              }
+            </div>
+
+            <!-- Card Actions -->
+            <div class="prop-card-actions">
+              <button 
+                type="button" 
+                class="btn btn-outline-gold btn-sm flex-1" 
+                (click)="$event.stopPropagation(); openPropertyDetails(property)">
+                <i class="ri-eye-line"></i> View Details
+              </button>
+              <button 
+                type="button" 
+                class="btn btn-gold btn-sm flex-1" 
+                (click)="$event.stopPropagation(); openInspection(property)">
+                <i class="ri-calendar-check-line"></i> Inspect
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- View All Properties Action Strip -->
+    <div class="text-center mt-5">
+      <a routerLink="/properties" class="btn btn-gold btn-lg">
+        <span>View Complete Real Estate Portfolio</span>
+        <i class="ri-arrow-right-line"></i>
+      </a>
+    </div>
+
+    <!-- Divider Bar -->
+    <div class="showcase-divider-bar"></div>
+
+    <!-- Landmark Project Development Matrix Spotlight -->
+    <div class="showcase-row showcase-row-projects">
+      <div class="showcase-visual-col">
+        <div class="luxury-card showcase-image-card">
+          <img 
+            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80" 
+            alt="Project Developments by Nigson" 
+            class="showcase-img"
+            loading="lazy"
+            (error)="onImageError($event, 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?auto=format&fit=crop&w=1200&q=80')"
+          />
+          <div class="showcase-img-overlay"></div>
+
+          <div class="showcase-top-badges">
+            <span class="badge badge-gold">
+              <i class="ri-building-line"></i> Master Developments
+            </span>
+            <span class="badge badge-sold">
+              <i class="ri-shield-star-fill"></i> 100% Sold-Out Track Record
+            </span>
+          </div>
+
+          <div class="showcase-bottom-overlay">
+            <div class="showcase-bottom-info">
+              <span class="overlay-tagline">Proven Development Matrix</span>
+              <h4 class="overlay-title">White Oaks & Fatai Bankole Residences</h4>
+              <p class="overlay-meta">
+                <i class="ri-map-pin-2-fill text-gold"></i> Aro-Ologolo & Lekki &bull; 50+ Units Handed Over
+              </p>
+            </div>
+
+            <a routerLink="/projects" class="btn btn-gold showcase-card-btn" title="View Projects">
+              <span>View Developments</span>
+              <i class="ri-arrow-right-line"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-content-col">
+        <div class="showcase-col-badge">
+          <i class="ri-stack-line text-gold"></i>
+          <span>Institutional Engineering Rigor</span>
+        </div>
+
+        <h3 class="showcase-item-title">
+          Landmark <span class="text-gold">Project Developments</span> & Delivery
+        </h3>
+
+        <p class="showcase-item-desc">
+          Nigson Properties has built a flawless reputation for institutional-grade project development across prime Lagos corridors. Our certified Project Management Professionals (PMP) manage end-to-end delivery: from land feasibility and architectural design to full turnkey construction, budget adherence, and successful owner handover.
+        </p>
+
+        <div class="showcase-highlights-list">
+          <div class="highlight-item">
+            <i class="ri-checkbox-circle-fill text-gold"></i>
+            <span><strong>End-to-End Execution:</strong> Feasibility, master planning, construction & handover</span>
+          </div>
+          <div class="highlight-item">
+            <i class="ri-checkbox-circle-fill text-gold"></i>
+            <span><strong>PMP-Led Quality:</strong> European structural standards, rigorous safety & zero budget drift</span>
+          </div>
+          <div class="highlight-item">
+            <i class="ri-checkbox-circle-fill text-gold"></i>
+            <span><strong>Proven Delivery:</strong> 50+ delivered residential units with 100% sold-out success</span>
+          </div>
+        </div>
+
+        <div class="showcase-stats-ribbon">
+          <div class="stat-pill">
+            <span class="stat-val">50+</span>
+            <span class="stat-label">Units Handed Over</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-pill">
+            <span class="stat-val">100%</span>
+            <span class="stat-label">On-Time Delivery</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-pill">
+            <span class="stat-val">6</span>
+            <span class="stat-label">Major Estates</span>
+          </div>
+        </div>
+
+        <div class="showcase-action-wrap">
+          <a routerLink="/projects" class="btn btn-gold btn-lg">
+            <span>Explore Development Matrix</span>
+            <i class="ri-arrow-right-line"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

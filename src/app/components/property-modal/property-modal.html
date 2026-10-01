@@ -1,0 +1,202 @@
+@if (propertyService.activeProperty(); as prop) {
+  <div class="modal-backdrop" (click)="closeModal()">
+    <div class="modal-content property-detail-dialog" (click)="$event.stopPropagation()">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-badges-row">
+            <span class="badge" [class.badge-sold]="prop.status.includes('Sold')" [class.badge-available]="prop.status.includes('Sale') || prop.status.includes('Lease')">
+              {{ prop.status }}
+            </span>
+            <span class="badge badge-gold">{{ prop.categoryLabel }}</span>
+            <span class="badge-units">{{ prop.units }} Units Total</span>
+          </div>
+          <h2 class="modal-prop-title">{{ prop.title }}</h2>
+          <span class="modal-location">
+            <i class="ri-map-pin-2-fill text-gold"></i> {{ prop.location }}
+          </span>
+        </div>
+
+        <button class="modal-close-btn" (click)="closeModal()" aria-label="Close modal">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <!-- Gallery Section -->
+        <div class="modal-gallery-box">
+          <div class="modal-main-image-wrap">
+            <img 
+              [src]="prop.gallery[activeImageIndex()] || prop.heroImage" 
+              [alt]="prop.title" 
+              class="modal-main-img" 
+            />
+            <div class="modal-price-badge">
+              <span class="modal-price-val">{{ prop.price }}</span>
+              @if (prop.priceSubtext) {
+                <span class="modal-price-sub">{{ prop.priceSubtext }}</span>
+              }
+            </div>
+          </div>
+
+          <!-- Thumbnails Row -->
+          @if (prop.gallery.length > 1) {
+            <div class="modal-thumbnails-row">
+              @for (img of prop.gallery; track $index) {
+                <button 
+                  type="button" 
+                  class="thumb-btn" 
+                  [class.active]="$index === activeImageIndex()"
+                  (click)="setActiveImage($index)">
+                  <img [src]="img" [alt]="prop.title + ' thumbnail ' + ($index + 1)" />
+                </button>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Quick Specs Ribbon -->
+        <div class="modal-specs-ribbon">
+          <div class="ribbon-item">
+            <i class="ri-hotel-bed-line text-gold"></i>
+            <div>
+              <span class="ribbon-val">{{ prop.bedrooms }}</span>
+              <span class="ribbon-lbl">Bedrooms</span>
+            </div>
+          </div>
+          <div class="ribbon-divider"></div>
+          <div class="ribbon-item">
+            <i class="ri-drop-line text-gold"></i>
+            <div>
+              <span class="ribbon-val">{{ prop.bathrooms }}</span>
+              <span class="ribbon-lbl">Bathrooms</span>
+            </div>
+          </div>
+          <div class="ribbon-divider"></div>
+          <div class="ribbon-item">
+            <i class="ri-ruler-line text-gold"></i>
+            <div>
+              <span class="ribbon-val">{{ prop.size }}</span>
+              <span class="ribbon-lbl">Area / Size</span>
+            </div>
+          </div>
+          <div class="ribbon-divider"></div>
+          <div class="ribbon-item">
+            <i class="ri-home-4-line text-gold"></i>
+            <div>
+              <span class="ribbon-val">{{ prop.propertyType }}</span>
+              <span class="ribbon-lbl">Type</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailed Description (BRD Section 11 & 13) -->
+        <div class="modal-section-block">
+          <h4 class="block-title">
+            <i class="ri-article-line text-gold"></i> Property Overview
+          </h4>
+          <p class="block-paragraph">{{ prop.description }}</p>
+        </div>
+
+        <!-- Key Architectural Features (Grounded in BRD Section 13) -->
+        <div class="modal-section-block">
+          <h4 class="block-title">
+            <i class="ri-checkbox-multiple-line text-gold"></i> Key Architectural Features & Inclusions
+          </h4>
+          <div class="features-checklist-grid">
+            @for (feat of prop.features; track feat) {
+              <div class="feature-checklist-item">
+                <i class="ri-check-line text-gold"></i>
+                <span>{{ feat }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Amenities & Systems -->
+        <div class="modal-section-block">
+          <h4 class="block-title">
+            <i class="ri-service-line text-gold"></i> Installed Utilities & Infrastructure
+          </h4>
+          <div class="amenities-tags-grid">
+            @for (amenity of prop.amenities; track amenity.label) {
+              <div class="amenity-full-card">
+                <i [class]="amenity.icon + ' text-gold'"></i>
+                <span>{{ amenity.label }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Engineering & Finishing Specifications -->
+        @if (prop.specifications) {
+          <div class="modal-section-block">
+            <h4 class="block-title">
+              <i class="ri-file-settings-line text-gold"></i> Technical & Engineering Specifications
+            </h4>
+            <div class="specs-table-wrap">
+              <table class="specs-table">
+                <tbody>
+                  @for (key of Object.keys(prop.specifications); track key) {
+                    <tr>
+                      <td class="spec-prop-name">{{ key }}</td>
+                      <td class="spec-prop-val">{{ prop.specifications[key] }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        }
+
+        <!-- Neighborhood & Proximity (BRD Section 13) -->
+        @if (prop.neighborhoodHighlights && prop.neighborhoodHighlights.length > 0) {
+          <div class="modal-section-block">
+            <h4 class="block-title">
+              <i class="ri-compass-line text-gold"></i> Neighborhood Proximity & Landmarks
+            </h4>
+            <div class="landmarks-list">
+              @for (landmark of prop.neighborhoodHighlights; track landmark) {
+                <div class="landmark-item">
+                  <i class="ri-map-pin-user-line text-gold"></i>
+                  <span>{{ landmark }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Modal Sticky Action Footer -->
+      <div class="modal-footer">
+        <div class="footer-left-info">
+          <span class="footer-prompt">Ready to inspect or make an inquiry?</span>
+          <span class="footer-phone">Call Direct: 08073467809 / 09134446722</span>
+        </div>
+
+        <div class="footer-buttons-group">
+          <button class="btn btn-dark btn-sm" (click)="toggleSave()" [title]="authService.isPropertySaved(propertyService.activeProperty()?.id || '') ? 'Remove from Saved' : 'Save to Portfolio'">
+            <i [class]="authService.isPropertySaved(propertyService.activeProperty()?.id || '') ? 'ri-heart-fill text-gold' : 'ri-heart-line'"></i>
+            <span>{{ authService.isPropertySaved(propertyService.activeProperty()?.id || '') ? 'Saved' : 'Save' }}</span>
+          </button>
+
+          <button class="btn btn-dark btn-sm" (click)="downloadBrochure()">
+            <i class="ri-download-2-line"></i>
+            <span>Fact Sheet</span>
+          </button>
+
+          <button class="btn btn-whatsapp btn-sm" (click)="chatOnWhatsApp()">
+            <i class="ri-whatsapp-line"></i>
+            <span>WhatsApp Us</span>
+          </button>
+
+          <button class="btn btn-gold btn-sm" (click)="openInspection()">
+            <i class="ri-calendar-check-line"></i>
+            <span>Schedule Inspection</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,1819 @@
+@if (!authService.isLoggedIn() || !authService.isAdmin()) {
+  <div class="admin-auth-lockscreen">
+    <div class="lockscreen-card">
+      <div class="lock-icon-wrap"><i class="ri-shield-keyhole-fill text-gold"></i></div>
+      <h3 class="lockscreen-title">Executive Administrator Portal</h3>
+      <p class="lockscreen-desc">
+        Welcome to Nigson Properties Management Panel. Please authenticate with executive credentials to access Property, Lead, and Content controls.
+      </p>
+
+      <button type="button" class="btn btn-gold btn-block lockscreen-demo-btn" (click)="quickLoginAsAdmin()">
+        <i class="ri-shield-check-fill"></i> Instant Access as Engr. Nnamdi Igwe (Admin)
+      </button>
+
+      <div class="lockscreen-divider"><span>OR SIGN IN WITH CREDENTIALS</span></div>
+
+      <form (ngSubmit)="submitAdminLogin()" class="lockscreen-form">
+        <div class="lock-input-group">
+          <label>Admin Email</label>
+          <div class="lock-input-wrap">
+            <i class="ri-mail-line"></i>
+            <input type="email" [ngModel]="adminLoginEmail()" (ngModelChange)="adminLoginEmail.set($event)" name="adminEmail" required />
+          </div>
+        </div>
+
+        <div class="lock-input-group">
+          <label>Master Password</label>
+          <div class="lock-input-wrap">
+            <i class="ri-lock-2-line"></i>
+            <input type="password" [ngModel]="adminLoginPassword()" (ngModelChange)="adminLoginPassword.set($event)" name="adminPass" required />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-outline-gold btn-block">
+          <i class="ri-login-circle-line"></i> Authenticate Administrator
+        </button>
+      </form>
+
+      <div class="lockscreen-footer">
+        <a routerLink="/" class="return-site-link">← Return to Public Website</a>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="admin-layout has-sidenav" [class.sidebar-collapsed]="!isSidebarOpen()">
+    <!-- Mobile Backdrop for Side Navbar -->
+    @if (isSidebarOpen()) {
+      <div class="sidenav-backdrop" (click)="closeSidebar()"></div>
+    }
+
+    <!-- EXECUTIVE SIDE NAVBAR -->
+    <aside class="admin-sidenav" [class.open]="isSidebarOpen()" [class.collapsed]="!isSidebarOpen()">
+      <!-- Sidenav Brand Header -->
+      <div class="sidenav-brand-box">
+        <a routerLink="/" class="sidenav-brand-link" title="Return to Nigson Properties Home Page">
+          <div class="brand-crest">
+            <i class="ri-shield-keyhole-fill text-gold"></i>
+          </div>
+          <div class="brand-text-block">
+            <h2 class="admin-brand-title">NIGSON <span class="text-gold">PROPERTIES</span></h2>
+            <span class="admin-brand-subtitle">EXECUTIVE ADMIN PORTAL</span>
+          </div>
+        </a>
+        <button 
+          type="button" 
+          class="sidenav-collapse-btn" 
+          (click)="toggleSidebar()" 
+          title="Close / Hide Side Panel" 
+          aria-label="Close Side Panel"
+        >
+          <i class="ri-menu-fold-line"></i>
+        </button>
+      </div>
+
+      <div class="sidenav-scrollable-content">
+        <!-- GROUP 1: ADMINISTRATIVE MANAGEMENT -->
+        <div class="sidenav-menu-group">
+          <span class="menu-group-label">ADMIN MODULES</span>
+          <nav class="sidenav-nav">
+            <button 
+              type="button" 
+              class="sidenav-link" 
+              [class.active]="activeTab() === 'overview'" 
+              (click)="selectTab('overview')"
+            >
+              <i class="ri-dashboard-3-line"></i>
+              <span>Executive Overview</span>
+            </button>
+
+            <button 
+              type="button" 
+              class="sidenav-link" 
+              [class.active]="activeTab() === 'properties'" 
+              (click)="selectTab('properties')"
+            >
+              <i class="ri-building-line"></i>
+              <span>Property Management</span>
+              <span class="sidenav-badge">{{ propertyService.properties().length }}</span>
+            </button>
+
+            <button 
+              type="button" 
+              class="sidenav-link" 
+              [class.active]="activeTab() === 'leads'" 
+              (click)="selectTab('leads')"
+            >
+              <i class="ri-user-star-line"></i>
+              <span>Lead Management</span>
+              @if (adminService.stats().newLeadsCount > 0) {
+                <span class="sidenav-badge alert">{{ adminService.stats().newLeadsCount }} NEW</span>
+              }
+            </button>
+
+            <button 
+              type="button" 
+              class="sidenav-link" 
+              [class.active]="activeTab() === 'content'" 
+              (click)="selectTab('content')"
+            >
+              <i class="ri-edit-box-line"></i>
+              <span>Content Management</span>
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Sidenav Footer with Admin Profile & Signout -->
+      <div class="sidenav-footer">
+        <div class="sidenav-user-card">
+          <img 
+            src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=200&q=80" 
+            alt="Admin Avatar" 
+            class="sidenav-avatar" 
+          />
+          <div class="sidenav-user-meta">
+            <span class="user-name">Engr. Nnamdi Igwe</span>
+            <span class="user-role text-gold">Managing Director & Admin</span>
+          </div>
+        </div>
+
+        <div class="sidenav-footer-actions">
+          <button type="button" class="sidenav-action-btn signout btn-block" (click)="logout()" title="Sign Out of Admin Portal">
+            <i class="ri-logout-box-r-line"></i>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT MAIN CONTENT WRAPPER -->
+    <div class="admin-main-wrapper">
+      <!-- Slim Top Bar Header -->
+      <header class="admin-topbar">
+        <div class="topbar-left">
+          <button 
+            type="button" 
+            class="sidebar-hamburger-btn mobile-sidebar-toggle" 
+            (click)="toggleSidebar()" 
+            [attr.aria-expanded]="isSidebarOpen()"
+            [title]="isSidebarOpen() ? 'Collapse / Hide Side Panel' : 'Expand / Show Side Panel'"
+            aria-label="Toggle Side Navbar"
+          >
+            <i [class]="isSidebarOpen() ? 'ri-menu-fold-line' : 'ri-menu-line'"></i>
+          </button>
+          <div class="topbar-breadcrumb">
+            <a routerLink="/" class="breadcrumb-root logo-link" title="Return to Nigson Properties Home Page">
+              <i class="ri-shield-keyhole-line text-gold"></i> Nigson Admin
+            </a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current text-gold">
+              @if (activeTab() === 'overview') { Executive Overview }
+              @if (activeTab() === 'properties') { Property Management }
+              @if (activeTab() === 'leads') { Lead Management }
+              @if (activeTab() === 'content') { Content Management }
+            </span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          @if (activeTab() === 'properties') {
+            <button type="button" class="btn btn-gold btn-sm" (click)="openAddPropertyModal()">
+              <i class="ri-add-line"></i> Add Property
+            </button>
+          }
+          @if (activeTab() === 'leads') {
+            <button type="button" class="btn btn-outline-gold btn-sm" (click)="exportLeadsCSV()">
+              <i class="ri-file-excel-2-line"></i> Export Leads (CSV)
+            </button>
+          }
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="logout()" title="Sign Out">
+            <i class="ri-logout-box-r-line"></i>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content Body -->
+      <main class="admin-main">
+    
+    <!-- ========================================================= -->
+    <!-- TAB 1: EXECUTIVE OVERVIEW                                 -->
+    <!-- ========================================================= -->
+    @if (activeTab() === 'overview') {
+      <div class="overview-section">
+        <!-- Top Stats Matrix -->
+        <div class="stats-matrix-grid">
+          <div class="stat-card" (click)="setTab('properties')">
+            <div class="stat-icon-wrap gold">
+              <i class="ri-building-4-line"></i>
+            </div>
+            <div class="stat-data">
+              <span class="stat-val">{{ adminService.stats().totalProperties }}</span>
+              <span class="stat-lbl">Active Properties</span>
+            </div>
+            <div class="stat-sub">
+              <span>{{ adminService.stats().availableCount }} Available for Acquisition</span>
+            </div>
+          </div>
+
+          <div class="stat-card" (click)="setTab('properties')">
+            <div class="stat-icon-wrap emerald">
+              <i class="ri-checkbox-circle-line"></i>
+            </div>
+            <div class="stat-data">
+              <span class="stat-val">{{ adminService.stats().soldCount }}</span>
+              <span class="stat-lbl">Sold Out Units</span>
+            </div>
+            <div class="stat-sub">
+              <span>100% Capital Reinvestment</span>
+            </div>
+          </div>
+
+          <div class="stat-card" (click)="setTab('leads')">
+            <div class="stat-icon-wrap blue">
+              <i class="ri-mail-star-line"></i>
+            </div>
+            <div class="stat-data">
+              <span class="stat-val">{{ adminService.stats().totalLeads }}</span>
+              <span class="stat-lbl">Total Client Leads</span>
+            </div>
+            <div class="stat-sub">
+              <span class="text-gold">{{ adminService.stats().newLeadsCount }} uncontacted inquiries</span>
+            </div>
+          </div>
+
+          <div class="stat-card" (click)="setTab('leads')">
+            <div class="stat-icon-wrap purple">
+              <i class="ri-calendar-event-line"></i>
+            </div>
+            <div class="stat-data">
+              <span class="stat-val">{{ adminService.stats().inspectionsPending }}</span>
+              <span class="stat-lbl">Scheduled Inspections</span>
+            </div>
+            <div class="stat-sub">
+              <span>In-person & Virtual Tours</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Action Short-cuts -->
+        <div class="quick-shortcuts-panel">
+          <h4 class="section-title"><i class="ri-flashlight-line text-gold"></i> Quick Administrative Operations</h4>
+          <div class="shortcuts-row">
+            <button class="btn btn-gold" (click)="openAddPropertyModal()">
+              <i class="ri-add-circle-line"></i> Add New Property
+            </button>
+            <button class="btn btn-outline-gold" (click)="setTab('leads'); leadCategoryFilter.set('inspection-request')">
+              <i class="ri-calendar-check-line"></i> Review Inspection Requests
+            </button>
+            <button class="btn btn-outline-gold" (click)="setTab('content'); activeContentSubTab.set('news')">
+              <i class="ri-newspaper-line"></i> Publish Corporate Announcement
+            </button>
+            <button class="btn btn-outline-gold" (click)="exportLeadsCSV()">
+              <i class="ri-download-cloud-line"></i> Export Leads Database (CSV)
+            </button>
+          </div>
+        </div>
+
+        <!-- Recent Leads & Properties Snapshot -->
+        <div class="overview-dual-columns">
+          <!-- Recent Inquiries -->
+          <div class="overview-card">
+            <div class="card-header-flex">
+              <h4><i class="ri-user-follow-line text-gold"></i> Recent Incoming Client Leads</h4>
+              <button class="link-btn text-gold" (click)="setTab('leads')">View All Leads →</button>
+            </div>
+            <div class="overview-lead-list">
+              @for (lead of adminService.leads().slice(0, 5); track lead.id) {
+                <div class="overview-lead-row">
+                  <div class="lead-meta">
+                    <span class="badge" [class.badge-new]="lead.status === 'New'" [class.badge-active]="lead.status === 'In Progress'">
+                      {{ lead.status }}
+                    </span>
+                    <strong>{{ lead.clientName }}</strong>
+                    <span class="lead-prop">{{ lead.subjectOrProperty }}</span>
+                  </div>
+                  <div class="lead-actions-mini">
+                    <button class="mini-btn" (click)="callLead(lead.phone)" title="Call"><i class="ri-phone-line"></i></button>
+                    <button class="mini-btn whatsapp" (click)="chatLeadWhatsApp(lead)" title="WhatsApp"><i class="ri-whatsapp-line"></i></button>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Featured Properties Quick View -->
+          <div class="overview-card">
+            <div class="card-header-flex">
+              <h4><i class="ri-home-smile-line text-gold"></i> Live Real Estate Developments</h4>
+              <button class="link-btn text-gold" (click)="setTab('properties')">Manage All ({{ propertyService.properties().length }}) →</button>
+            </div>
+            <div class="overview-prop-list">
+              @for (prop of propertyService.properties().slice(0, 4); track prop.id) {
+                <div class="overview-prop-row">
+                  <img [src]="prop.heroImage" [alt]="prop.title" class="prop-thumb" />
+                  <div class="prop-info-mini">
+                    <strong>{{ prop.title }}</strong>
+                    <span>{{ prop.location }} • <span class="text-gold font-bold">{{ prop.price }}</span></span>
+                  </div>
+                  <span class="badge" [class.badge-avail]="prop.status.includes('Available')" [class.badge-sold]="prop.status.includes('Sold')">
+                    {{ prop.status }}
+                  </span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- ========================================================= -->
+    <!-- TAB 2: PROPERTY MANAGEMENT                                -->
+    <!-- ========================================================= -->
+    @if (activeTab() === 'properties') {
+      <div class="properties-management-section">
+        <!-- Control Header: Search, Status Filters, View Toggle, Add Property -->
+        <div class="management-controls-bar">
+          <div class="search-filter-wrap">
+            <div class="admin-search-box">
+              <i class="ri-search-line"></i>
+              <input 
+                type="text" 
+                placeholder="Search properties by title, location, type..." 
+                [ngModel]="propSearch()"
+                (ngModelChange)="propSearch.set($event)"
+              />
+            </div>
+
+            <!-- Status Filter Dropdown / Pills -->
+            <div class="status-filter-pills">
+              <button 
+                type="button" 
+                class="filter-pill" 
+                [class.active]="propStatusFilter() === 'all'" 
+                (click)="propStatusFilter.set('all')"
+              >
+                All ({{ propertyService.properties().length }})
+              </button>
+              <button 
+                type="button" 
+                class="filter-pill" 
+                [class.active]="propStatusFilter() === 'Available for Sale'" 
+                (click)="propStatusFilter.set('Available for Sale')"
+              >
+                Available for Sale
+              </button>
+              <button 
+                type="button" 
+                class="filter-pill" 
+                [class.active]="propStatusFilter() === 'Available for Lease'" 
+                (click)="propStatusFilter.set('Available for Lease')"
+              >
+                Available for Lease
+              </button>
+              <button 
+                type="button" 
+                class="filter-pill" 
+                [class.active]="propStatusFilter() === 'Ongoing Development'" 
+                (click)="propStatusFilter.set('Ongoing Development')"
+              >
+                Ongoing
+              </button>
+              <button 
+                type="button" 
+                class="filter-pill" 
+                [class.active]="propStatusFilter() === 'Sold Out' || propStatusFilter() === 'Completed & Sold Out'" 
+                (click)="propStatusFilter.set('Sold Out')"
+              >
+                Sold Out
+              </button>
+            </div>
+          </div>
+
+          <div class="controls-right-wrap">
+            <div class="view-mode-toggle">
+              <button 
+                type="button" 
+                [class.active]="propViewMode() === 'table'" 
+                (click)="propViewMode.set('table')" 
+                title="Table View"
+              >
+                <i class="ri-table-line"></i>
+              </button>
+              <button 
+                type="button" 
+                [class.active]="propViewMode() === 'grid'" 
+                (click)="propViewMode.set('grid')" 
+                title="Grid View"
+              >
+                <i class="ri-grid-fill"></i>
+              </button>
+            </div>
+
+            <button type="button" class="btn btn-gold" (click)="openAddPropertyModal()">
+              <i class="ri-add-line"></i> Add New Property
+            </button>
+          </div>
+        </div>
+
+        <!-- TABLE VIEW -->
+        @if (propViewMode() === 'table') {
+          <div class="admin-table-wrapper">
+            <table class="admin-data-table">
+              <thead>
+                <tr>
+                  <th>Property Details</th>
+                  <th>Type & Specs</th>
+                  <th>Pricing</th>
+                  <th>Status</th>
+                  <th>Quick Status Actions</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (prop of filteredProperties(); track prop.id) {
+                  <tr>
+                    <!-- Property Details -->
+                    <td>
+                      <div class="table-prop-card">
+                        <img [src]="prop.heroImage" [alt]="prop.title" class="table-prop-thumb" />
+                        <div>
+                          <strong class="table-prop-title">{{ prop.title }}</strong>
+                          <span class="table-prop-loc"><i class="ri-map-pin-line text-gold"></i> {{ prop.location }}</span>
+                          <span class="table-category-label">{{ prop.categoryLabel }}</span>
+                        </div>
+                      </div>
+                    </td>
+
+                    <!-- Specs -->
+                    <td>
+                      <div class="table-specs-cell">
+                        <span><strong>{{ prop.propertyType }}</strong> ({{ prop.units }} Units)</span>
+                        <span class="text-muted">{{ prop.bedrooms }} Beds • {{ prop.bathrooms }} Baths • {{ prop.size }}</span>
+                      </div>
+                    </td>
+
+                    <!-- Pricing -->
+                    <td>
+                      <div class="table-price-cell">
+                        <strong class="text-gold">{{ prop.price }}</strong>
+                        <span class="text-muted subtext">{{ prop.priceSubtext || 'Asking Price' }}</span>
+                      </div>
+                    </td>
+
+                    <!-- Status with Quick Dropdown -->
+                    <td>
+                      <select 
+                        class="status-select-badge"
+                        [ngModel]="prop.status"
+                        (ngModelChange)="changePropertyStatus(prop.id, $event)"
+                        [class.status-available]="prop.status.includes('Available')"
+                        [class.status-sold]="prop.status.includes('Sold')"
+                        [class.status-ongoing]="prop.status.includes('Ongoing')"
+                      >
+                        <option value="Available for Sale">Available for Sale</option>
+                        <option value="Available for Lease">Available for Lease</option>
+                        <option value="Ongoing Development">Ongoing Development</option>
+                        <option value="Sold Out">Sold Out</option>
+                        <option value="Completed & Sold Out">Completed & Sold Out</option>
+                      </select>
+                    </td>
+
+                    <!-- Quick 1-Click Status Toggles -->
+                    <td>
+                      <div class="quick-status-buttons">
+                        @if (prop.status.includes('Sold')) {
+                          <button 
+                            type="button" 
+                            class="action-pill-btn available" 
+                            (click)="markAsAvailable(prop.id)"
+                            title="Mark property back as Available for Sale"
+                          >
+                            <i class="ri-check-line"></i> Mark Available
+                          </button>
+                        } @else {
+                          <button 
+                            type="button" 
+                            class="action-pill-btn sold" 
+                            (click)="markAsSold(prop.id)"
+                            title="Mark property as Sold Out"
+                          >
+                            <i class="ri-close-circle-line"></i> Mark as Sold
+                          </button>
+                        }
+                      </div>
+                    </td>
+
+                    <!-- Row Actions -->
+                    <td class="text-right">
+                      <div class="table-action-btns">
+                        <button 
+                          type="button" 
+                          class="tbl-action-btn edit" 
+                          (click)="openEditPropertyModal(prop)" 
+                          title="Edit Full Property Details, Images & Amenities"
+                        >
+                          <i class="ri-edit-2-line"></i>
+                        </button>
+                        <button 
+                          type="button" 
+                          class="tbl-action-btn delete" 
+                          (click)="deleteProperty(prop.id, prop.title)" 
+                          title="Delete Property"
+                        >
+                          <i class="ri-delete-bin-line"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                } @empty {
+                  <tr>
+                    <td colspan="6" class="table-empty-cell">
+                      <i class="ri-inbox-line"></i>
+                      <p>No properties match your current search or filter criteria.</p>
+                      <button class="btn btn-outline-gold btn-sm" (click)="propSearch.set(''); propStatusFilter.set('all')">
+                        Clear Filters
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+
+        <!-- GRID VIEW -->
+        @if (propViewMode() === 'grid') {
+          <div class="admin-property-cards-grid">
+            @for (prop of filteredProperties(); track prop.id) {
+              <div class="admin-prop-card">
+                <div class="prop-card-media">
+                  <img [src]="prop.heroImage" [alt]="prop.title" />
+                  <span class="prop-status-tag" [class.sold]="prop.status.includes('Sold')">
+                    {{ prop.status }}
+                  </span>
+                  @if (prop.videoUrl) {
+                    <span class="video-tag" title="Video Tour Available">
+                      <i class="ri-video-fill"></i>
+                    </span>
+                  }
+                </div>
+                <div class="prop-card-body">
+                  <h4 class="prop-card-title">{{ prop.title }}</h4>
+                  <span class="prop-card-loc"><i class="ri-map-pin-line text-gold"></i> {{ prop.location }}</span>
+                  <div class="prop-card-price">
+                    <span class="price-val">{{ prop.price }}</span>
+                    <span class="type-val">{{ prop.propertyType }}</span>
+                  </div>
+                  <div class="prop-card-specs">
+                    <span><i class="ri-hotel-bed-line"></i> {{ prop.bedrooms }} Beds</span>
+                    <span><i class="ri-drop-line"></i> {{ prop.bathrooms }} Baths</span>
+                    <span><i class="ri-ruler-2-line"></i> {{ prop.size }}</span>
+                  </div>
+                  <div class="prop-card-actions">
+                    <button class="btn btn-sm btn-outline-gold" (click)="openEditPropertyModal(prop)">
+                      <i class="ri-edit-line"></i> Edit
+                    </button>
+                    @if (prop.status.includes('Sold')) {
+                      <button class="btn btn-sm btn-available" (click)="markAsAvailable(prop.id)">
+                        Mark Available
+                      </button>
+                    } @else {
+                      <button class="btn btn-sm btn-sold" (click)="markAsSold(prop.id)">
+                        Mark Sold
+                      </button>
+                    }
+                    <button class="btn btn-sm btn-danger-icon" (click)="deleteProperty(prop.id, prop.title)" title="Delete">
+                      <i class="ri-delete-bin-line"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    <!-- ========================================================= -->
+    <!-- TAB 3: LEAD MANAGEMENT                                    -->
+    <!-- ========================================================= -->
+    @if (activeTab() === 'leads') {
+      <div class="leads-management-section">
+        <!-- Lead Category Filter Tabs -->
+        <div class="lead-tabs-nav">
+          <button 
+            type="button" 
+            class="lead-tab-chip" 
+            [class.active]="leadCategoryFilter() === 'all'" 
+            (click)="leadCategoryFilter.set('all')"
+          >
+            All Leads ({{ leadCounts().all }})
+          </button>
+          <button 
+            type="button" 
+            class="lead-tab-chip" 
+            [class.active]="leadCategoryFilter() === 'property-inquiry'" 
+            (click)="leadCategoryFilter.set('property-inquiry')"
+          >
+            <i class="ri-mail-line"></i> Property Inquiries ({{ leadCounts().propertyInquiry }})
+          </button>
+          <button 
+            type="button" 
+            class="lead-tab-chip" 
+            [class.active]="leadCategoryFilter() === 'inspection-request'" 
+            (click)="leadCategoryFilter.set('inspection-request')"
+          >
+            <i class="ri-calendar-check-line"></i> Inspection Requests ({{ leadCounts().inspectionRequest }})
+          </button>
+          <button 
+            type="button" 
+            class="lead-tab-chip" 
+            [class.active]="leadCategoryFilter() === 'sales-lead'" 
+            (click)="leadCategoryFilter.set('sales-lead')"
+          >
+            <i class="ri-vip-crown-line"></i> Sales Leads ({{ leadCounts().salesLead }})
+          </button>
+          <button 
+            type="button" 
+            class="lead-tab-chip" 
+            [class.active]="leadCategoryFilter() === 'contact-inquiry'" 
+            (click)="leadCategoryFilter.set('contact-inquiry')"
+          >
+            <i class="ri-chat-3-line"></i> Contact Inquiries ({{ leadCounts().contactInquiry }})
+          </button>
+          <button 
+            type="button" 
+            class="lead-tab-chip" 
+            [class.active]="leadCategoryFilter() === 'booking-details'" 
+            (click)="leadCategoryFilter.set('booking-details')"
+          >
+            <i class="ri-ticket-line"></i> Booking Details ({{ leadCounts().bookingDetails }})
+          </button>
+          <button 
+            type="button" 
+            class="lead-tab-chip" 
+            [class.active]="leadCategoryFilter() === 'property-management'" 
+            (click)="leadCategoryFilter.set('property-management')"
+          >
+            <i class="ri-service-line"></i> Property Management ({{ leadCounts().propertyManagement }})
+          </button>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="leads-toolbar">
+          <div class="leads-search-box">
+            <i class="ri-search-line"></i>
+            <input 
+              type="text" 
+              placeholder="Search leads by client name, email, phone, or property..." 
+              [ngModel]="leadSearch()"
+              (ngModelChange)="leadSearch.set($event)"
+            />
+          </div>
+
+          <div class="leads-toolbar-right">
+            <div class="status-dropdown-wrap">
+              <label>Status:</label>
+              <select 
+                [ngModel]="leadStatusFilter()" 
+                (ngModelChange)="leadStatusFilter.set($event)"
+                class="admin-select"
+              >
+                <option value="all">All Statuses</option>
+                <option value="New">New</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Contacted">Contacted</option>
+                <option value="Qualified">Qualified</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+
+            <button type="button" class="btn btn-outline-gold" (click)="exportLeadsCSV()">
+              <i class="ri-file-excel-2-line"></i> Export to CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Leads Table / Matrix -->
+        <div class="admin-table-wrapper">
+          <table class="admin-data-table leads-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Client Name & Contact</th>
+                <th>Subject / Property</th>
+                <th>Details & Timing</th>
+                <th>Status</th>
+                <th>Direct Communication</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (lead of filteredLeads(); track lead.id) {
+                <tr [class.row-new]="lead.status === 'New'">
+                  <!-- Category Badge -->
+                  <td>
+                    <span 
+                      class="lead-category-badge"
+                      [class.cat-inquiry]="lead.category === 'property-inquiry'"
+                      [class.cat-inspection]="lead.category === 'inspection-request'"
+                      [class.cat-sales]="lead.category === 'sales-lead'"
+                      [class.cat-contact]="lead.category === 'contact-inquiry'"
+                      [class.cat-booking]="lead.category === 'booking-details'"
+                      [class.cat-mgmt]="lead.category === 'property-management'"
+                    >
+                      {{ lead.categoryLabel }}
+                    </span>
+                    <span class="lead-date-meta">{{ lead.date }}</span>
+                  </td>
+
+                  <!-- Client Contact -->
+                  <td>
+                    <div class="lead-client-cell">
+                      <strong class="lead-client-name">{{ lead.clientName }}</strong>
+                      <span class="lead-client-phone"><i class="ri-phone-line"></i> {{ lead.phone }}</span>
+                      <span class="lead-client-email"><i class="ri-mail-line"></i> {{ lead.email }}</span>
+                    </div>
+                  </td>
+
+                  <!-- Subject / Property -->
+                  <td>
+                    <div class="lead-subject-cell">
+                      <strong>{{ lead.subjectOrProperty }}</strong>
+                      @if (lead.budgetOrValue) {
+                        <span class="lead-budget text-gold"><i class="ri-money-cny-box-line"></i> {{ lead.budgetOrValue }}</span>
+                      }
+                      @if (lead.tourType) {
+                        <span class="lead-tour-type"><i class="ri-camera-lens-line"></i> {{ lead.tourType }}</span>
+                      }
+                    </div>
+                  </td>
+
+                  <!-- Details -->
+                  <td>
+                    <div class="lead-details-cell">
+                      <p class="lead-details-text">{{ lead.details }}</p>
+                      @if (lead.preferredDate) {
+                        <span class="lead-schedule"><i class="ri-calendar-line text-gold"></i> Preferred: {{ lead.preferredDate }}</span>
+                      }
+                      @if (lead.notes) {
+                        <span class="lead-internal-note"><i class="ri-sticky-note-line"></i> Note: {{ lead.notes }}</span>
+                      }
+                    </div>
+                  </td>
+
+                  <!-- Status Updater -->
+                  <td>
+                    <select 
+                      class="status-select-badge"
+                      [ngModel]="lead.status"
+                      (ngModelChange)="updateLeadStatus(lead.id, $event)"
+                      [class.status-new]="lead.status === 'New'"
+                      [class.status-progress]="lead.status === 'In Progress'"
+                      [class.status-contacted]="lead.status === 'Contacted'"
+                      [class.status-qualified]="lead.status === 'Qualified'"
+                      [class.status-closed]="lead.status === 'Closed'"
+                    >
+                      <option value="New">New</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="Contacted">Contacted</option>
+                      <option value="Qualified">Qualified</option>
+                      <option value="Closed">Closed</option>
+                    </select>
+                  </td>
+
+                  <!-- Communication Actions -->
+                  <td>
+                    <div class="comm-actions-row">
+                      <button 
+                        type="button" 
+                        class="comm-btn phone" 
+                        (click)="callLead(lead.phone)" 
+                        title="Call Client ({{ lead.phone }})"
+                      >
+                        <i class="ri-phone-fill"></i>
+                      </button>
+                      <button 
+                        type="button" 
+                        class="comm-btn whatsapp" 
+                        (click)="chatLeadWhatsApp(lead)" 
+                        title="Chat on WhatsApp"
+                      >
+                        <i class="ri-whatsapp-fill"></i>
+                      </button>
+                      <button 
+                        type="button" 
+                        class="comm-btn email" 
+                        (click)="emailLead(lead.email, lead.subjectOrProperty)" 
+                        title="Send Email"
+                      >
+                        <i class="ri-mail-send-fill"></i>
+                      </button>
+                    </div>
+                  </td>
+
+                  <!-- Actions -->
+                  <td class="text-right">
+                    <div class="table-action-btns">
+                      <button 
+                        type="button" 
+                        class="tbl-action-btn edit" 
+                        (click)="editLeadNotes(lead)" 
+                        title="Add/Edit Internal Admin Notes"
+                      >
+                        <i class="ri-file-text-line"></i>
+                      </button>
+                      <button 
+                        type="button" 
+                        class="tbl-action-btn delete" 
+                        (click)="deleteLead(lead.id, lead.clientName)" 
+                        title="Delete Lead"
+                      >
+                        <i class="ri-delete-bin-line"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="7" class="table-empty-cell">
+                    <i class="ri-user-search-line"></i>
+                    <p>No leads found matching your selected category and status.</p>
+                    <button class="btn btn-outline-gold btn-sm" (click)="leadCategoryFilter.set('all'); leadStatusFilter.set('all'); leadSearch.set('')">
+                      Reset Filters
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+
+    <!-- ========================================================= -->
+    <!-- TAB 4: CONTENT MANAGEMENT                                 -->
+    <!-- ========================================================= -->
+    @if (activeTab() === 'content') {
+      <div class="content-management-section">
+        <!-- Sub-Navigation for Content Modules -->
+        <div class="content-subnav">
+          <button 
+            type="button" 
+            class="subnav-btn" 
+            [class.active]="activeContentSubTab() === 'website'" 
+            (click)="setContentSubTab('website')"
+          >
+            <i class="ri-layout-top-line"></i> Website Content & Branding
+          </button>
+          <button 
+            type="button" 
+            class="subnav-btn" 
+            [class.active]="activeContentSubTab() === 'media'" 
+            (click)="setContentSubTab('media')"
+          >
+            <i class="ri-image-add-line"></i> Upload Images & Media
+          </button>
+          <button 
+            type="button" 
+            class="subnav-btn" 
+            [class.active]="activeContentSubTab() === 'testimonials'" 
+            (click)="setContentSubTab('testimonials')"
+          >
+            <i class="ri-chat-voice-line"></i> Manage Testimonials
+          </button>
+          <button 
+            type="button" 
+            class="subnav-btn" 
+            [class.active]="activeContentSubTab() === 'services'" 
+            (click)="setContentSubTab('services')"
+          >
+            <i class="ri-customer-service-2-line"></i> Update Services (6 Core)
+          </button>
+          <button 
+            type="button" 
+            class="subnav-btn" 
+            [class.active]="activeContentSubTab() === 'gallery'" 
+            (click)="setContentSubTab('gallery')"
+          >
+            <i class="ri-gallery-line"></i> Project Galleries
+          </button>
+          <button 
+            type="button" 
+            class="subnav-btn" 
+            [class.active]="activeContentSubTab() === 'news'" 
+            (click)="setContentSubTab('news')"
+          >
+            <i class="ri-newspaper-line"></i> Publish Announcements/News
+          </button>
+        </div>
+
+        <!-- MODULE 1: WEBSITE CONTENT -->
+        @if (activeContentSubTab() === 'website') {
+          <div class="content-panel-card">
+            <div class="panel-header">
+              <h4>Homepage Content Management & Brand Messaging</h4>
+              <p>Directly edit and publish live headlines, badge text, subheadings, trust metrics, and contact details across all homepage sections.</p>
+            </div>
+
+            <form (ngSubmit)="saveWebsiteContent()" class="admin-form-grid">
+              <!-- 1. HERO SECTION -->
+              <div class="form-section-title">
+                <i class="ri-home-smile-line text-gold"></i> 1. Homepage Hero Section & Calls to Action
+              </div>
+              
+              <div class="form-group span-2">
+                <label>Hero Category Badge Text</label>
+                <input type="text" [ngModel]="contentHeroBadge()" (ngModelChange)="contentHeroBadge.set($event)" name="heroBadge" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Hero Main Headline</label>
+                <input type="text" [ngModel]="contentHeroHeading()" (ngModelChange)="contentHeroHeading.set($event)" name="heroHeading" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Hero Statement & Subheading</label>
+                <textarea rows="3" [ngModel]="contentHeroSubheading()" (ngModelChange)="contentHeroSubheading.set($event)" name="heroSubheading"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Primary CTA 1 Button Label</label>
+                <input type="text" [ngModel]="contentHeroCtaExplore()" (ngModelChange)="contentHeroCtaExplore.set($event)" name="heroCtaExplore" />
+              </div>
+
+              <div class="form-group">
+                <label>Secondary CTA 2 Button Label</label>
+                <input type="text" [ngModel]="contentHeroCtaInspection()" (ngModelChange)="contentHeroCtaInspection.set($event)" name="heroCtaInspection" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Concierge CTA 3 Button Label</label>
+                <input type="text" [ngModel]="contentHeroCtaWhatsapp()" (ngModelChange)="contentHeroCtaWhatsapp.set($event)" name="heroCtaWhatsapp" />
+              </div>
+
+              <!-- 2. TRUST STATS STRIP -->
+              <div class="form-section-title">
+                <i class="ri-shield-star-line text-gold"></i> 2. Trust & Verification Metrics Strip (Below Hero)
+              </div>
+
+              <div class="form-group">
+                <label>Metric 1 Value</label>
+                <input type="text" [ngModel]="contentStat1Value()" (ngModelChange)="contentStat1Value.set($event)" name="stat1Value" />
+              </div>
+              <div class="form-group">
+                <label>Metric 1 Label</label>
+                <input type="text" [ngModel]="contentStat1Label()" (ngModelChange)="contentStat1Label.set($event)" name="stat1Label" />
+              </div>
+
+              <div class="form-group">
+                <label>Metric 2 Value</label>
+                <input type="text" [ngModel]="contentStat2Value()" (ngModelChange)="contentStat2Value.set($event)" name="stat2Value" />
+              </div>
+              <div class="form-group">
+                <label>Metric 2 Label</label>
+                <input type="text" [ngModel]="contentStat2Label()" (ngModelChange)="contentStat2Label.set($event)" name="stat2Label" />
+              </div>
+
+              <div class="form-group">
+                <label>Metric 3 Value</label>
+                <input type="text" [ngModel]="contentStat3Value()" (ngModelChange)="contentStat3Value.set($event)" name="stat3Value" />
+              </div>
+              <div class="form-group">
+                <label>Metric 3 Label</label>
+                <input type="text" [ngModel]="contentStat3Label()" (ngModelChange)="contentStat3Label.set($event)" name="stat3Label" />
+              </div>
+
+              <div class="form-group">
+                <label>Metric 4 Value</label>
+                <input type="text" [ngModel]="contentStat4Value()" (ngModelChange)="contentStat4Value.set($event)" name="stat4Value" />
+              </div>
+              <div class="form-group">
+                <label>Metric 4 Label</label>
+                <input type="text" [ngModel]="contentStat4Label()" (ngModelChange)="contentStat4Label.set($event)" name="stat4Label" />
+              </div>
+
+              <!-- 3. FEATURED PROPERTIES SHOWCASE -->
+              <div class="form-section-title">
+                <i class="ri-sparkles-line text-gold"></i> 3. Featured Properties Showcase Section
+              </div>
+
+              <div class="form-group span-2">
+                <label>Showcase Badge Text</label>
+                <input type="text" [ngModel]="contentShowcaseBadge()" (ngModelChange)="contentShowcaseBadge.set($event)" name="showcaseBadge" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Showcase Section Headline</label>
+                <input type="text" [ngModel]="contentShowcaseHeading()" (ngModelChange)="contentShowcaseHeading.set($event)" name="showcaseHeading" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Showcase Section Subtitle & Description</label>
+                <textarea rows="3" [ngModel]="contentShowcaseSubtitle()" (ngModelChange)="contentShowcaseSubtitle.set($event)" name="showcaseSubtitle"></textarea>
+              </div>
+
+              <!-- 4. CORE SERVICES -->
+              <div class="form-section-title">
+                <i class="ri-service-line text-gold"></i> 4. Core Integrated Real Estate Services Section
+              </div>
+
+              <div class="form-group span-2">
+                <label>Services Badge Text</label>
+                <input type="text" [ngModel]="contentServicesBadge()" (ngModelChange)="contentServicesBadge.set($event)" name="servicesBadge" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Services Section Headline</label>
+                <input type="text" [ngModel]="contentServicesHeading()" (ngModelChange)="contentServicesHeading.set($event)" name="servicesHeading" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Services Section Subtitle</label>
+                <textarea rows="2" [ngModel]="contentServicesSubtitle()" (ngModelChange)="contentServicesSubtitle.set($event)" name="servicesSubtitle"></textarea>
+              </div>
+
+              <!-- 5. WHY CHOOSE US -->
+              <div class="form-section-title">
+                <i class="ri-thumb-up-line text-gold"></i> 5. Why Choose Nigson Properties Section
+              </div>
+
+              <div class="form-group span-2">
+                <label>Advantage Badge Text</label>
+                <input type="text" [ngModel]="contentWhyChooseBadge()" (ngModelChange)="contentWhyChooseBadge.set($event)" name="whyChooseBadge" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Why Choose Us Section Headline</label>
+                <input type="text" [ngModel]="contentWhyChooseHeading()" (ngModelChange)="contentWhyChooseHeading.set($event)" name="whyChooseHeading" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Why Choose Us Description Subtitle</label>
+                <textarea rows="2" [ngModel]="contentWhyChooseSubtitle()" (ngModelChange)="contentWhyChooseSubtitle.set($event)" name="whyChooseSubtitle"></textarea>
+              </div>
+
+              <!-- 6. TESTIMONIALS -->
+              <div class="form-section-title">
+                <i class="ri-chat-voice-line text-gold"></i> 6. Client Testimonials & Social Proof Section
+              </div>
+
+              <div class="form-group span-2">
+                <label>Testimonials Badge Text</label>
+                <input type="text" [ngModel]="contentTestimonialsBadge()" (ngModelChange)="contentTestimonialsBadge.set($event)" name="testimonialsBadge" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Testimonials Section Headline</label>
+                <input type="text" [ngModel]="contentTestimonialsHeading()" (ngModelChange)="contentTestimonialsHeading.set($event)" name="testimonialsHeading" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Testimonials Section Subtitle</label>
+                <textarea rows="2" [ngModel]="contentTestimonialsSubtitle()" (ngModelChange)="contentTestimonialsSubtitle.set($event)" name="testimonialsSubtitle"></textarea>
+              </div>
+
+              <!-- 7. CORPORATE HEADQUARTERS & TOPBAR -->
+              <div class="form-section-title">
+                <i class="ri-building-4-line text-gold"></i> 7. Corporate Headquarters & Top Bar Contact Info
+              </div>
+
+              <div class="form-group">
+                <label>Corporate Telephone 1</label>
+                <input type="text" [ngModel]="contentPhone()" (ngModelChange)="contentPhone.set($event)" name="phone" />
+              </div>
+
+              <div class="form-group">
+                <label>Corporate Telephone 2</label>
+                <input type="text" [ngModel]="contentPhone2()" (ngModelChange)="contentPhone2.set($event)" name="phone2" />
+              </div>
+
+              <div class="form-group">
+                <label>Corporate Email Address</label>
+                <input type="email" [ngModel]="contentEmail()" (ngModelChange)="contentEmail.set($event)" name="email" />
+              </div>
+
+              <div class="form-group">
+                <label>WhatsApp Concierge Number</label>
+                <input type="text" [ngModel]="contentWhatsapp()" (ngModelChange)="contentWhatsapp.set($event)" name="whatsapp" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Head Office Physical Address</label>
+                <input type="text" [ngModel]="contentAddress()" (ngModelChange)="contentAddress.set($event)" name="address" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Office Operating Hours</label>
+                <input type="text" [ngModel]="contentOfficeHours()" (ngModelChange)="contentOfficeHours.set($event)" name="hours" />
+              </div>
+
+              <!-- 8. LIVE ANNOUNCEMENT BANNER -->
+              <div class="form-section-title">
+                <i class="ri-megaphone-line text-gold"></i> 8. Live Website Announcement Banner
+              </div>
+
+              <div class="form-group span-2">
+                <label class="checkbox-label-row">
+                  <input type="checkbox" [ngModel]="contentAnnouncementActive()" (ngModelChange)="contentAnnouncementActive.set($event)" name="announceActive" />
+                  <span>Enable Live Announcement Banner Across Website</span>
+                </label>
+              </div>
+
+              <div class="form-group span-2">
+                <label>Announcement Message</label>
+                <input type="text" [ngModel]="contentAnnouncementText()" (ngModelChange)="contentAnnouncementText.set($event)" name="announceText" />
+              </div>
+
+              <div class="form-group span-2">
+                <label>Announcement Target Link</label>
+                <input type="text" [ngModel]="contentAnnouncementLink()" (ngModelChange)="contentAnnouncementLink.set($event)" name="announceLink" />
+              </div>
+
+              <!-- FORM ACTIONS BAR -->
+              <div class="form-actions-bar span-2">
+                <button type="submit" class="btn btn-gold">
+                  <i class="ri-save-line"></i> Save Website Content Changes
+                </button>
+                <button type="button" class="btn btn-outline-gold" (click)="resetWebsiteContent()">
+                  <i class="ri-refresh-line"></i> Reset to Exact Default Content
+                </button>
+              </div>
+            </form>
+          </div>
+        }
+
+        <!-- MODULE 2: MEDIA UPLOADER & ASSETS -->
+        @if (activeContentSubTab() === 'media') {
+          <div class="content-panel-card">
+            <div class="panel-header">
+              <h4>Upload Images & Media Asset Library</h4>
+              <p>Upload architectural photos, drone videos, and floorplans for website properties and marketing.</p>
+            </div>
+
+            <div class="media-upload-form-box">
+              <div class="admin-form-grid">
+                <div class="form-group">
+                  <label>Asset Title</label>
+                  <input type="text" placeholder="e.g. Whitesand Penthouse Facade" [ngModel]="newMediaTitle()" (ngModelChange)="newMediaTitle.set($event)" />
+                </div>
+                <div class="form-group">
+                  <label>Category</label>
+                  <select [ngModel]="newMediaCategory()" (ngModelChange)="newMediaCategory.set($event)" class="admin-select">
+                    <option value="Exterior">Exterior</option>
+                    <option value="Interiors">Interiors</option>
+                    <option value="Aerial">Aerial Drone</option>
+                    <option value="Amenities">Amenities</option>
+                    <option value="Documents">Brochures & Documents</option>
+                  </select>
+                </div>
+                <div class="form-group span-2">
+                  <label>Upload Local Image File or Paste URL</label>
+                  <div class="file-and-url-flex">
+                    <input type="file" (change)="onMediaUploadFile($event)" accept="image/*" class="file-picker-input" />
+                    <input type="text" placeholder="Or paste image URL (https://...)" [ngModel]="newMediaUrl()" (ngModelChange)="newMediaUrl.set($event)" />
+                    <button type="button" class="btn btn-gold" (click)="addMediaAsset()">
+                      <i class="ri-upload-cloud-line"></i> Add Asset
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Media Library Grid -->
+            <div class="media-assets-grid">
+              @for (asset of adminService.mediaAssets(); track asset.id) {
+                <div class="media-asset-card">
+                  <img [src]="asset.url" [alt]="asset.title" />
+                  <div class="asset-info">
+                    <strong>{{ asset.title }}</strong>
+                    <div class="asset-meta">
+                      <span class="badge">{{ asset.category }}</span>
+                      <span>{{ asset.date }}</span>
+                    </div>
+                  </div>
+                  <button type="button" class="asset-del-btn" (click)="deleteMediaAsset(asset.id)" title="Delete Asset">
+                    <i class="ri-delete-bin-line"></i>
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- MODULE 3: TESTIMONIALS -->
+        @if (activeContentSubTab() === 'testimonials') {
+          <div class="content-panel-card">
+            <div class="panel-header-row">
+              <div>
+                <h4>Client Testimonials & Executive Endorsements</h4>
+                <p>Manage authentic reviews from homeowners, diaspora property investors, and institutional landlords.</p>
+              </div>
+              <button class="btn btn-gold" (click)="openAddTestimonial()">
+                <i class="ri-add-line"></i> Add New Testimonial
+              </button>
+            </div>
+
+            <div class="testimonials-management-grid">
+              @for (test of propertyService.testimonials(); track test.id) {
+                <div class="admin-testimonial-card">
+                  <div class="test-card-top">
+                    <div class="test-author-flex">
+                      <img [src]="test.avatar" [alt]="test.clientName" class="test-avatar" />
+                      <div>
+                        <strong>{{ test.clientName }}</strong>
+                        <span class="test-role">{{ test.role }}</span>
+                        <span class="test-prop text-gold">{{ test.propertyOrProject }}</span>
+                      </div>
+                    </div>
+                    <div class="rating-stars">
+                      <i class="ri-star-fill text-gold" *ngFor="let s of [1,2,3,4,5].slice(0, test.rating)"></i>
+                    </div>
+                  </div>
+                  <p class="test-quote">"{{ test.quote }}"</p>
+                  <div class="test-card-footer">
+                    <span class="badge">{{ test.clientType }}</span>
+                    <button type="button" class="tbl-action-btn delete" (click)="deleteTestimonial(test.id)" title="Delete Testimonial">
+                      <i class="ri-delete-bin-line"></i>
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- MODULE 4: SERVICES (6 CORE) -->
+        @if (activeContentSubTab() === 'services') {
+          <div class="content-panel-card">
+            <div class="panel-header">
+              <h4>6 Core Real Estate Services</h4>
+              <p>Update service titles, architectural taglines, full descriptions, and deliverables.</p>
+            </div>
+
+            <div class="services-admin-grid">
+              @for (service of propertyService.services(); track service.id) {
+                <div class="service-admin-card">
+                  <div class="service-card-header">
+                    <span class="service-num text-gold">{{ service.number }}</span>
+                    <i [class]="service.icon + ' service-icon text-gold'"></i>
+                  </div>
+                  <h4 class="service-title">{{ service.title }}</h4>
+                  <span class="service-tagline text-gold">{{ service.tagline }}</span>
+                  <p class="service-desc">{{ service.shortDescription }}</p>
+                  <button class="btn btn-outline-gold btn-sm w-full" (click)="openEditService(service)">
+                    <i class="ri-edit-line"></i> Edit Service Details
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- MODULE 5: PROJECT GALLERIES -->
+        @if (activeContentSubTab() === 'gallery') {
+          <div class="content-panel-card">
+            <div class="panel-header-row">
+              <div>
+                <h4>Architectural Project Gallery</h4>
+                <p>Manage high-resolution imagery showcasing exteriors, interiors, living areas, and master amenities.</p>
+              </div>
+              <button class="btn btn-gold" (click)="openAddGallery()">
+                <i class="ri-add-line"></i> Add Gallery Photo
+              </button>
+            </div>
+
+            <div class="gallery-admin-grid">
+              @for (item of propertyService.galleryItems(); track item.id) {
+                <div class="gallery-admin-card">
+                  <img [src]="item.image" [alt]="item.title" />
+                  <div class="gallery-card-body">
+                    <strong>{{ item.title }}</strong>
+                    <span class="badge">{{ item.category }}</span>
+                    <p>{{ item.description }}</p>
+                    <button class="btn btn-sm btn-danger-icon" (click)="deleteGalleryItem(item.id)" title="Delete Photo">
+                      <i class="ri-delete-bin-line"></i> Remove Photo
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- MODULE 6: ANNOUNCEMENTS / NEWS -->
+        @if (activeContentSubTab() === 'news') {
+          <div class="content-panel-card">
+            <div class="panel-header-row">
+              <div>
+                <h4>Publish Announcements, Press Releases & Market Reports</h4>
+                <p>Share strategic company milestones, off-plan releases, and Nigerian luxury real estate insights.</p>
+              </div>
+              <button class="btn btn-gold" (click)="openAddNews()">
+                <i class="ri-add-line"></i> Create New Article
+              </button>
+            </div>
+
+            <div class="news-admin-list">
+              @for (news of adminService.announcements(); track news.id) {
+                <div class="news-admin-row">
+                  <div class="news-content-meta">
+                    <div class="news-meta-pills">
+                      <span class="badge">{{ news.category }}</span>
+                      <span class="news-date">{{ news.date }}</span>
+                      <span class="badge" [class.badge-avail]="news.status === 'Published'" [class.badge-sold]="news.status === 'Draft'">
+                        {{ news.status }}
+                      </span>
+                    </div>
+                    <h4>{{ news.title }}</h4>
+                    <p class="news-excerpt">{{ news.excerpt }}</p>
+                  </div>
+                  <div class="news-actions">
+                    <button 
+                      class="btn btn-sm" 
+                      [class.btn-gold]="news.status === 'Draft'" 
+                      [class.btn-outline-gold]="news.status === 'Published'"
+                      (click)="toggleNewsStatus(news.id)"
+                    >
+                      {{ news.status === 'Published' ? 'Switch to Draft' : 'Publish Article' }}
+                    </button>
+                    <button class="tbl-action-btn delete" (click)="deleteNews(news.id)" title="Delete Article">
+                      <i class="ri-delete-bin-line"></i>
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+      </main>
+    </div>
+  </div>
+
+<!-- ============================================================= -->
+<!-- MODAL: ADD / EDIT PROPERTY                                    -->
+<!-- ============================================================= -->
+@if (isPropertyModalOpen()) {
+  <div class="admin-modal-backdrop" (click)="closePropertyModal()">
+    <div class="admin-modal-container property-modal-large" (click)="$event.stopPropagation()">
+      <div class="modal-header-bar">
+        <h3>
+          <i class="ri-building-line text-gold"></i>
+          {{ isEditMode() ? 'Edit Property Details' : 'Add New Real Estate Development' }}
+        </h3>
+        <button class="modal-close-icon" (click)="closePropertyModal()">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+
+      <div class="modal-body-scrollable">
+        <form (ngSubmit)="saveProperty()" class="property-form-grid">
+          <!-- BASIC INFO -->
+          <div class="form-group span-2">
+            <label>Property Title <span class="required">*</span></label>
+            <input 
+              type="text" 
+              placeholder="e.g. Opposite Whitesand Beach Estate" 
+              [ngModel]="propTitle()" 
+              (ngModelChange)="propTitle.set($event)" 
+              name="title" 
+              required 
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Property Type</label>
+            <select [ngModel]="propType()" (ngModelChange)="propType.set($event)" name="type" class="admin-select">
+              <option value="Duplex">Duplex</option>
+              <option value="Apartment">Apartment</option>
+              <option value="Terrace">Terrace</option>
+              <option value="Villa">Villa</option>
+              <option value="Mansionette">Mansionette</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Category</label>
+            <select [ngModel]="propCategory()" (ngModelChange)="propCategory.set($event)" name="category" class="admin-select">
+              <option value="construction">Building Construction</option>
+              <option value="sales">Sales & Acquisition</option>
+              <option value="management">Property Management</option>
+              <option value="leasing">Leasing</option>
+            </select>
+          </div>
+
+          <!-- PRICING & STATUS -->
+          <div class="form-group">
+            <label>Asking Price String <span class="required">*</span></label>
+            <input 
+              type="text" 
+              placeholder="e.g. ₦185,000,000" 
+              [ngModel]="propPrice()" 
+              (ngModelChange)="propPrice.set($event)" 
+              name="price" 
+              required 
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Numeric Price (for filtering/calculators)</label>
+            <input 
+              type="number" 
+              placeholder="e.g. 185000000" 
+              [ngModel]="propNumericPrice()" 
+              (ngModelChange)="propNumericPrice.set($event)" 
+              name="numPrice" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Price Subtext</label>
+            <input 
+              type="text" 
+              placeholder="e.g. Net Selling Price or Per Annum" 
+              [ngModel]="propPriceSubtext()" 
+              (ngModelChange)="propPriceSubtext.set($event)" 
+              name="subtext" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Development Status <span class="required">*</span></label>
+            <select [ngModel]="propStatus()" (ngModelChange)="propStatus.set($event)" name="status" class="admin-select">
+              <option value="Available for Sale">Available for Sale</option>
+              <option value="Available for Lease">Available for Lease</option>
+              <option value="Ongoing Development">Ongoing Development</option>
+              <option value="Sold Out">Sold Out</option>
+              <option value="Completed & Sold Out">Completed & Sold Out</option>
+            </select>
+          </div>
+
+          <!-- LOCATION & SPECS -->
+          <div class="form-group">
+            <label>Location</label>
+            <input 
+              type="text" 
+              placeholder="e.g. Ologolo, Lekki, Lagos" 
+              [ngModel]="propLocation()" 
+              (ngModelChange)="propLocation.set($event)" 
+              name="loc" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Neighborhood Area</label>
+            <input 
+              type="text" 
+              placeholder="e.g. Ologolo, Lekki" 
+              [ngModel]="propNeighborhood()" 
+              (ngModelChange)="propNeighborhood.set($event)" 
+              name="neighborhood" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Number of Units</label>
+            <input 
+              type="number" 
+              [ngModel]="propUnits()" 
+              (ngModelChange)="propUnits.set($event)" 
+              name="units" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Bedrooms</label>
+            <input 
+              type="number" 
+              [ngModel]="propBedrooms()" 
+              (ngModelChange)="propBedrooms.set($event)" 
+              name="beds" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Bathrooms</label>
+            <input 
+              type="number" 
+              [ngModel]="propBathrooms()" 
+              (ngModelChange)="propBathrooms.set($event)" 
+              name="baths" 
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Plot / Building Size</label>
+            <input 
+              type="text" 
+              placeholder="e.g. 520 sqm each" 
+              [ngModel]="propSize()" 
+              (ngModelChange)="propSize.set($event)" 
+              name="size" 
+            />
+          </div>
+
+          <!-- MEDIA UPLOADS: HERO IMAGE & VIDEO -->
+          <div class="form-group span-2">
+            <label>Hero Image URL or Local File Upload</label>
+            <div class="file-and-url-flex">
+              <input type="file" (change)="onHeroImageFileSelected($event)" accept="image/*" class="file-picker-input" />
+              <input 
+                type="text" 
+                placeholder="https://images.unsplash.com/..." 
+                [ngModel]="propHeroImage()" 
+                (ngModelChange)="propHeroImage.set($event)" 
+                name="hero" 
+              />
+            </div>
+            
+            <!-- Quick Preset Image Selectors -->
+            <div class="preset-images-picker">
+              <span class="picker-label">Quick Luxury Presets:</span>
+              <div class="presets-row">
+                @for (img of presetImages; track img) {
+                  <img 
+                    [src]="img" 
+                    [class.active]="propHeroImage() === img" 
+                    (click)="selectPresetHeroImage(img)" 
+                    class="preset-thumb" 
+                  />
+                }
+              </div>
+            </div>
+          </div>
+
+          <!-- VIDEO TOUR URL -->
+          <div class="form-group span-2">
+            <label>Property Video Tour Link (YouTube embed / MP4 stream)</label>
+            <div class="input-with-icon">
+              <i class="ri-video-line"></i>
+              <input 
+                type="text" 
+                placeholder="https://www.youtube.com/watch?v=... or direct MP4 link" 
+                [ngModel]="propVideoUrl()" 
+                (ngModelChange)="propVideoUrl.set($event)" 
+                name="video" 
+              />
+            </div>
+          </div>
+
+          <!-- GALLERY IMAGE URLS -->
+          <div class="form-group span-2">
+            <label>Gallery Photos (Comma separated URLs)</label>
+            <textarea 
+              rows="2" 
+              placeholder="https://image1.jpg, https://image2.jpg, ..." 
+              [ngModel]="propGalleryInput()" 
+              (ngModelChange)="propGalleryInput.set($event)" 
+              name="gallery"
+            ></textarea>
+          </div>
+
+          <!-- AMENITIES MATRIX -->
+          <div class="form-group span-2">
+            <label>Property Amenities Matrix</label>
+            <div class="amenities-checkbox-grid">
+              @for (amenity of allAvailableAmenities; track amenity.id) {
+                <label class="amenity-chip-label" [class.selected]="isAmenitySelected(amenity.label)">
+                  <input 
+                    type="checkbox" 
+                    [checked]="isAmenitySelected(amenity.label)" 
+                    (change)="toggleAmenity(amenity.label)" 
+                  />
+                  <i [class]="amenity.icon"></i>
+                  <span>{{ amenity.label }}</span>
+                </label>
+              }
+            </div>
+          </div>
+
+          <!-- DESCRIPTION -->
+          <div class="form-group span-2">
+            <label>Comprehensive Property Description</label>
+            <textarea 
+              rows="4" 
+              placeholder="Detailed architectural specifications, living spaces, and location advantages..." 
+              [ngModel]="propDescription()" 
+              (ngModelChange)="propDescription.set($event)" 
+              name="desc"
+            ></textarea>
+          </div>
+
+          <!-- FEATURES & HIGHLIGHTS -->
+          <div class="form-group">
+            <label>Key Features (One per line)</label>
+            <textarea 
+              rows="4" 
+              placeholder="5-bedroom all ensuite&#10;Private in-house cinema room&#10;Integrated solar inverter" 
+              [ngModel]="propFeaturesText()" 
+              (ngModelChange)="propFeaturesText.set($event)" 
+              name="feats"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Neighborhood Highlights (One per line)</label>
+            <textarea 
+              rows="4" 
+              placeholder="2 mins drive to Lekki-Epe Expressway&#10;Direct proximity to Whitesand Beach" 
+              [ngModel]="propHighlightsText()" 
+              (ngModelChange)="propHighlightsText.set($event)" 
+              name="highlights"
+            ></textarea>
+          </div>
+
+          <!-- SUBMIT / CANCEL -->
+          <div class="modal-footer-bar span-2">
+            <button type="button" class="btn btn-outline-gold" (click)="closePropertyModal()">Cancel</button>
+            <button type="submit" class="btn btn-gold">
+              <i class="ri-check-line"></i> {{ isEditMode() ? 'Save Property Changes' : 'Publish Property to Portfolio' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ============================================================= -->
+<!-- MODAL: ADD TESTIMONIAL                                        -->
+<!-- ============================================================= -->
+@if (isTestimonialModalOpen()) {
+  <div class="admin-modal-backdrop" (click)="closeTestimonialModal()">
+    <div class="admin-modal-container modal-medium" (click)="$event.stopPropagation()">
+      <div class="modal-header-bar">
+        <h3><i class="ri-chat-voice-line text-gold"></i> Add Client Testimonial</h3>
+        <button class="modal-close-icon" (click)="closeTestimonialModal()"><i class="ri-close-line"></i></button>
+      </div>
+      <div class="modal-body-scrollable">
+        <form (ngSubmit)="saveTestimonial()" class="admin-form-grid">
+          <div class="form-group">
+            <label>Client Full Name</label>
+            <input type="text" [ngModel]="testClientName()" (ngModelChange)="testClientName.set($event)" name="tName" required />
+          </div>
+          <div class="form-group">
+            <label>Client Designation / Role</label>
+            <input type="text" [ngModel]="testRole()" (ngModelChange)="testRole.set($event)" name="tRole" required />
+          </div>
+          <div class="form-group">
+            <label>Property or Project</label>
+            <input type="text" [ngModel]="testProperty()" (ngModelChange)="testProperty.set($event)" name="tProp" required />
+          </div>
+          <div class="form-group">
+            <label>Client Category</label>
+            <select [ngModel]="testType()" (ngModelChange)="testType.set($event)" name="tType" class="admin-select">
+              <option value="Homeowner">Homeowner</option>
+              <option value="Diaspora Investor">Diaspora Investor</option>
+              <option value="Tenant">Tenant</option>
+              <option value="Property Landlord">Property Landlord</option>
+            </select>
+          </div>
+          <div class="form-group span-2">
+            <label>Client Quote / Feedback</label>
+            <textarea rows="4" [ngModel]="testQuote()" (ngModelChange)="testQuote.set($event)" name="tQuote" required></textarea>
+          </div>
+          <div class="modal-footer-bar span-2">
+            <button type="button" class="btn btn-outline-gold" (click)="closeTestimonialModal()">Cancel</button>
+            <button type="submit" class="btn btn-gold">Save Testimonial</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ============================================================= -->
+<!-- MODAL: ADD GALLERY ITEM                                       -->
+<!-- ============================================================= -->
+@if (isGalleryModalOpen()) {
+  <div class="admin-modal-backdrop" (click)="closeGalleryModal()">
+    <div class="admin-modal-container modal-medium" (click)="$event.stopPropagation()">
+      <div class="modal-header-bar">
+        <h3><i class="ri-image-line text-gold"></i> Add Gallery Item</h3>
+        <button class="modal-close-icon" (click)="closeGalleryModal()"><i class="ri-close-line"></i></button>
+      </div>
+      <div class="modal-body-scrollable">
+        <form (ngSubmit)="saveGallery()" class="admin-form-grid">
+          <div class="form-group span-2">
+            <label>Photo Title</label>
+            <input type="text" [ngModel]="galTitle()" (ngModelChange)="galTitle.set($event)" name="gTitle" required />
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select [ngModel]="galCategory()" (ngModelChange)="galCategory.set($event)" name="gCat" class="admin-select">
+              <option value="Exterior">Exterior</option>
+              <option value="Interiors">Interiors</option>
+              <option value="Living">Living</option>
+              <option value="Kitchen">Kitchen</option>
+              <option value="Amenities">Amenities</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Photo URL</label>
+            <input type="text" [ngModel]="galImage()" (ngModelChange)="galImage.set($event)" name="gImg" required />
+          </div>
+          <div class="form-group span-2">
+            <label>Description</label>
+            <textarea rows="2" [ngModel]="galDescription()" (ngModelChange)="galDescription.set($event)" name="gDesc"></textarea>
+          </div>
+          <div class="modal-footer-bar span-2">
+            <button type="button" class="btn btn-outline-gold" (click)="closeGalleryModal()">Cancel</button>
+            <button type="submit" class="btn btn-gold">Add to Gallery</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ============================================================= -->
+<!-- MODAL: EDIT SERVICE                                           -->
+<!-- ============================================================= -->
+@if (isServiceModalOpen()) {
+  <div class="admin-modal-backdrop" (click)="closeServiceModal()">
+    <div class="admin-modal-container modal-medium" (click)="$event.stopPropagation()">
+      <div class="modal-header-bar">
+        <h3><i class="ri-service-line text-gold"></i> Edit Service Details</h3>
+        <button class="modal-close-icon" (click)="closeServiceModal()"><i class="ri-close-line"></i></button>
+      </div>
+      <div class="modal-body-scrollable">
+        <form (ngSubmit)="saveService()" class="admin-form-grid">
+          <div class="form-group span-2">
+            <label>Service Title</label>
+            <input type="text" [ngModel]="serviceTitle()" (ngModelChange)="serviceTitle.set($event)" name="sTitle" required />
+          </div>
+          <div class="form-group span-2">
+            <label>Tagline</label>
+            <input type="text" [ngModel]="serviceTagline()" (ngModelChange)="serviceTagline.set($event)" name="sTag" required />
+          </div>
+          <div class="form-group span-2">
+            <label>Short Summary</label>
+            <textarea rows="2" [ngModel]="serviceShortDesc()" (ngModelChange)="serviceShortDesc.set($event)" name="sShort"></textarea>
+          </div>
+          <div class="form-group span-2">
+            <label>Full Comprehensive Scope</label>
+            <textarea rows="4" [ngModel]="serviceFullDesc()" (ngModelChange)="serviceFullDesc.set($event)" name="sFull"></textarea>
+          </div>
+          <div class="modal-footer-bar span-2">
+            <button type="button" class="btn btn-outline-gold" (click)="closeServiceModal()">Cancel</button>
+            <button type="submit" class="btn btn-gold">Update Service</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ============================================================= -->
+<!-- MODAL: CREATE ANNOUNCEMENT / NEWS                             -->
+<!-- ============================================================= -->
+@if (isNewsModalOpen()) {
+  <div class="admin-modal-backdrop" (click)="closeNewsModal()">
+    <div class="admin-modal-container modal-medium" (click)="$event.stopPropagation()">
+      <div class="modal-header-bar">
+        <h3><i class="ri-newspaper-line text-gold"></i> Publish News & Announcement</h3>
+        <button class="modal-close-icon" (click)="closeNewsModal()"><i class="ri-close-line"></i></button>
+      </div>
+      <div class="modal-body-scrollable">
+        <form (ngSubmit)="saveNews()" class="admin-form-grid">
+          <div class="form-group span-2">
+            <label>Headline Title</label>
+            <input type="text" [ngModel]="newsTitle()" (ngModelChange)="newsTitle.set($event)" name="nTitle" required />
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select [ngModel]="newsCategory()" (ngModelChange)="newsCategory.set($event)" name="nCat" class="admin-select">
+              <option value="Project Milestones">Project Milestones</option>
+              <option value="Market Insights">Market Insights</option>
+              <option value="Company News">Company News</option>
+              <option value="Press Release">Press Release</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Publish Status</label>
+            <select [ngModel]="newsStatus()" (ngModelChange)="newsStatus.set($event)" name="nStat" class="admin-select">
+              <option value="Published">Published (Live)</option>
+              <option value="Draft">Draft</option>
+            </select>
+          </div>
+          <div class="form-group span-2">
+            <label>Summary Excerpt</label>
+            <textarea rows="2" [ngModel]="newsExcerpt()" (ngModelChange)="newsExcerpt.set($event)" name="nExcerpt" required></textarea>
+          </div>
+          <div class="form-group span-2">
+            <label>Full Content</label>
+            <textarea rows="5" [ngModel]="newsContent()" (ngModelChange)="newsContent.set($event)" name="nContent"></textarea>
+          </div>
+          <div class="modal-footer-bar span-2">
+            <button type="button" class="btn btn-outline-gold" (click)="closeNewsModal()">Cancel</button>
+            <button type="submit" class="btn btn-gold">Publish Article</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
+}

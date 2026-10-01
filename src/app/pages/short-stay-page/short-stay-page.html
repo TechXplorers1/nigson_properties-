@@ -1,0 +1,629 @@
+<div class="short-stay-page">
+  <!-- 1. LUXURY HERO BANNER -->
+  <section class="short-stay-hero">
+    <div class="hero-bg-overlay"></div>
+    <div class="container hero-container">
+      <div class="hero-badge">
+        <i class="ri-hotel-bed-line text-gold"></i>
+        <span>NIGSON EXECUTIVE SHORT STAY COLLECTION</span>
+      </div>
+
+      <h1 class="hero-title">
+        Affordable Luxury Short Stays in <span class="text-gold">Prime Lagos</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Bespoke Penthouses, Private Waterfront Villas & Serviced Suites across Lekki Phase 1, Ikoyi, Victoria Island, and Banana Island. 
+        Enjoy 100% uninterrupted clean power, Starlink WiFi, and dedicated 5-star concierge hospitality.
+      </p>
+    </div>
+  </section>
+
+  <!-- 2. SEARCH & AVAILABILITY FILTER BAR -->
+  <section class="filter-section" id="stays-showcase">
+    <div class="container">
+      <div class="filter-glass-card">
+        <div class="filter-row">
+          <!-- Area Filter -->
+          <div class="filter-field">
+            <label><i class="ri-map-pin-line text-gold"></i> Prime Area</label>
+            <select [ngModel]="selectedArea()" (ngModelChange)="selectedArea.set($event)">
+              <option value="all">All Lagos Locations</option>
+              <option value="Lekki Phase 1">Lekki Phase 1</option>
+              <option value="Ikoyi">Old Ikoyi</option>
+              <option value="Banana Island">Banana Island</option>
+              <option value="Victoria Island">Victoria Island / Eko Pearl</option>
+              <option value="Ologolo, Lekki">Ologolo, Lekki Beachside</option>
+            </select>
+          </div>
+
+          <!-- Property Type Filter -->
+          <div class="filter-field">
+            <label><i class="ri-home-8-line text-gold"></i> Stay Type</label>
+            <select [ngModel]="selectedType()" (ngModelChange)="selectedType.set($event)">
+              <option value="all">All Types</option>
+              <option value="Luxury Penthouse">Luxury Penthouse</option>
+              <option value="Waterfront Villa">Waterfront Villa</option>
+              <option value="Executive Suite">Executive Suite</option>
+              <option value="Serviced Apartment">Serviced Apartment</option>
+              <option value="Beachfront Maisonette">Beachfront Maisonette</option>
+            </select>
+          </div>
+
+          <!-- Guests Count Filter -->
+          <div class="filter-field">
+            <label><i class="ri-user-heart-line text-gold"></i> Guests</label>
+            <select [ngModel]="selectedGuests()" (ngModelChange)="selectedGuests.set(+$event)">
+              <option [value]="0">Any Capacity</option>
+              <option [value]="2">1 – 2 Guests</option>
+              <option [value]="4">3 – 4 Guests</option>
+              <option [value]="6">5 – 6 Guests</option>
+              <option [value]="8">7+ Guests</option>
+            </select>
+          </div>
+
+          <!-- Max Price Slider -->
+          <div class="filter-field">
+            <label>
+              <span><i class="ri-money-dollar-circle-line text-gold"></i> Max Nightly:</span>
+              <span class="price-val text-gold">₦{{ maxPriceFilter().toLocaleString() }}</span>
+            </label>
+            <input 
+              type="range" 
+              min="100000" 
+              max="500000" 
+              step="20000" 
+              [ngModel]="maxPriceFilter()" 
+              (ngModelChange)="maxPriceFilter.set(+$event)"
+              class="range-slider"
+            />
+          </div>
+
+          <!-- Keyword Search -->
+          <div class="filter-field search-box">
+            <label><i class="ri-search-line text-gold"></i> Keyword Search</label>
+            <input 
+              type="text" 
+              placeholder="e.g. pool, cinema, sea view, chef..."
+              [ngModel]="searchQuery()" 
+              (ngModelChange)="searchQuery.set($event)"
+            />
+          </div>
+
+          <!-- Reset Filter -->
+          <div class="filter-field reset-btn-wrap">
+            <button type="button" class="btn btn-outline-gold btn-sm" (click)="resetFilters()">
+              <i class="ri-refresh-line"></i> Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Metrics Bar -->
+        <div class="filter-summary-bar">
+          <span class="summary-count">
+            Showing <strong class="text-gold">{{ filteredShortStays().length }}</strong> of {{ shortStayService.shortStays().length }} available short stays
+          </span>
+          <span class="power-guarantee-pill">
+            <i class="ri-flashlight-fill text-gold"></i> 100% Uninterrupted Power Guaranteed across all units
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SHORT STAY SHOWCASE GRID -->
+  <section class="stays-grid-section">
+    <div class="container">
+      @if (filteredShortStays().length === 0) {
+        <div class="no-results-card">
+          <i class="ri-hotel-bed-line empty-icon text-gold"></i>
+          <h3>No short stays match your exact criteria</h3>
+          <p>Try adjusting your location, price slider, or keyword filter to view more luxury suites.</p>
+          <button type="button" class="btn btn-gold" (click)="resetFilters()">View All Short Stays</button>
+        </div>
+      } @else {
+        <div class="stays-grid">
+          @for (stay of filteredShortStays(); track stay.id) {
+            <article class="stay-card">
+              <!-- Property Hero Image with Badges -->
+              <div class="stay-img-wrap" (click)="openDetailsModal(stay)">
+                <img [src]="stay.heroImage" [alt]="stay.title" loading="lazy" />
+                <div class="stay-badges-overlay">
+                  @if (stay.isSuperhost) {
+                    <span class="badge superhost-badge"><i class="ri-medal-fill text-gold"></i> Superhost</span>
+                  }
+                  @if (stay.isInstantBook) {
+                    <span class="badge instant-badge"><i class="ri-flashlight-line"></i> Instant Book</span>
+                  }
+                  <span class="badge location-badge"><i class="ri-map-pin-line"></i> {{ stay.area }}</span>
+                </div>
+                <div class="stay-rating-chip">
+                  <i class="ri-star-fill text-gold"></i> {{ stay.rating }} ({{ stay.reviewCount }})
+                </div>
+              </div>
+
+              <!-- Card Body -->
+              <div class="stay-card-body">
+                <div class="stay-header-meta">
+                  <span class="stay-type text-gold">{{ stay.propertyType }}</span>
+                  <span class="stay-location">{{ stay.location }}</span>
+                </div>
+
+                <h3 class="stay-title" (click)="openDetailsModal(stay)">{{ stay.title }}</h3>
+
+                <!-- Key Specs (Beds, Baths, Max Guests) -->
+                <div class="stay-specs-bar">
+                  <span><i class="ri-hotel-bed-line text-gold"></i> {{ stay.bedrooms }} Beds</span>
+                  <span><i class="ri-drop-line text-gold"></i> {{ stay.bathrooms }} Baths</span>
+                  <span><i class="ri-user-line text-gold"></i> Up to {{ stay.maxGuests }} Guests</span>
+                </div>
+
+                <!-- Amenity Chips -->
+                <div class="stay-amenities-preview">
+                  @for (amenity of stay.amenities.slice(0, 3); track amenity.label) {
+                    <span class="amenity-mini-pill">
+                      <i [class]="amenity.icon + ' text-gold'"></i> {{ amenity.label }}
+                    </span>
+                  }
+                  @if (stay.amenities.length > 3) {
+                    <span class="amenity-mini-pill more">+{{ stay.amenities.length - 3 }} more</span>
+                  }
+                </div>
+
+                <!-- Price and Discounts -->
+                <div class="stay-price-row">
+                  <div class="price-block">
+                    <span class="price-val">{{ stay.priceFormatted }}</span>
+                    <span class="price-sub">/ night</span>
+                  </div>
+                  <div class="discount-badge" title="Discounts for extended stays">
+                    <span>Up to {{ stay.monthlyDiscountPercent }}% off for 30+ days</span>
+                  </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="stay-card-actions">
+                  <button type="button" class="btn btn-gold btn-block" (click)="openBookingModal(stay)">
+                    <i class="ri-calendar-check-fill"></i> Book Now
+                  </button>
+                  <div class="secondary-actions">
+                    <button type="button" class="btn btn-outline-white btn-sm" (click)="openDetailsModal(stay)">
+                      <i class="ri-information-line"></i> View Details
+                    </button>
+                    <button type="button" class="btn btn-outline-gold btn-sm" (click)="speakToAgent(stay)" title="Speak to Concierge on WhatsApp">
+                      <i class="ri-whatsapp-line"></i> Chat
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- 4. NIGSON SHORT STAY LUXURY PILLARS -->
+  <section class="pillars-section">
+    <div class="container">
+      <div class="section-heading text-center">
+        <span class="sub-title">HOSPITALITY REDEFINED</span>
+        <h2 class="main-title">The Nigson Standard in <span class="text-gold">Executive Stays</span></h2>
+        <p class="section-desc">
+          Every Nigson short stay residence is company-owned, rigorously inspected, and managed with hotel-grade excellence.
+        </p>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-icon-box"><i class="ri-sun-line text-gold"></i></div>
+          <h4>100% Uninterrupted Power</h4>
+          <p>Tri-layer industrial solar, automatic soundproof diesel generators, and high-capacity inverters ensure 24/7 seamless electricity.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon-box"><i class="ri-shield-star-line text-gold"></i></div>
+          <h4>Diplomatic-Grade Security</h4>
+          <p>Located in premier access-controlled gated communities with 24/7 armed estate patrols, smart biometric entry, and CCTV surveillance.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon-box"><i class="ri-wifi-line text-gold"></i></div>
+          <h4>Ultra High-Speed Connectivity</h4>
+          <p>Dedicated Starlink and gigabit fiber-optic internet with seamless coverage for Zoom meetings, streaming, and remote executive operations.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon-box"><i class="ri-user-star-line text-gold"></i></div>
+          <h4>Dedicated VIP Concierge</h4>
+          <p>On-demand private chefs, luxury chauffeur airport transfers, housekeeping, and boat cruise reservations curated for your stay.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. CORPORATE & EXTENDED LEASING INQUIRY SECTION -->
+  <section class="corporate-leasing-section">
+    <div class="container">
+      <div class="leasing-card-glass">
+        <div class="leasing-left">
+          <span class="sub-title text-gold">CORPORATE & EXTENDED LEASING</span>
+          <h2 class="leasing-title">Planning an Extended Stay or Corporate Relocation in Lagos?</h2>
+          <p class="leasing-desc">
+            We provide customized short-to-medium term leasing arrangements for multinational executives, diaspora families, film productions, and energy sector contractors.
+          </p>
+          <ul class="leasing-perks">
+            <li><i class="ri-check-double-line text-gold"></i> Corporate invoicing with VAT & WHT receipts</li>
+            <li><i class="ri-check-double-line text-gold"></i> Customized flexible tenancy from 2 weeks to 12 months</li>
+            <li><i class="ri-check-double-line text-gold"></i> Dedicated facility manager and housekeeping staff</li>
+            <li><i class="ri-check-double-line text-gold"></i> Exclusive discounted rates on long-term bookings</li>
+          </ul>
+
+          <div class="quick-call-box">
+            <i class="ri-phone-fill text-gold"></i>
+            <div>
+              <span class="call-label">Speak Directly to Corporate Leasing:</span>
+              <a href="tel:08073467809" class="call-number">0807 346 7809 / 0913 444 6722</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="leasing-right">
+          @if (leaseSubmitted()) {
+            <div class="lease-success-box text-center">
+              <i class="ri-checkbox-circle-fill text-gold success-icon"></i>
+              <h3>Corporate Inquiry Received!</h3>
+              <p>Thank you. A dedicated Nigson corporate leasing manager has received your requirements and will reach out promptly.</p>
+              <button type="button" class="btn btn-outline-gold btn-sm" (click)="leaseSubmitted.set(false)">
+                Submit Another Request
+              </button>
+            </div>
+          } @else {
+            <form (ngSubmit)="submitLeaseInquiry()" class="leasing-form">
+              <h3>Corporate Leasing Inquiry</h3>
+              <p class="form-caption">Receive custom tailored terms within 2 hours.</p>
+
+              <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" [ngModel]="leaseName()" (ngModelChange)="leaseName.set($event)" name="lName" placeholder="e.g. Chief Babatunde Adeleke" required />
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label>Corporate / Personal Email *</label>
+                  <input type="email" [ngModel]="leaseEmail()" (ngModelChange)="leaseEmail.set($event)" name="lEmail" placeholder="name@company.com" required />
+                </div>
+                <div class="form-group">
+                  <label>WhatsApp / Mobile *</label>
+                  <input type="tel" [ngModel]="leasePhone()" (ngModelChange)="leasePhone.set($event)" name="lPhone" placeholder="+234..." required />
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label>Organization / Company</label>
+                  <input type="text" [ngModel]="leaseCompany()" (ngModelChange)="leaseCompany.set($event)" name="lComp" placeholder="e.g. Chevron Nigeria / Private" />
+                </div>
+                <div class="form-group">
+                  <label>Expected Duration</label>
+                  <select [ngModel]="leaseDuration()" (ngModelChange)="leaseDuration.set($event)" name="lDur">
+                    <option value="2 Weeks to 1 Month">2 Weeks – 1 Month</option>
+                    <option value="1 Month to 3 Months">1 Month – 3 Months</option>
+                    <option value="3 Months to 6 Months">3 Months – 6 Months</option>
+                    <option value="6 Months to 1 Year">6 Months – 1 Year (Extended)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Preferred Prime Location</label>
+                <select [ngModel]="leaseLocation()" (ngModelChange)="leaseLocation.set($event)" name="lLoc">
+                  <option value="Lekki Phase 1">Lekki Phase 1</option>
+                  <option value="Old Ikoyi">Old Ikoyi</option>
+                  <option value="Banana Island">Banana Island</option>
+                  <option value="Victoria Island / Eko Atlantic">Victoria Island / Eko Atlantic</option>
+                  <option value="Beachside Lekki (Ologolo)">Beachside Lekki (Ologolo)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Special Requirements & Team Size</label>
+                <textarea [ngModel]="leaseMessage()" (ngModelChange)="leaseMessage.set($event)" name="lMsg" rows="3" placeholder="Tell us about number of guests, chauffeur needs, dietary preferences, or specific security protocols..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-gold btn-block">
+                <i class="ri-send-plane-fill"></i> Submit Corporate Inquiry
+              </button>
+            </form>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- 6. INTERACTIVE BOOKING MODAL                              -->
+  <!-- ========================================================= -->
+  @if (isBookingModalOpen() && bookingProperty(); as prop) {
+    <div class="modal-backdrop" (click)="closeBookingModal()">
+      <div class="modal-dialog booking-modal-dialog" (click)="$event.stopPropagation()">
+        <button type="button" class="modal-close-btn" (click)="closeBookingModal()" aria-label="Close Modal">
+          <i class="ri-close-line"></i>
+        </button>
+
+        @if (bookingSuccess(); as confirmed) {
+          <!-- BOOKING CONFIRMATION SUCCESS VIEW -->
+          <div class="booking-success-view text-center">
+            <div class="success-icon-wrap">
+              <i class="ri-checkbox-circle-fill text-gold"></i>
+            </div>
+            <h2>Reservation Request Confirmed!</h2>
+            <div class="booking-ref-chip">Booking Reference: <strong>{{ confirmed.id }}</strong></div>
+            <p class="success-p">
+              Thank you, <strong>{{ confirmed.clientName }}</strong>. We have reserved 
+              <strong>{{ confirmed.propertyTitle }}</strong> for you from 
+              <strong>{{ confirmed.checkInDate }}</strong> to <strong>{{ confirmed.checkOutDate }}</strong> ({{ confirmed.nights }} Nights).
+            </p>
+
+            <div class="confirmed-summary-box">
+              <div class="summary-line">
+                <span>Total Amount:</span>
+                <strong class="text-gold">₦{{ confirmed.totalAmount.toLocaleString() }}</strong>
+              </div>
+              <div class="summary-line">
+                <span>Guests:</span>
+                <span>{{ confirmed.guestsCount }} Guests</span>
+              </div>
+              <div class="summary-line">
+                <span>Status:</span>
+                <span class="status-pill confirmed">Reserved & Awaiting Concierge Check-in</span>
+              </div>
+            </div>
+
+            <p class="next-step-hint">
+              Click below to immediately confirm via WhatsApp with our VIP concierge desk and receive your arrival access pass:
+            </p>
+
+            <div class="success-actions-flex">
+              <a [href]="getWhatsAppLink(confirmed)" target="_blank" class="btn btn-gold btn-block">
+                <i class="ri-whatsapp-line"></i> Confirm Reservation on WhatsApp
+              </a>
+              <button type="button" class="btn btn-outline-white btn-block" (click)="closeBookingModal()">
+                Back to Stays
+              </button>
+            </div>
+          </div>
+        } @else {
+          <!-- BOOKING INPUT FORM VIEW -->
+          <div class="booking-form-view">
+            <div class="booking-modal-header">
+              <div class="prop-thumb-meta">
+                <img [src]="prop.heroImage" [alt]="prop.title" class="booking-prop-thumb" />
+                <div>
+                  <span class="type-badge text-gold">{{ prop.propertyType }}</span>
+                  <h3 class="booking-prop-title">{{ prop.title }}</h3>
+                  <span class="booking-prop-loc"><i class="ri-map-pin-line text-gold"></i> {{ prop.location }}</span>
+                </div>
+              </div>
+              <div class="prop-rate-tag">
+                <span class="rate-num">{{ prop.priceFormatted }}</span>
+                <span class="rate-sub">/ night</span>
+              </div>
+            </div>
+
+            <form (ngSubmit)="submitBooking()" class="booking-grid-form">
+              <!-- Dates Section -->
+              <div class="dates-selection-box">
+                <div class="form-group">
+                  <label><i class="ri-calendar-event-line text-gold"></i> Check-in Date *</label>
+                  <input type="date" [ngModel]="bookCheckIn()" (ngModelChange)="bookCheckIn.set($event)" name="bCheckIn" required />
+                </div>
+                <div class="form-group">
+                  <label><i class="ri-calendar-check-line text-gold"></i> Check-out Date *</label>
+                  <input type="date" [ngModel]="bookCheckOut()" (ngModelChange)="bookCheckOut.set($event)" name="bCheckOut" required />
+                </div>
+                <div class="form-group">
+                  <label><i class="ri-user-line text-gold"></i> Number of Guests *</label>
+                  <select [ngModel]="bookGuests()" (ngModelChange)="bookGuests.set(+$event)" name="bGuests">
+                    @for (num of [1,2,3,4,5,6,7,8,9,10]; track num) {
+                      @if (num <= prop.maxGuests) {
+                        <option [value]="num">{{ num }} {{ num === 1 ? 'Guest' : 'Guests' }}</option>
+                      }
+                    }
+                  </select>
+                </div>
+              </div>
+
+              <!-- Guest Personal Information -->
+              <div class="guest-info-section">
+                <h4>Guest Information</h4>
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" [ngModel]="bookClientName()" (ngModelChange)="bookClientName.set($event)" name="bName" placeholder="Dr. / Chief / Mr. / Mrs." required />
+                  </div>
+                  <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" [ngModel]="bookEmail()" (ngModelChange)="bookEmail.set($event)" name="bEmail" placeholder="yourname@gmail.com" required />
+                  </div>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label>WhatsApp / Mobile Phone *</label>
+                    <input type="tel" [ngModel]="bookPhone()" (ngModelChange)="bookPhone.set($event)" name="bPhone" placeholder="+234 800 000 0000" required />
+                  </div>
+                  <div class="form-group">
+                    <label>Special Requests / Arrival Time</label>
+                    <input type="text" [ngModel]="bookSpecialRequests()" (ngModelChange)="bookSpecialRequests.set($event)" name="bSpec" placeholder="e.g. Late flight arrival, extra towels..." />
+                  </div>
+                </div>
+
+                <!-- Add-on checkboxes -->
+                <div class="addons-flex">
+                  <label class="checkbox-label">
+                    <input type="checkbox" [ngModel]="bookAirportPickup()" (ngModelChange)="bookAirportPickup.set($event)" name="bAir" />
+                    <span><i class="ri-car-line text-gold"></i> Add MMIA Airport VIP Chauffeur Transfer (+₦35,000)</span>
+                  </label>
+                  <label class="checkbox-label">
+                    <input type="checkbox" [ngModel]="bookChefService()" (ngModelChange)="bookChefService.set($event)" name="bChef" />
+                    <span><i class="ri-restaurant-line text-gold"></i> Add Private Chef Service on Demand (+₦50,000/day)</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Live Transparent Pricing Breakdown -->
+              <div class="pricing-breakdown-card">
+                <h4>Price Details ({{ calculatedBookingNights() }} Nights)</h4>
+                <div class="price-calc-row">
+                  <span>{{ prop.priceFormatted }} × {{ calculatedBookingNights() }} nights</span>
+                  <span>₦{{ (prop.pricePerNight * calculatedBookingNights()).toLocaleString() }}</span>
+                </div>
+                <div class="price-calc-row">
+                  <span>Cleaning & Professional Sanitation Fee</span>
+                  <span>₦{{ prop.cleaningFee.toLocaleString() }}</span>
+                </div>
+                <div class="price-calc-row">
+                  <span>Refundable Security / Caution Deposit</span>
+                  <span>₦{{ prop.securityDeposit.toLocaleString() }}</span>
+                </div>
+                @if (bookAirportPickup()) {
+                  <div class="price-calc-row">
+                    <span>VIP Airport Chauffeur Transfer</span>
+                    <span>₦35,000</span>
+                  </div>
+                }
+                @if (bookChefService()) {
+                  <div class="price-calc-row">
+                    <span>Private Chef On Demand</span>
+                    <span>₦50,000</span>
+                  </div>
+                }
+                <div class="price-calc-divider"></div>
+                <div class="price-calc-total">
+                  <span>Total Estimated Investment:</span>
+                  <strong class="text-gold">₦{{ calculatedBookingTotal().toLocaleString() }}</strong>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="modal-form-actions">
+                <button type="submit" class="btn btn-gold btn-block btn-lg">
+                  <i class="ri-check-line"></i> Confirm & Request Reservation
+                </button>
+              </div>
+            </form>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- ========================================================= -->
+  <!-- 7. INTERACTIVE PROPERTY DETAILS MODAL                     -->
+  <!-- ========================================================= -->
+  @if (selectedProperty(); as prop) {
+    <div class="modal-backdrop" (click)="closeDetailsModal()">
+      <div class="modal-dialog details-modal-dialog" (click)="$event.stopPropagation()">
+        <button type="button" class="modal-close-btn" (click)="closeDetailsModal()" aria-label="Close Details Modal">
+          <i class="ri-close-line"></i>
+        </button>
+
+        <div class="details-content-scroll">
+          <!-- Gallery Section -->
+          <div class="details-gallery-wrap">
+            <div class="main-gallery-view">
+              <img [src]="activeGalleryImage() || prop.heroImage" [alt]="prop.title" />
+              <div class="gallery-rating-chip">
+                <i class="ri-star-fill text-gold"></i> {{ prop.rating }} · {{ prop.reviewCount }} Verified Reviews
+              </div>
+            </div>
+            <div class="gallery-thumbnails">
+              @for (img of prop.gallery; track img) {
+                <button 
+                  type="button" 
+                  class="thumb-btn" 
+                  [class.active]="(activeGalleryImage() || prop.heroImage) === img" 
+                  (click)="switchGalleryImage(img)"
+                >
+                  <img [src]="img" alt="Thumbnail" />
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Body Info -->
+          <div class="details-info-body">
+            <div class="details-header-row">
+              <div>
+                <span class="stay-type text-gold">{{ prop.propertyType }} · {{ prop.area }}</span>
+                <h2 class="details-title">{{ prop.title }}</h2>
+                <span class="details-location"><i class="ri-map-pin-line text-gold"></i> {{ prop.location }}</span>
+              </div>
+              <div class="details-price-badge">
+                <span class="price-val">{{ prop.priceFormatted }}</span>
+                <span class="price-sub">/ night</span>
+              </div>
+            </div>
+
+            <!-- Key Specs Bar -->
+            <div class="details-specs-bar">
+              <div class="spec-item"><i class="ri-hotel-bed-line text-gold"></i> <span>{{ prop.bedrooms }} Bedrooms</span></div>
+              <div class="spec-item"><i class="ri-drop-line text-gold"></i> <span>{{ prop.bathrooms }} Bathrooms</span></div>
+              <div class="spec-item"><i class="ri-user-line text-gold"></i> <span>Up to {{ prop.maxGuests }} Guests</span></div>
+              <div class="spec-item"><i class="ri-time-line text-gold"></i> <span>Check-in: {{ prop.checkInTime }}</span></div>
+            </div>
+
+            <!-- Description -->
+            <div class="details-section-block">
+              <h3>About this Executive Residence</h3>
+              <p class="details-description">{{ prop.description }}</p>
+            </div>
+
+            <!-- Amenities Grid -->
+            <div class="details-section-block">
+              <h3>Premium Amenities & Features</h3>
+              <div class="amenities-full-grid">
+                @for (amenity of prop.amenities; track amenity.label) {
+                  <div class="amenity-full-item">
+                    <i [class]="amenity.icon + ' text-gold'"></i>
+                    <span>{{ amenity.label }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- House Rules -->
+            <div class="details-section-block">
+              <h3>House Rules & Safety</h3>
+              <ul class="house-rules-list">
+                @for (rule of prop.houseRules; track rule) {
+                  <li><i class="ri-information-line text-gold"></i> {{ rule }}</li>
+                }
+              </ul>
+            </div>
+
+            <!-- Bottom Floating Action Bar in Modal -->
+            <div class="details-bottom-bar">
+              <div class="bottom-price-info">
+                <span class="bottom-rate">{{ prop.priceFormatted }}</span>
+                <span class="bottom-sub">/ night · 100% Solar Power</span>
+              </div>
+              <div class="bottom-action-buttons">
+                <button type="button" class="btn btn-gold btn-lg" (click)="openBookingModal(prop)">
+                  <i class="ri-calendar-check-fill"></i> Book This Stay
+                </button>
+                <button type="button" class="btn btn-outline-gold" (click)="speakToAgent(prop)">
+                  <i class="ri-whatsapp-line"></i> Speak to Concierge
+                </button>
+                <button type="button" class="btn btn-outline-white" (click)="requestInspection(prop)">
+                  <i class="ri-eye-line"></i> Inspection
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

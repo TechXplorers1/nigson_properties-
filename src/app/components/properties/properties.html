@@ -1,0 +1,240 @@
+<section id="properties" class="section-spacing properties-section">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="text-center section-header-wrap">
+      <div class="section-badge">
+        <i class="ri-home-8-line"></i>
+        <span>Prime Real Estate Portfolio</span>
+      </div>
+      <h2 class="section-title">
+        Featured <span class="text-gold">Properties & Developments</span>
+      </h2>
+      <p class="section-subtitle mx-auto">
+        Discover our signature developments across Lekki, Ikoyi, and Banana Island. 
+        Each property combines timeless architecture, superior structural engineering, solar independence, and verified title documentation.
+      </p>
+    </div>
+
+    <!-- Quick Search & Filter Engine (Moved from Home Page) -->
+    <div class="properties-search-wrapper">
+      <div class="search-card">
+        <!-- Purpose Tabs -->
+        <div class="search-tabs">
+          <button 
+            type="button" 
+            class="search-tab" 
+            [class.active]="propertyService.selectedCategory() === 'all'" 
+            (click)="selectTab('all')">
+            <i class="ri-apps-line"></i> All Properties
+          </button>
+          <button 
+            type="button" 
+            class="search-tab" 
+            [class.active]="propertyService.selectedCategory() === 'sale'" 
+            (click)="selectTab('sale')">
+            <i class="ri-home-smile-line"></i> Buy / For Sale
+          </button>
+          <button 
+            type="button" 
+            class="search-tab" 
+            [class.active]="propertyService.selectedCategory() === 'lease'" 
+            (click)="selectTab('lease')">
+            <i class="ri-key-2-line"></i> Rent / For Lease
+          </button>
+        </div>
+
+        <!-- Filter Fields -->
+        <div class="search-fields-grid">
+          <!-- Location Filter -->
+          <div class="search-field">
+            <label class="field-label">
+              <i class="ri-map-pin-line text-gold"></i> Location
+            </label>
+            <select class="form-control" [ngModel]="propertyService.selectedLocation()" (ngModelChange)="propertyService.setLocation($event)">
+              <option value="all">All Prime Lagos Areas</option>
+              <option value="Ologolo">Ologolo, Lekki</option>
+              <option value="Osapa">Osapa London, Lekki</option>
+              <option value="Lekki Phase 1">Lekki Phase 1</option>
+              <option value="Ikoyi">Old Ikoyi</option>
+              <option value="Banana Island">Banana Island</option>
+              <option value="Victoria Island">Victoria Island</option>
+            </select>
+          </div>
+
+          <!-- Bedroom Filter -->
+          <div class="search-field">
+            <label class="field-label">
+              <i class="ri-hotel-bed-line text-gold"></i> Bedrooms
+            </label>
+            <select class="form-control" [ngModel]="propertyService.selectedBedrooms()" (ngModelChange)="propertyService.setBedrooms($event)">
+              <option value="all">Any Bedrooms</option>
+              <option value="1">1 Bedroom (Studio/Flat)</option>
+              <option value="3">3 Bedrooms (Suites/Flats)</option>
+              <option value="4">4 Bedrooms (Terrace/Apartments)</option>
+              <option value="5+">5+ Bedrooms (Duplexes)</option>
+            </select>
+          </div>
+
+          <!-- Max Budget Filter -->
+          <div class="search-field">
+            <label class="field-label">
+              <i class="ri-money-dollar-circle-line text-gold"></i> Max Budget
+            </label>
+            <select class="form-control" [ngModel]="propertyService.maxPrice()" (ngModelChange)="propertyService.setMaxPrice(+$event)">
+              <option [value]="300000000">Any Budget (Up to ₦300M+)</option>
+              <option [value]="30000000">Lease (&le; ₦30M/year)</option>
+              <option [value]="200000000">Sale (&le; ₦200M)</option>
+              <option [value]="250000000">Sale (&le; ₦250M)</option>
+            </select>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="search-action">
+            <button class="btn btn-gold btn-full search-submit-btn" (click)="applySearch()">
+              <i class="ri-search-line"></i>
+              <span>Search Now</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="search-footer-note">
+          <i class="ri-information-line text-gold"></i>
+          <span>Featured developments include <strong>Opposite Whitesand Beach</strong>, <strong>White Oaks</strong>, <strong>Olufemi Olatunji</strong>, and <strong>Benson Close Ikoyi</strong>.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Filters & Result Count -->
+    <div id="properties-results" class="properties-filter-bar">
+      <div class="filter-count">
+        <span>Showing <strong>{{ propertyService.filteredProperties().length }}</strong> Properties</span>
+      </div>
+
+      @if (propertyService.selectedCategory() !== 'all' || propertyService.selectedLocation() !== 'all' || propertyService.selectedBedrooms() !== 'all' || propertyService.maxPrice() < 300000000) {
+        <button type="button" class="btn btn-outline-gold btn-sm" (click)="resetFilters()">
+          <i class="ri-refresh-line"></i> Reset Filters
+        </button>
+      }
+    </div>
+
+    <!-- Properties Grid -->
+    @if (propertyService.filteredProperties().length > 0) {
+      <div class="properties-grid">
+        @for (prop of propertyService.filteredProperties(); track prop.id) {
+          <div class="luxury-card property-card" (click)="openDetails(prop)">
+            <!-- Card Image Box -->
+            <div class="property-image-box">
+              <img [src]="prop.heroImage" [alt]="prop.title" class="property-img" loading="lazy" />
+              <div class="property-img-overlay"></div>
+              
+              <!-- Badges & Favorite -->
+              <div class="card-badges-top">
+                <div class="badges-left-group">
+                  <span class="badge" [ngClass]="getBadgeClass(prop.status)">
+                    <i class="ri-checkbox-circle-fill"></i> {{ prop.status }}
+                  </span>
+                  <span class="badge badge-gold">
+                    {{ prop.categoryLabel }}
+                  </span>
+                </div>
+
+                <!-- Favorite Button -->
+                <button 
+                  type="button" 
+                  class="property-fav-btn" 
+                  [class.saved]="authService.isPropertySaved(prop.id)" 
+                  (click)="toggleFavorite(prop.id, $event)"
+                  [title]="authService.isPropertySaved(prop.id) ? 'Remove from Saved' : 'Save to Portfolio'"
+                >
+                  <i [class]="authService.isPropertySaved(prop.id) ? 'ri-heart-fill' : 'ri-heart-line'"></i>
+                </button>
+              </div>
+
+              <!-- Price Tag Floating -->
+              <div class="card-price-tag">
+                <span class="price-val">{{ prop.price }}</span>
+                @if (prop.priceSubtext) {
+                  <span class="price-sub">{{ prop.priceSubtext }}</span>
+                }
+              </div>
+            </div>
+
+            <!-- Card Body Content -->
+            <div class="property-body">
+              <div class="property-location-tag">
+                <i class="ri-map-pin-2-fill text-gold"></i>
+                <span>{{ prop.location }}</span>
+              </div>
+
+              <h3 class="property-card-title">{{ prop.title }}</h3>
+
+              <p class="property-card-desc">
+                {{ prop.description }}
+              </p>
+
+              <!-- Specs Row -->
+              <div class="property-specs-row">
+                <div class="spec-item">
+                  <i class="ri-hotel-bed-line text-gold"></i>
+                  <span><strong>{{ prop.bedrooms }}</strong> Beds</span>
+                </div>
+                <div class="spec-divider"></div>
+                <div class="spec-item">
+                  <i class="ri-drop-line text-gold"></i>
+                  <span><strong>{{ prop.bathrooms }}</strong> Baths</span>
+                </div>
+                <div class="spec-divider"></div>
+                <div class="spec-item">
+                  <i class="ri-building-line text-gold"></i>
+                  <span><strong>{{ prop.units }}</strong> Units</span>
+                </div>
+                <div class="spec-divider"></div>
+                <div class="spec-item">
+                  <i class="ri-ruler-line text-gold"></i>
+                  <span>{{ prop.size }}</span>
+                </div>
+              </div>
+
+              <!-- Key Features Chips -->
+              <div class="property-amenity-chips">
+                @for (amenity of prop.amenities.slice(0, 3); track amenity.label) {
+                  <span class="amenity-chip">
+                    <i [class]="amenity.icon + ' text-gold'"></i>
+                    <span>{{ amenity.label }}</span>
+                  </span>
+                }
+              </div>
+
+              <!-- Card Action Buttons -->
+              <div class="property-card-actions">
+                <button class="btn btn-outline-gold btn-sm view-btn" (click)="openDetails(prop)">
+                  <i class="ri-eye-line"></i>
+                  <span>View Details</span>
+                </button>
+
+                <button class="btn btn-gold btn-sm action-btn" (click)="openInspection(prop, $event)">
+                  <i class="ri-calendar-check-line"></i>
+                  <span>Inspect</span>
+                </button>
+
+                <button class="whatsapp-card-btn" (click)="openWhatsApp(prop, $event)" title="Inquire on WhatsApp">
+                  <i class="ri-whatsapp-line"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <!-- Empty Filter State -->
+      <div class="empty-state-card text-center">
+        <i class="ri-home-search-line empty-state-icon text-gold"></i>
+        <h3>No Properties Match Your Specific Filter</h3>
+        <p>Try resetting the search criteria or exploring our other available residential developments.</p>
+        <button class="btn btn-gold" (click)="setCategory('all')">
+          <i class="ri-refresh-line"></i> Reset All Filters
+        </button>
+      </div>
+    }
+  </div>
+</section>

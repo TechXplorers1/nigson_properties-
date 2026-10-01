@@ -1,0 +1,195 @@
+@if (propertyService.isInspectionModalOpen()) {
+  <div class="modal-backdrop" (click)="closeModal()">
+    <div class="modal-content inspection-modal-dialog" (click)="$event.stopPropagation()">
+      <!-- Header -->
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="badge badge-gold">
+            <i class="ri-calendar-check-line"></i> VIP Viewing Request
+          </span>
+          <h2 class="modal-main-title">Schedule a Property Inspection</h2>
+          <span class="modal-subtitle">
+            Experience Nigson craftsmanship firsthand in Lekki, Ikoyi, or Banana Island.
+          </span>
+        </div>
+        <button class="modal-close-btn" (click)="closeModal()">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form (ngSubmit)="submitInspection()" class="inspection-form">
+          <!-- Property Selection -->
+          <div class="form-group">
+            <label class="form-label">
+              Property to Inspect <span class="req">*</span>
+            </label>
+            <select class="form-control" [ngModel]="selectedPropertyTitle()" (ngModelChange)="selectedPropertyTitle.set($event)" name="propertySelect">
+              <option value="">-- Select a Featured Development --</option>
+              @for (prop of propertyService.properties(); track prop.id) {
+                <option [value]="prop.title">
+                  {{ prop.title }} ({{ prop.location }})
+                </option>
+              }
+              <option value="General Portfolio Viewing">General Portfolio Viewing (Multiple Sites)</option>
+            </select>
+          </div>
+
+          <!-- Tour Type Selector (In-Person vs Virtual Tour) -->
+          <div class="form-group">
+            <label class="form-label">Tour Preference</label>
+            <div class="tour-type-selector">
+              <label class="tour-type-option" [class.selected]="tourType() === 'In-Person'">
+                <input 
+                  type="radio" 
+                  name="tourTypeRadio" 
+                  value="In-Person" 
+                  [ngModel]="tourType()" 
+                  (ngModelChange)="tourType.set($event)" 
+                />
+                <i class="ri-walk-line text-gold"></i>
+                <div>
+                  <strong>Physical In-Person Tour</strong>
+                  <small>Accompanied on-site walkthrough</small>
+                </div>
+              </label>
+
+              <label class="tour-type-option" [class.selected]="tourType() === 'Virtual Video Tour'">
+                <input 
+                  type="radio" 
+                  name="tourTypeRadio" 
+                  value="Virtual Video Tour" 
+                  [ngModel]="tourType()" 
+                  (ngModelChange)="tourType.set($event)" 
+                />
+                <i class="ri-video-chat-line text-gold"></i>
+                <div>
+                  <strong>Virtual Live HD Video Tour</strong>
+                  <small>Tailored for Diaspora & Out-of-State Clients</small>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Contact Info Fields -->
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label class="form-label">
+                Full Name <span class="req">*</span>
+              </label>
+              <input 
+                type="text" 
+                class="form-control" 
+                placeholder="e.g. Chief Adeleke Johnson" 
+                [ngModel]="fullName()" 
+                (ngModelChange)="fullName.set($event)" 
+                name="fullName"
+                required 
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Phone / WhatsApp Number <span class="req">*</span>
+              </label>
+              <input 
+                type="tel" 
+                class="form-control" 
+                placeholder="e.g. +234 807 346 7809" 
+                [ngModel]="phone()" 
+                (ngModelChange)="phone.set($event)" 
+                name="phone"
+                required 
+              />
+            </div>
+          </div>
+
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label class="form-label">
+                Email Address <span class="req">*</span>
+              </label>
+              <input 
+                type="email" 
+                class="form-control" 
+                placeholder="e.g. john@example.com" 
+                [ngModel]="email()" 
+                (ngModelChange)="email.set($event)" 
+                name="email"
+                required 
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Your Client Profile</label>
+              <select class="form-control" [ngModel]="clientRole()" (ngModelChange)="clientRole.set($event)" name="clientRole">
+                <option value="Buyer">Prospective Homebuyer</option>
+                <option value="Investor">Real Estate Investor / Diaspora</option>
+                <option value="Tenant">Prospective Tenant / Corporate Lessee</option>
+                <option value="Representative">Agent / Representative</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Date & Time Slot -->
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label class="form-label">
+                Preferred Date <span class="req">*</span>
+              </label>
+              <input 
+                type="date" 
+                class="form-control" 
+                [ngModel]="preferredDate()" 
+                (ngModelChange)="preferredDate.set($event)" 
+                name="preferredDate"
+                required 
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Preferred Time Slot</label>
+              <select class="form-control" [ngModel]="preferredTime()" (ngModelChange)="preferredTime.set($event)" name="preferredTime">
+                <option value="Morning (10:00 AM – 12:00 PM)">Morning (10:00 AM – 12:00 PM)</option>
+                <option value="Afternoon (1:00 PM – 3:00 PM)">Afternoon (1:00 PM – 3:00 PM)</option>
+                <option value="Late Afternoon (3:30 PM – 5:00 PM)">Late Afternoon (3:30 PM – 5:00 PM)</option>
+                <option value="Weekend VIP Slot">Saturday Morning VIP Inspection</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="form-group">
+            <label class="form-label">Special Inquiries or Access Requirements</label>
+            <textarea 
+              class="form-control" 
+              placeholder="e.g. Inquiring about solar backup capacity, payment milestones, or specific bedroom preferences..." 
+              [ngModel]="comments()" 
+              (ngModelChange)="comments.set($event)" 
+              name="comments">
+            </textarea>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="inspection-form-actions">
+            <button type="submit" class="btn btn-gold btn-lg btn-submit">
+              <i class="ri-calendar-check-line"></i>
+              <span>Confirm & Schedule Inspection</span>
+            </button>
+
+            <button type="button" class="btn btn-whatsapp btn-lg" (click)="submitAndWhatsApp()">
+              <i class="ri-whatsapp-line"></i>
+              <span>Schedule via WhatsApp</span>
+            </button>
+          </div>
+
+          <div class="form-trust-guarantee">
+            <i class="ri-lock-2-line text-gold"></i>
+            <span>Your personal data is protected under strict confidentiality. A dedicated Nigson Properties portfolio manager will contact you within 2 business hours.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}

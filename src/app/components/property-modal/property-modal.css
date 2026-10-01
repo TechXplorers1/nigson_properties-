@@ -1,0 +1,344 @@
+.property-detail-dialog {
+  max-width: 950px;
+}
+
+.modal-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.modal-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge-units {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+}
+
+.modal-prop-title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.modal-location {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Gallery */
+.modal-gallery-box {
+  margin-bottom: 2rem;
+}
+
+.modal-main-image-wrap {
+  position: relative;
+  height: 420px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.modal-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-base);
+}
+
+.modal-price-badge {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  background: rgba(7, 14, 30, 0.92);
+  border: 1.5px solid var(--color-gold);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1.25rem;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-price-val {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.modal-price-sub {
+  font-size: 0.75rem;
+  color: var(--color-gold-light);
+  font-weight: 600;
+}
+
+.modal-thumbnails-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.thumb-btn {
+  width: 80px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+  flex-shrink: 0;
+  opacity: 0.65;
+  transition: all var(--transition-fast);
+}
+
+.thumb-btn.active, .thumb-btn:hover {
+  opacity: 1;
+  border-color: var(--color-gold);
+  transform: translateY(-2px);
+}
+
+.thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Specs Ribbon */
+.modal-specs-ribbon {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: #091326;
+  border: 1px solid rgba(197, 160, 89, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.ribbon-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ribbon-item i {
+  font-size: 1.8rem;
+}
+
+.ribbon-val {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.ribbon-lbl {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ribbon-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(197, 160, 89, 0.2);
+}
+
+/* Section Blocks */
+.modal-section-block {
+  margin-bottom: 2rem;
+}
+
+.block-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+}
+
+.block-paragraph {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+  line-height: 1.7;
+}
+
+/* Features Checklist */
+.features-checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.feature-checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(197, 160, 89, 0.12);
+  font-size: 0.88rem;
+  color: #e2e8f0;
+}
+
+.feature-checklist-item i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+/* Amenities Grid */
+.amenities-tags-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.85rem;
+}
+
+.amenity-full-card {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: #091326;
+  border: 1px solid rgba(197, 160, 89, 0.2);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.amenity-full-card i {
+  font-size: 1.35rem;
+}
+
+/* Specs Table */
+.specs-table-wrap {
+  background: #091326;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(197, 160, 89, 0.18);
+  overflow: hidden;
+}
+
+.specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.specs-table tr {
+  border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+}
+
+.specs-table tr:last-child {
+  border-bottom: none;
+}
+
+.spec-prop-name {
+  padding: 0.85rem 1.25rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  width: 32%;
+  background: rgba(197, 160, 89, 0.04);
+}
+
+.spec-prop-val {
+  padding: 0.85rem 1.25rem;
+  color: #e2e8f0;
+}
+
+/* Landmarks */
+.landmarks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.landmark-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+/* Footer */
+.modal-footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(197, 160, 89, 0.2);
+  background: #091326;
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-bottom-left-radius: var(--radius-xl);
+  border-bottom-right-radius: var(--radius-xl);
+}
+
+.footer-left-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-prompt {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.footer-phone {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.footer-buttons-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .modal-main-image-wrap {
+    height: 250px;
+  }
+  .modal-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .footer-buttons-group {
+    flex-direction: column;
+  }
+  .footer-buttons-group button {
+    width: 100%;
+  }
+}

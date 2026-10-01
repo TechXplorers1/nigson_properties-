@@ -1,0 +1,170 @@
+<section id="calculator" class="section-spacing calculator-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="text-center section-header-wrap">
+      <div class="section-badge">
+        <i class="ri-calculator-line"></i>
+        <span>Financial Advisory & Yield Modeling</span>
+      </div>
+      <h2 class="section-title">
+        Mortgage & <span class="text-gold">Investment ROI Calculator</span>
+      </h2>
+      <p class="section-subtitle mx-auto">
+        Empowering home buyers and diaspora investors to simulate down payments, monthly mortgage commitments, and projected rental yields across Lagos prime corridors.
+      </p>
+    </div>
+
+    <!-- Quick Presets -->
+    <div class="calculator-presets-bar">
+      <span class="preset-label">Quick Presets:</span>
+      <button class="preset-btn" (click)="quickSetProperty(185000000, 16000000)">
+        Whitesand Beach (₦185M)
+      </button>
+      <button class="preset-btn" (click)="quickSetProperty(195000000, 18000000)">
+        Fatai Bankole (₦195M)
+      </button>
+      <button class="preset-btn" (click)="quickSetProperty(210000000, 20000000)">
+        White Oaks (₦210M)
+      </button>
+      <button class="preset-btn" (click)="quickSetProperty(230000000, 22000000)">
+        Olufemi Olatunji (₦230M)
+      </button>
+    </div>
+
+    <!-- Calculator Grid -->
+    <div class="calculator-grid">
+      <!-- Input Controls Card -->
+      <div class="luxury-card calc-card calc-inputs">
+        <h3 class="calc-card-title">
+          <i class="ri-settings-5-line text-gold"></i> Investment Parameters
+        </h3>
+
+        <!-- Property Price Input -->
+        <div class="form-group">
+          <div class="label-val-row">
+            <label class="form-label">Property Price (₦)</label>
+            <span class="val-preview text-gold">₦{{ propertyPrice().toLocaleString() }}</span>
+          </div>
+          <input 
+            type="range" 
+            min="50000000" 
+            max="400000000" 
+            step="5000000" 
+            class="range-slider" 
+            [ngModel]="propertyPrice()" 
+            (ngModelChange)="propertyPrice.set(+$event)" 
+          />
+        </div>
+
+        <!-- Down Payment % -->
+        <div class="form-group">
+          <div class="label-val-row">
+            <label class="form-label">Down Payment Percentage</label>
+            <span class="val-preview text-gold">{{ downPaymentPercent() }}% (₦{{ downPaymentAmount().toLocaleString() }})</span>
+          </div>
+          <div class="pill-options-row">
+            @for (pct of [10, 20, 30, 40, 50]; track pct) {
+              <button 
+                type="button" 
+                class="pct-pill" 
+                [class.active]="downPaymentPercent() === pct"
+                (click)="downPaymentPercent.set(pct)">
+                {{ pct }}%
+              </button>
+            }
+          </div>
+        </div>
+
+        <!-- Loan Term & Interest -->
+        <div class="calc-row-2col">
+          <div class="form-group">
+            <label class="form-label">Loan Term (Years)</label>
+            <select class="form-control" [ngModel]="loanTermYears()" (ngModelChange)="loanTermYears.set(+$event)">
+              <option [value]="5">5 Years</option>
+              <option [value]="10">10 Years (Popular)</option>
+              <option [value]="15">15 Years</option>
+              <option [value]="20">20 Years</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Mortgage Rate (%)</label>
+            <input 
+              type="number" 
+              class="form-control" 
+              [ngModel]="interestRate()" 
+              (ngModelChange)="interestRate.set(+$event)" 
+              min="5" 
+              max="30" 
+            />
+          </div>
+        </div>
+
+        <!-- Projected Rental Income -->
+        <div class="form-group">
+          <div class="label-val-row">
+            <label class="form-label">Expected Annual Rental Income (₦)</label>
+            <span class="val-preview text-gold">₦{{ annualRentalIncome().toLocaleString() }} / yr</span>
+          </div>
+          <input 
+            type="range" 
+            min="5000000" 
+            max="40000000" 
+            step="1000000" 
+            class="range-slider" 
+            [ngModel]="annualRentalIncome()" 
+            (ngModelChange)="annualRentalIncome.set(+$event)" 
+          />
+        </div>
+      </div>
+
+      <!-- Output Results Card -->
+      <div class="luxury-card calc-card calc-results">
+        <h3 class="calc-card-title">
+          <i class="ri-funds-line text-gold"></i> Projected Financial Summary
+        </h3>
+
+        <!-- Big Highlight: Monthly Mortgage -->
+        <div class="results-hero-box">
+          <span class="res-hero-lbl">Estimated Monthly Repayment</span>
+          <span class="res-hero-figure">₦{{ monthlyMortgage().toLocaleString() }}</span>
+          <span class="res-hero-sub">Principal & Interest over {{ loanTermYears() }} Years</span>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="results-metrics-grid">
+          <div class="res-metric-item">
+            <span class="res-metric-lbl">Initial Down Payment</span>
+            <span class="res-metric-val">₦{{ downPaymentAmount().toLocaleString() }}</span>
+          </div>
+
+          <div class="res-metric-item">
+            <span class="res-metric-lbl">Loan Principal Funded</span>
+            <span class="res-metric-val">₦{{ loanAmount().toLocaleString() }}</span>
+          </div>
+
+          <div class="res-metric-item highlight-item">
+            <span class="res-metric-lbl">Gross Rental Yield</span>
+            <span class="res-metric-val text-gold">{{ rentalYieldPercent() }}% per annum</span>
+          </div>
+
+          <div class="res-metric-item">
+            <span class="res-metric-lbl">Avg. Historical Lagos Capital Appreciation</span>
+            <span class="res-metric-val text-emerald">+18% - 25% p.a.</span>
+          </div>
+        </div>
+
+        <div class="calculator-disclaimer">
+          <i class="ri-information-line text-gold"></i>
+          <span>Estimates are for illustrative purposes. Nigson Properties partners with leading mortgage institutions and private lenders for structured milestone financing.</span>
+        </div>
+
+        <!-- CTA -->
+        <button class="btn btn-gold btn-full btn-lg calc-cta-btn" (click)="bookConsultation()">
+          <i class="ri-shake-hands-line"></i>
+          <span>Schedule Investment Advisory Session</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

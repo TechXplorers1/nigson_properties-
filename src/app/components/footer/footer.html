@@ -1,0 +1,113 @@
+<footer class="corporate-footer">
+  <div class="container footer-main">
+    <div class="footer-grid">
+      <!-- Col 1: Brand & Promise -->
+      <div class="footer-col brand-col">
+        <div class="footer-brand">
+          <div class="brand-crest">
+            <i class="ri-building-4-fill"></i>
+          </div>
+          <div class="brand-text-wrap">
+            <span class="brand-name">NIGSON <span class="text-gold">PROPERTIES</span></span>
+            <span class="brand-subtext">A Nigson Group Company</span>
+          </div>
+        </div>
+
+        <p class="footer-brand-p">
+          Nigson Properties Limited is committed to delivering affordable luxury homes across Nigeria. Combining modern architecture, quality craftsmanship, 24/7 solar independence, and long-term investment value.
+        </p>
+
+        <div class="footer-corporate-tag">
+          <i class="ri-shield-check-fill text-gold"></i>
+          <span>Incorporated under the Companies and Allied Matters Act, Nigeria.</span>
+        </div>
+
+        <div class="footer-social-row">
+          <a href="#" class="social-icon" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+          <a href="#" class="social-icon" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+          <a href="#" class="social-icon" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+          <a href="#" class="social-icon" aria-label="Twitter"><i class="ri-twitter-x-line"></i></a>
+          <a href="#" class="social-icon" aria-label="YouTube"><i class="ri-youtube-line"></i></a>
+        </div>
+      </div>
+
+      <!-- Col 2: Navigation Links -->
+      <div class="footer-col">
+        <h4 class="footer-heading">Platform Navigation</h4>
+        <ul class="footer-links-list">
+          <li><a routerLink="/">Home Showcase</a></li>
+          <li><a routerLink="/properties">Featured Properties</a></li>
+          <li><a routerLink="/services">Our 6 Core Services</a></li>
+          <li><a routerLink="/projects">Project Development Matrix</a></li>
+          <li><a routerLink="/about">About Nigson & Leadership</a></li>
+          <li><a routerLink="/gallery">Architectural Gallery</a></li>
+          <li><a routerLink="/contact">Lekki Office & Contact</a></li>
+          <li><a routerLink="/login"><i class="ri-vip-crown-fill text-gold"></i> Client Portal & Login</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Key Developments -->
+      <div class="footer-col">
+        <h4 class="footer-heading">Key Developments</h4>
+        <ul class="footer-links-list">
+          <li><a routerLink="/properties">Opposite Whitesand Beach Estate</a></li>
+          <li><a routerLink="/properties">Fatai Bankole Luxury Residences</a></li>
+          <li><a routerLink="/properties">White Oaks Estate – Aro-Ologolo</a></li>
+          <li><a routerLink="/properties">Olufemi Olatunji Court – Osapa</a></li>
+          <li><a routerLink="/properties">Nigson Villa – Banana Island</a></li>
+          <li><a routerLink="/properties">Benson Close Waterfront – Ikoyi</a></li>
+          <li><a routerLink="/properties">Lekki Pearl Terrace Residences</a></li>
+          <li><a routerLink="/properties">Victoria Island Executive Suites</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Newsletter & Contact -->
+      <div class="footer-col">
+        <h4 class="footer-heading">Stay Connected</h4>
+        <p class="footer-sub-text">
+          Receive exclusive off-plan release previews, property investment insights, and market reports directly in your inbox.
+        </p>
+
+        <form (ngSubmit)="subscribeNewsletter()" class="footer-newsletter-form">
+          <input 
+            type="email" 
+            placeholder="Enter your email address..." 
+            class="form-control newsletter-input" 
+            [ngModel]="newsletterEmail()" 
+            (ngModelChange)="newsletterEmail.set($event)" 
+            name="newsEmail"
+            required 
+          />
+          <button type="submit" class="btn btn-gold btn-sm btn-full">
+            <span>Subscribe to Market Updates</span>
+            <i class="ri-arrow-right-line"></i>
+          </button>
+        </form>
+
+        <div class="footer-contact-brief">
+          <div><i class="ri-phone-fill text-gold"></i> 08073467809 / 09134446722</div>
+          <div><i class="ri-mail-line text-gold"></i> Hello&#64;Nigson.com</div>
+          <div><i class="ri-map-pin-2-fill text-gold"></i> Plot 30B, Block 110, Lekki Phase 1, Lagos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="footer-bottom-bar">
+    <div class="container bottom-bar-container">
+      <div class="bottom-copy">
+        &copy; 2026 Nigson Properties Limited (A Nigson Group Company). All Rights Reserved.
+      </div>
+      <div class="bottom-meta-links">
+        <a routerLink="/login">Client Portal</a>
+        <span>&bull;</span>
+        <a (click)="openInspection()">Schedule Inspection</a>
+        <span>&bull;</span>
+        <a (click)="openWhatsApp()">WhatsApp Advisory</a>
+        <span>&bull;</span>
+        <a (click)="scrollTo('contact')">Privacy & Disclaimer</a>
+      </div>
+    </div>
+  </div>
+</footer>

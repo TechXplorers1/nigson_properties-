@@ -1,0 +1,391 @@
+<div class="profile-dashboard-section">
+  <div class="container profile-container">
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+      <a routerLink="/" class="breadcrumb-link"><i class="ri-home-4-line"></i> Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-curr">Private Client Dashboard</span>
+    </div>
+
+    @if (authService.currentUser(); as user) {
+      <!-- 1. VIP HERO PROFILE BANNER -->
+      <div class="profile-hero-card">
+        <div class="hero-left">
+          <!-- Profile Photo -->
+          <div class="hero-avatar-wrapper">
+            @if (user.avatar) {
+              <img [src]="user.avatar" [alt]="user.name" class="hero-avatar-img" />
+            } @else {
+              <div class="hero-avatar-initial">{{ user.name.charAt(0) }}</div>
+            }
+            <span class="status-pulse-dot" title="Account Active"></span>
+          </div>
+
+          <!-- Profile Details (Name, Tier, Role) -->
+          <div class="hero-text-wrap">
+            <div class="tier-pill-row">
+              <span class="vip-tier-pill">
+                <i class="ri-vip-crown-fill text-gold"></i> {{ user.membershipTier }}
+              </span>
+              <span class="role-pill">{{ user.roleLabel }}</span>
+            </div>
+            <!-- Profile Name -->
+            <h1 class="hero-user-name">{{ user.name }}</h1>
+            <p class="hero-quick-meta">
+              <span><i class="ri-mail-fill text-gold"></i> {{ user.email }}</span>
+              <span class="meta-dot">&bull;</span>
+              <span><i class="ri-phone-fill text-gold"></i> {{ user.phone || '+234 807 346 7809' }}</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Hero Actions: Sign Out Button (Prominently displayed) -->
+        <div class="hero-actions">
+          <button class="btn btn-gold btn-sm" (click)="openInspection()">
+            <i class="ri-calendar-check-line"></i> Book Inspection
+          </button>
+          <!-- Prominent Sign Out Button -->
+          <button class="btn btn-signout" (click)="logout()" title="Sign out of your account">
+            <i class="ri-logout-box-r-line"></i>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. QUICK STATS ROW -->
+      <div class="stats-overview-grid">
+        <div class="stat-box">
+          <div class="stat-icon-wrap">
+            <i class="ri-heart-3-fill text-gold"></i>
+          </div>
+          <div>
+            <span class="stat-value">{{ user.savedPropertyIds.length }}</span>
+            <span class="stat-title">Saved Luxury Residences</span>
+          </div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-icon-wrap">
+            <i class="ri-calendar-event-fill text-gold"></i>
+          </div>
+          <div>
+            <span class="stat-value">Active</span>
+            <span class="stat-title">VIP Inspection Priority</span>
+          </div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-icon-wrap">
+            <i class="ri-shield-star-fill text-gold"></i>
+          </div>
+          <div>
+            <span class="stat-value">Direct</span>
+            <span class="stat-title">Executive Developer Pricing</span>
+          </div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-icon-wrap">
+            <i class="ri-user-star-fill text-gold"></i>
+          </div>
+          <div>
+            <span class="stat-value">24/7</span>
+            <span class="stat-title">Concierge Advisory</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. DASHBOARD MAIN GRID -->
+      <div class="dashboard-grid-layout">
+        <!-- LEFT: Profile Details Card & Edit Section -->
+        <div class="details-column">
+          <!-- Profile Details Card -->
+          <div class="luxury-dash-card profile-details-card">
+            <div class="card-header-row">
+              <h3><i class="ri-user-settings-line text-gold"></i> Account Profile Details</h3>
+              @if (!isEditing()) {
+                <button class="btn-edit-toggle" (click)="startEditing()">
+                  <i class="ri-edit-line"></i> Edit Profile
+                </button>
+              }
+            </div>
+
+            @if (!isEditing()) {
+              <!-- Display Mode -->
+              <div class="profile-details-list">
+                <!-- Profile Photo Row -->
+                <div class="detail-row">
+                  <span class="detail-label">Profile Photo</span>
+                  <div class="detail-value photo-preview-row">
+                    @if (user.avatar) {
+                      <img [src]="user.avatar" [alt]="user.name" class="detail-avatar-thumb" />
+                    } @else {
+                      <div class="detail-avatar-initial">{{ user.name.charAt(0) }}</div>
+                    }
+                    <span class="verified-tag"><i class="ri-checkbox-circle-fill"></i> Verified VIP Client</span>
+                  </div>
+                </div>
+
+                <!-- Profile Name Row -->
+                <div class="detail-row">
+                  <span class="detail-label">Profile Name</span>
+                  <div class="detail-value">
+                    <strong>{{ user.name }}</strong>
+                  </div>
+                </div>
+
+                <!-- Email Address Row -->
+                <div class="detail-row">
+                  <span class="detail-label">Email Address</span>
+                  <div class="detail-value email-val">
+                    <span>{{ user.email }}</span>
+                    <span class="verified-pill"><i class="ri-verified-badge-fill text-gold"></i> Verified</span>
+                  </div>
+                </div>
+
+                <!-- Phone Number Row -->
+                <div class="detail-row">
+                  <span class="detail-label">Phone Number</span>
+                  <div class="detail-value">
+                    <a href="tel:{{ user.phone || '+2348073467809' }}" class="phone-link">
+                      <i class="ri-phone-fill text-gold"></i> {{ user.phone || '+234 807 346 7809' }}
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Account Category Row -->
+                <div class="detail-row">
+                  <span class="detail-label">Client Category</span>
+                  <div class="detail-value">
+                    <span class="badge badge-gold">{{ user.roleLabel }}</span>
+                  </div>
+                </div>
+
+                <!-- Membership Tier Row -->
+                <div class="detail-row">
+                  <span class="detail-label">Membership Tier</span>
+                  <div class="detail-value">
+                    <span class="text-gold font-bold"><i class="ri-vip-crown-fill"></i> {{ user.membershipTier }}</span>
+                  </div>
+                </div>
+
+                <!-- Registration Date Row -->
+                <div class="detail-row">
+                  <span class="detail-label">Member Since</span>
+                  <div class="detail-value">
+                    <span>{{ user.createdAt }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Bottom Sign Out Button -->
+              <div class="card-bottom-actions">
+                <button class="btn btn-signout-full" (click)="logout()">
+                  <i class="ri-logout-box-r-line"></i> Sign Out from Nigson Portal
+                </button>
+              </div>
+            } @else {
+              <!-- Edit Mode Form -->
+              <form (ngSubmit)="saveProfileChanges()" class="edit-profile-form">
+                <!-- Change Photo Presets -->
+                <div class="form-field">
+                  <label>Choose Profile Photo</label>
+                  <div class="avatar-presets-grid">
+                    @for (preset of avatarPresets; track preset) {
+                      <img 
+                        [src]="preset" 
+                        class="avatar-preset-item" 
+                        [class.selected]="editAvatar() === preset"
+                        (click)="selectAvatarPreset(preset)"
+                        alt="Avatar Option"
+                      />
+                    }
+                  </div>
+                  <input 
+                    type="url" 
+                    class="form-input text-sm mt-2" 
+                    placeholder="Or paste custom image URL..." 
+                    [ngModel]="editAvatar()" 
+                    (ngModelChange)="editAvatar.set($event)"
+                    name="avatarUrl"
+                  />
+                </div>
+
+                <!-- Edit Name -->
+                <div class="form-field">
+                  <label for="edit-name">Full Name</label>
+                  <div class="input-with-icon">
+                    <i class="ri-user-3-line"></i>
+                    <input 
+                      type="text" 
+                      id="edit-name" 
+                      name="name" 
+                      class="form-input" 
+                      [ngModel]="editName()" 
+                      (ngModelChange)="editName.set($event)"
+                      required 
+                    />
+                  </div>
+                </div>
+
+                <!-- Edit Email -->
+                <div class="form-field">
+                  <label for="edit-email">Email Address</label>
+                  <div class="input-with-icon">
+                    <i class="ri-mail-line"></i>
+                    <input 
+                      type="email" 
+                      id="edit-email" 
+                      name="email" 
+                      class="form-input" 
+                      [ngModel]="editEmail()" 
+                      (ngModelChange)="editEmail.set($event)"
+                      required 
+                    />
+                  </div>
+                </div>
+
+                <!-- Edit Phone -->
+                <div class="form-field">
+                  <label for="edit-phone">Phone Number</label>
+                  <div class="input-with-icon">
+                    <i class="ri-phone-line"></i>
+                    <input 
+                      type="tel" 
+                      id="edit-phone" 
+                      name="phone" 
+                      class="form-input" 
+                      [ngModel]="editPhone()" 
+                      (ngModelChange)="editPhone.set($event)"
+                      placeholder="+234..." 
+                      required 
+                    />
+                  </div>
+                </div>
+
+                <div class="edit-btn-row">
+                  <button type="submit" class="btn btn-gold btn-sm">
+                    <i class="ri-save-line"></i> Save Changes
+                  </button>
+                  <button type="button" class="btn btn-outline-light btn-sm" (click)="cancelEditing()">
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            }
+          </div>
+
+          <!-- Dedicated Concierge Advisory Card -->
+          <div class="luxury-dash-card concierge-card">
+            <div class="concierge-header">
+              <div class="concierge-crest">
+                <i class="ri-shield-star-fill text-gold"></i>
+              </div>
+              <div>
+                <h4>Your Dedicated Real Estate Officer</h4>
+                <p>Personalized investment guidance, legal documentation & site inspections.</p>
+              </div>
+            </div>
+
+            <div class="concierge-officer-info">
+              <div class="officer-avatar-box">
+                <i class="ri-user-star-fill"></i>
+              </div>
+              <div>
+                <h6>Engr. Babatunde Nigson</h6>
+                <span class="officer-role">Principal Executive Sales Desk</span>
+                <span class="officer-contact"><i class="ri-phone-line text-gold"></i> +234 807 346 7809</span>
+              </div>
+            </div>
+
+            <button class="btn btn-whatsapp w-full" (click)="openWhatsAppConcierge()">
+              <i class="ri-whatsapp-line"></i> Chat with Concierge Officer
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT: Saved Properties Portfolio -->
+        <div class="portfolio-column">
+          <div class="luxury-dash-card portfolio-card">
+            <div class="card-header-row">
+              <h3>
+                <i class="ri-heart-3-fill text-gold"></i> 
+                My Saved Properties 
+                <span class="count-badge">{{ user.savedPropertyIds.length }}</span>
+              </h3>
+              <a routerLink="/properties" class="browse-all-link">
+                Browse Full Catalog <i class="ri-arrow-right-line"></i>
+              </a>
+            </div>
+
+            @if (getSavedProperties().length === 0) {
+              <div class="empty-portfolio-state">
+                <div class="empty-icon-circle">
+                  <i class="ri-heart-add-line text-gold"></i>
+                </div>
+                <h4>No Properties Saved Yet</h4>
+                <p>Browse our exclusive Lekki & Ikoyi developments and tap the heart icon on any property to save it to your portfolio.</p>
+                <a routerLink="/properties" class="btn btn-gold btn-sm">
+                  <i class="ri-building-line"></i> Explore Available Properties
+                </a>
+              </div>
+            } @else {
+              <div class="saved-cards-list">
+                @for (prop of getSavedProperties(); track prop.id) {
+                  <div class="saved-property-card" (click)="viewProperty(prop)">
+                    <div class="saved-image-wrapper">
+                      <img [src]="prop.heroImage" [alt]="prop.title" />
+                      <span class="saved-status-badge">{{ prop.status }}</span>
+                      <button class="saved-remove-btn" (click)="removeSaved(prop.id, $event)" title="Remove from portfolio">
+                        <i class="ri-heart-fill"></i>
+                      </button>
+                    </div>
+
+                    <div class="saved-content-wrapper">
+                      <div class="saved-top-meta">
+                        <span class="saved-cat-tag">{{ prop.categoryLabel }}</span>
+                        <span class="saved-price-val">{{ prop.price }}</span>
+                      </div>
+                      <h4 class="saved-title">{{ prop.title }}</h4>
+                      <p class="saved-location"><i class="ri-map-pin-2-fill text-gold"></i> {{ prop.location }}</p>
+
+                      <div class="saved-specs">
+                        <span><i class="ri-hotel-bed-line"></i> {{ prop.bedrooms }} Beds</span>
+                        <span><i class="ri-drop-line"></i> {{ prop.bathrooms }} Baths</span>
+                        <span><i class="ri-ruler-line"></i> {{ prop.size }}</span>
+                      </div>
+
+                      <div class="saved-actions-row">
+                        <button class="btn btn-outline-gold btn-xs" (click)="viewProperty(prop)">
+                          View Details
+                        </button>
+                        <button class="btn btn-gold btn-xs" (click)="openInspection()">
+                          <i class="ri-calendar-check-line"></i> Inspect
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    } @else {
+      <!-- Unauthenticated State -->
+      <div class="unauth-state-box">
+        <i class="ri-lock-2-line lock-icon text-gold"></i>
+        <h2>Sign In Required</h2>
+        <p>Please sign in to access your Private Client Profile Dashboard, saved luxury properties, and inspection schedules.</p>
+        <div class="unauth-actions">
+          <button class="btn btn-gold" (click)="authService.openAuthModal('login')">
+            <i class="ri-login-box-line"></i> Sign In to Portal
+          </button>
+          <a routerLink="/" class="btn btn-outline-light">
+            Return to Homepage
+          </a>
+        </div>
+      </div>
+    }
+  </div>
+</div>
