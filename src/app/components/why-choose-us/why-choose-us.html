@@ -1,6 +1,6 @@
 <section class="section-spacing why-choose-section">
   <div class="container">
-    <div class="text-center section-header-wrap">
+    <div class="text-center section-header-wrap scroll-reveal">
       <div class="section-badge">
         <i class="ri-thumb-up-line"></i>
         <span>{{ adminService.websiteContent().whyChooseBadge }}</span>
@@ -13,7 +13,7 @@
       </p>
     </div>
 
-    <div class="pillars-grid">
+    <div class="pillars-grid scroll-stagger">
       @for (pillar of pillars; track pillar.title) {
         <div class="luxury-card pillar-card">
           <div class="pillar-icon-box">

@@ -1,7 +1,7 @@
 <section id="testimonials" class="section-spacing testimonials-section">
   <div class="container">
     <!-- Header -->
-    <div class="text-center section-header-wrap">
+    <div class="text-center section-header-wrap scroll-reveal">
       <div class="section-badge">
         <i class="ri-chat-smile-2-line"></i>
         <span>{{ adminService.websiteContent().testimonialsBadge }}</span>
@@ -13,10 +13,25 @@
         {{ adminService.websiteContent().testimonialsSubtitle }}
       </p>
     </div>
+  </div>
 
-    <!-- Testimonials Grid -->
-    <div class="testimonials-grid">
-      @for (t of propertyService.testimonials(); track t.id) {
+  <!-- Infinite Right-to-Left Auto-Scrolling Reviews Marquee -->
+  <div 
+    class="testimonials-marquee-viewport scroll-reveal-scale" 
+    tabindex="0"
+    role="region"
+    aria-label="Client Testimonials and Reviews Marquee"
+    (mouseenter)="pauseMarquee()" 
+    (mouseleave)="resumeMarquee()"
+    (focus)="pauseMarquee()" 
+    (blur)="resumeMarquee()">
+
+    <!-- Scrolling Track 1 -->
+    <div 
+      class="testimonials-track" 
+      [class.is-paused]="isPaused()"
+      [style.animationDuration.s]="animationDuration()">
+      @for (t of marqueeItems(); track $index) {
         <div class="luxury-card testimonial-card">
           <!-- Rating Stars -->
           <div class="test-rating-stars">
@@ -32,7 +47,7 @@
 
           <!-- Client Profile Footer -->
           <div class="test-client-footer">
-            <img [src]="t.avatar" [alt]="t.clientName" class="test-avatar" />
+            <img [src]="t.avatar" [alt]="t.clientName" class="test-avatar" loading="lazy" />
             <div class="test-client-meta">
               <span class="test-client-name">{{ t.clientName }}</span>
               <span class="test-property-tag text-gold">{{ t.propertyOrProject }}</span>
@@ -41,6 +56,58 @@
           </div>
         </div>
       }
+    </div>
+
+    <!-- Scrolling Track 2 (Seamless loop clone) -->
+    <div 
+      class="testimonials-track" 
+      aria-hidden="true"
+      [class.is-paused]="isPaused()"
+      [style.animationDuration.s]="animationDuration()">
+      @for (t of marqueeItems(); track $index + '_dup') {
+        <div class="luxury-card testimonial-card">
+          <!-- Rating Stars -->
+          <div class="test-rating-stars">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+              <i class="ri-star-fill text-gold"></i>
+            }
+          </div>
+
+          <!-- Quote -->
+          <p class="test-quote">
+            &ldquo;{{ t.quote }}&rdquo;
+          </p>
+
+          <!-- Client Profile Footer -->
+          <div class="test-client-footer">
+            <img [src]="t.avatar" [alt]="t.clientName" class="test-avatar" loading="lazy" />
+            <div class="test-client-meta">
+              <span class="test-client-name">{{ t.clientName }}</span>
+              <span class="test-property-tag text-gold">{{ t.propertyOrProject }}</span>
+              <span class="badge badge-gold test-badge">{{ t.clientType }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Marquee Interactive Controls -->
+  <div class="container marquee-footer-bar">
+    <div class="marquee-controls-wrap">
+      <button 
+        type="button" 
+        class="marquee-control-btn"
+        (click)="togglePause()"
+        [attr.aria-label]="isPaused() ? 'Resume automated review scroll' : 'Pause automated review scroll'">
+        <i [class]="isPaused() ? 'ri-play-fill text-gold' : 'ri-pause-fill text-gold'"></i>
+        <span>{{ isPaused() ? 'Resume Scroll' : 'Pause Scroll' }}</span>
+      </button>
+
+      <div class="marquee-indicator-pill">
+        <span class="pulse-dot" [class.paused]="isPaused()"></span>
+        <span>{{ isPaused() ? 'Scroll Paused' : 'Live Auto-Scrolling (Hover or click to pause)' }}</span>
+      </div>
     </div>
   </div>
 </section>

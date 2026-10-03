@@ -589,14 +589,6 @@
           <button 
             type="button" 
             class="lead-tab-chip" 
-            [class.active]="leadCategoryFilter() === 'property-inquiry'" 
-            (click)="leadCategoryFilter.set('property-inquiry')"
-          >
-            <i class="ri-mail-line"></i> Property Inquiries ({{ leadCounts().propertyInquiry }})
-          </button>
-          <button 
-            type="button" 
-            class="lead-tab-chip" 
             [class.active]="leadCategoryFilter() === 'inspection-request'" 
             (click)="leadCategoryFilter.set('inspection-request')"
           >
@@ -688,7 +680,6 @@
                   <td>
                     <span 
                       class="lead-category-badge"
-                      [class.cat-inquiry]="lead.category === 'property-inquiry'"
                       [class.cat-inspection]="lead.category === 'inspection-request'"
                       [class.cat-sales]="lead.category === 'sales-lead'"
                       [class.cat-contact]="lead.category === 'contact-inquiry'"

@@ -745,4 +745,201 @@ textarea.form-control {
 .spec-pill i {
   color: var(--color-gold);
   font-size: 0.95rem;
+  transition: transform 0.25s ease;
+  display: inline-block;
 }
+
+.spec-pill {
+  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.spec-pill:hover {
+  transform: translateY(-2px);
+  background: rgba(197, 160, 89, 0.12);
+  border-color: rgba(197, 160, 89, 0.4);
+}
+
+.spec-pill:hover i {
+  transform: scale(1.18);
+}
+
+/* ==========================================================================
+   SCROLL REVEAL & MICRO-ANIMATION SUITE
+   Ultra-smooth 60/120fps GPU accelerated animations for Home & About pages
+   ========================================================================== */
+
+/* Standard Scroll Reveal (Vertical Slide & Fade) */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Horizontal Slide Left to Right */
+.scroll-reveal-left {
+  opacity: 0;
+  transform: translateX(-38px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-left.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Horizontal Slide Right to Left */
+.scroll-reveal-right {
+  opacity: 0;
+  transform: translateX(38px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-right.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale & Depth Reveal */
+.scroll-reveal-scale {
+  opacity: 0;
+  transform: scale(0.93);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-scale.is-revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Staggered Children Transitions */
+.scroll-stagger > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-stagger.is-revealed > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-stagger.is-revealed > *:nth-child(1) { transition-delay: 0.04s; }
+.scroll-stagger.is-revealed > *:nth-child(2) { transition-delay: 0.14s; }
+.scroll-stagger.is-revealed > *:nth-child(3) { transition-delay: 0.24s; }
+.scroll-stagger.is-revealed > *:nth-child(4) { transition-delay: 0.34s; }
+.scroll-stagger.is-revealed > *:nth-child(5) { transition-delay: 0.44s; }
+.scroll-stagger.is-revealed > *:nth-child(6) { transition-delay: 0.54s; }
+.scroll-stagger.is-revealed > *:nth-child(7) { transition-delay: 0.64s; }
+.scroll-stagger.is-revealed > *:nth-child(8) { transition-delay: 0.74s; }
+
+/* Delay Utility Helpers */
+.delay-100 { transition-delay: 0.1s !important; }
+.delay-200 { transition-delay: 0.2s !important; }
+.delay-300 { transition-delay: 0.3s !important; }
+.delay-400 { transition-delay: 0.4s !important; }
+.delay-500 { transition-delay: 0.5s !important; }
+
+/* Micro-Animations: Section Badge Ambient Breathing Pulse */
+@keyframes badgeGlowPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(197, 160, 89, 0);
+    border-color: rgba(197, 160, 89, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 16px 2px rgba(197, 160, 89, 0.22);
+    border-color: rgba(197, 160, 89, 0.6);
+  }
+}
+
+.section-badge {
+  animation: badgeGlowPulse 4s infinite ease-in-out;
+}
+
+/* Micro-Animations: Button Micro-Interactions */
+.btn i.ri-arrow-right-line {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+
+.btn:hover i.ri-arrow-right-line {
+  transform: translateX(5px);
+}
+
+.btn:active {
+  transform: scale(0.97) !important;
+}
+
+/* Micro-Animations: Card Light Sheen Effect */
+.luxury-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.luxury-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.luxury-card:hover::after {
+  left: 150%;
+}
+
+/* Micro-Animations: Highlight Items */
+.highlight-item i {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+  display: inline-block;
+}
+
+.highlight-item:hover i {
+  transform: scale(1.25) rotate(6deg);
+  color: var(--color-gold-light);
+}
+
+/* Reduced Motion Mode for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal-left,
+  .scroll-reveal-right,
+  .scroll-reveal-scale,
+  .scroll-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .section-badge {
+    animation: none !important;
+  }
+  .luxury-card::after {
+    display: none !important;
+  }
+}
+

@@ -1,5 +1,4 @@
 export type LeadCategory = 
-  | 'property-inquiry' 
   | 'inspection-request' 
   | 'sales-lead' 
   | 'contact-inquiry' 

@@ -4,6 +4,7 @@ import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { PropertyService } from './services/property.service';
 import { AuthService } from './services/auth.service';
+import { AnimationService } from './services/animation.service';
 
 // Global Layout Components
 import { HeaderComponent } from './components/header/header';
@@ -30,6 +31,7 @@ import { AuthModalComponent } from './components/auth-modal/auth-modal';
 export class App {
   public propertyService = inject(PropertyService);
   public authService = inject(AuthService);
+  public animationService = inject(AnimationService);
   public router = inject(Router);
 
   public currentUrl = signal<string>(typeof window !== 'undefined' ? window.location.pathname : '');
@@ -45,7 +47,11 @@ export class App {
     ).subscribe((event: NavigationEnd) => {
       const url = event.urlAfterRedirects || event.url;
       this.currentUrl.set(url);
+      setTimeout(() => this.animationService.initScrollObserver(), 80);
     });
+
+    // Initial check on page boot
+    setTimeout(() => this.animationService.initScrollObserver(), 100);
   }
 
   public openFloatingWhatsApp(): void {

@@ -26,21 +26,6 @@ export class AdminService {
   // -------------------------------------------------------------
   private readonly seedLeads: LeadItem[] = [
     {
-      id: 'lead-001',
-      category: 'property-inquiry',
-      categoryLabel: 'Property Inquiry',
-      clientName: 'Chief Femi Adeleke',
-      email: 'femi.adeleke@globallink.ng',
-      phone: '+234 803 456 7890',
-      subjectOrProperty: 'Opposite Whitesand Beach Estate (₦185M)',
-      details: 'Interested in acquiring 2 units of the 5-bedroom luxury duplexes with private cinema for family residence and investment.',
-      status: 'New',
-      date: '2026-09-30',
-      priority: 'High',
-      budgetOrValue: '₦370,000,000',
-      notes: 'Client requested private evening inspection and documentation verification.'
-    },
-    {
       id: 'lead-002',
       category: 'inspection-request',
       categoryLabel: 'Inspection Request',
@@ -116,21 +101,6 @@ export class AdminService {
       priority: 'High',
       budgetOrValue: '₦36,000,000 / year',
       notes: 'Site inspection completed by Nigson Engineering team.'
-    },
-    {
-      id: 'lead-007',
-      category: 'property-inquiry',
-      categoryLabel: 'Property Inquiry',
-      clientName: 'Senator David Markson',
-      email: 'd.markson@senate.gov.ng',
-      phone: '+234 803 999 1234',
-      subjectOrProperty: 'Fatai Bankole Luxury Residences',
-      details: 'Inquiring if any detached units are still available or if resale slots exist.',
-      status: 'Contacted',
-      date: '2026-09-25',
-      priority: 'High',
-      budgetOrValue: '₦200,000,000',
-      notes: 'Offered upcoming Aro-Ologolo Phase 2 exclusive pre-release.'
     },
     {
       id: 'lead-008',
@@ -318,7 +288,15 @@ export class AdminService {
     if (typeof window === 'undefined') return this.seedLeads;
     try {
       const data = localStorage.getItem(LEADS_KEY);
-      return data ? JSON.parse(data) : this.seedLeads;
+      if (data) {
+        const parsed: LeadItem[] = JSON.parse(data);
+        const filtered = parsed.filter(l => (l.category as string) !== 'property-inquiry');
+        if (filtered.length !== parsed.length) {
+          localStorage.setItem(LEADS_KEY, JSON.stringify(filtered));
+        }
+        return filtered;
+      }
+      return this.seedLeads;
     } catch {
       return this.seedLeads;
     }
@@ -399,8 +377,8 @@ export class AdminService {
   public addLead(lead: Partial<LeadItem>): void {
     const newLead: LeadItem = {
       id: 'lead-' + Date.now(),
-      category: lead.category || 'property-inquiry',
-      categoryLabel: lead.categoryLabel || 'Property Inquiry',
+      category: lead.category || 'contact-inquiry',
+      categoryLabel: lead.categoryLabel || 'Contact Inquiry',
       clientName: lead.clientName || 'Anonymous Client',
       email: lead.email || '',
       phone: lead.phone || '',

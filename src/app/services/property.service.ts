@@ -676,21 +676,21 @@ export class PropertyService {
       title: 'Managing Director & CEO',
       credentials: 'Executive Leadership',
       roleDescription: 'Visionary real estate executive guiding the strategic growth of Nigson Properties Limited. Committed to reshaping affordable luxury living across Nigeria with integrity, innovation, and long-term value creation.',
-      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80'
+      image: '/images/team/ijeoma-odunukwe.jpg'
+    },
+    {
+      name: 'Olubukola Ladeinde',
+      title: 'Head of Sales & Marketing',
+      credentials: 'Real Estate Portfolio Strategist',
+      roleDescription: 'Seasoned property investment strategist specializing in prime Lagos residential acquisitions, diaspora client relations, high-net-worth portfolio management, and strategic asset marketing.',
+      image: '/images/team/olubukola-ladeinde.jpg'
     },
     {
       name: 'Adedamola Adeyemi, PMP',
       title: 'Head, Projects & Operations',
       credentials: 'PMP Certified Project Director',
       roleDescription: 'Certified Project Management Professional with over 15 years leading high-complexity civil engineering, property development, and luxury residential projects from conception to punctual completion.',
-      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80'
-    },
-    {
-      name: 'Ladeinde Olubukola',
-      title: 'Head of Sales & Marketing',
-      credentials: 'Real Estate Portfolio Strategist',
-      roleDescription: 'Seasoned property investment strategist specializing in prime Lagos residential acquisitions, diaspora client relations, high-net-worth portfolio management, and strategic asset marketing.',
-      image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80'
+      image: '/images/team/adedamola-adeyemi.jpg'
     }
   ];
 
@@ -1076,8 +1076,8 @@ export class PropertyService {
       const leads = existingRaw ? JSON.parse(existingRaw) : [];
       const newLead = {
         id: 'lead-' + Date.now(),
-        category: 'property-inquiry',
-        categoryLabel: 'Property Inquiry',
+        category: 'contact-inquiry',
+        categoryLabel: 'Contact Inquiry',
         clientName: inquiry.fullName,
         email: inquiry.email,
         phone: inquiry.phone,

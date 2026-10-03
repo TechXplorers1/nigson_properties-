@@ -270,7 +270,6 @@ export class AdminDashboardComponent implements OnInit {
     const list = this.adminService.leads();
     return {
       all: list.length,
-      propertyInquiry: list.filter(l => l.category === 'property-inquiry').length,
       inspectionRequest: list.filter(l => l.category === 'inspection-request').length,
       salesLead: list.filter(l => l.category === 'sales-lead').length,
       contactInquiry: list.filter(l => l.category === 'contact-inquiry').length,

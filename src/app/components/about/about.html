@@ -1,7 +1,7 @@
 <section id="about" class="section-spacing about-section">
   <div class="container">
     <!-- Header -->
-    <div class="text-center section-header-wrap">
+    <div class="text-center section-header-wrap scroll-reveal">
       <div class="section-badge">
         <i class="ri-shield-star-line"></i>
         <span>Corporate Governance & Heritage</span>
@@ -10,20 +10,25 @@
         About <span class="text-gold">Nigson Properties Limited</span>
       </h2>
       <p class="section-subtitle mx-auto">
-        The real estate development and property management arm of Nigson Group, pioneering affordable luxury homes across Nigeria.
+        The real estate development and property management arm of Nigson Group, pioneering affordable luxury homes
+        across Nigeria.
       </p>
     </div>
 
     <!-- Company Story & Brand Foundation -->
     <div class="about-overview-grid">
-      <div class="about-story-card luxury-card">
+      <div class="about-story-card luxury-card scroll-reveal-left">
         <span class="badge badge-gold mb-3">Our Corporate Heritage</span>
         <h3 class="about-card-title">Redefining Affordable Luxury in Nigeria</h3>
         <p class="about-p">
-          Nigson Properties Limited was established as the premier real estate and property management division of Nigson Group. We specialize in residential development, property sales, leasing, institutional project management, and comprehensive facility operations.
+          Nigson Properties Limited was established as the premier real estate and property management division of
+          Nigson Group. We specialize in residential development, property sales, leasing, institutional project
+          management, and comprehensive facility operations.
         </p>
         <p class="about-p">
-          Our core commitment is delivering <strong>affordable luxury homes</strong>. We reject the notion that luxury must be prohibitive; instead, we combine modern architecture, precision craftsmanship, innovative building solutions, 24/7 solar independence, and robust security into homes that provide long-term investment value.
+          Our core commitment is delivering <strong>affordable luxury homes</strong>. We reject the notion that luxury
+          must be prohibitive; instead, we combine modern architecture, precision craftsmanship, innovative building
+          solutions, 24/7 solar independence, and robust security into homes that provide long-term investment value.
         </p>
         <div class="brand-promise-quote">
           <i class="ri-double-quotes-l text-gold"></i>
@@ -35,7 +40,7 @@
       </div>
 
       <!-- Vision & Mission -->
-      <div class="vision-mission-wrap">
+      <div class="vision-mission-wrap scroll-reveal-right">
         <div class="luxury-card vm-card">
           <div class="vm-icon-box">
             <i class="ri-eye-line text-gold"></i>
@@ -43,7 +48,8 @@
           <div>
             <h4 class="vm-title">Our Vision</h4>
             <p class="vm-text">
-              To be the most trusted, innovative, and customer-centric real estate development and asset management company in Nigeria, setting the definitive benchmark for affordable luxury and sustainable communities.
+              To be the most trusted, innovative, and customer-centric real estate development and asset management
+              company in Nigeria, setting the definitive benchmark for affordable luxury and sustainable communities.
             </p>
           </div>
         </div>
@@ -55,7 +61,9 @@
           <div>
             <h4 class="vm-title">Our Mission</h4>
             <p class="vm-text">
-              To craft architecturally superior, eco-conscious, and technologically advanced living spaces that generate enduring capital value, inspire pride of ownership, and elevate living standards across Lekki, Ikoyi, and Banana Island.
+              To craft architecturally superior, eco-conscious, and technologically advanced living spaces that generate
+              enduring capital value, inspire pride of ownership, and elevate living standards across Lekki, Ikoyi, and
+              Banana Island.
             </p>
           </div>
         </div>
@@ -64,8 +72,8 @@
 
     <!-- Core Values Strip (BRD Section 4.2 & 6) -->
     <div class="core-values-section">
-      <h3 class="text-center values-heading">Our Foundational Core Values</h3>
-      <div class="values-grid">
+      <h3 class="text-center values-heading scroll-reveal">Our Foundational Core Values</h3>
+      <div class="values-grid scroll-stagger">
         <div class="value-item">
           <i class="ri-award-line text-gold"></i>
           <strong>Quality</strong>
@@ -96,7 +104,7 @@
 
     <!-- Leadership Team (BRD Section 30) -->
     <div class="leadership-section">
-      <div class="text-center section-header-wrap">
+      <div class="text-center section-header-wrap scroll-reveal">
         <div class="section-badge">
           <i class="ri-team-line"></i>
           <span>Executive Leadership</span>
@@ -105,33 +113,34 @@
           The <span class="text-gold">Nigson Properties</span> Leadership Team
         </h3>
         <p class="section-subtitle mx-auto">
-          Seasoned real estate executives, certified project management professionals, and sales strategists guiding corporate governance.
+          Seasoned real estate executives, certified project management professionals, and sales strategists guiding
+          corporate governance.
         </p>
       </div>
 
-      <div class="leadership-grid">
+      <div class="leadership-grid scroll-stagger">
         @for (member of propertyService.leadershipTeam(); track member.name) {
-          <div class="luxury-card leader-card">
-            <div class="leader-image-wrap">
-              <img [src]="member.image" [alt]="member.name" class="leader-img" />
-              <div class="leader-overlay"></div>
-            </div>
-
-            <div class="leader-body">
-              <h4 class="leader-name">{{ member.name }}</h4>
-              <span class="leader-title text-gold">{{ member.title }}</span>
-              @if (member.credentials) {
-                <span class="leader-cred">{{ member.credentials }}</span>
-              }
-
-              <p class="leader-desc">{{ member.roleDescription }}</p>
-
-              <button class="btn btn-outline-gold btn-sm btn-full" (click)="contactExecutive(member.name)">
-                <i class="ri-chat-1-line"></i>
-                <span>Connect via Desk</span>
-              </button>
-            </div>
+        <div class="luxury-card leader-card">
+          <div class="leader-image-wrap">
+            <img [src]="member.image" [alt]="member.name" class="leader-img" />
+            <div class="leader-overlay"></div>
           </div>
+
+          <div class="leader-body">
+            <h4 class="leader-name">{{ member.name }}</h4>
+            <span class="leader-title text-gold">{{ member.title }}</span>
+            @if (member.credentials) {
+            <span class="leader-cred">{{ member.credentials }}</span>
+            }
+
+            <p class="leader-desc">{{ member.roleDescription }}</p>
+
+            <button class="btn btn-outline-gold btn-sm btn-full" (click)="contactExecutive(member.name)">
+              <i class="ri-chat-1-line"></i>
+              <span>Connect via Desk</span>
+            </button>
+          </div>
+        </div>
         }
       </div>
     </div>

@@ -2,7 +2,7 @@
   <div class="container">
     
     <!-- Section Header -->
-    <div class="text-center section-header-wrap">
+    <div class="text-center section-header-wrap scroll-reveal">
       <div class="section-badge">
         <i class="ri-sparkles-line"></i>
         <span>{{ adminService.websiteContent().showcaseBadge }}</span>
@@ -16,7 +16,7 @@
     </div>
 
     <!-- Featured Properties Grid (Top 3 Signature Listings) -->
-    <div class="featured-properties-grid">
+    <div class="featured-properties-grid scroll-stagger">
       @for (property of propertyService.properties().slice(0, 3); track property.id) {
         <div class="luxury-card featured-prop-card" (click)="openPropertyDetails(property)">
           <!-- Image Box -->
@@ -100,7 +100,7 @@
     </div>
 
     <!-- View All Properties Action Strip -->
-    <div class="text-center mt-5">
+    <div class="text-center mt-5 scroll-reveal">
       <a routerLink="/properties" class="btn btn-gold btn-lg">
         <span>View Complete Real Estate Portfolio</span>
         <i class="ri-arrow-right-line"></i>
@@ -112,7 +112,7 @@
 
     <!-- Landmark Project Development Matrix Spotlight -->
     <div class="showcase-row showcase-row-projects">
-      <div class="showcase-visual-col">
+      <div class="showcase-visual-col scroll-reveal-left">
         <div class="luxury-card showcase-image-card">
           <img 
             src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80" 
@@ -149,7 +149,7 @@
         </div>
       </div>
 
-      <div class="showcase-content-col">
+      <div class="showcase-content-col scroll-reveal-right">
         <div class="showcase-col-badge">
           <i class="ri-stack-line text-gold"></i>
           <span>Institutional Engineering Rigor</span>
@@ -200,6 +200,105 @@
             <span>Explore Development Matrix</span>
             <i class="ri-arrow-right-line"></i>
           </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider Bar -->
+    <div class="showcase-divider-bar"></div>
+
+    <!-- Executive Luxury Short Stay Spotlight (Content Left, Image Right) -->
+    <div class="showcase-row showcase-row-shortstay">
+      <!-- Left Column: Content -->
+      <div class="showcase-content-col scroll-reveal-left">
+        <div class="showcase-col-badge">
+          <i class="ri-hotel-bed-line text-gold"></i>
+          <span>Executive Hospitality & Short Stays</span>
+        </div>
+
+        <h3 class="showcase-item-title">
+          Bespoke <span class="text-gold">Luxury Short Stay</span> Residences
+        </h3>
+
+        <p class="showcase-item-desc">
+          Experience world-class hospitality in Nigson Properties’ curated executive short-stay apartments, waterfront penthouses, and private villas across prime Lagos corridors. Impeccably appointed with 24/7 solar backup power, high-speed Starlink internet, bespoke interiors, and dedicated concierge services.
+        </p>
+
+        <div class="showcase-highlights-list">
+          <div class="highlight-item">
+            <i class="ri-checkbox-circle-fill text-gold"></i>
+            <span><strong>24/7 Clean Energy:</strong> Guaranteed uninterrupted solar inverter & silent generator power</span>
+          </div>
+          <div class="highlight-item">
+            <i class="ri-checkbox-circle-fill text-gold"></i>
+            <span><strong>Prime Lagos Waterfronts:</strong> Penthouse suites and private villas in Lekki Phase 1, Ikoyi & Victoria Island</span>
+          </div>
+          <div class="highlight-item">
+            <i class="ri-checkbox-circle-fill text-gold"></i>
+            <span><strong>VIP Concierge & Security:</strong> Starlink Wi-Fi, chef-on-demand, airport escort & 24/7 guarded security</span>
+          </div>
+        </div>
+
+        <div class="showcase-stats-ribbon">
+          <div class="stat-pill">
+            <span class="stat-val">4.98★</span>
+            <span class="stat-label">Guest Rating</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-pill">
+            <span class="stat-val">24/7</span>
+            <span class="stat-label">Solar & Inverter</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-pill">
+            <span class="stat-val">100%</span>
+            <span class="stat-label">Verified Listings</span>
+          </div>
+        </div>
+
+        <div class="showcase-action-wrap">
+          <a routerLink="/short-stay" class="btn btn-gold btn-lg">
+            <span>Explore Short Stay Collection</span>
+            <i class="ri-arrow-right-line"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Visual Image -->
+      <div class="showcase-visual-col scroll-reveal-right">
+        <div class="luxury-card showcase-image-card" routerLink="/short-stay">
+          <img 
+            src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" 
+            alt="Luxury Short Stay Residences by Nigson" 
+            class="showcase-img"
+            loading="lazy"
+            (error)="onImageError($event, 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80')"
+          />
+          <div class="showcase-img-overlay"></div>
+
+          <div class="showcase-top-badges">
+            <span class="badge badge-gold">
+              <i class="ri-hotel-bed-line"></i> Executive Short Stay
+            </span>
+            <span class="badge badge-sale">
+              <i class="ri-flashlight-line"></i> Instant Booking Available
+            </span>
+          </div>
+
+          <div class="showcase-bottom-overlay">
+            <div class="showcase-bottom-info">
+              <span class="overlay-tagline">Signature Waterfront Penthouse</span>
+              <h4 class="overlay-title">The Grand Horizon Penthouse & Suites</h4>
+              <p class="overlay-meta">
+                <i class="ri-map-pin-2-fill text-gold"></i> Admiralty Way, Lekki Phase 1 &bull; From ₦180,000 / Night
+              </p>
+            </div>
+
+            <a routerLink="/short-stay" class="btn btn-gold showcase-card-btn" title="View Short Stays">
+              <span>Reserve Your Stay</span>
+              <i class="ri-arrow-right-line"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>

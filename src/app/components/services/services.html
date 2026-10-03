@@ -1,7 +1,7 @@
 <section id="services" class="section-spacing services-section">
   <div class="container">
     <!-- Header -->
-    <div class="text-center section-header-wrap">
+    <div class="text-center section-header-wrap scroll-reveal">
       <div class="section-badge">
         <i class="ri-service-fill"></i>
         <span>{{ adminService.websiteContent().servicesBadge }}</span>
@@ -15,7 +15,7 @@
     </div>
 
     <!-- Services Grid (6 Core Services) -->
-    <div class="services-grid">
+    <div class="services-grid scroll-stagger">
       @for (service of propertyService.services(); track service.id) {
         <div 
           class="luxury-card service-card" 
