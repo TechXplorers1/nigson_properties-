@@ -181,11 +181,6 @@
               <i class="ri-add-line"></i> Add Property
             </button>
           }
-          @if (activeTab() === 'leads') {
-            <button type="button" class="btn btn-outline-gold btn-sm" (click)="exportLeadsCSV()">
-              <i class="ri-file-excel-2-line"></i> Export Leads (CSV)
-            </button>
-          }
           <button type="button" class="btn btn-outline-danger btn-sm" (click)="logout()" title="Sign Out">
             <i class="ri-logout-box-r-line"></i>
             <span>Sign Out</span>
@@ -253,25 +248,6 @@
             <div class="stat-sub">
               <span>In-person & Virtual Tours</span>
             </div>
-          </div>
-        </div>
-
-        <!-- Quick Action Short-cuts -->
-        <div class="quick-shortcuts-panel">
-          <h4 class="section-title"><i class="ri-flashlight-line text-gold"></i> Quick Administrative Operations</h4>
-          <div class="shortcuts-row">
-            <button class="btn btn-gold" (click)="openAddPropertyModal()">
-              <i class="ri-add-circle-line"></i> Add New Property
-            </button>
-            <button class="btn btn-outline-gold" (click)="setTab('leads'); leadCategoryFilter.set('inspection-request')">
-              <i class="ri-calendar-check-line"></i> Review Inspection Requests
-            </button>
-            <button class="btn btn-outline-gold" (click)="setTab('content'); activeContentSubTab.set('news')">
-              <i class="ri-newspaper-line"></i> Publish Corporate Announcement
-            </button>
-            <button class="btn btn-outline-gold" (click)="exportLeadsCSV()">
-              <i class="ri-download-cloud-line"></i> Export Leads Database (CSV)
-            </button>
           </div>
         </div>
 
@@ -688,10 +664,6 @@
                 <option value="Closed">Closed</option>
               </select>
             </div>
-
-            <button type="button" class="btn btn-outline-gold" (click)="exportLeadsCSV()">
-              <i class="ri-file-excel-2-line"></i> Export to CSV
-            </button>
           </div>
         </div>
 
@@ -1387,11 +1359,9 @@
           <div class="form-group">
             <label>Property Type</label>
             <select [ngModel]="propType()" (ngModelChange)="propType.set($event)" name="type" class="admin-select">
-              <option value="Duplex">Duplex</option>
-              <option value="Apartment">Apartment</option>
-              <option value="Terrace">Terrace</option>
-              <option value="Villa">Villa</option>
-              <option value="Mansionette">Mansionette</option>
+              @for (type of availablePropertyTypes; track type) {
+                <option [value]="type">{{ type }}</option>
+              }
             </select>
           </div>
 
@@ -1478,6 +1448,7 @@
             <label>Number of Units</label>
             <input 
               type="number" 
+              placeholder="e.g. 6"
               [ngModel]="propUnits()" 
               (ngModelChange)="propUnits.set($event)" 
               name="units" 
@@ -1488,6 +1459,7 @@
             <label>Bedrooms</label>
             <input 
               type="number" 
+              placeholder="e.g. 5"
               [ngModel]="propBedrooms()" 
               (ngModelChange)="propBedrooms.set($event)" 
               name="beds" 
@@ -1498,6 +1470,7 @@
             <label>Bathrooms</label>
             <input 
               type="number" 
+              placeholder="e.g. 6"
               [ngModel]="propBathrooms()" 
               (ngModelChange)="propBathrooms.set($event)" 
               name="baths" 
@@ -1522,7 +1495,7 @@
               <input type="file" (change)="onHeroImageFileSelected($event)" accept="image/*" class="file-picker-input" />
               <input 
                 type="text" 
-                placeholder="https://images.unsplash.com/..." 
+                placeholder="e.g. https://images.unsplash.com/... or choose preset below" 
                 [ngModel]="propHeroImage()" 
                 (ngModelChange)="propHeroImage.set($event)" 
                 name="hero" 
@@ -1552,7 +1525,7 @@
               <i class="ri-video-line"></i>
               <input 
                 type="text" 
-                placeholder="https://www.youtube.com/watch?v=... or direct MP4 link" 
+                placeholder="e.g. https://www.youtube.com/watch?v=... or direct MP4 link" 
                 [ngModel]="propVideoUrl()" 
                 (ngModelChange)="propVideoUrl.set($event)" 
                 name="video" 
@@ -1565,7 +1538,7 @@
             <label>Gallery Photos (Comma separated URLs)</label>
             <textarea 
               rows="2" 
-              placeholder="https://image1.jpg, https://image2.jpg, ..." 
+              placeholder="e.g. https://image1.jpg, https://image2.jpg, ..." 
               [ngModel]="propGalleryInput()" 
               (ngModelChange)="propGalleryInput.set($event)" 
               name="gallery"
@@ -1595,7 +1568,7 @@
             <label>Comprehensive Property Description</label>
             <textarea 
               rows="4" 
-              placeholder="Detailed architectural specifications, living spaces, and location advantages..." 
+              placeholder="e.g. Prestigious 5-bedroom luxury residence featuring modern architecture, smart home automation, and serene ocean views..." 
               [ngModel]="propDescription()" 
               (ngModelChange)="propDescription.set($event)" 
               name="desc"
@@ -1607,7 +1580,7 @@
             <label>Key Features (One per line)</label>
             <textarea 
               rows="4" 
-              placeholder="5-bedroom all ensuite&#10;Private in-house cinema room&#10;Integrated solar inverter" 
+              placeholder="e.g.&#10;5-bedroom all ensuite&#10;Private in-house cinema room&#10;Integrated solar inverter&#10;Dedicated 4-car parking" 
               [ngModel]="propFeaturesText()" 
               (ngModelChange)="propFeaturesText.set($event)" 
               name="feats"
@@ -1618,7 +1591,7 @@
             <label>Neighborhood Highlights (One per line)</label>
             <textarea 
               rows="4" 
-              placeholder="2 mins drive to Lekki-Epe Expressway&#10;Direct proximity to Whitesand Beach" 
+              placeholder="e.g.&#10;2 mins drive to Lekki-Epe Expressway&#10;Direct proximity to Whitesand Beach&#10;5 mins to Circle Mall Osapa London" 
               [ngModel]="propHighlightsText()" 
               (ngModelChange)="propHighlightsText.set($event)" 
               name="highlights"

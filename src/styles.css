@@ -80,7 +80,7 @@ body {
   background-color: var(--color-primary-dark);
   color: var(--color-text-light);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Custom Scrollbar */
@@ -152,6 +152,31 @@ button, input, select, textarea {
   .section-spacing {
     padding-top: 3.5rem;
     padding-bottom: 3.5rem;
+  }
+}
+
+/* Equal gap between sticky navbar and page header title on inner routed pages */
+.properties-page-layout .properties-section,
+.short-stay-page-layout .short-stay-hero,
+.short-stay-page .short-stay-hero,
+.services-page-layout .services-section,
+.projects-page-layout .projects-matrix-section,
+.about-page-layout .about-section,
+.contact-page-layout .contact-section,
+.calculator-page-layout .calculator-section {
+  padding-top: 1.75rem !important;
+}
+
+@media (max-width: 768px) {
+  .properties-page-layout .properties-section,
+  .short-stay-page-layout .short-stay-hero,
+  .short-stay-page .short-stay-hero,
+  .services-page-layout .services-section,
+  .projects-page-layout .projects-matrix-section,
+  .about-page-layout .about-section,
+  .contact-page-layout .contact-section,
+  .calculator-page-layout .calculator-section {
+    padding-top: 1.25rem !important;
   }
 }
 

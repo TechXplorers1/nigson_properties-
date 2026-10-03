@@ -1,10 +1,11 @@
 .properties-section {
   background-color: var(--color-primary-navy);
   position: relative;
+  padding-top: 1.75rem;
 }
 
 .section-header-wrap {
-  margin-bottom: 3.5rem;
+  margin-bottom: 2.25rem;
 }
 
 /* Quick Search & Filter Engine */

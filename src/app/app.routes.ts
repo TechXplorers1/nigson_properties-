@@ -6,7 +6,6 @@ import { PropertiesPageComponent } from './pages/properties-page/properties-page
 import { AboutPageComponent } from './pages/about-page/about-page';
 import { ProjectsPageComponent } from './pages/projects-page/projects-page';
 import { ServicesPageComponent } from './pages/services-page/services-page';
-import { GalleryPageComponent } from './pages/gallery-page/gallery-page';
 import { ContactPageComponent } from './pages/contact-page/contact-page';
 import { CalculatorPageComponent } from './pages/calculator-page/calculator-page';
 import { LoginPageComponent } from './pages/login-page/login-page';
@@ -37,7 +36,7 @@ export const routes: Routes = [
   { path: 'portfolio', redirectTo: 'projects', pathMatch: 'full' },
   { path: 'services', component: ServicesPageComponent, title: 'Our 6 Core Real Estate Services | Nigson Properties' },
   { path: 'calculator', component: CalculatorPageComponent, title: 'Mortgage & ROI Investment Calculator | Nigson Properties' },
-  { path: 'gallery', component: GalleryPageComponent, title: 'Architectural Project Gallery | Nigson Properties' },
+  { path: 'gallery', redirectTo: 'properties', pathMatch: 'full' },
   { path: 'contact', component: ContactPageComponent, title: 'Contact Us | Nigson Properties Lagos' },
   { 
     path: 'login', 

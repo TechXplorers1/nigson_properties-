@@ -3,6 +3,10 @@
   position: relative;
 }
 
+:host-context(.services-page-layout) .services-section {
+  padding-top: 1.75rem;
+}
+
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));

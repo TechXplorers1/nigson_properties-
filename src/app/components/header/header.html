@@ -1,50 +1,3 @@
-<!-- Live Announcement Banner (If active in Admin Content Management) -->
-@if (adminService.websiteContent().announcementActive && adminService.websiteContent().announcementText) {
-  <div class="announcement-banner">
-    <div class="container announcement-container">
-      <span class="announcement-badge"><i class="ri-megaphone-fill"></i> UPDATE</span>
-      <span class="announcement-text">{{ adminService.websiteContent().announcementText }}</span>
-      @if (adminService.websiteContent().announcementLink) {
-        <a [routerLink]="adminService.websiteContent().announcementLink" class="announcement-link">
-          <span>Explore</span> <i class="ri-arrow-right-s-line"></i>
-        </a>
-      }
-    </div>
-  </div>
-}
-
-<!-- Top Bar -->
-<div class="top-bar">
-  <div class="container top-bar-container">
-    <div class="top-bar-left">
-      <span class="top-bar-item">
-        <i class="ri-map-pin-2-fill text-gold"></i>
-        <span>{{ adminService.websiteContent().companyAddress }}</span>
-      </span>
-      <span class="top-bar-divider">|</span>
-      <span class="top-bar-item">
-        <i class="ri-time-line text-gold"></i>
-        <span>{{ adminService.websiteContent().officeHours }}</span>
-      </span>
-    </div>
-
-    <div class="top-bar-right">
-      <a [href]="'tel:' + adminService.websiteContent().companyPhone" class="top-bar-link">
-        <i class="ri-phone-fill text-gold"></i>
-        <span>{{ adminService.websiteContent().companyPhone }}</span>
-      </a>
-      <span class="top-bar-divider">/</span>
-      <a [href]="'tel:' + adminService.websiteContent().companyPhone2" class="top-bar-link">
-        <span>{{ adminService.websiteContent().companyPhone2 }}</span>
-      </a>
-      <span class="top-bar-divider">|</span>
-      <a [href]="'mailto:' + adminService.websiteContent().companyEmail" class="top-bar-link">
-        <i class="ri-mail-line text-gold"></i>
-        <span>{{ adminService.websiteContent().companyEmail }}</span>
-      </a>
-    </div>
-  </div>
-</div>
 
 <!-- Main Sticky Header -->
 <header class="main-header" [class.scrolled]="isScrolled()">
@@ -68,7 +21,6 @@
       <a routerLink="/services" routerLinkActive="active" class="nav-link">Services</a>
       <a routerLink="/projects" routerLinkActive="active" class="nav-link">Projects</a>
       <a routerLink="/about" routerLinkActive="active" class="nav-link">About Us</a>
-      <a routerLink="/gallery" routerLinkActive="active" class="nav-link">Gallery</a>
       <a routerLink="/contact" routerLinkActive="active" class="nav-link">Contact</a>
     </nav>
 
@@ -147,9 +99,6 @@
       </a>
       <a routerLink="/about" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-nav-link">
         <i class="ri-team-line text-gold"></i> About Us
-      </a>
-      <a routerLink="/gallery" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-nav-link">
-        <i class="ri-image-line text-gold"></i> Gallery
       </a>
       <a routerLink="/contact" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-nav-link">
         <i class="ri-map-pin-line text-gold"></i> Contact Us

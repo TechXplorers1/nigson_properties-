@@ -7,6 +7,8 @@ import { PropertyService } from '../../services/property.service';
 import { AdminService } from '../../services/admin.service';
 import { 
   Property, 
+  PropertyType,
+  AVAILABLE_PROPERTY_TYPES,
   PropertyStatus, 
   PropertyCategory, 
   PropertyPurpose, 
@@ -64,34 +66,28 @@ export class AdminDashboardComponent implements OnInit {
   // Property Form Fields
   public propTitle = signal<string>('');
   public propSlug = signal<string>('');
-  public propLocation = signal<string>('Ologolo, Lekki, Lagos');
-  public propNeighborhood = signal<string>('Ologolo, Lekki');
-  public propCategory = signal<PropertyCategory>('construction');
+  public propLocation = signal<string>('');
+  public propNeighborhood = signal<string>('');
+  public propCategory = signal<PropertyCategory>('sales');
   public propStatus = signal<PropertyStatus>('Available for Sale');
   public propPurpose = signal<PropertyPurpose>('sale');
-  public propPrice = signal<string>('₦195,000,000');
-  public propNumericPrice = signal<number>(195000000);
-  public propPriceSubtext = signal<string>('Net Selling Price');
-  public propUnits = signal<number>(6);
-  public propType = signal<'Duplex' | 'Apartment' | 'Terrace' | 'Villa' | 'Mansionette'>('Duplex');
-  public propBedrooms = signal<number>(5);
-  public propBathrooms = signal<number>(6);
-  public propSize = signal<string>('520 sqm');
-  public propFeatured = signal<boolean>(true);
-  public propHeroImage = signal<string>('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80');
-  public propVideoUrl = signal<string>('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+  public propPrice = signal<string>('');
+  public propNumericPrice = signal<number | null>(null);
+  public propPriceSubtext = signal<string>('');
+  public propUnits = signal<number | null>(null);
+  public readonly availablePropertyTypes = AVAILABLE_PROPERTY_TYPES;
+  public propType = signal<PropertyType>('Duplex');
+  public propBedrooms = signal<number | null>(null);
+  public propBathrooms = signal<number | null>(null);
+  public propSize = signal<string>('');
+  public propFeatured = signal<boolean>(false);
+  public propHeroImage = signal<string>('');
+  public propVideoUrl = signal<string>('');
   public propDescription = signal<string>('');
   public propFeaturesText = signal<string>('');
   public propHighlightsText = signal<string>('');
   public propGalleryInput = signal<string>('');
-  public selectedAmenities = signal<string[]>([
-    '24/7 Solar & Inverter', 
-    'Cinema Room', 
-    '4-Car Parking', 
-    'Access Control', 
-    'Treated Water', 
-    'Private BQ'
-  ]);
+  public selectedAmenities = signal<string[]>([]);
 
   // Preset Luxury Real Estate Image Presets
   public readonly presetImages = [
@@ -398,27 +394,27 @@ export class AdminDashboardComponent implements OnInit {
     this.editingPropertyId.set('');
     this.propTitle.set('');
     this.propSlug.set('');
-    this.propLocation.set('Ologolo, Lekki, Lagos');
-    this.propNeighborhood.set('Ologolo, Lekki');
-    this.propCategory.set('construction');
+    this.propLocation.set('');
+    this.propNeighborhood.set('');
+    this.propCategory.set('sales');
     this.propStatus.set('Available for Sale');
     this.propPurpose.set('sale');
-    this.propPrice.set('₦195,000,000');
-    this.propNumericPrice.set(195000000);
-    this.propPriceSubtext.set('Net Selling Price');
-    this.propUnits.set(6);
+    this.propPrice.set('');
+    this.propNumericPrice.set(null);
+    this.propPriceSubtext.set('');
+    this.propUnits.set(null);
     this.propType.set('Duplex');
-    this.propBedrooms.set(5);
-    this.propBathrooms.set(6);
-    this.propSize.set('520 sqm');
-    this.propFeatured.set(true);
-    this.propHeroImage.set(this.presetImages[0]);
+    this.propBedrooms.set(null);
+    this.propBathrooms.set(null);
+    this.propSize.set('');
+    this.propFeatured.set(false);
+    this.propHeroImage.set('');
     this.propVideoUrl.set('');
     this.propDescription.set('');
-    this.propFeaturesText.set('5-bedroom all ensuite\nMaster and family lounges\nPrivate cinema room\nIntegrated solar inverter\nDedicated 4-car parking\nIndependent BQ');
-    this.propHighlightsText.set('2 minutes to Lekki-Epe Expressway\nDirect access to Whitesand corridor\n5 mins to Circle Mall Osapa London');
-    this.propGalleryInput.set(this.presetImages.slice(0, 4).join(', '));
-    this.selectedAmenities.set(['24/7 Solar & Inverter', 'Cinema Room', '4-Car Parking', 'Access Control', 'Treated Water', 'Private BQ']);
+    this.propFeaturesText.set('');
+    this.propHighlightsText.set('');
+    this.propGalleryInput.set('');
+    this.selectedAmenities.set([]);
     this.isPropertyModalOpen.set(true);
   }
 

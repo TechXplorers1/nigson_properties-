@@ -40,16 +40,6 @@ export class PropertyModalComponent {
     }
   }
 
-  public downloadBrochure(): void {
-    const prop = this.propertyService.activeProperty();
-    if (prop) {
-      this.propertyService.showToast(
-        'Brochure Download Initiated',
-        `The official property specification document for ${prop.title} has been compiled and is ready for download.`,
-        'info'
-      );
-    }
-  }
 
   public toggleSave(): void {
     const prop = this.propertyService.activeProperty();

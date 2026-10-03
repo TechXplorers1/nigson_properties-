@@ -27,6 +27,11 @@
             </label>
             <select class="form-control" [ngModel]="selectedPropertyTitle()" (ngModelChange)="selectedPropertyTitle.set($event)" name="propertySelect">
               <option value="">-- Select a Featured Development --</option>
+              @if (isCustomProperty(selectedPropertyTitle())) {
+                <option [value]="selectedPropertyTitle()">
+                  {{ selectedPropertyTitle() }}
+                </option>
+              }
               @for (prop of propertyService.properties(); track prop.id) {
                 <option [value]="prop.title">
                   {{ prop.title }} ({{ prop.location }})

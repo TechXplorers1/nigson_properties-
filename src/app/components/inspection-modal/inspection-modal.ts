@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PropertyService } from '../../services/property.service';
@@ -25,11 +25,18 @@ export class InspectionModalComponent {
   public comments = signal<string>('');
 
   constructor() {
-    // Sync preselected property if provided
-    const pre = this.propertyService.inspectionPreselectedProperty();
-    if (pre) {
-      this.selectedPropertyTitle.set(pre);
-    }
+    // Reactively sync preselected property whenever inspection modal opens
+    effect(() => {
+      if (this.propertyService.isInspectionModalOpen()) {
+        const pre = this.propertyService.inspectionPreselectedProperty();
+        this.selectedPropertyTitle.set(pre || '');
+      }
+    });
+  }
+
+  public isCustomProperty(title: string): boolean {
+    if (!title || title === 'General Portfolio Viewing') return false;
+    return !this.propertyService.properties().some(p => p.title === title);
   }
 
   private getDefaultDate(): string {

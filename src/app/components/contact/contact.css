@@ -1,6 +1,7 @@
 .contact-section {
   background: var(--color-primary-navy);
   position: relative;
+  padding-top: 1.75rem;
 }
 
 .contact-grid {

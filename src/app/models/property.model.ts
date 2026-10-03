@@ -14,6 +14,40 @@ export interface Amenity {
   label: string;
 }
 
+export type PropertyType = 
+  | 'Duplex' 
+  | 'Semi-Detached Duplex' 
+  | 'Fully Detached Duplex' 
+  | 'Apartment' 
+  | 'Penthouse' 
+  | 'Terrace' 
+  | 'Townhouse' 
+  | 'Villa' 
+  | 'Mansionette' 
+  | 'Mansion' 
+  | 'Bungalow' 
+  | 'Studio Apartment' 
+  | 'Commercial Space' 
+  | 'Residential Land'
+  | string;
+
+export const AVAILABLE_PROPERTY_TYPES: string[] = [
+  'Duplex',
+  'Semi-Detached Duplex',
+  'Fully Detached Duplex',
+  'Apartment',
+  'Penthouse',
+  'Terrace',
+  'Townhouse',
+  'Villa',
+  'Mansionette',
+  'Mansion',
+  'Bungalow',
+  'Studio Apartment',
+  'Commercial Space',
+  'Residential Land'
+];
+
 export interface Property {
   id: string;
   title: string;
@@ -28,7 +62,7 @@ export interface Property {
   numericPrice: number; // For filtering
   priceSubtext?: string;
   units: number;
-  propertyType: 'Duplex' | 'Apartment' | 'Terrace' | 'Villa' | 'Mansionette';
+  propertyType: PropertyType;
   bedrooms: number;
   bathrooms: number;
   size: string;
