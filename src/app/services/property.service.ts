@@ -20,444 +20,328 @@ export class PropertyService {
   // Properties list grounded directly in Nigson Properties BRD
   private readonly propertiesData: Property[] = [
     {
-      id: 'whitesand-ologolo',
-      title: 'Opposite Whitesand Beach Estate',
-      slug: 'opposite-whitesand-beach-estate-ologolo',
-      location: 'Ologolo, Lekki, Lagos',
-      neighborhoodArea: 'Ologolo, Lekki',
-      category: 'construction',
-      categoryLabel: 'Building Construction',
-      status: 'Completed & Sold Out',
-      purpose: 'completed',
-      price: '₦185,000,000',
-      numericPrice: 185000000,
-      priceSubtext: 'Original Listing Price',
-      units: 6,
-      propertyType: 'Duplex',
+      id: 'grand-azure-banana-island',
+      title: 'The Grand Azure Waterfront Villa',
+      slug: 'grand-azure-waterfront-villa-banana-island',
+      location: 'Ocean Drive, Banana Island, Ikoyi, Lagos',
+      neighborhoodArea: 'Banana Island, Ikoyi',
+      category: 'sales',
+      categoryLabel: '',
+      status: 'Available for Sale',
+      purpose: 'sale',
+      price: '₦650,000,000',
+      numericPrice: 650000000,
+      units: 1,
+      propertyType: 'Villa',
       bedrooms: 5,
       bathrooms: 6,
-      size: '520 sqm each',
-      featured: true,
-      heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-      gallery: [
-        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80'
-      ],
-      description: 'Opposite Whitesand Beach Estate features 6 units of prestigious 5-bedroom fully detached and semi-detached luxury duplexes in serene Ologolo, Lekki. Designed for modern family living with superior craftsmanship, dual lounges, and an exclusive private cinema room.',
-      features: [
-        '5-bedroom fully and semi-detached duplexes',
-        'All bedrooms ensuite with high-end sanitary wares',
-        'Master lounge plus separate Family lounge',
-        'Fully fitted chef kitchen with premium heat extractor & ovens',
-        'Private in-house cinema room for family entertainment',
-        '24/7 dedicated clean power supply',
-        'Integrated solar panel arrays with high-capacity inverter system',
-        'Spacious parking for up to 4 vehicles',
-        'Security gatehouse with automated perimeter fencing',
-        'Independent Boys Quarters (BQ)',
-        'Direct proximity to Lekki-Epe Expressway and beach corridors'
-      ],
-      amenities: [
-        { icon: 'ri-flashlight-line', label: '24/7 Solar & Inverter' },
-        { icon: 'ri-film-line', label: 'Cinema Room' },
-        { icon: 'ri-car-line', label: '4-Car Parking' },
-        { icon: 'ri-shield-check-line', label: 'Access Control' },
-        { icon: 'ri-drop-line', label: 'Treated Water' },
-        { icon: 'ri-home-4-line', label: 'Private BQ' }
-      ],
-      neighborhoodHighlights: [
-        '2 minutes drive to Lekki-Epe Expressway',
-        'Direct proximity to Whitesand Beach and leisure hubs',
-        '5 minutes to Circle Mall and Osapa London',
-        'Reputable international schools and private hospitals nearby'
-      ],
-      specifications: {
-        'Structure': 'Reinforced concrete frame with premium Italian porcelain tiling',
-        'Power': 'Dual 24/7 grid connection + 10kVA Solar Hybrid System',
-        'Security': 'CCTV cameras, smart video doorbell, intercom & access gate',
-        'Kitchen': 'Imported quartz countertops, built-in microwave & gas burner'
-      }
-    },
-    {
-      id: 'fatai-bankole',
-      title: 'Fatai Bankole Luxury Residences',
-      slug: 'fatai-bankole-aro-ologolo-lekki',
-      location: 'Aro-Ologolo, Lekki, Lagos',
-      neighborhoodArea: 'Aro-Ologolo, Lekki',
-      category: 'construction',
-      categoryLabel: 'Building Construction',
-      status: 'Completed & Sold Out',
-      purpose: 'completed',
-      price: '₦195,000,000',
-      numericPrice: 195000000,
-      priceSubtext: 'Completed & Handed Over',
-      units: 7,
-      propertyType: 'Duplex',
-      bedrooms: 5,
-      bathrooms: 6,
-      size: '550 sqm each',
+      size: '620 sqm',
       featured: true,
       heroImage: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80',
       gallery: [
         'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1200&q=80'
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80'
       ],
-      description: 'An architectural statement in Aro-Ologolo, Lekki featuring 7 ultra-luxurious 5-bedroom homes. Highlights include an opulent master suite, a dedicated Madam’s bedroom with an imported hydro-massage Jacuzzi, expansive living areas, and self-sufficient renewable energy systems.',
+      description: 'The Grand Azure Waterfront Villa stands as an ultra-luxury private architectural trophy nestled directly along Ocean Drive on Banana Island. Featuring an exclusive private lagoon boat jetty, double-volume living salon, infinity-edge swimming pool, and Italian marble finishes throughout.',
       features: [
-        '5-bedroom semi-detached and fully detached architectural homes',
-        'Grand Master bedroom with private balcony view',
-        'Madam’s bedroom suite with deluxe hydro-massage Jacuzzi',
-        'Two dedicated children’s bedrooms with bespoke wardrobes',
-        'Comfortable ensuite guest room on ground floor',
-        'Modern open-concept living and elevated dining areas',
-        'Fully fitted designer kitchen with island counter',
-        'High-capacity solar panels and smart inverter backup',
-        'Industrial-grade multi-stage water treatment plant',
-        '24/7 clean electrical power infrastructure',
-        'Secured security house with automated sliding access gates'
+        '5 ultra-spacious ensuite bedrooms with walk-in dressing suites',
+        'Private waterfront jetty access for luxury boat mooring',
+        'Infinity swimming pool overlooking the tranquil Lagos lagoon',
+        'Gourmet Italian show kitchen with integrated Gaggenau appliances',
+        'Secondary industrial prep kitchen for catering and events',
+        'Private 4K Dolby Atmos cinema room with acoustic wall panelling',
+        '20kVA integrated solar-battery hybrid backup system',
+        'Dedicated multi-car private motor court for up to 6 vehicles',
+        'Biometric access control, perimeter motion sensors & 24/7 armed patrol',
+        'Independent 2-room staff quarters (BQ)'
       ],
       amenities: [
-        { icon: 'ri-hot-tub-line', label: 'Hydro Jacuzzi' },
-        { icon: 'ri-sun-line', label: 'Solar Arrays' },
-        { icon: 'ri-water-flash-line', label: 'Water Treatment Plant' },
-        { icon: 'ri-shield-keyhole-line', label: 'Guarded Gatehouse' },
-        { icon: 'ri-parking-box-line', label: 'Ample Car Park' }
+        { icon: 'ri-anchor-line', label: 'Private Boat Jetty' },
+        { icon: 'ri-water-flash-fill', label: 'Infinity Pool' },
+        { icon: 'ri-film-line', label: 'Cinema Room' },
+        { icon: 'ri-sun-line', label: '20kVA Solar Hybrid' },
+        { icon: 'ri-shield-keyhole-line', label: 'Armed Security' },
+        { icon: 'ri-car-line', label: '6-Car Motor Court' }
       ],
       neighborhoodHighlights: [
-        'Quiet gated residential enclave with tarred access roads',
-        '3 minutes to Meadow Hall School & regional sports hubs',
-        'Fast access to Lekki Phase 1 and Victoria Island'
+        'Nigeria’s most prestigious and secure residential address',
+        'Direct water commute connectivity to Victoria Island and Ikoyi clubs',
+        'Unmatched capital preservation and generational wealth appreciation'
       ],
       specifications: {
-        'Master Suite': 'Walk-in dressing closet, frameless glass shower & Jacuzzi',
-        'Water Supply': 'Industrial borehole with automatic aeration & filtration plant',
-        'Finishes': 'POP ceiling with ambient magnetic track lighting'
+        'Title': 'Federal Republic of Nigeria Certificate of Occupancy (C of O)',
+        'Structure': 'Marine-grade reinforced concrete pile foundation & structural framing',
+        'Finishes': 'Calacatta marble tiling, Antonio Lupi luxury sanitary fixtures',
+        'Power': 'Dual 24/7 dedicated Island grid + 20kVA solar hybrid generation'
       }
     },
     {
-      id: 'white-oaks-estate',
-      title: 'White Oaks Estate',
-      slug: 'white-oaks-estate-aro-ologolo-lekki',
-      location: 'Aro-Ologolo, Lekki, Lagos',
-      neighborhoodArea: 'Aro-Ologolo, Lekki',
-      category: 'construction',
-      categoryLabel: 'Building Construction',
-      status: 'Completed & Sold Out',
-      purpose: 'completed',
-      price: '₦210,000,000',
-      numericPrice: 210000000,
-      priceSubtext: '14 Units Delivered & Sold Out',
-      units: 14,
+      id: 'sovereign-residence-lekki',
+      title: 'The Sovereign Smart Luxury Residence',
+      slug: 'sovereign-smart-luxury-residence-lekki',
+      location: 'Admiralty Way Axis, Lekki Phase 1, Lagos',
+      neighborhoodArea: 'Lekki Phase 1',
+      category: 'sales',
+      categoryLabel: '',
+      status: 'Available for Sale',
+      purpose: 'sale',
+      price: '₦285,000,000',
+      numericPrice: 285000000,
+      units: 1,
       propertyType: 'Duplex',
       bedrooms: 5,
       bathrooms: 6,
-      size: '540 sqm average',
+      size: '520 sqm',
       featured: true,
       heroImage: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
       gallery: [
         'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80'
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1200&q=80'
       ],
-      description: 'White Oaks Estate represents one of Nigson Properties’ most celebrated flagship residential developments in Lekki. Comprising 14 bespoke 5-bedroom homes engineered with superior structural integrity, elegant facades, and sustainable energy foundations.',
+      description: 'An avant-garde contemporary masterpiece situated just off Admiralty Way in prime Lekki Phase 1. The Sovereign combines automated smart home infrastructure, a rooftop cocktail jacuzzi, soaring double-height ceilings, and supreme energy resilience.',
       features: [
-        '14 private 5-bedroom detached and semi-detached homes',
-        'Dual-volume family lounges with high ceilings and natural illumination',
-        'Master bedroom and Madam’s room equipped with Jacuzzi baths',
-        'Contemporary imported fitted kitchen with soft-close cabinets',
-        'Clean solar and inverter system installed in all units',
-        'Centralized water purification plant with continuous pressure pumps',
-        '24/7 dedicated estate security patrol and perimeter sensors',
-        'Dedicated estate generator backup and underground electrification'
+        '5 lavish ensuite bedrooms with custom Spanish porcelain tiles',
+        'Opulent master suite with private sky lounge & hydro-massage jacuzzi',
+        'Full home automation with mobile and voice-controlled lighting and HVAC',
+        'Dedicated acoustic cinema room with 4K projection setup',
+        'Open-plan chef kitchen with quartz island counter & German appliances',
+        '15kVA solar inverter hybrid system with lithium battery storage',
+        'Central water purification plant with continuous pressure pumps',
+        'Spacious parking for 4 vehicles with motorized security sliding gate',
+        'Ensuite domestic staff quarters (BQ)'
       ],
       amenities: [
-        { icon: 'ri-building-line', label: '14-Home Community' },
-        { icon: 'ri-shield-star-line', label: '24/7 Security Patrol' },
-        { icon: 'ri-flashlight-line', label: 'Solar Hybrid' },
-        { icon: 'ri-road-map-line', label: 'Tarred Estate Roads' }
+        { icon: 'ri-smartphone-line', label: 'Smart Home Automation' },
+        { icon: 'ri-hot-tub-line', label: 'Rooftop Jacuzzi' },
+        { icon: 'ri-film-line', label: 'Cinema Room' },
+        { icon: 'ri-sun-fill', label: '15kVA Solar Hybrid' },
+        { icon: 'ri-shield-check-line', label: 'Motorized Gate' },
+        { icon: 'ri-home-4-line', label: 'Ensuite BQ' }
       ],
       neighborhoodHighlights: [
-        'Direct access to major commercial shopping centers in Lekki',
-        'Close to Chevron head office and Lekki conservation corridor'
+        'Walking distance to prime Lekki Phase 1 dining, boutiques, and lounges',
+        '4 minutes drive to the Lekki-Ikoyi Link Bridge',
+        'Projected annual rental yield of ₦22M - ₦26M for high-yield investors'
       ],
       specifications: {
-        'Development Footprint': '14 residential units on fully landscaped estate grounds',
-        'Drainage': 'Reinforced covered concrete drainage infrastructure'
+        'Title': 'Governor’s Consent & Registered Deed of Assignment',
+        'Automation': 'Control4 smart home hub with integrated voice & tablet control',
+        'Sanitary': 'Hansgrohe concealed valves & Catalano Italian sanitaryware'
       }
     },
     {
-      id: 'olufemi-olatunji-osapa',
-      title: 'Olufemi Olatunji Court',
-      slug: 'olufemi-olatunji-osapa-lekki',
-      location: 'Osapa, Lekki, Lagos',
-      neighborhoodArea: 'Osapa, Lekki',
-      category: 'construction',
-      categoryLabel: 'Building Construction',
-      status: 'Completed & Sold Out',
-      purpose: 'completed',
-      price: '₦230,000,000',
-      numericPrice: 230000000,
-      priceSubtext: 'Premium Osapa Development',
-      units: 9,
-      propertyType: 'Apartment',
-      bedrooms: 4,
-      bathrooms: 5,
-      size: '2,100 sqm Total Land Area',
-      featured: true,
-      heroImage: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80',
-      gallery: [
-        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1200&q=80'
-      ],
-      description: 'Spanning a generous 2,100 square meter property in the high-demand Osapa London neighborhood, this gated community delivers 9 fully detached and semi-detached luxury residences with world-class fittings and round-the-clock infrastructure.',
-      features: [
-        '9 fully detached and semi-detached luxury apartments/duplexes',
-        'Expansive 2,100 sqm well-drained estate footprint',
-        'Ensuite bedrooms with custom Spanish sanitary fittings',
-        'Expansive modern living room with floor-to-ceiling windows',
-        'High-end kitchen fittings with premium integrated appliances',
-        'Full solar panels and industrial inverter setup',
-        'Central reverse osmosis & industrial water treatment plant',
-        '24/7 steady power network',
-        'Ample paved parking spaces for residents and visitors',
-        'Armed security response, CCTV, and biometric access control'
-      ],
-      amenities: [
-        { icon: 'ri-layout-grid-line', label: '2,100 sqm Grounds' },
-        { icon: 'ri-shopping-bag-3-line', label: 'Near Circle Mall' },
-        { icon: 'ri-sun-line', label: 'Solar & Inverter' },
-        { icon: 'ri-drop-line', label: 'Treated Water Plant' },
-        { icon: 'ri-shield-user-line', label: 'Armed Response' }
-      ],
-      neighborhoodHighlights: [
-        'Walking distance to Circle Mall (Shoprite, banks, cafes)',
-        'Surrounded by top tier private clinics, fine dining, and gyms',
-        'Fast access to Lekki-Ikoyi Link Bridge in under 12 minutes'
-      ],
-      specifications: {
-        'Land Area': '2,100 sqm with Governor’s Consent and C of O',
-        'Finishes': 'Imported Turkish security doors, Spanish vitrified tiles'
-      }
-    },
-    {
-      id: 'nigson-villa-banana-island',
-      title: 'Nigson Villa Banana Island',
-      slug: 'nigson-villa-banana-island-lagos',
-      location: 'Banana Island, Ikoyi, Lagos',
-      neighborhoodArea: 'Banana Island, Ikoyi',
-      category: 'management',
-      categoryLabel: 'Property Management & Luxury Leasing',
-      status: 'Available for Lease',
-      purpose: 'lease',
-      price: '₦22,000,000 / year',
-      numericPrice: 22000000,
-      priceSubtext: 'Service Charge Inclusive Option Available',
-      units: 8,
-      propertyType: 'Apartment',
-      bedrooms: 3,
-      bathrooms: 4,
-      size: '280 sqm per unit',
-      featured: true,
-      heroImage: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
-      gallery: [
-        'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80'
-      ],
-      description: 'Nigson Villa is an elite residential development managed by Nigson Properties in Nigeria’s most prestigious neighborhood: Banana Island, Ikoyi. Comprising 8 exclusive 2-bedroom and 3-bedroom luxury apartments featuring an Olympic-grade swimming pool, reverse osmosis water system, and round-the-clock facility management.',
-      features: [
-        '8 exclusive luxury apartment units (2 & 3 Bedroom options)',
-        'Modern spa-inspired bathrooms with German fittings',
-        'Visitor’s guest powder room in every unit',
-        'Contemporary open interiors with premium wooden cabinetry',
-        'Ensuite Boys Quarters (BQ) for each residence',
-        '24/7 guaranteed uninterrupted electrical power',
-        'High-level security with motorized estate gates & biometric intercom',
-        'Ample allocated parking for residents and visiting guests',
-        'Advanced Reverse Osmosis (RO) drinking water filtration system',
-        'Exclusive resident swimming pool and landscaped sun deck',
-        'Prestigious Banana Island location with unmatched tranquility'
-      ],
-      amenities: [
-        { icon: 'ri-water-flash-fill', label: 'Swimming Pool' },
-        { icon: 'ri-vip-crown-line', label: 'Banana Island Address' },
-        { icon: 'ri-flashlight-line', label: '24/7 Power' },
-        { icon: 'ri-drop-fill', label: 'Reverse Osmosis Water' },
-        { icon: 'ri-service-line', label: 'Managed Facility' },
-        { icon: 'ri-user-star-line', label: 'Concierge Desk' }
-      ],
-      neighborhoodHighlights: [
-        'Nigeria’s most secure and affluent residential haven',
-        'Private waterfront walkway and helipad access',
-        'Home to multinational diplomats, C-suite executives, and entrepreneurs'
-      ],
-      specifications: {
-        'Management': 'Full facility management provided by Nigson Properties Ltd',
-        'Water': 'Automated multi-stage Reverse Osmosis drinking water plant',
-        'Pool': 'Private heated freshwater pool with poolside bar'
-      }
-    },
-    {
-      id: 'benson-close-ikoyi',
-      title: 'Benson Close Ikoyi Waterfront',
-      slug: 'benson-close-ikoyi-waterfront-apartment',
-      location: 'Benson Close, Old Ikoyi, Lagos',
+      id: 'obsidian-penthouse-ikoyi',
+      title: 'The Obsidian Contemporary Sky Penthouse',
+      slug: 'obsidian-contemporary-sky-penthouse-ikoyi',
+      location: 'Alexander Road Axis, Old Ikoyi, Lagos',
       neighborhoodArea: 'Ikoyi, Lagos',
-      category: 'leasing',
-      categoryLabel: 'Property Leasing',
-      status: 'Available for Lease',
-      purpose: 'lease',
-      price: '₦22,000,000 / annum',
-      numericPrice: 22000000,
-      priceSubtext: 'Corporate & Executive Lease',
-      units: 1,
-      propertyType: 'Apartment',
-      bedrooms: 1,
-      bathrooms: 2,
-      size: '110 sqm',
-      featured: true,
-      heroImage: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80',
-      gallery: [
-        'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80'
-      ],
-      description: 'An exquisitely finished 1-bedroom luxury waterfront apartment located on exclusive Benson Close, Ikoyi. Designed for corporate executives, expatriates, and discerning professionals seeking tranquil waterfront living with 24/7 power, high security, and picturesque lagoon views.',
-      features: [
-        'Fully furnished designer 1-bedroom suite with plush king bed',
-        'Stunning waterfront views over the Lagos lagoon and sunrise vistas',
-        '24/7 uninterrupted clean electricity with silent generator sync',
-        '24/7 guarded security perimeter and CCTV surveillance',
-        'Fully equipped gourmet kitchen (microwave, oven, blender, espresso maker)',
-        'High-speed fiber-optic Wi-Fi infrastructure',
-        'Climate-controlled whisper-quiet air conditioning',
-        'Dedicated allocated secured parking bay',
-        'Smart 65-inch 4K TV and home entertainment system',
-        'Washer-dryer in-unit and laundry facilities'
-      ],
-      amenities: [
-        { icon: 'ri-wifi-line', label: 'Fiber Wi-Fi' },
-        { icon: 'ri-sailboat-line', label: 'Waterfront Lagoon View' },
-        { icon: 'ri-tv-line', label: 'Smart 4K TV' },
-        { icon: 'ri-restaurant-line', label: 'Fitted Kitchen' },
-        { icon: 'ri-shield-check-line', label: '24/7 Security' },
-        { icon: 'ri-flashlight-line', label: '24/7 Clean Power' }
-      ],
-      neighborhoodHighlights: [
-        'Walking distance to upscale Ikoyi restaurants, cafes, and private clubs',
-        '7 minutes drive to Victoria Island financial district',
-        'Close to Southern Sun Ikoyi and Lagos Polo Club'
-      ],
-      specifications: {
-        'Lease Terms': 'Minimum 1-year lease, corporate guarantees accepted',
-        'Services Included': 'Security, dedicated parking, backup power, water treatment'
-      }
-    },
-    {
-      id: 'lekki-pearl-residences',
-      title: 'Lekki Pearl Residences',
-      slug: 'lekki-pearl-residences-lekki-phase-1',
-      location: 'Admiralty Way Axis, Lekki Phase 1, Lagos',
-      neighborhoodArea: 'Lekki Phase 1',
       category: 'sales',
-      categoryLabel: 'Property For Sale',
+      categoryLabel: '',
       status: 'Available for Sale',
       purpose: 'sale',
-      price: '₦260,000,000',
-      numericPrice: 260000000,
-      priceSubtext: 'Off-Plan & Flexible Milestone Payments',
-      units: 12,
-      propertyType: 'Terrace',
+      price: '₦420,000,000',
+      numericPrice: 420000000,
+      units: 1,
+      propertyType: 'Penthouse',
       bedrooms: 4,
       bathrooms: 5,
-      size: '420 sqm',
+      size: '480 sqm',
+      featured: true,
+      heroImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
+      gallery: [
+        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80'
+      ],
+      description: 'Perched above Old Ikoyi, The Obsidian is an elite 4-bedroom duplex sky penthouse delivering sweeping 360-degree panoramic vistas of the Lagos coastline. Featuring a private keycard-operated elevator, expansive wrap-around sky terrace, and world-class building amenities.',
+      features: [
+        '4 grand master suites with floor-to-ceiling soundproof acoustic glazing',
+        'Private high-speed keycard internal elevator direct to foyer',
+        'Expansive wrap-around sky terrace with outdoor cocktail lounge',
+        'Custom Arclinea designer kitchen with integrated Miele appliances',
+        'Private temperature-controlled wine cellar and cigar lounge',
+        '24/7 dedicated clean power grid backed by dual synchronised generators',
+        'Communal 25-meter heated lap pool, state-of-the-art gym & sauna',
+        'Covered basement parking for 3 executive vehicles'
+      ],
+      amenities: [
+        { icon: 'ri-building-line', label: 'Private Elevator' },
+        { icon: 'ri-water-flash-line', label: 'Lap Pool & Sauna' },
+        { icon: 'ri-building-2-line', label: 'Sky Lounge Terrace' },
+        { icon: 'ri-flashlight-line', label: '24/7 Unbroken Power' },
+        { icon: 'ri-shield-star-line', label: 'Concierge & Security' },
+        { icon: 'ri-car-line', label: 'Basement Parking' }
+      ],
+      neighborhoodHighlights: [
+        'Immediate proximity to Ikoyi Club 1938 and Southern Sun Ikoyi',
+        '5 minutes drive to Victoria Island financial district',
+        'Highly secure consular and executive residential quarter'
+      ],
+      specifications: {
+        'Title': 'Lagos State Certificate of Occupancy (C of O) & Governor’s Consent',
+        'Flooring': 'Imported Statuario Italian marble & engineered European oak parquet'
+      }
+    },
+    {
+      id: 'pearl-horizon-osapa',
+      title: 'The Pearl Horizon Luxury Duplex',
+      slug: 'pearl-horizon-luxury-duplex-osapa',
+      location: 'Osapa London, Lekki, Lagos',
+      neighborhoodArea: 'Osapa London, Lekki',
+      category: 'sales',
+      categoryLabel: '',
+      status: 'Available for Sale',
+      purpose: 'sale',
+      price: '₦195,000,000',
+      numericPrice: 195000000,
+      units: 1,
+      propertyType: 'Duplex',
+      bedrooms: 4,
+      bathrooms: 5,
+      size: '410 sqm',
       featured: true,
       heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
       gallery: [
         'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80'
+        'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80'
       ],
-      description: 'Lekki Pearl Residences brings smart, sustainable luxury to prime Lekki Phase 1. 12 units of 4-bedroom terrace duplexes with private rooftop terraces, smart home automation (lighting, climate, security), solar integration, and high capital appreciation potential.',
+      description: 'Nestled in prime Osapa London within walking distance to Circle Mall, The Pearl Horizon offers 4 spacious ensuite bedrooms with pristine contemporary architecture, double-volume ceilings, private family lounge, and round-the-clock solar backup.',
       features: [
-        '4-bedroom luxury terrace duplex with private rooftop terrace',
-        'Smart home automation (voice and smartphone lighting & sound control)',
-        'Private elevator option available on select corner units',
-        '10kVA solar hybrid energy system pre-wired and installed',
-        'Master bedroom suite with private sky lounge terrace',
-        'Fully equipped Italian kitchen with wine cooler & island',
-        'Communal gym and relaxation pavilion for residents',
-        '24/7 guarded security gatehouse and perimeter electric fence'
+        '4-bedroom fully detached luxury duplex with contemporary facade',
+        'Double-volume family lounge with ambient perimeter LED lighting',
+        'All bedrooms ensuite with high-end Spanish vitrified ceramics',
+        'Fully fitted Italian kitchen with breakfast counter and burner hobs',
+        'Integrated 12kVA solar panel array and inverter power system',
+        'Central water purification plant with automatic pressurized delivery',
+        'Spacious paved compound accommodating up to 4 large vehicles',
+        'Ensuite maid’s room / Boys Quarters (BQ)',
+        'Automated gate control and CCTV surveillance'
       ],
       amenities: [
-        { icon: 'ri-smartphone-line', label: 'Smart Home Automation' },
-        { icon: 'ri-sun-fill', label: '10kVA Solar' },
-        { icon: 'ri-building-2-line', label: 'Rooftop Sky Lounge' },
-        { icon: 'ri-dumbbell-line', label: 'Fitness Center' },
-        { icon: 'ri-shield-flash-line', label: 'Biometric Access' }
+        { icon: 'ri-sun-line', label: '12kVA Solar Inverter' },
+        { icon: 'ri-drop-line', label: 'Industrial Water Plant' },
+        { icon: 'ri-car-line', label: '4-Car Paved Driveway' },
+        { icon: 'ri-shield-check-line', label: 'CCTV & Gatehouse' },
+        { icon: 'ri-shopping-bag-3-line', label: '2 Mins to Circle Mall' }
       ],
       neighborhoodHighlights: [
-        'Prime Lekki Phase 1 location off Admiralty Way',
-        'Proximity to upscale banks, lounges, and corporate headquarters',
-        'Immediate rental yield potential of ₦14M - ₦18M annually'
+        '2 minutes drive to Circle Mall (Shoprite, cinema, pharmacies)',
+        'Fast connection to Lekki-Epe Expressway and Victoria Island',
+        'Established, quiet family-oriented gated community with tarred roads'
       ],
       specifications: {
-        'Delivery Stage': 'Ongoing development - Q4 2026 delivery',
-        'Payment Plan': '30% initial deposit, milestone installments over 12 months'
+        'Title': 'Governor’s Consent & Registered Survey',
+        'Finishes': 'POP ceilings, magnetic architectural track lighting, Spanish ceramics'
       }
     },
     {
-      id: 'victoria-island-prime',
-      title: 'Victoria Island Executive Suites',
-      slug: 'victoria-island-executive-suites',
-      location: 'Ahmadu Bello Way Corridor, Victoria Island, Lagos',
-      neighborhoodArea: 'Victoria Island',
-      category: 'leasing',
-      categoryLabel: 'Property For Lease',
-      status: 'Available for Lease',
-      purpose: 'lease',
-      price: '₦28,000,000 / year',
-      numericPrice: 28000000,
-      priceSubtext: 'Corporate & Diplomatic Leases Welcomed',
-      units: 6,
-      propertyType: 'Apartment',
-      bedrooms: 3,
-      bathrooms: 4,
-      size: '260 sqm',
-      featured: false,
-      heroImage: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=80',
+      id: 'monarch-coastal-villa-ologolo',
+      title: 'The Monarch Coastal Villa',
+      slug: 'monarch-coastal-villa-ologolo',
+      location: 'Beach Road Axis, Ologolo, Lekki, Lagos',
+      neighborhoodArea: 'Ologolo, Lekki',
+      category: 'sales',
+      categoryLabel: '',
+      status: 'Available for Sale',
+      purpose: 'sale',
+      price: '₦340,000,000',
+      numericPrice: 340000000,
+      units: 1,
+      propertyType: 'Villa',
+      bedrooms: 5,
+      bathrooms: 6,
+      size: '550 sqm',
+      featured: true,
+      heroImage: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80',
       gallery: [
-        'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=80',
-        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80'
+        'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80'
       ],
-      description: 'Ultra-luxurious 3-bedroom serviced apartment in Victoria Island catering to multinational corporations, senior diplomats, and discerning families. Includes dedicated concierge, infinity pool, fitness center, and 100% power uptime.',
+      description: 'A pristine coastal residence located along the Beach Road corridor in Ologolo, Lekki. The Monarch Coastal Villa boasts a private outdoor swimming pool, double-volume living salon, rooftop sunset deck, and complete renewable solar independence.',
       features: [
-        '3 ensuite bedrooms with panoramic Atlantic Ocean & city skyline views',
-        'Full service facility management by Nigson Properties',
-        '24/7 uninterrupted power with redundant dual synchronised generators',
-        'High-capacity high-speed elevators',
-        'Dedicated basement parking with valet options',
-        'Modern gym, sauna, and infinity pool access'
+        '5 ultra-luxury ensuite bedrooms with custom European built-in closets',
+        'Private outdoor swimming pool with poolside sun terrace & shower',
+        'Rooftop sunset deck with views of the Atlantic shoreline',
+        'Grand master suite with balcony, walk-in dressing salon & spa jacuzzi',
+        'Chef’s kitchen fitted with quartz counters, heat extractor & microwave',
+        'Integrated 15kVA solar hybrid battery power generation',
+        'Dedicated 2-room staff quarters (BQ)',
+        'Underground storm drainage and concrete-paved private driveway'
       ],
       amenities: [
-        { icon: 'ri-building-line', label: 'VI Skyline View' },
-        { icon: 'ri-water-flash-line', label: 'Infinity Pool' },
-        { icon: 'ri-flashlight-line', label: '100% Power Uptime' },
-        { icon: 'ri-service-line', label: 'Full Concierge' }
+        { icon: 'ri-water-flash-fill', label: 'Private Swimming Pool' },
+        { icon: 'ri-sun-line', label: '15kVA Solar Hybrid' },
+        { icon: 'ri-building-2-line', label: 'Rooftop Sunset Deck' },
+        { icon: 'ri-hot-tub-line', label: 'Spa Hydro Jacuzzi' },
+        { icon: 'ri-car-line', label: 'Spacious Parking' }
       ],
       neighborhoodHighlights: [
-        'Heart of Lagos financial and diplomatic district',
-        'Minutes from Eko Atlantic City and five-star hotels'
+        'Walking distance to Ologolo coastline and beach leisure venues',
+        '4 minutes drive to Lekki-Epe Expressway and Circle Mall',
+        'High-demand corridor for long-term luxury executive leases'
       ],
       specifications: {
-        'Tenancy Terms': 'Minimum 1-year lease, corporate guarantees accepted'
+        'Title': 'Governor’s Consent & Registered Deed of Assignment',
+        'Structure': 'Reinforced concrete frame, damp-proof membrane & thermal insulation'
+      }
+    },
+    {
+      id: 'imperial-crest-chevron',
+      title: 'The Imperial Crest Executive Terraces',
+      slug: 'imperial-crest-executive-terraces-chevron',
+      location: 'Chevron Tollgate Corridor, Lekki, Lagos',
+      neighborhoodArea: 'Chevron Corridor, Lekki',
+      category: 'sales',
+      categoryLabel: '',
+      status: 'Completed & Sold Out',
+      purpose: 'completed',
+      price: '₦175,000,000',
+      numericPrice: 175000000,
+      units: 8,
+      propertyType: 'Terrace',
+      bedrooms: 4,
+      bathrooms: 5,
+      size: '380 sqm each',
+      featured: false,
+      heroImage: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80',
+      gallery: [
+        'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80'
+      ],
+      description: 'A delivered flagship residential development positioned within the secure Chevron Tollgate corridor. Featuring 8 executive 4-bedroom terrace homes with paved private roadways, underground electrification, and round-the-clock estate management.',
+      features: [
+        '4-bedroom executive terrace homes delivered with premium finishes',
+        'All bedrooms ensuite with high-grade European ceramic sanitary fixtures',
+        'Private family lounge plus expansive open-plan ground floor reception',
+        'Fitted contemporary kitchen with polished granite countertops',
+        'Central solar hybrid power inverter installed per unit',
+        'Paved estate access with underground stormwater drainage',
+        '24/7 security patrol, access gatehouse and CCTV perimeter protection',
+        'Self-contained Boys Quarters (BQ)'
+      ],
+      amenities: [
+        { icon: 'ri-flashlight-line', label: '24/7 Clean Power' },
+        { icon: 'ri-road-map-line', label: 'Paved Estate Avenue' },
+        { icon: 'ri-shield-check-line', label: 'Gated Security Patrol' },
+        { icon: 'ri-drop-line', label: 'Estate Water Supply' },
+        { icon: 'ri-home-4-line', label: 'Ensuite BQ' }
+      ],
+      neighborhoodHighlights: [
+        'Strategically located near Chevron Nigeria Limited corporate headquarters',
+        'Easy commute to Lekki Conservation Centre and Victoria Garden City (VGC)',
+        'Consistent rental yields exceeding ₦12M per annum'
+      ],
+      specifications: {
+        'Title': 'Governor’s Consent & Certificate of Occupancy',
+        'Status': 'Delivered on schedule with 100% owner occupancy'
       }
     }
   ];
@@ -519,7 +403,7 @@ export class PropertyService {
       title: 'Property Management',
       tagline: 'Preserving Asset Value, Maximizing Rental Returns',
       shortDescription: 'Professional management ensuring properties remain profitable, pristine, well-maintained, and completely stress-free for landlords and tenants.',
-      fullDescription: 'We relieve property owners and diaspora investors of the daily operational burdens of real estate ownership. Our property management team handles rigorous tenant vetting, lease administration, rent collection, routine and emergency maintenance, and comprehensive financial reporting. We treat every property as a high-performing investment asset.',
+      fullDescription: 'We relieve property owners and diaspora investors of the daily operational burdens of real estate ownership. Our property management team handles rigorous tenant vetting, tenancy administration, rent collection, routine and emergency maintenance, and comprehensive financial reporting. We treat every property as a high-performing investment asset.',
       icon: 'ri-home-gear-line',
       image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=80',
       highlights: [
@@ -586,25 +470,25 @@ export class PropertyService {
       ]
     },
     {
-      id: 'property-sales-leasing',
+      id: 'property-sales-acquisitions',
       number: '06',
-      title: 'Property Sales & Leasing',
+      title: 'Property Sales & Acquisitions',
       tagline: 'Connecting Discerning Buyers & Quality Properties with Trust',
-      shortDescription: 'Targeted marketing, professional advisory, buyer viewings, and transparent contract negotiation for residential acquisitions and high-grade leases.',
-      fullDescription: 'Navigating the Lagos luxury real estate market demands deep market intelligence, transparency, and verified legal standing. Whether you are acquiring your dream family duplex in Lekki, securing an off-plan investment in Banana Island, or seeking a corporate lease in Victoria Island, our sales and leasing team provides discreet, honest, and results-driven brokerage services.',
+      shortDescription: 'Targeted marketing, professional advisory, buyer viewings, and transparent contract negotiation for residential acquisitions and high-grade developments.',
+      fullDescription: 'Navigating the Lagos luxury real estate market demands deep market intelligence, transparency, and verified legal standing. Whether you are acquiring your dream family duplex in Lekki, securing an off-plan investment in Banana Island, or exploring prime commercial assets in Victoria Island, our sales and advisory team provides discreet, honest, and results-driven brokerage services.',
       icon: 'ri-shake-hands-line',
       image: 'https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=900&q=80',
       highlights: [
         'Exclusive portfolio of verified title properties in prime Lagos nodes',
         'Strategic digital and private network property marketing',
-        'Thorough tenant vetting and buyer financial pre-qualification',
+        'Thorough buyer financial pre-qualification and consultation',
         'Accompanied private property viewings & virtual live walk-throughs',
         'Transparent title verification & legal conveyance coordination',
         'Personalized property investment advisory for diaspora clients'
       ],
       deliverables: [
         'Customized property matching based on lifestyle & budget',
-        'Contract of sale, deed of assignment & lease preparation',
+        'Contract of sale, deed of assignment & conveyance coordination',
         'Mortgage and payment plan structuring support',
         'After-sale onboarding and property handover'
       ]
@@ -614,58 +498,58 @@ export class PropertyService {
   // Project portfolio summary directly from Section 12 table in BRD
   private readonly projectSummariesData: ProjectSummary[] = [
     {
-      name: 'Opposite Whitesand Beach Estate',
-      location: 'Ologolo, Lekki',
-      units: 6,
-      status: 'Completed & Sold Out',
-      category: 'Construction',
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-      completionYear: 'Delivered'
-    },
-    {
-      name: 'Fatai Bankole Residences',
-      location: 'Aro-Ologolo, Lekki',
-      units: 7,
-      status: 'Completed & Sold Out',
-      category: 'Construction',
-      image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
-      completionYear: 'Delivered'
-    },
-    {
-      name: 'White Oaks Estate',
-      location: 'Aro-Ologolo, Lekki',
+      name: 'White Oaks Residential Master Community',
+      location: 'Aro-Ologolo, Lekki Corridor',
       units: 14,
       status: 'Completed & Sold Out',
-      category: 'Construction',
-      image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
-      completionYear: 'Delivered'
+      category: 'Civil & Building Construction',
+      image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80',
+      completionYear: 'Delivered & Commissioned'
     },
     {
-      name: 'Olufemi Olatunji Court',
-      location: 'Osapa, Lekki',
+      name: 'Fatai Bankole Multi-Unit Enclave',
+      location: 'Aro-Ologolo, Lekki Phase 1 Axis',
+      units: 7,
+      status: 'Completed & Sold Out',
+      category: 'Building Construction',
+      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=900&q=80',
+      completionYear: 'Delivered On Schedule'
+    },
+    {
+      name: 'Olufemi Olatunji Gated Community',
+      location: 'Osapa London, Lekki',
       units: 9,
       status: 'Completed & Sold Out',
-      category: 'Construction',
-      image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
-      completionYear: 'Delivered'
+      category: 'Urban Development & Construction',
+      image: 'https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?auto=format&fit=crop&w=900&q=80',
+      completionYear: 'Delivered & Handed Over'
     },
     {
-      name: 'Nigson Villa',
-      location: 'Banana Island, Lagos',
-      units: 8,
-      status: 'Completed',
-      category: 'Property Management',
-      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
-      completionYear: 'Active Management'
+      name: 'Whitesand Coastal Master Development',
+      location: 'Lekki Beach Road Corridor, Ologolo',
+      units: 18,
+      status: 'Ongoing Development',
+      category: 'Waterfront Civil Engineering',
+      image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80',
+      completionYear: 'Target Q4 2026'
     },
     {
-      name: 'Benson Close Waterfront Suite',
-      location: 'Ikoyi, Lagos',
+      name: 'Ikoyi Lagoon Crest Commercial Towers',
+      location: 'Osborne Foreshore, Ikoyi, Lagos',
+      units: 24,
+      status: 'Ongoing Development',
+      category: 'Commercial Civil Engineering',
+      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80',
+      completionYear: 'Target Q2 2027'
+    },
+    {
+      name: 'Banana Island Marine & Drainage Infrastructure',
+      location: 'Ocean Drive, Banana Island, Lagos',
       units: 1,
-      status: 'Completed',
-      category: 'Property Management',
-      image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80',
-      completionYear: 'Active Management'
+      status: 'Completed & Sold Out',
+      category: 'Water Infrastructure & Civil Engineering',
+      image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80',
+      completionYear: 'Delivered & Commissioned'
     }
   ];
 
@@ -719,22 +603,22 @@ export class PropertyService {
     {
       id: 'test-3',
       clientName: 'Marcus Vance',
-      role: 'Corporate Tenant & Management Consultant',
-      propertyOrProject: 'Benson Close Ikoyi Waterfront',
-      clientType: 'Tenant',
+      role: 'Private Investor & Luxury Homeowner',
+      propertyOrProject: 'Lekki Pearl Residences',
+      clientType: 'Homeowner',
       rating: 5,
       avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
-      quote: 'The Benson Close apartment in Ikoyi is my premier choice for corporate residence in Lagos. Unbeatable waterfront sunset views, blazing fast fiber internet, flawless maintenance, and absolute security.'
+      quote: 'The team at Nigson Properties made acquiring our property in Lekki completely hassle-free. Modern smart finishing, flawless architectural delivery, and prompt title handover.'
     },
     {
       id: 'test-4',
       clientName: 'Alhaji Bashir Mohammed',
-      role: 'Commercial Landlord & Asset Owner',
-      propertyOrProject: 'Nigson Villa, Banana Island',
+      role: 'Commercial Asset Owner & Diaspora Partner',
+      propertyOrProject: 'Whitesand Beach Estate',
       clientType: 'Property Landlord',
       rating: 5,
       avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
-      quote: 'Nigson Properties has managed our Banana Island multi-unit property with consummate professionalism. Tenant vetting is strict, preventive maintenance is carried out proactively, and rental remissions are always punctual.'
+      quote: 'Nigson Properties has managed our residential facilities with consummate professionalism. Asset upkeep is strict, preventive maintenance is carried out proactively, and communication is transparent.'
     }
   ];
 
@@ -777,10 +661,10 @@ export class PropertyService {
     },
     {
       id: 'gal-6',
-      title: 'Lagoon Waterfront View - Benson Close Ikoyi',
+      title: 'Waterfront Lagoon & Sunset Terrace',
       category: 'Exterior',
       image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80',
-      description: 'Direct lagoon breeze and serene sunset vistas from the private terrace on Benson Close, Ikoyi.'
+      description: 'Direct lagoon breeze and serene sunset vistas from the private terrace overlooking Lagos waters.'
     },
     {
       id: 'gal-7',
@@ -798,16 +682,37 @@ export class PropertyService {
     }
   ];
 
-  private readonly PROPS_KEY = 'nigson_properties_store';
+  private readonly PROPS_KEY = 'nigson_properties_store_v6';
   private readonly TESTIMONIALS_KEY = 'nigson_testimonials_store';
   private readonly GALLERIES_KEY = 'nigson_galleries_store';
   private readonly SERVICES_KEY = 'nigson_services_store';
+  private readonly PROJECTS_KEY = 'nigson_projects_store_v2';
 
   private loadStoredProperties(): Property[] {
     if (typeof window === 'undefined') return this.propertiesData;
     try {
+      // Clear legacy storage keys that contain obsolete or duplicate property cards
+      localStorage.removeItem('nigson_properties_store');
+      localStorage.removeItem('nigson_properties_store_v2');
+      localStorage.removeItem('nigson_properties_store_v3');
+      localStorage.removeItem('nigson_properties_store_v4');
+      localStorage.removeItem('nigson_properties_store_v5');
+
       const data = localStorage.getItem(this.PROPS_KEY);
-      return data ? JSON.parse(data) : this.propertiesData;
+      if (data) {
+        const parsed: Property[] = JSON.parse(data);
+        const cleaned = parsed.filter(p => 
+          !p.status.toLowerCase().includes('lease') &&
+          p.purpose !== ('lease' as any) &&
+          !['nigson-villa-banana-island', 'benson-close-ikoyi', 'victoria-island-prime'].includes(p.id)
+        );
+        if (cleaned.length > 0) {
+          return cleaned;
+        }
+      }
+      // Initialize with fresh sanitized propertiesData
+      localStorage.setItem(this.PROPS_KEY, JSON.stringify(this.propertiesData));
+      return this.propertiesData;
     } catch {
       return this.propertiesData;
     }
@@ -879,10 +784,31 @@ export class PropertyService {
     }
   }
 
+  private loadStoredProjects(): ProjectSummary[] {
+    if (typeof window === 'undefined') return this.projectSummariesData;
+    try {
+      // Clear legacy storage key
+      localStorage.removeItem('nigson_projects_store');
+      const data = localStorage.getItem(this.PROJECTS_KEY);
+      return data ? JSON.parse(data) : this.projectSummariesData;
+    } catch {
+      return this.projectSummariesData;
+    }
+  }
+
+  private persistProjects(data: ProjectSummary[]): void {
+    if (typeof window === 'undefined') return;
+    try {
+      localStorage.setItem(this.PROJECTS_KEY, JSON.stringify(data));
+    } catch (e) {
+      console.error('Failed to persist projects', e);
+    }
+  }
+
   // Reactive State Signals
   public properties = signal<Property[]>(this.loadStoredProperties());
   public services = signal<ServiceItem[]>(this.loadStoredServices());
-  public projectSummaries = signal<ProjectSummary[]>(this.projectSummariesData);
+  public projectSummaries = signal<ProjectSummary[]>(this.loadStoredProjects());
   public leadershipTeam = signal<TeamMember[]>(this.leadershipTeamData);
   public testimonials = signal<Testimonial[]>(this.loadStoredTestimonials());
   public galleryItems = signal<GalleryItem[]>(this.loadStoredGalleries());
@@ -892,7 +818,7 @@ export class PropertyService {
   public searchQuery = signal<string>('');
   public selectedLocation = signal<string>('all');
   public selectedBedrooms = signal<string>('all');
-  public maxPrice = signal<number>(300000000);
+  public maxPrice = signal<number>(1000000000);
 
   // Selected Property for detail modal / view
   public activeProperty = signal<Property | null>(null);
@@ -922,8 +848,6 @@ export class PropertyService {
     if (cat !== 'all') {
       if (cat === 'sale') {
         result = result.filter(p => p.purpose === 'sale' || p.category === 'sales');
-      } else if (cat === 'lease') {
-        result = result.filter(p => p.purpose === 'lease' || p.category === 'leasing' || p.category === 'management');
       } else if (cat === 'completed') {
         result = result.filter(p => p.status.includes('Completed') || p.status.includes('Sold Out'));
       } else if (cat === 'ongoing') {
@@ -1074,15 +998,23 @@ export class PropertyService {
     try {
       const existingRaw = localStorage.getItem('nigson_admin_leads_data');
       const leads = existingRaw ? JSON.parse(existingRaw) : [];
+      let category = 'contact-inquiry';
+      let categoryLabel = 'Contact Inquiry';
+
+      if (inquiry.inquiryType === 'Property Management') {
+        category = 'property-management';
+        categoryLabel = 'Property Management';
+      }
+
       const newLead = {
         id: 'lead-' + Date.now(),
-        category: 'contact-inquiry',
-        categoryLabel: 'Contact Inquiry',
+        category: category,
+        categoryLabel: categoryLabel,
         clientName: inquiry.fullName,
         email: inquiry.email,
         phone: inquiry.phone,
         subjectOrProperty: inquiry.propertyInterestedIn || 'General Inquiry',
-        details: `${inquiry.inquiryType} inquiry: ${inquiry.message}. Budget: ${inquiry.budgetRange || 'Not specified'}. Preferred Date: ${inquiry.preferredInspectionDate || 'Flexible'}.`,
+        details: `${inquiry.inquiryType} inquiry: ${inquiry.message || 'Direct inquiry submitted from website'}. Budget: ${inquiry.budgetRange || 'Not specified'}. Preferred Date: ${inquiry.preferredInspectionDate || 'Flexible'}.`,
         status: 'New',
         date: new Date().toISOString().split('T')[0],
         priority: 'High',
@@ -1171,6 +1103,30 @@ export class PropertyService {
     this.properties.set(updated);
     this.persistProperties(updated);
     this.showToast('Media Updated', 'Property photos and video media updated.', 'success');
+  }
+
+  // -------------------------------------------------------------
+  // ADMIN PROJECT DEVELOPMENT MATRIX METHODS
+  // -------------------------------------------------------------
+  public addProject(project: ProjectSummary): void {
+    const updated = [project, ...this.projectSummaries()];
+    this.projectSummaries.set(updated);
+    this.persistProjects(updated);
+    this.showToast('Project Added', `"${project.name}" added to Project Development Matrix.`, 'success');
+  }
+
+  public updateProject(oldName: string, updatedProject: ProjectSummary): void {
+    const updated = this.projectSummaries().map(p => p.name === oldName ? updatedProject : p);
+    this.projectSummaries.set(updated);
+    this.persistProjects(updated);
+    this.showToast('Project Updated', `"${updatedProject.name}" updated successfully.`, 'success');
+  }
+
+  public deleteProject(name: string): void {
+    const updated = this.projectSummaries().filter(p => p.name !== name);
+    this.projectSummaries.set(updated);
+    this.persistProjects(updated);
+    this.showToast('Project Removed', `"${name}" removed from Project Development Matrix.`, 'info');
   }
 
   // -------------------------------------------------------------

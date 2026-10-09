@@ -22,7 +22,7 @@
         <h3 class="about-card-title">Redefining Affordable Luxury in Nigeria</h3>
         <p class="about-p">
           Nigson Properties Limited was established as the premier real estate and property management division of
-          Nigson Group. We specialize in residential development, property sales, leasing, institutional project
+          Nigson Group. We specialize in residential development, property sales, institutional project
           management, and comprehensive facility operations.
         </p>
         <p class="about-p">
@@ -43,7 +43,7 @@
       <div class="vision-mission-wrap scroll-reveal-right">
         <div class="luxury-card vm-card">
           <div class="vm-icon-box">
-            <i class="ri-eye-line text-gold"></i>
+            <i class="ri-compass-3-line"></i>
           </div>
           <div>
             <h4 class="vm-title">Our Vision</h4>
@@ -56,7 +56,7 @@
 
         <div class="luxury-card vm-card">
           <div class="vm-icon-box">
-            <i class="ri-focus-2-line text-gold"></i>
+            <i class="ri-shield-star-line"></i>
           </div>
           <div>
             <h4 class="vm-title">Our Mission</h4>
@@ -99,49 +99,6 @@
           <strong>Sustainability</strong>
           <span>Reverse osmosis water plants, green energy, and durable infrastructure.</span>
         </div>
-      </div>
-    </div>
-
-    <!-- Leadership Team (BRD Section 30) -->
-    <div class="leadership-section">
-      <div class="text-center section-header-wrap scroll-reveal">
-        <div class="section-badge">
-          <i class="ri-team-line"></i>
-          <span>Executive Leadership</span>
-        </div>
-        <h3 class="section-title">
-          The <span class="text-gold">Nigson Properties</span> Leadership Team
-        </h3>
-        <p class="section-subtitle mx-auto">
-          Seasoned real estate executives, certified project management professionals, and sales strategists guiding
-          corporate governance.
-        </p>
-      </div>
-
-      <div class="leadership-grid scroll-stagger">
-        @for (member of propertyService.leadershipTeam(); track member.name) {
-        <div class="luxury-card leader-card">
-          <div class="leader-image-wrap">
-            <img [src]="member.image" [alt]="member.name" class="leader-img" />
-            <div class="leader-overlay"></div>
-          </div>
-
-          <div class="leader-body">
-            <h4 class="leader-name">{{ member.name }}</h4>
-            <span class="leader-title text-gold">{{ member.title }}</span>
-            @if (member.credentials) {
-            <span class="leader-cred">{{ member.credentials }}</span>
-            }
-
-            <p class="leader-desc">{{ member.roleDescription }}</p>
-
-            <button class="btn btn-outline-gold btn-sm btn-full" (click)="contactExecutive(member.name)">
-              <i class="ri-chat-1-line"></i>
-              <span>Connect via Desk</span>
-            </button>
-          </div>
-        </div>
-        }
       </div>
     </div>
   </div>

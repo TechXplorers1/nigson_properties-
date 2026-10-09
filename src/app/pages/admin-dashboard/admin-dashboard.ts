@@ -15,7 +15,10 @@ import {
   Amenity, 
   Testimonial, 
   GalleryItem, 
-  ServiceItem 
+  ServiceItem,
+  ShortStayBooking,
+  ShortStayProperty,
+  ProjectSummary
 } from '../../models/property.model';
 import { 
   LeadItem, 
@@ -23,11 +26,16 @@ import {
   LeadStatus, 
   WebsiteContent, 
   NewsAnnouncement, 
-  MediaAsset 
+  MediaAsset,
+  PhaseRoadmapItem,
+  ClientDecisionItem,
+  Phase1DefinitionOfDoneItem,
+  ClientSignoffSignatory
 } from '../../models/admin.model';
+import { ShortStayService } from '../../services/short-stay.service';
 
-type AdminTab = 'overview' | 'properties' | 'leads' | 'content';
-type ContentSubTab = 'website' | 'media' | 'testimonials' | 'services' | 'news' | 'gallery';
+export type AdminTab = 'overview' | 'properties' | 'projects' | 'bookings' | 'leads';
+export type ContentSubTab = 'website' | 'media' | 'testimonials' | 'services' | 'news' | 'gallery';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -40,6 +48,7 @@ export class AdminDashboardComponent implements OnInit {
   public authService = inject(AuthService);
   public propertyService = inject(PropertyService);
   public adminService = inject(AdminService);
+  public shortStayService = inject(ShortStayService);
   private router = inject(Router);
 
   // Active Navigation Tabs
@@ -50,6 +59,105 @@ export class AdminDashboardComponent implements OnInit {
   public propSearch = signal<string>('');
   public propStatusFilter = signal<string>('all');
   public propViewMode = signal<'table' | 'grid'>('table');
+
+  // Project Development Matrix Filters & Modal State
+  public projectSearch = signal<string>('');
+  public projectStatusFilter = signal<string>('all');
+  public isProjectModalOpen = signal<boolean>(false);
+  public isEditProjectMode = signal<boolean>(false);
+  public editingProjectOriginalName = signal<string>('');
+  public projName = signal<string>('');
+  public projLocation = signal<string>('');
+  public projUnits = signal<number | null>(6);
+  public projStatus = signal<string>('Completed & Sold Out');
+  public projCategory = signal<string>('Building Construction');
+  public projImage = signal<string>('');
+  public projCompletionYear = signal<string>('Delivered');
+
+  public availableProjectStatuses = [
+    'Completed & Sold Out',
+    'Available for Sale',
+    'Ongoing Development',
+    'Sold Out'
+  ];
+
+  public availableProjectCategories = [
+    'Building Construction',
+    'Property Management'
+  ];
+
+  public presetProjectImages = [
+    { label: 'Beachfront Modern', url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80' },
+    { label: 'Luxury Villa', url: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80' },
+    { label: 'Estate Development', url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80' },
+    { label: 'Exclusive Court', url: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80' },
+    { label: 'Waterfront Terraces', url: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80' }
+  ];
+
+  // Short-Stay Bookings Filters & State (Phase 1 Operations)
+  public bookingSearch = signal<string>('');
+  public bookingStatusFilter = signal<string>('all');
+  public selectedBookingForModal = signal<ShortStayBooking | null>(null);
+  public isBookingDetailsModalOpen = signal<boolean>(false);
+
+  // Short-Stay Residence Creation Modal State
+  public isShortStayModalOpen = signal<boolean>(false);
+  public stayTitle = signal<string>('');
+  public stayLocation = signal<string>('');
+  public stayArea = signal<'Lekki Phase 1' | 'Ikoyi' | 'Victoria Island' | 'Banana Island' | 'Ologolo, Lekki'>('Lekki Phase 1');
+  public stayType = signal<'Luxury Penthouse' | 'Waterfront Villa' | 'Executive Suite' | 'Serviced Apartment' | 'Beachfront Maisonette'>('Luxury Penthouse');
+  public stayPricePerNight = signal<number | null>(null);
+  public stayBedrooms = signal<number | null>(3);
+  public stayBathrooms = signal<number | null>(3);
+  public stayMaxGuests = signal<number | null>(6);
+  public stayHeroImage = signal<string>('');
+  public stayDescription = signal<string>('');
+  public stayCleaningFee = signal<number | null>(25000);
+  public staySecurityDeposit = signal<number | null>(50000);
+  public stayInstantBook = signal<boolean>(true);
+  public selectedStayAmenities = signal<string[]>([
+    '24/7 Solar & Inverter',
+    'Starlink High-Speed WiFi',
+    '24/7 Gated Security & CCTV',
+    'Fully Equipped Chef Kitchen'
+  ]);
+
+  public availableStayAreas: Array<'Lekki Phase 1' | 'Ikoyi' | 'Victoria Island' | 'Banana Island' | 'Ologolo, Lekki'> = [
+    'Lekki Phase 1',
+    'Ikoyi',
+    'Victoria Island',
+    'Banana Island',
+    'Ologolo, Lekki'
+  ];
+
+  public availableStayTypes: Array<'Luxury Penthouse' | 'Waterfront Villa' | 'Executive Suite' | 'Serviced Apartment' | 'Beachfront Maisonette'> = [
+    'Luxury Penthouse',
+    'Waterfront Villa',
+    'Executive Suite',
+    'Serviced Apartment',
+    'Beachfront Maisonette'
+  ];
+
+  public availableStayAmenitiesList = [
+    { icon: 'ri-sun-cloudy-line', label: '24/7 Solar & Inverter' },
+    { icon: 'ri-wifi-line', label: 'Starlink High-Speed WiFi' },
+    { icon: 'ri-drop-line', label: 'Private Rooftop Plunge Pool' },
+    { icon: 'ri-tv-line', label: '85" 4K Smart Cinema TV' },
+    { icon: 'ri-shield-check-line', label: '24/7 Gated Security & CCTV' },
+    { icon: 'ri-restaurant-line', label: 'Fully Equipped Chef Kitchen' },
+    { icon: 'ri-car-line', label: '2 Covered Reserved Parking' },
+    { icon: 'ri-sparkling-line', label: 'Daily Executive Housekeeping' },
+    { icon: 'ri-building-line', label: 'Private Elevator Access' },
+    { icon: 'ri-cup-line', label: 'Complimentary Nespresso Bar' },
+    { icon: 'ri-football-line', label: 'Private Wellness Gym' }
+  ];
+
+  public presetStayImages = [
+    { label: 'Waterfront Penthouse', url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80' },
+    { label: 'Presidential Suite', url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80' },
+    { label: 'Lagoon Villa', url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
+    { label: 'Urban Diplomatic Apartment', url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80' }
+  ];
 
   // Lead Filters & Search
   public leadCategoryFilter = signal<string>('all');
@@ -271,11 +379,67 @@ export class AdminDashboardComponent implements OnInit {
     return {
       all: list.length,
       inspectionRequest: list.filter(l => l.category === 'inspection-request').length,
-      salesLead: list.filter(l => l.category === 'sales-lead').length,
       contactInquiry: list.filter(l => l.category === 'contact-inquiry').length,
       bookingDetails: list.filter(l => l.category === 'booking-details').length,
       propertyManagement: list.filter(l => l.category === 'property-management').length
     };
+  });
+
+  // Filtered Short-Stay Bookings (Phase 1 MVP Operations)
+  public filteredBookings = computed(() => {
+    let list = this.shortStayService.bookings();
+    const query = this.bookingSearch().toLowerCase().trim();
+    const status = this.bookingStatusFilter();
+
+    if (status !== 'all') {
+      list = list.filter(b => b.status === status);
+    }
+
+    if (query) {
+      list = list.filter(b => 
+        b.id.toLowerCase().includes(query) ||
+        b.clientName.toLowerCase().includes(query) ||
+        b.propertyTitle.toLowerCase().includes(query) ||
+        b.email.toLowerCase().includes(query) ||
+        b.phone.includes(query)
+      );
+    }
+    return list;
+  });
+
+  public bookingCounts = computed(() => {
+    const list = this.shortStayService.bookings();
+    return {
+      all: list.length,
+      confirmed: list.filter(b => b.status === 'Confirmed').length,
+      pending: list.filter(b => b.status === 'Pending Payment').length,
+      checkedIn: list.filter(b => b.status === 'Checked-In').length,
+      completed: list.filter(b => b.status === 'Completed').length,
+      cancelled: list.filter(b => b.status === 'Cancelled').length,
+      totalRevenue: list.filter(b => b.status === 'Confirmed' || b.status === 'Checked-In' || b.status === 'Completed')
+        .reduce((sum, b) => sum + (b.totalAmount || 0), 0)
+    };
+  });
+
+  // Filtered Project Summaries (Project Development Matrix)
+  public filteredProjectSummaries = computed(() => {
+    let list = this.propertyService.projectSummaries();
+    const query = this.projectSearch().toLowerCase().trim();
+    const status = this.projectStatusFilter();
+
+    if (query) {
+      list = list.filter(p => 
+        p.name.toLowerCase().includes(query) || 
+        p.location.toLowerCase().includes(query) ||
+        p.category.toLowerCase().includes(query)
+      );
+    }
+
+    if (status !== 'all') {
+      list = list.filter(p => p.status.toLowerCase() === status.toLowerCase());
+    }
+
+    return list;
   });
 
   public adminLoginEmail = signal<string>('admin@nigson.com');
@@ -518,8 +682,7 @@ export class AdminDashboardComponent implements OnInit {
     const categoryLabels: Record<PropertyCategory, string> = {
       construction: 'Building Construction',
       management: 'Property Management',
-      sales: 'Property Sales & Acquisitions',
-      leasing: 'Luxury Leasing'
+      sales: 'Property Sales & Acquisitions'
     };
 
     const propData: Property = {
@@ -616,8 +779,298 @@ export class AdminDashboardComponent implements OnInit {
     window.open(`mailto:${email}?subject=${encodeURIComponent('Nigson Properties Follow-up: ' + subject)}`, '_blank');
   }
 
+  public assignLeadToStaff(id: string, staff: string): void {
+    this.adminService.assignLead(id, staff);
+  }
+
+  public progressLeadStage(id: string, stage: LeadStatus): void {
+    this.adminService.progressLeadStage(id, stage);
+  }
+
   public exportLeadsCSV(): void {
     this.adminService.exportLeadsCSV();
+  }
+
+  // -------------------------------------------------------------
+  // SHORT-STAY BOOKING ACTIONS (Phase 1 Operations)
+  // -------------------------------------------------------------
+  public openBookingDetails(booking: ShortStayBooking): void {
+    this.selectedBookingForModal.set(booking);
+    this.isBookingDetailsModalOpen.set(true);
+  }
+
+  public closeBookingDetails(): void {
+    this.isBookingDetailsModalOpen.set(false);
+    this.selectedBookingForModal.set(null);
+  }
+
+  public updateBookingStatus(id: string, status: ShortStayBooking['status']): void {
+    this.shortStayService.updateBookingStatus(id, status);
+  }
+
+  public cancelBooking(id: string): void {
+    const reason = prompt('Please enter cancellation reason:', 'Client schedule change / reservation cancellation');
+    if (reason !== null) {
+      this.shortStayService.cancelBooking(id, reason);
+      if (this.selectedBookingForModal()?.id === id) {
+        this.closeBookingDetails();
+      }
+    }
+  }
+
+  public toggleStayAvailability(id: string): void {
+    this.shortStayService.togglePropertyAvailability(id);
+  }
+
+  public printBookingReceipt(): void {
+    window.print();
+  }
+
+  // -------------------------------------------------------------
+  // SHORT-STAY INVENTORY ACTIONS (ADD / DELETE)
+  // -------------------------------------------------------------
+  public openAddShortStayModal(): void {
+    this.stayTitle.set('');
+    this.stayLocation.set('');
+    this.stayArea.set('Lekki Phase 1');
+    this.stayType.set('Luxury Penthouse');
+    this.stayPricePerNight.set(null);
+    this.stayBedrooms.set(3);
+    this.stayBathrooms.set(3);
+    this.stayMaxGuests.set(6);
+    this.stayHeroImage.set('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80');
+    this.stayDescription.set('');
+    this.stayCleaningFee.set(25000);
+    this.staySecurityDeposit.set(50000);
+    this.stayInstantBook.set(true);
+    this.selectedStayAmenities.set([
+      '24/7 Solar & Inverter',
+      'Starlink High-Speed WiFi',
+      '24/7 Gated Security & CCTV',
+      'Fully Equipped Chef Kitchen'
+    ]);
+    this.isShortStayModalOpen.set(true);
+  }
+
+  public closeShortStayModal(): void {
+    this.isShortStayModalOpen.set(false);
+  }
+
+  public toggleStayAmenity(label: string): void {
+    const current = this.selectedStayAmenities();
+    if (current.includes(label)) {
+      this.selectedStayAmenities.set(current.filter(l => l !== label));
+    } else {
+      this.selectedStayAmenities.set([...current, label]);
+    }
+  }
+
+  public isStayAmenitySelected(label: string): boolean {
+    return this.selectedStayAmenities().includes(label);
+  }
+
+  public selectPresetStayHeroImage(url: string): void {
+    this.stayHeroImage.set(url);
+  }
+
+  public onStayHeroImageFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          this.stayHeroImage.set(e.target.result as string);
+          this.propertyService.showToast('Image Loaded', `"${file.name}" selected as hero image.`, 'success');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  public saveShortStay(): void {
+    if (!this.stayTitle().trim()) {
+      this.propertyService.showToast('Title Required', 'Please enter a title for the short stay residence.', 'error');
+      return;
+    }
+    if (!this.stayPricePerNight() || this.stayPricePerNight()! <= 0) {
+      this.propertyService.showToast('Price Required', 'Please enter a valid nightly rate in Naira (₦).', 'error');
+      return;
+    }
+
+    const amenities: Amenity[] = this.selectedStayAmenities().map(label => {
+      const found = this.availableStayAmenitiesList.find(a => a.label === label);
+      return {
+        label,
+        icon: found ? found.icon : 'ri-checkbox-circle-line'
+      };
+    });
+
+    const hero = this.stayHeroImage().trim() || 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80';
+
+    this.shortStayService.addShortStay({
+      title: this.stayTitle().trim(),
+      slug: this.stayTitle().toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      location: this.stayLocation().trim() || `${this.stayArea()}, Lagos`,
+      area: this.stayArea(),
+      propertyType: this.stayType(),
+      pricePerNight: this.stayPricePerNight()!,
+      weeklyDiscountPercent: 12,
+      monthlyDiscountPercent: 25,
+      bedrooms: this.stayBedrooms() || 2,
+      bathrooms: this.stayBathrooms() || 2,
+      maxGuests: this.stayMaxGuests() || 4,
+      rating: 5.0,
+      reviewCount: 1,
+      isInstantBook: this.stayInstantBook(),
+      isSuperhost: true,
+      heroImage: hero,
+      gallery: [hero],
+      description: this.stayDescription().trim() || `Experience modern executive luxury in ${this.stayArea()} with 24/7 solar backup power, high-speed Starlink internet, and 24/7 security.`,
+      amenities: amenities.length ? amenities : [
+        { icon: 'ri-sun-cloudy-line', label: '24/7 Solar & Inverter' },
+        { icon: 'ri-wifi-line', label: 'Starlink High-Speed WiFi' }
+      ],
+      houseRules: [
+        'Check-in: 2:00 PM – 10:00 PM',
+        'Check-out: 11:00 AM',
+        'No smoking indoors (balconies permitted)',
+        'Valid Government ID required at check-in'
+      ],
+      checkInTime: '2:00 PM',
+      checkOutTime: '11:00 AM',
+      cleaningFee: this.stayCleaningFee() || 25000,
+      securityDeposit: this.staySecurityDeposit() || 50000,
+      available: true
+    });
+
+    this.closeShortStayModal();
+  }
+
+  public deleteShortStay(id: string, title: string): void {
+    if (confirm(`Are you sure you want to remove "${title}" from active short-stay inventory?`)) {
+      this.shortStayService.deleteShortStay(id);
+    }
+  }
+
+  // -------------------------------------------------------------
+  // PROJECT DEVELOPMENT MATRIX ACTIONS (ADD / EDIT / DELETE)
+  // -------------------------------------------------------------
+  public openAddProjectModal(): void {
+    this.isEditProjectMode.set(false);
+    this.editingProjectOriginalName.set('');
+    this.projName.set('');
+    this.projLocation.set('');
+    this.projUnits.set(6);
+    this.projStatus.set('Completed & Sold Out');
+    this.projCategory.set('Building Construction');
+    this.projImage.set('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80');
+    this.projCompletionYear.set('Delivered & Handed Over');
+    this.isProjectModalOpen.set(true);
+  }
+
+  public openEditProjectModal(p: ProjectSummary): void {
+    this.isEditProjectMode.set(true);
+    this.editingProjectOriginalName.set(p.name);
+    this.projName.set(p.name);
+    this.projLocation.set(p.location);
+    this.projUnits.set(p.units);
+    this.projStatus.set(p.status);
+    this.projCategory.set(p.category);
+    this.projImage.set(p.image);
+    this.projCompletionYear.set(p.completionYear);
+    this.isProjectModalOpen.set(true);
+  }
+
+  public closeProjectModal(): void {
+    this.isProjectModalOpen.set(false);
+  }
+
+  public selectPresetProjectImage(url: string): void {
+    this.projImage.set(url);
+  }
+
+  public onProjectImageFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          this.projImage.set(e.target.result as string);
+          this.propertyService.showToast('Image Loaded', `"${file.name}" loaded for project photo.`, 'success');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  public saveProject(): void {
+    if (!this.projName().trim()) {
+      this.propertyService.showToast('Project Name Required', 'Please enter a name for the development project.', 'error');
+      return;
+    }
+    if (!this.projLocation().trim()) {
+      this.propertyService.showToast('Location Required', 'Please enter project location.', 'error');
+      return;
+    }
+
+    const projectData: ProjectSummary = {
+      name: this.projName().trim(),
+      location: this.projLocation().trim(),
+      units: Number(this.projUnits()) || 1,
+      status: this.projStatus().trim(),
+      category: this.projCategory().trim(),
+      image: this.projImage().trim() || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+      completionYear: this.projCompletionYear().trim() || 'Delivered'
+    };
+
+    if (this.isEditProjectMode()) {
+      this.propertyService.updateProject(this.editingProjectOriginalName(), projectData);
+    } else {
+      this.propertyService.addProject(projectData);
+    }
+
+    this.closeProjectModal();
+  }
+
+  public deleteProject(name: string): void {
+    if (confirm(`Are you sure you want to remove "${name}" from the Project Development Matrix?`)) {
+      this.propertyService.deleteProject(name);
+    }
+  }
+
+  // -------------------------------------------------------------
+  // PHASE 0 & 1 GOVERNANCE & APPROVAL ACTIONS
+  // -------------------------------------------------------------
+  public toggleClientDecision(id: string, currentStatus: string): void {
+    const nextStatus = currentStatus === 'Approved' ? 'In Review' : 'Approved';
+    this.adminService.updateClientDecisionStatus(id, nextStatus as any);
+  }
+
+  public editDecisionNotes(decision: ClientDecisionItem): void {
+    const notes = prompt(`Update client notes for "${decision.decision}":`, decision.notes || '');
+    if (notes !== null) {
+      this.adminService.updateClientDecisionStatus(decision.id, decision.approvalStatus, notes);
+    }
+  }
+
+  public toggleDoDCriterion(id: string, currentStatus: string): void {
+    const nextStatus = currentStatus === 'Verified & Complete' ? 'Operational' : 'Verified & Complete';
+    this.adminService.updateDoDStatus(id, nextStatus as any);
+  }
+
+  public signClientApprovalModal(role: string, name: string): void {
+    const signature = prompt(`Sign implementation approval for ${name} (${role}):`, `${name.toUpperCase()} [APPROVED]`);
+    if (signature) {
+      this.adminService.signSignatory(role, name, signature);
+    }
+  }
+
+  public resetGovernanceDefaults(): void {
+    if (confirm('Reset client decisions and Definition of Done to official Phase 0 approved baseline?')) {
+      this.adminService.resetGovernanceDefaults();
+    }
   }
 
   // -------------------------------------------------------------

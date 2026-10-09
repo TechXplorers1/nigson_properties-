@@ -18,7 +18,7 @@ export class InquiryComponent {
   public phone = signal<string>('');
   public email = signal<string>('');
   public propertyInterestedIn = signal<string>('Opposite Whitesand Beach Estate, Ologolo');
-  public inquiryType = signal<'Buy' | 'Lease' | 'Property Management' | 'Investment' | 'General Inquiry'>('Buy');
+  public inquiryType = signal<'Buy' | 'Property Management' | 'Investment' | 'General Inquiry'>('Buy');
   public budgetRange = signal<string>('₦150M – ₦250M');
   public preferredInspectionDate = signal<string>('');
   public message = signal<string>('');

@@ -36,6 +36,10 @@ export class ShortStayPageComponent implements OnInit {
   public isBookingModalOpen = signal<boolean>(false);
   public bookingProperty = signal<ShortStayProperty | null>(null);
   public bookingSuccess = signal<ShortStayBooking | null>(null);
+  public bookingStep = signal<'details' | 'payment' | 'confirmation'>('details');
+  public selectedPaymentMethod = signal<'Card' | 'Bank Transfer' | 'USSD' | 'Paystack'>('Card');
+  public paymentError = signal<string | null>(null);
+  public isProcessingPayment = signal<boolean>(false);
 
   // Booking Form Fields
   public bookCheckIn = signal<string>('');
@@ -48,15 +52,17 @@ export class ShortStayPageComponent implements OnInit {
   public bookAirportPickup = signal<boolean>(false);
   public bookChefService = signal<boolean>(false);
 
-  // Corporate Leasing Inquiry Form
-  public leaseName = signal<string>('');
-  public leaseEmail = signal<string>('');
-  public leasePhone = signal<string>('');
-  public leaseCompany = signal<string>('');
-  public leaseDuration = signal<string>('1 Month to 3 Months');
-  public leaseLocation = signal<string>('Lekki Phase 1');
-  public leaseMessage = signal<string>('');
-  public leaseSubmitted = signal<boolean>(false);
+  // Live double booking conflict check
+  public isCurrentDatesAvailable = computed(() => {
+    const prop = this.bookingProperty();
+    if (!prop) return true;
+    const inDate = this.bookCheckIn();
+    const outDate = this.bookCheckOut();
+    if (!inDate || !outDate) return true;
+    return this.shortStayService.isDateRangeAvailable(prop.id, inDate, outDate);
+  });
+
+
 
   ngOnInit(): void {
     // Set default dates: check-in tomorrow, check-out in 4 days
@@ -176,6 +182,9 @@ export class ShortStayPageComponent implements OnInit {
   public openBookingModal(prop: ShortStayProperty): void {
     this.bookingProperty.set(prop);
     this.bookingSuccess.set(null);
+    this.bookingStep.set('details');
+    this.paymentError.set(null);
+    this.isProcessingPayment.set(false);
     this.isBookingModalOpen.set(true);
 
     // If details modal was open, close it
@@ -186,9 +195,11 @@ export class ShortStayPageComponent implements OnInit {
     this.isBookingModalOpen.set(false);
     this.bookingProperty.set(null);
     this.bookingSuccess.set(null);
+    this.bookingStep.set('details');
+    this.paymentError.set(null);
   }
 
-  public submitBooking(): void {
+  public proceedToPayment(): void {
     const prop = this.bookingProperty();
     if (!prop) return;
 
@@ -202,7 +213,17 @@ export class ShortStayPageComponent implements OnInit {
       return;
     }
 
-    const booking = this.shortStayService.bookStay({
+    if (!this.isCurrentDatesAvailable()) {
+      this.propertyService.showToast(
+        'Dates Conflict', 
+        `"${prop.title}" is already reserved for the selected dates. Please adjust your calendar dates.`, 
+        'error'
+      );
+      return;
+    }
+
+    // Create reservation hold (Pending Payment)
+    const res = this.shortStayService.bookStay({
       propertyId: prop.id,
       clientName: this.bookClientName(),
       email: this.bookEmail(),
@@ -212,10 +233,56 @@ export class ShortStayPageComponent implements OnInit {
       guestsCount: this.bookGuests(),
       specialRequests: this.bookSpecialRequests(),
       airportPickup: this.bookAirportPickup(),
-      chefService: this.bookChefService()
+      chefService: this.bookChefService(),
+      paymentMethod: this.selectedPaymentMethod()
     });
 
-    this.bookingSuccess.set(booking);
+    if (!res.success || !res.booking) {
+      this.propertyService.showToast('Booking Conflict', res.error || 'Dates unavailable.', 'error');
+      return;
+    }
+
+    this.bookingSuccess.set(res.booking);
+    this.paymentError.set(null);
+    this.bookingStep.set('payment');
+  }
+
+  public confirmPayment(simulateFailure: boolean = false): void {
+    const booking = this.bookingSuccess();
+    if (!booking) return;
+
+    this.isProcessingPayment.set(true);
+    this.paymentError.set(null);
+
+    setTimeout(() => {
+      this.isProcessingPayment.set(false);
+      const res = this.shortStayService.processBookingPayment(booking.id, this.selectedPaymentMethod(), simulateFailure);
+
+      if (!res.success) {
+        this.paymentError.set(res.error || 'Payment authorization declined. Please retry or choose another method.');
+      } else {
+        // Fetch refreshed booking
+        const refreshed = this.shortStayService.bookings().find(b => b.id === booking.id) || {
+          ...booking,
+          status: 'Confirmed' as const,
+          paymentReference: res.paymentReference,
+          paymentStatus: 'Paid' as const
+        };
+        this.bookingSuccess.set(refreshed);
+        this.bookingStep.set('confirmation');
+      }
+    }, 1200);
+  }
+
+  public backToDetails(): void {
+    this.bookingStep.set('details');
+    this.paymentError.set(null);
+  }
+
+  public printReceipt(): void {
+    if (typeof window !== 'undefined') {
+      window.print();
+    }
   }
 
   public getWhatsAppLink(booking: ShortStayBooking): string {
@@ -235,34 +302,5 @@ export class ShortStayPageComponent implements OnInit {
       location: prop.location,
       price: prop.priceFormatted
     } as any : undefined);
-  }
-
-  // Corporate Leasing Inquiry
-  public submitLeaseInquiry(): void {
-    if (!this.leaseName().trim() || !this.leaseEmail().trim() || !this.leasePhone().trim()) {
-      this.propertyService.showToast('Incomplete Form', 'Please provide your full name, email, and phone number.', 'error');
-      return;
-    }
-
-    this.adminService.addLead({
-      category: 'property-management',
-      categoryLabel: 'Property Management / Leasing Inquiry',
-      clientName: this.leaseName().trim(),
-      email: this.leaseEmail().trim(),
-      phone: this.leasePhone().trim(),
-      subjectOrProperty: `Corporate Short Stay Leasing (${this.leaseDuration()} · ${this.leaseLocation()})`,
-      details: `Company: ${this.leaseCompany().trim() || 'Individual'}. Duration: ${this.leaseDuration()}. Preferred Location: ${this.leaseLocation()}. Requirements: ${this.leaseMessage().trim() || 'Corporate executive accommodation requested.'}`,
-      status: 'New',
-      priority: 'High',
-      budgetOrValue: 'Negotiated Corporate Rate',
-      notes: 'Corporate / Long-Term Short Stay inquiry received from website portal.'
-    });
-
-    this.leaseSubmitted.set(true);
-    this.propertyService.showToast(
-      'Inquiry Sent Successfully',
-      'Thank you! A dedicated Nigson corporate leasing manager will contact you within 2 hours.',
-      'success'
-    );
   }
 }

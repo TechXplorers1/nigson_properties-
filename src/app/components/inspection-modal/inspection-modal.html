@@ -41,41 +41,6 @@
             </select>
           </div>
 
-          <!-- Tour Type Selector (In-Person vs Virtual Tour) -->
-          <div class="form-group">
-            <label class="form-label">Tour Preference</label>
-            <div class="tour-type-selector">
-              <label class="tour-type-option" [class.selected]="tourType() === 'In-Person'">
-                <input 
-                  type="radio" 
-                  name="tourTypeRadio" 
-                  value="In-Person" 
-                  [ngModel]="tourType()" 
-                  (ngModelChange)="tourType.set($event)" 
-                />
-                <i class="ri-walk-line text-gold"></i>
-                <div>
-                  <strong>Physical In-Person Tour</strong>
-                  <small>Accompanied on-site walkthrough</small>
-                </div>
-              </label>
-
-              <label class="tour-type-option" [class.selected]="tourType() === 'Virtual Video Tour'">
-                <input 
-                  type="radio" 
-                  name="tourTypeRadio" 
-                  value="Virtual Video Tour" 
-                  [ngModel]="tourType()" 
-                  (ngModelChange)="tourType.set($event)" 
-                />
-                <i class="ri-video-chat-line text-gold"></i>
-                <div>
-                  <strong>Virtual Live HD Video Tour</strong>
-                  <small>Tailored for Diaspora & Out-of-State Clients</small>
-                </div>
-              </label>
-            </div>
-          </div>
 
           <!-- Contact Info Fields -->
           <div class="form-row-2col">

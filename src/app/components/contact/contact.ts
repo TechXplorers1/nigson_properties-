@@ -28,10 +28,22 @@ export class ContactComponent {
     try {
       const existingRaw = localStorage.getItem('nigson_admin_leads_data');
       const leads = existingRaw ? JSON.parse(existingRaw) : [];
+
+      let category = 'contact-inquiry';
+      let categoryLabel = 'Contact Inquiry';
+
+      if (this.contactSubject() === 'Property Management Services') {
+        category = 'property-management';
+        categoryLabel = 'Property Management';
+      } else if (this.contactSubject() === 'Schedule Property Inspection') {
+        category = 'inspection-request';
+        categoryLabel = 'Inspection Request';
+      }
+
       const newLead = {
         id: 'lead-' + Date.now(),
-        category: 'contact-inquiry',
-        categoryLabel: 'Contact Inquiry',
+        category: category,
+        categoryLabel: categoryLabel,
         clientName: this.contactName(),
         email: this.contactEmail(),
         phone: this.contactPhone(),

@@ -17,9 +17,10 @@
 
 .badge-units {
   font-size: 0.75rem;
-  font-weight: 600;
-  color: #cbd5e1;
-  background: rgba(255, 255, 255, 0.08);
+  font-weight: 700;
+  color: var(--color-red) !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(215, 25, 32, 0.35);
   padding: 0.25rem 0.65rem;
   border-radius: var(--radius-full);
 }
@@ -27,13 +28,14 @@
 .modal-prop-title {
   font-size: 1.55rem;
   font-weight: 800;
-  color: #ffffff;
-  line-height: 1.2;
+  color: #000000 !important;
+  line-height: 1.25;
 }
 
 .modal-location {
   font-size: 0.88rem;
-  color: var(--color-text-muted);
+  color: #000000 !important;
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 0.35rem;
@@ -49,7 +51,7 @@
   height: 420px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid rgba(197, 160, 89, 0.25);
+  border: 1px solid rgba(215, 25, 32, 0.25);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -64,7 +66,7 @@
   position: absolute;
   bottom: 1.25rem;
   left: 1.25rem;
-  background: rgba(7, 14, 30, 0.92);
+  background: rgba(10, 10, 12, 0.92);
   border: 1.5px solid var(--color-gold);
   border-radius: var(--radius-md);
   padding: 0.75rem 1.25rem;
@@ -127,8 +129,8 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background: #091326;
-  border: 1px solid rgba(197, 160, 89, 0.2);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: var(--radius-lg);
   padding: 1.25rem;
   margin-bottom: 2rem;
@@ -149,14 +151,15 @@
 .ribbon-val {
   display: block;
   font-size: 1.2rem;
-  font-weight: 700;
-  color: #ffffff;
+  font-weight: 800;
+  color: #000000 !important;
   line-height: 1.1;
 }
 
 .ribbon-lbl {
   font-size: 0.75rem;
-  color: var(--color-text-muted);
+  color: #475569 !important;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -164,7 +167,7 @@
 .ribbon-divider {
   width: 1px;
   height: 32px;
-  background: rgba(197, 160, 89, 0.2);
+  background: rgba(215, 25, 32, 0.2);
 }
 
 /* Section Blocks */
@@ -177,16 +180,18 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 1.1rem;
-  color: #ffffff;
+  color: #000000 !important;
+  font-weight: 800;
   margin-bottom: 0.85rem;
   padding-bottom: 0.45rem;
-  border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .block-paragraph {
   font-size: 0.95rem;
-  color: #cbd5e1;
+  color: #000000 !important;
   line-height: 1.7;
+  font-weight: 500;
 }
 
 /* Features Checklist */
@@ -200,12 +205,13 @@
   display: flex;
   align-items: flex-start;
   gap: 0.55rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: #f8fafc;
   padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(197, 160, 89, 0.12);
+  border: 1px solid #e2e8f0;
   font-size: 0.88rem;
-  color: #e2e8f0;
+  color: #000000 !important;
+  font-weight: 600;
 }
 
 .feature-checklist-item i {
@@ -225,13 +231,13 @@
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  background: #091326;
-  border: 1px solid rgba(197, 160, 89, 0.2);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   padding: 0.85rem 1rem;
   border-radius: var(--radius-md);
   font-size: 0.88rem;
   font-weight: 600;
-  color: #f1f5f9;
+  color: #000000 !important;
 }
 
 .amenity-full-card i {
@@ -240,9 +246,9 @@
 
 /* Specs Table */
 .specs-table-wrap {
-  background: #091326;
+  background: #ffffff;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(197, 160, 89, 0.18);
+  border: 1px solid #e2e8f0;
   overflow: hidden;
 }
 
@@ -253,7 +259,7 @@
 }
 
 .specs-table tr {
-  border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .specs-table tr:last-child {
@@ -265,12 +271,13 @@
   font-weight: 600;
   color: var(--color-gold);
   width: 32%;
-  background: rgba(197, 160, 89, 0.04);
+  background: rgba(215, 25, 32, 0.04);
 }
 
 .spec-prop-val {
   padding: 0.85rem 1.25rem;
-  color: #e2e8f0;
+  color: #000000 !important;
+  font-weight: 600;
 }
 
 /* Landmarks */
@@ -285,14 +292,15 @@
   align-items: center;
   gap: 0.6rem;
   font-size: 0.9rem;
-  color: #cbd5e1;
+  color: #000000 !important;
+  font-weight: 500;
 }
 
 /* Footer */
 .modal-footer {
   padding: 1.5rem 2rem;
-  border-top: 1px solid rgba(197, 160, 89, 0.2);
-  background: #091326;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
   position: sticky;
   bottom: 0;
   display: flex;
@@ -311,13 +319,14 @@
 
 .footer-prompt {
   font-size: 0.8rem;
-  color: var(--color-text-muted);
+  color: #475569 !important;
+  font-weight: 600;
 }
 
 .footer-phone {
   font-size: 0.92rem;
-  font-weight: 700;
-  color: #ffffff;
+  font-weight: 800;
+  color: #000000 !important;
 }
 
 .footer-buttons-group {

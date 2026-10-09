@@ -343,7 +343,9 @@
 
                     <div class="saved-content-wrapper">
                       <div class="saved-top-meta">
-                        <span class="saved-cat-tag">{{ prop.categoryLabel }}</span>
+                        @if (prop.categoryLabel && prop.categoryLabel !== 'Property For Sale') {
+                          <span class="saved-cat-tag">{{ prop.categoryLabel }}</span>
+                        }
                         <span class="saved-price-val">{{ prop.price }}</span>
                       </div>
                       <h4 class="saved-title">{{ prop.title }}</h4>

@@ -1,13 +1,12 @@
-export type PropertyCategory = 'construction' | 'management' | 'sales' | 'leasing';
+export type PropertyCategory = 'construction' | 'management' | 'sales';
 
 export type PropertyStatus = 
   | 'Completed & Sold Out' 
   | 'Available for Sale' 
-  | 'Available for Lease' 
   | 'Ongoing Development' 
   | 'Sold Out';
 
-export type PropertyPurpose = 'sale' | 'lease' | 'completed';
+export type PropertyPurpose = 'sale' | 'completed';
 
 export interface Amenity {
   icon: string;
@@ -141,7 +140,7 @@ export interface PropertyInquiry {
   email: string;
   phone: string;
   propertyInterestedIn: string;
-  inquiryType: 'Buy' | 'Lease' | 'Property Management' | 'Investment' | 'General Inquiry';
+  inquiryType: 'Buy' | 'Property Management' | 'Investment' | 'General Inquiry';
   budgetRange?: string;
   preferredInspectionDate?: string;
   message: string;
@@ -206,6 +205,10 @@ export interface ShortStayBooking {
   specialRequests?: string;
   airportPickup?: boolean;
   chefService?: boolean;
-  status: 'Confirmed' | 'Pending Payment' | 'Under Review';
+  status: 'Confirmed' | 'Pending Payment' | 'Under Review' | 'Checked-In' | 'Completed' | 'Cancelled';
+  paymentMethod?: 'Card' | 'Bank Transfer' | 'USSD' | 'Paystack' | string;
+  paymentReference?: string;
+  paymentStatus?: 'Paid' | 'Pending' | 'Failed';
+  paidAt?: string;
   createdAt: string;
 }

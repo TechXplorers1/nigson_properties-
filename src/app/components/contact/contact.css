@@ -1,7 +1,70 @@
+:host {
+  display: block;
+  font-family: 'Satoshi', sans-serif !important;
+}
+
 .contact-section {
-  background: var(--color-primary-navy);
+  font-family: 'Satoshi', sans-serif !important;
+  background: #ffffff;
   position: relative;
   padding-top: 1.75rem;
+}
+
+.contact-section *:not([class*="ri-"]) {
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+.contact-section i[class*="ri-"],
+.contact-section [class*="ri-"],
+.contact-section [class^="ri-"] {
+  font-family: 'remixicon' !important;
+}
+
+.section-header-wrap {
+  margin-bottom: 2.5rem;
+}
+
+.section-badge {
+  font-family: 'Satoshi', sans-serif !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-red, #D71920) !important;
+  background: #ffffff !important;
+  border: 1.5px solid rgba(215, 25, 32, 0.35);
+  padding: 0.32rem 0.95rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.65rem;
+}
+
+.section-badge i {
+  color: var(--color-red, #D71920) !important;
+  font-family: 'remixicon' !important;
+  font-size: 0.82rem;
+}
+
+.section-title {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: clamp(1.4rem, 2.6vw, 2.15rem);
+  font-weight: 600;
+  color: #000000 !important;
+  margin-bottom: 0.5rem;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 0.92rem;
+  color: #475569 !important;
+  max-width: 580px;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: -0.008em;
 }
 
 .contact-grid {
@@ -20,7 +83,7 @@
   padding: 2.2rem;
   display: flex;
   flex-direction: column;
-}
+background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; }
 
 .office-header {
   display: flex;
@@ -28,7 +91,7 @@
   gap: 1rem;
   margin-bottom: 2rem;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+  border-bottom: 1px solid rgba(215, 25, 32, 0.15);
 }
 
 .office-icon-wrap {
@@ -44,11 +107,15 @@
 }
 
 .office-name {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 1.35rem;
-  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #000000;
 }
 
 .office-sub {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -75,74 +142,52 @@
 }
 
 .office-item strong {
+  font-family: 'Satoshi', sans-serif !important;
   display: block;
   font-size: 0.82rem;
-  color: var(--color-text-muted);
+  color: #475569;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.2rem;
+  font-weight: 700;
 }
 
 .office-item p {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.95rem;
-  color: #e2e8f0;
+  color: #000000 !important;
   margin-bottom: 0;
+  font-weight: 500;
+  letter-spacing: -0.008em;
 }
 
 .phone-link, .mail-link {
-  color: #ffffff;
-  font-weight: 600;
+  font-family: 'Satoshi', sans-serif !important;
+  color: #000000 !important;
+  font-weight: 700;
+  letter-spacing: -0.008em;
   transition: color var(--transition-fast);
 }
 
 .phone-link:hover, .mail-link:hover {
-  color: var(--color-gold);
+  color: var(--color-gold) !important;
 }
 
-/* Map Visual Box */
+/* Office Card Map Frame */
 .map-visual-box {
   position: relative;
-  height: 200px;
-  border-radius: var(--radius-lg);
+  height: 250px;
+  border-radius: var(--radius-lg, 12px);
   overflow: hidden;
-  border: 1px solid var(--color-gold-border);
-  cursor: pointer;
-  background: #0d1a33;
+  border: 1.5px solid #e2e8f0;
+  background: #f1f5f9;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
-.map-mockup-layer {
+.map-visual-box iframe {
   width: 100%;
   height: 100%;
-  background: 
-    radial-gradient(circle at 50% 50%, rgba(197, 160, 89, 0.15) 0%, transparent 60%),
-    linear-gradient(rgba(11, 21, 40, 0.88), rgba(7, 14, 30, 0.95)),
-    repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(197, 160, 89, 0.05) 20px, rgba(197, 160, 89, 0.05) 21px),
-    repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(197, 160, 89, 0.05) 20px, rgba(197, 160, 89, 0.05) 21px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.map-pin-pulse {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  animation: pulseGlow 3s infinite ease-in-out;
-  background: rgba(7, 14, 30, 0.85);
-  border: 1.5px solid var(--color-gold);
-  padding: 0.6rem 1.1rem;
-  border-radius: var(--radius-full);
-}
-
-.map-pin-pulse i {
-  color: var(--color-sold);
-  font-size: 1.6rem;
-}
-
-.map-pin-label {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #ffffff;
+  border: 0;
 }
 
 .map-overlay-bar {
@@ -150,30 +195,114 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(7, 14, 30, 0.92);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
   padding: 0.65rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.8rem;
-  color: #cbd5e1;
-  border-top: 1px solid rgba(197, 160, 89, 0.15);
+  color: #1e293b;
+  font-weight: 600;
+  border-top: 1px solid #e2e8f0;
+  z-index: 2;
+}
+
+.map-overlay-bar span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: #334155;
+  font-weight: 700;
 }
 
 /* Contact Form Card */
 .contact-form-card {
   padding: 2.5rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .form-title {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 1.35rem;
-  color: #ffffff;
+  color: #000000 !important;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   margin-bottom: 1.75rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.form-title i {
+  font-family: 'remixicon' !important;
+}
+
+.contact-form {
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+.form-label,
+.contact-form .form-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.45rem;
+  font-family: 'Satoshi', sans-serif !important;
+  letter-spacing: -0.01em;
+}
+
+.form-label span.req {
+  color: var(--color-red, #D71920);
+}
+
+.form-control,
+.contact-form .form-control,
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #000000;
+}
+
+.form-control:focus,
+.contact-form .form-control:focus,
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+.form-control::placeholder,
+.contact-form .form-control::placeholder,
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 400;
+  color: #71717a;
+  letter-spacing: -0.01em;
+}
+
+.contact-form select.form-control option {
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 400;
+}
+
+.contact-form textarea.form-control {
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
 .contact-actions-row {
@@ -188,6 +317,240 @@
   }
 }
 
+.btn-send-message,
+.btn-whatsapp,
+.contact-actions-row .btn {
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.btn-send-message span,
+.btn-whatsapp span,
+.contact-actions-row .btn span {
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
 .btn-send-message {
   flex: 1.2;
+}
+
+/* ========================================================= */
+/* DEDICATED PANORAMIC GOOGLE MAPS SHOWCASE                  */
+/* ========================================================= */
+.full-map-section {
+  margin-top: 3.5rem;
+}
+
+.full-map-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.05);
+}
+
+.map-header-bar {
+  padding: 1.5rem 2rem;
+  background: #ffffff;
+  border-bottom: 1.5px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.map-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  min-width: 280px;
+}
+
+.map-pin-crest {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #fef2f2;
+  border: 1px solid rgba(215, 25, 32, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-red, #D71920);
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.map-heading {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #000000 !important;
+  margin: 0 0 0.25rem 0;
+  letter-spacing: -0.015em;
+}
+
+.map-subheading {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+}
+
+.map-header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.map-header-buttons .btn {
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.google-map-embed-container {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  overflow: hidden;
+  background: #e2e8f0;
+}
+
+.google-map-embed-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Floating Landmark Floating Badge on map */
+.map-floating-office-pill {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+  max-width: 380px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+.map-floating-office-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+}
+
+.floating-pill-crest {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--color-red, #D71920);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(215, 25, 32, 0.3);
+}
+
+.floating-pill-crest i {
+  color: #ffffff !important;
+  font-family: 'remixicon' !important;
+}
+
+.floating-pill-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+.floating-pill-details strong {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #000000;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.floating-pill-details span {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 0.76rem;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.floating-pill-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  margin-top: 0.2rem;
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+.floating-pill-meta a,
+.floating-pill-meta span {
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+.floating-pill-meta a {
+  color: #0f172a;
+  text-decoration: none;
+}
+
+.floating-pill-meta a:hover {
+  color: var(--color-red, #D71920);
+}
+
+.floating-pill-meta .meta-separator {
+  color: #cbd5e1;
+}
+
+.floating-pill-meta .open-status {
+  color: #059669;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .map-header-bar {
+    padding: 1.25rem;
+  }
+
+  .google-map-embed-container {
+    height: 360px;
+  }
+
+  .map-floating-office-pill {
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    max-width: none;
+    padding: 0.75rem 1rem;
+  }
 }

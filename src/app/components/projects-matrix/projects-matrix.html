@@ -69,9 +69,6 @@
                 <span class="badge" [ngClass]="getStatusBadgeClass(project.status)">
                   <i class="ri-checkbox-circle-fill"></i> {{ project.status }}
                 </span>
-                <span class="badge badge-gold">
-                  {{ project.categoryLabel }}
-                </span>
               </div>
 
               <!-- Price Tag Floating -->
@@ -91,49 +88,6 @@
               </div>
 
               <h3 class="property-card-title">{{ project.displayTitle }}</h3>
-
-              <p class="property-card-desc">
-                {{ project.description }}
-              </p>
-
-              <!-- Specs Row -->
-              <div class="property-specs-row">
-                @if (project.bedrooms) {
-                  <div class="spec-item">
-                    <i class="ri-hotel-bed-line text-gold"></i>
-                    <span><strong>{{ project.bedrooms }}</strong> Beds</span>
-                  </div>
-                  <div class="spec-divider"></div>
-                }
-                @if (project.bathrooms) {
-                  <div class="spec-item">
-                    <i class="ri-drop-line text-gold"></i>
-                    <span><strong>{{ project.bathrooms }}</strong> Baths</span>
-                  </div>
-                  <div class="spec-divider"></div>
-                }
-                <div class="spec-item">
-                  <i class="ri-building-line text-gold"></i>
-                  <span><strong>{{ project.units }}</strong> Units</span>
-                </div>
-                @if (project.size) {
-                  <div class="spec-divider"></div>
-                  <div class="spec-item">
-                    <i class="ri-ruler-line text-gold"></i>
-                    <span>{{ project.size }}</span>
-                  </div>
-                }
-              </div>
-
-              <!-- Key Features Chips -->
-              <div class="property-amenity-chips">
-                @for (amenity of project.amenities.slice(0, 3); track amenity.label) {
-                  <span class="amenity-chip">
-                    <i [class]="amenity.icon + ' text-gold'"></i>
-                    <span>{{ amenity.label }}</span>
-                  </span>
-                }
-              </div>
 
               <!-- Card Action Buttons -->
               <div class="property-card-actions">

@@ -1,11 +1,20 @@
 export type LeadCategory = 
   | 'inspection-request' 
-  | 'sales-lead' 
   | 'contact-inquiry' 
   | 'booking-details' 
   | 'property-management';
 
-export type LeadStatus = 'New' | 'In Progress' | 'Contacted' | 'Qualified' | 'Closed';
+export type LeadStatus = 
+  | 'New' 
+  | 'Contacted' 
+  | 'Inspection Scheduled' 
+  | 'Inspection Completed' 
+  | 'Negotiating' 
+  | 'Closed / Won' 
+  | 'Lost' 
+  | 'In Progress' 
+  | 'Qualified' 
+  | 'Closed';
 
 export interface LeadItem {
   id: string;
@@ -24,6 +33,43 @@ export interface LeadItem {
   preferredDate?: string;
   clientRole?: string;
   notes?: string;
+  assignedTo?: string;
+}
+
+export interface PhaseRoadmapItem {
+  phase: string;
+  phaseNumber: number;
+  name: string;
+  businessGoal: string;
+  deliverables: string[];
+  status: 'Approved' | 'Active Implementation' | 'Deferred to Next Phase' | 'Upcoming';
+  duration: string;
+  description: string;
+}
+
+export interface ClientDecisionItem {
+  id: string;
+  decision: string;
+  clientInputRequired: string;
+  approvalStatus: 'Approved' | 'Pending' | 'In Review';
+  notes: string;
+  category: string;
+}
+
+export interface Phase1DefinitionOfDoneItem {
+  id: string;
+  criterion: string;
+  category: 'Customer Experience' | 'Operations & Admin' | 'Integrations & Payments' | 'Governance & Analytics';
+  status: 'Verified & Complete' | 'Operational' | 'Pending UAT';
+  verificationDetails: string;
+}
+
+export interface ClientSignoffSignatory {
+  role: string;
+  name: string;
+  signature: string;
+  date: string;
+  status: 'Signed' | 'Pending Review';
 }
 
 export interface WebsiteContent {

@@ -15,32 +15,32 @@ export class WhyChooseUsComponent {
     {
       icon: 'ri-building-line',
       title: 'A Trusted Name You Can Rely On',
-      desc: 'Nigson Properties benefits from the robust institutional reputation, financial strength, and corporate foundation of Nigson Group.'
+      desc: 'Backed by the institutional strength, financial integrity, and corporate foundation of Nigson Group.'
     },
     {
       icon: 'ri-medal-fill',
       title: 'Quality Without Compromise',
-      desc: 'Every development is executed with meticulous attention to architectural planning, structural integrity, premium finishing, and stringent safety.'
+      desc: 'Architectural precision, European structural standards, and premium turnkey finishes in every home.'
     },
     {
       icon: 'ri-line-chart-line',
-      title: 'Proven Expertise & Strong Market Presence',
-      desc: 'We combine granular Lagos micro-market knowledge, strategic property investment insight, and deep operational excellence across prime corridors.'
+      title: 'Lagos Market Expertise',
+      desc: 'Granular micro-market intelligence and strategic property investment insight across prime corridors.'
     },
     {
       icon: 'ri-user-heart-line',
       title: 'Customer-First Transparency',
-      desc: 'We prioritize clear communication, uncompromised integrity in documentation, milestone reporting, and dedicated post-handover customer care.'
+      desc: 'Verified land titles, clear documentation, transparent milestone reporting, and dedicated aftercare.'
     },
     {
       icon: 'ri-cpu-line',
-      title: 'Innovation-Driven Development',
-      desc: 'Standardized smart home automation, high-capacity solar inverter systems, and state-of-the-art water purification integrated into all homes.'
+      title: 'Innovation-Driven Engineering',
+      desc: 'Standardized smart home automation, high-capacity solar inverters, and central clean water plants.'
     },
     {
       icon: 'ri-seedling-line',
-      title: 'Sustainable Investments, Lasting Value',
-      desc: 'High-capital-appreciation assets designed to generate strong rental yields, withstand climate elements, and appreciate for generations.'
+      title: 'Sustainable Long-Term Value',
+      desc: 'Prime high-appreciation assets designed for strong rental yields and generational wealth creation.'
     }
   ];
 }

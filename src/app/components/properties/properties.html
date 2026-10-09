@@ -34,13 +34,9 @@
             (click)="selectTab('sale')">
             <i class="ri-home-smile-line"></i> Buy / For Sale
           </button>
-          <button 
-            type="button" 
-            class="search-tab" 
-            [class.active]="propertyService.selectedCategory() === 'lease'" 
-            (click)="selectTab('lease')">
-            <i class="ri-key-2-line"></i> Rent / For Lease
-          </button>
+          <a routerLink="/short-stay" class="search-tab short-stay-tab" title="Browse Short-Stay Luxury Residences">
+            <i class="ri-hotel-bed-line"></i> Short-Stay Stays
+          </a>
         </div>
 
         <!-- Filter Fields -->
@@ -81,10 +77,11 @@
               <i class="ri-money-dollar-circle-line text-gold"></i> Max Budget
             </label>
             <select class="form-control" [ngModel]="propertyService.maxPrice()" (ngModelChange)="propertyService.setMaxPrice(+$event)">
-              <option [value]="300000000">Any Budget (Up to ₦300M+)</option>
-              <option [value]="30000000">Lease (&le; ₦30M/year)</option>
+              <option [value]="1000000000">Any Budget (Up to ₦1 Billion+)</option>
               <option [value]="200000000">Sale (&le; ₦200M)</option>
-              <option [value]="250000000">Sale (&le; ₦250M)</option>
+              <option [value]="300000000">Sale (&le; ₦300M)</option>
+              <option [value]="450000000">Sale (&le; ₦450M)</option>
+              <option [value]="700000000">Sale (&le; ₦700M)</option>
             </select>
           </div>
 
@@ -99,7 +96,7 @@
 
         <div class="search-footer-note">
           <i class="ri-information-line text-gold"></i>
-          <span>Featured developments include <strong>Opposite Whitesand Beach</strong>, <strong>White Oaks</strong>, <strong>Olufemi Olatunji</strong>, and <strong>Benson Close Ikoyi</strong>.</span>
+          <span>Featured properties include <strong>The Grand Azure Waterfront Villa</strong>, <strong>The Sovereign Smart Residence</strong>, <strong>The Obsidian Sky Penthouse</strong>, and <strong>The Pearl Horizon</strong>.</span>
         </div>
       </div>
     </div>
@@ -110,7 +107,7 @@
         <span>Showing <strong>{{ propertyService.filteredProperties().length }}</strong> Properties</span>
       </div>
 
-      @if (propertyService.selectedCategory() !== 'all' || propertyService.selectedLocation() !== 'all' || propertyService.selectedBedrooms() !== 'all' || propertyService.maxPrice() < 300000000) {
+      @if (propertyService.selectedCategory() !== 'all' || propertyService.selectedLocation() !== 'all' || propertyService.selectedBedrooms() !== 'all' || propertyService.maxPrice() < 1000000000) {
         <button type="button" class="btn btn-outline-gold btn-sm" (click)="resetFilters()">
           <i class="ri-refresh-line"></i> Reset Filters
         </button>
@@ -133,9 +130,11 @@
                   <span class="badge" [ngClass]="getBadgeClass(prop.status)">
                     <i class="ri-checkbox-circle-fill"></i> {{ prop.status }}
                   </span>
-                  <span class="badge badge-gold">
-                    {{ prop.categoryLabel }}
-                  </span>
+                  @if (prop.categoryLabel && prop.categoryLabel !== 'Property For Sale') {
+                    <span class="badge badge-gold">
+                      {{ prop.categoryLabel }}
+                    </span>
+                  }
                 </div>
 
                 <!-- Favorite Button -->
@@ -167,43 +166,6 @@
               </div>
 
               <h3 class="property-card-title">{{ prop.title }}</h3>
-
-              <p class="property-card-desc">
-                {{ prop.description }}
-              </p>
-
-              <!-- Specs Row -->
-              <div class="property-specs-row">
-                <div class="spec-item">
-                  <i class="ri-hotel-bed-line text-gold"></i>
-                  <span><strong>{{ prop.bedrooms }}</strong> Beds</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                  <i class="ri-drop-line text-gold"></i>
-                  <span><strong>{{ prop.bathrooms }}</strong> Baths</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                  <i class="ri-building-line text-gold"></i>
-                  <span><strong>{{ prop.units }}</strong> Units</span>
-                </div>
-                <div class="spec-divider"></div>
-                <div class="spec-item">
-                  <i class="ri-ruler-line text-gold"></i>
-                  <span>{{ prop.size }}</span>
-                </div>
-              </div>
-
-              <!-- Key Features Chips -->
-              <div class="property-amenity-chips">
-                @for (amenity of prop.amenities.slice(0, 3); track amenity.label) {
-                  <span class="amenity-chip">
-                    <i [class]="amenity.icon + ' text-gold'"></i>
-                    <span>{{ amenity.label }}</span>
-                  </span>
-                }
-              </div>
 
               <!-- Card Action Buttons -->
               <div class="property-card-actions">

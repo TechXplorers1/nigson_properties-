@@ -5,13 +5,13 @@
     <div class="text-center section-header-wrap scroll-reveal">
       <div class="section-badge">
         <i class="ri-sparkles-line"></i>
-        <span>{{ adminService.websiteContent().showcaseBadge }}</span>
+        <span>{{ adminService.websiteContent().showcaseBadge || 'Flagship Real Estate' }}</span>
       </div>
       <h2 class="section-title">
-        {{ adminService.websiteContent().showcaseHeading }}
+        {{ adminService.websiteContent().showcaseHeading || 'Featured Properties & Signature Developments' }}
       </h2>
       <p class="section-subtitle mx-auto">
-        {{ adminService.websiteContent().showcaseSubtitle }}
+        {{ adminService.websiteContent().showcaseSubtitle || 'Discover institutional-grade residential masterpieces, prime commercial lands, and bespoke executive short-stay residences across prime Lagos.' }}
       </p>
     </div>
 
@@ -25,7 +25,7 @@
               [src]="property.heroImage" 
               [alt]="property.title" 
               class="prop-img" 
-              loading="lazy"
+              loading="lazy" 
               (error)="onImageError($event)" 
             />
             <div class="prop-img-gradient"></div>
@@ -35,9 +35,11 @@
               <span class="badge" [ngClass]="property.status.includes('Sold') ? 'badge-sold' : 'badge-gold'">
                 {{ property.status }}
               </span>
-              <span class="badge badge-sale">
-                {{ property.categoryLabel }}
-              </span>
+              @if (property.categoryLabel && property.categoryLabel !== 'Property For Sale') {
+                <span class="badge badge-sale">
+                  {{ property.categoryLabel }}
+                </span>
+              }
             </div>
 
             <!-- Price Tag on Image -->
@@ -50,12 +52,12 @@
           <!-- Card Content -->
           <div class="prop-card-body">
             <div class="prop-location">
-              <i class="ri-map-pin-2-fill text-gold"></i>
+              <i class="ri-map-pin-2-fill"></i>
               <span>{{ property.location }}</span>
             </div>
 
             <h3 class="prop-card-title">{{ property.title }}</h3>
-            <p class="prop-card-desc">{{ property.description | slice:0:110 }}...</p>
+            <p class="prop-card-desc">{{ property.description | slice:0:75 }}...</p>
 
             <!-- Key Specs Ribbon -->
             <div class="prop-specs-row">
@@ -83,13 +85,13 @@
             <div class="prop-card-actions">
               <button 
                 type="button" 
-                class="btn btn-outline-gold btn-sm flex-1" 
+                class="btn btn-outline-dark btn-sm flex-1" 
                 (click)="$event.stopPropagation(); openPropertyDetails(property)">
                 <i class="ri-eye-line"></i> View Details
               </button>
               <button 
                 type="button" 
-                class="btn btn-gold btn-sm flex-1" 
+                class="btn btn-red btn-sm flex-1" 
                 (click)="$event.stopPropagation(); openInspection(property)">
                 <i class="ri-calendar-check-line"></i> Inspect
               </button>
@@ -100,206 +102,402 @@
     </div>
 
     <!-- View All Properties Action Strip -->
-    <div class="text-center mt-5 scroll-reveal">
-      <a routerLink="/properties" class="btn btn-gold btn-lg">
-        <span>View Complete Real Estate Portfolio</span>
-        <i class="ri-arrow-right-line"></i>
+    <div class="portfolio-cta-wrapper scroll-reveal">
+      <a routerLink="/properties" class="portfolio-cta-btn" id="view-complete-portfolio-btn">
+        <span class="cta-sheen" aria-hidden="true"></span>
+        <span class="cta-text">View Complete Real Estate Portfolio</span>
+        <span class="cta-arrow-badge" aria-hidden="true">
+          <i class="ri-arrow-right-line"></i>
+        </span>
       </a>
+      <div class="portfolio-cta-meta">
+        <span class="meta-item"><i class="ri-shield-check-fill text-gold"></i> 100% Verified Titles</span>
+        <span class="meta-dot">•</span>
+        <span class="meta-item"><i class="ri-map-pin-2-fill text-red"></i> Prime Lagos Locations</span>
+        <span class="meta-dot">•</span>
+        <span class="meta-item"><i class="ri-building-4-line text-gold"></i> 50+ Exclusive Listings</span>
+      </div>
     </div>
 
-    <!-- Divider Bar -->
-    <div class="showcase-divider-bar"></div>
-
-    <!-- Landmark Project Development Matrix Spotlight -->
-    <div class="showcase-row showcase-row-projects">
-      <div class="showcase-visual-col scroll-reveal-left">
-        <div class="luxury-card showcase-image-card">
-          <img 
-            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80" 
-            alt="Project Developments by Nigson" 
-            class="showcase-img"
-            loading="lazy"
-            (error)="onImageError($event, 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?auto=format&fit=crop&w=1200&q=80')"
-          />
-          <div class="showcase-img-overlay"></div>
-
-          <div class="showcase-top-badges">
-            <span class="badge badge-gold">
-              <i class="ri-building-line"></i> Master Developments
-            </span>
-            <span class="badge badge-sold">
-              <i class="ri-shield-star-fill"></i> 100% Sold-Out Track Record
-            </span>
-          </div>
-
-          <div class="showcase-bottom-overlay">
-            <div class="showcase-bottom-info">
-              <span class="overlay-tagline">Proven Development Matrix</span>
-              <h4 class="overlay-title">White Oaks & Fatai Bankole Residences</h4>
-              <p class="overlay-meta">
-                <i class="ri-map-pin-2-fill text-gold"></i> Aro-Ologolo & Lekki &bull; 50+ Units Handed Over
-              </p>
+    <!-- ========================================================================= -->
+    <!-- 1. LANDMARK PROJECT DEVELOPMENTS SPOTLIGHT (Modern Section + Auto-Scroll Grid) -->
+    <!-- ========================================================================= -->
+    <div class="modern-spotlight-card modern-projects-spotlight scroll-reveal">
+      <div class="modern-spotlight-grid">
+        
+        <!-- Left Column: Visual Stage + Auto-Scrolling Thumbnail Grid -->
+        <div 
+          class="modern-visual-col" 
+          (mouseenter)="onProjectsMouseEnter()" 
+          (mouseleave)="onProjectsMouseLeave()">
+          
+          <!-- Main Hero Slide Stage -->
+          <div class="modern-stage-wrapper luxury-card" [routerLink]="activeProject().link">
+            <div class="stage-slides-stack">
+              @for (proj of projectSlides; track proj.id; let i = $index) {
+                <div 
+                  class="stage-slide" 
+                  [class.is-active]="activeProjectIndex() === i">
+                  <img 
+                    [src]="proj.image" 
+                    [alt]="proj.title" 
+                    class="stage-img" 
+                    loading="lazy"
+                    (error)="onImageError($event)" 
+                  />
+                  <div class="stage-gradient-overlay"></div>
+                </div>
+              }
             </div>
 
-            <a routerLink="/projects" class="btn btn-gold showcase-card-btn" title="View Projects">
-              <span>View Developments</span>
+            <!-- Floating Top Badges -->
+            <div class="stage-floating-top">
+              <span class="stage-badge stage-badge-red">
+                <i class="ri-building-line"></i> {{ activeProject().categoryBadge }}
+              </span>
+              <span class="stage-badge stage-badge-glass">
+                <i class="ri-shield-check-fill"></i> {{ activeProject().statusBadge }}
+              </span>
+            </div>
+
+            <!-- Floating Navigation Arrows -->
+            <button 
+              type="button" 
+              class="stage-nav-arrow arrow-prev" 
+              (click)="prevProject($event)" 
+              title="Previous Development"
+              aria-label="Previous Development">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button 
+              type="button" 
+              class="stage-nav-arrow arrow-next" 
+              (click)="nextProject($event)" 
+              title="Next Development"
+              aria-label="Next Development">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+
+            <!-- Bottom Floating Glass Details Panel -->
+            <div class="stage-glass-panel">
+              <div class="stage-panel-info">
+                <div class="stage-meta-row">
+                  <span class="stage-pill-tag">Delivered Matrix</span>
+                  <span class="stage-counter">{{ activeProjectIndex() + 1 }} / {{ projectSlides.length }}</span>
+                </div>
+                <h4 class="stage-slide-title">{{ activeProject().title }}</h4>
+                <p class="stage-slide-meta">
+                  <i class="ri-map-pin-2-fill"></i>
+                  <span>{{ activeProject().location }} &bull; {{ activeProject().units }}</span>
+                </p>
+              </div>
+
+              <a [routerLink]="activeProject().link" class="btn btn-red stage-cta-button" (click)="$event.stopPropagation()">
+                <span>View Details</span>
+                <i class="ri-arrow-right-line"></i>
+              </a>
+            </div>
+
+            <!-- Auto-Play Progress Track Indicator -->
+            <div class="stage-progress-track">
+              @for (proj of projectSlides; track proj.id; let i = $index) {
+                <div 
+                  class="progress-bar-segment" 
+                  [class.is-active]="activeProjectIndex() === i"
+                  (click)="selectProject(i, $event)">
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Interactive Thumbnail Image Grid Strip (Auto-scrolls & clickable) -->
+          <div class="stage-thumbnails-grid">
+            @for (proj of projectSlides; track proj.id; let i = $index) {
+              <button 
+                type="button" 
+                class="thumbnail-card"
+                [class.is-active]="activeProjectIndex() === i"
+                (click)="selectProject(i, $event)"
+                [title]="proj.title"
+                [attr.aria-label]="'Select ' + proj.title">
+                <div class="thumb-img-box">
+                  <img [src]="proj.image" [alt]="proj.title" (error)="onImageError($event)" />
+                  <span class="thumb-index-tag">0{{ i + 1 }}</span>
+                </div>
+                <div class="thumb-content">
+                  <span class="thumb-title">{{ proj.title }}</span>
+                  <span class="thumb-caption">{{ proj.units.split(' ')[0] }} Units</span>
+                </div>
+                <div class="thumb-active-indicator"></div>
+              </button>
+            }
+          </div>
+        </div>
+
+        <!-- Right Column: Modern Content & Capabilities -->
+        <div class="modern-content-col scroll-reveal-right">
+          <div class="section-badge">
+            <i class="ri-stack-line"></i>
+            <span>Institutional Engineering Rigor</span>
+          </div>
+
+          <h3 class="modern-spotlight-title">
+            Landmark <span class="highlight-red">Project Developments</span>
+          </h3>
+
+          <p class="modern-spotlight-desc">
+            Institutional-grade project delivery across prime Lagos corridors, executed by certified engineering professionals from feasibility to turnkey handover.
+          </p>
+
+          <div class="modern-features-list">
+            <div class="modern-feature-item">
+              <div class="feature-icon-badge">
+                <i class="ri-check-double-line"></i>
+              </div>
+              <div class="feature-text-block">
+                <strong class="feature-head">Turnkey Execution:</strong>
+                <span class="feature-body">Master planning, civil construction & owner handover</span>
+              </div>
+            </div>
+
+            <div class="modern-feature-item">
+              <div class="feature-icon-badge">
+                <i class="ri-check-double-line"></i>
+              </div>
+              <div class="feature-text-block">
+                <strong class="feature-head">PMP Standards:</strong>
+                <span class="feature-body">European structural integrity & zero budget drift</span>
+              </div>
+            </div>
+
+            <div class="modern-feature-item">
+              <div class="feature-icon-badge">
+                <i class="ri-check-double-line"></i>
+              </div>
+              <div class="feature-text-block">
+                <strong class="feature-head">100% Sold-Out:</strong>
+                <span class="feature-body">50+ residential units delivered on schedule</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modern Stats Ribbon -->
+          <div class="modern-stats-card">
+            <div class="stat-box">
+              <span class="stat-value">50+</span>
+              <span class="stat-label">Units Handed Over</span>
+            </div>
+            <div class="stat-line-divider"></div>
+            <div class="stat-box">
+              <span class="stat-value">100%</span>
+              <span class="stat-label">On-Time Delivery</span>
+            </div>
+            <div class="stat-line-divider"></div>
+            <div class="stat-box">
+              <span class="stat-value">6</span>
+              <span class="stat-label">Major Estates</span>
+            </div>
+          </div>
+
+          <div class="modern-cta-wrap">
+            <a routerLink="/projects" class="btn btn-red btn-lg modern-primary-cta">
+              <span>Explore Development Matrix</span>
               <i class="ri-arrow-right-line"></i>
             </a>
           </div>
         </div>
-      </div>
 
-      <div class="showcase-content-col scroll-reveal-right">
-        <div class="showcase-col-badge">
-          <i class="ri-stack-line text-gold"></i>
-          <span>Institutional Engineering Rigor</span>
-        </div>
-
-        <h3 class="showcase-item-title">
-          Landmark <span class="text-gold">Project Developments</span> & Delivery
-        </h3>
-
-        <p class="showcase-item-desc">
-          Nigson Properties has built a flawless reputation for institutional-grade project development across prime Lagos corridors. Our certified Project Management Professionals (PMP) manage end-to-end delivery: from land feasibility and architectural design to full turnkey construction, budget adherence, and successful owner handover.
-        </p>
-
-        <div class="showcase-highlights-list">
-          <div class="highlight-item">
-            <i class="ri-checkbox-circle-fill text-gold"></i>
-            <span><strong>End-to-End Execution:</strong> Feasibility, master planning, construction & handover</span>
-          </div>
-          <div class="highlight-item">
-            <i class="ri-checkbox-circle-fill text-gold"></i>
-            <span><strong>PMP-Led Quality:</strong> European structural standards, rigorous safety & zero budget drift</span>
-          </div>
-          <div class="highlight-item">
-            <i class="ri-checkbox-circle-fill text-gold"></i>
-            <span><strong>Proven Delivery:</strong> 50+ delivered residential units with 100% sold-out success</span>
-          </div>
-        </div>
-
-        <div class="showcase-stats-ribbon">
-          <div class="stat-pill">
-            <span class="stat-val">50+</span>
-            <span class="stat-label">Units Handed Over</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-pill">
-            <span class="stat-val">100%</span>
-            <span class="stat-label">On-Time Delivery</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-pill">
-            <span class="stat-val">6</span>
-            <span class="stat-label">Major Estates</span>
-          </div>
-        </div>
-
-        <div class="showcase-action-wrap">
-          <a routerLink="/projects" class="btn btn-gold btn-lg">
-            <span>Explore Development Matrix</span>
-            <i class="ri-arrow-right-line"></i>
-          </a>
-        </div>
       </div>
     </div>
 
-    <!-- Divider Bar -->
-    <div class="showcase-divider-bar"></div>
-
-    <!-- Executive Luxury Short Stay Spotlight (Content Left, Image Right) -->
-    <div class="showcase-row showcase-row-shortstay">
-      <!-- Left Column: Content -->
-      <div class="showcase-content-col scroll-reveal-left">
-        <div class="showcase-col-badge">
-          <i class="ri-hotel-bed-line text-gold"></i>
-          <span>Executive Hospitality & Short Stays</span>
-        </div>
-
-        <h3 class="showcase-item-title">
-          Bespoke <span class="text-gold">Luxury Short Stay</span> Residences
-        </h3>
-
-        <p class="showcase-item-desc">
-          Experience world-class hospitality in Nigson Properties’ curated executive short-stay apartments, waterfront penthouses, and private villas across prime Lagos corridors. Impeccably appointed with 24/7 solar backup power, high-speed Starlink internet, bespoke interiors, and dedicated concierge services.
-        </p>
-
-        <div class="showcase-highlights-list">
-          <div class="highlight-item">
-            <i class="ri-checkbox-circle-fill text-gold"></i>
-            <span><strong>24/7 Clean Energy:</strong> Guaranteed uninterrupted solar inverter & silent generator power</span>
-          </div>
-          <div class="highlight-item">
-            <i class="ri-checkbox-circle-fill text-gold"></i>
-            <span><strong>Prime Lagos Waterfronts:</strong> Penthouse suites and private villas in Lekki Phase 1, Ikoyi & Victoria Island</span>
-          </div>
-          <div class="highlight-item">
-            <i class="ri-checkbox-circle-fill text-gold"></i>
-            <span><strong>VIP Concierge & Security:</strong> Starlink Wi-Fi, chef-on-demand, airport escort & 24/7 guarded security</span>
-          </div>
-        </div>
-
-        <div class="showcase-stats-ribbon">
-          <div class="stat-pill">
-            <span class="stat-val">4.98★</span>
-            <span class="stat-label">Guest Rating</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-pill">
-            <span class="stat-val">24/7</span>
-            <span class="stat-label">Solar & Inverter</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-pill">
-            <span class="stat-val">100%</span>
-            <span class="stat-label">Verified Listings</span>
-          </div>
-        </div>
-
-        <div class="showcase-action-wrap">
-          <a routerLink="/short-stay" class="btn btn-gold btn-lg">
-            <span>Explore Short Stay Collection</span>
-            <i class="ri-arrow-right-line"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Right Column: Visual Image -->
-      <div class="showcase-visual-col scroll-reveal-right">
-        <div class="luxury-card showcase-image-card" routerLink="/short-stay">
-          <img 
-            src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" 
-            alt="Luxury Short Stay Residences by Nigson" 
-            class="showcase-img"
-            loading="lazy"
-            (error)="onImageError($event, 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80')"
-          />
-          <div class="showcase-img-overlay"></div>
-
-          <div class="showcase-top-badges">
-            <span class="badge badge-gold">
-              <i class="ri-hotel-bed-line"></i> Executive Short Stay
-            </span>
-            <span class="badge badge-sale">
-              <i class="ri-flashlight-line"></i> Instant Booking Available
-            </span>
+    <!-- ========================================================================= -->
+    <!-- 2. BESPOKE LUXURY SHORT STAY SPOTLIGHT (Modern Section + Auto-Scroll Grid) -->
+    <!-- ========================================================================= -->
+    <div class="modern-spotlight-card modern-shortstay-spotlight scroll-reveal">
+      <div class="modern-spotlight-grid">
+        
+        <!-- Left Column: Modern Content & Hospitality Perks -->
+        <div class="modern-content-col scroll-reveal-left">
+          <div class="section-badge">
+            <i class="ri-hotel-bed-line"></i>
+            <span>Executive Hospitality & Short Stays</span>
           </div>
 
-          <div class="showcase-bottom-overlay">
-            <div class="showcase-bottom-info">
-              <span class="overlay-tagline">Signature Waterfront Penthouse</span>
-              <h4 class="overlay-title">The Grand Horizon Penthouse & Suites</h4>
-              <p class="overlay-meta">
-                <i class="ri-map-pin-2-fill text-gold"></i> Admiralty Way, Lekki Phase 1 &bull; From ₦180,000 / Night
-              </p>
+          <h3 class="modern-spotlight-title">
+            Bespoke <span class="highlight-red">Luxury Short Stay</span> Residences
+          </h3>
+
+          <p class="modern-spotlight-desc">
+            Curated executive short-stay apartments, waterfront penthouses, and private villas in prime Lagos with 24/7 clean power, Starlink Wi-Fi, and VIP concierge.
+          </p>
+
+          <div class="modern-features-list">
+            <div class="modern-feature-item">
+              <div class="feature-icon-badge">
+                <i class="ri-check-double-line"></i>
+              </div>
+              <div class="feature-text-block">
+                <strong class="feature-head">24/7 Clean Energy:</strong>
+                <span class="feature-body">Guaranteed solar inverter & generator backup</span>
+              </div>
             </div>
 
-            <a routerLink="/short-stay" class="btn btn-gold showcase-card-btn" title="View Short Stays">
-              <span>Reserve Your Stay</span>
+            <div class="modern-feature-item">
+              <div class="feature-icon-badge">
+                <i class="ri-check-double-line"></i>
+              </div>
+              <div class="feature-text-block">
+                <strong class="feature-head">Prime Waterfronts:</strong>
+                <span class="feature-body">Penthouses and villas in Lekki Phase 1, Ikoyi & VI</span>
+              </div>
+            </div>
+
+            <div class="modern-feature-item">
+              <div class="feature-icon-badge">
+                <i class="ri-check-double-line"></i>
+              </div>
+              <div class="feature-text-block">
+                <strong class="feature-head">VIP Concierge:</strong>
+                <span class="feature-body">Starlink Wi-Fi, chef-on-demand & 24/7 guarded security</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modern Stats Ribbon -->
+          <div class="modern-stats-card">
+            <div class="stat-box">
+              <span class="stat-value">4.98★</span>
+              <span class="stat-label">Guest Rating</span>
+            </div>
+            <div class="stat-line-divider"></div>
+            <div class="stat-box">
+              <span class="stat-value">24/7</span>
+              <span class="stat-label">Solar & Inverter</span>
+            </div>
+            <div class="stat-line-divider"></div>
+            <div class="stat-box">
+              <span class="stat-value">100%</span>
+              <span class="stat-label">Verified Listings</span>
+            </div>
+          </div>
+
+          <div class="modern-cta-wrap">
+            <a routerLink="/short-stay" class="btn btn-red btn-lg modern-primary-cta">
+              <span>Explore Short Stay Collection</span>
               <i class="ri-arrow-right-line"></i>
             </a>
           </div>
         </div>
+
+        <!-- Right Column: Visual Stage + Auto-Scrolling Thumbnail Grid -->
+        <div 
+          class="modern-visual-col" 
+          (mouseenter)="onShortStayMouseEnter()" 
+          (mouseleave)="onShortStayMouseLeave()">
+          
+          <!-- Main Hero Slide Stage -->
+          <div class="modern-stage-wrapper luxury-card" [routerLink]="activeShortStay().link">
+            <div class="stage-slides-stack">
+              @for (stay of shortStaySlides; track stay.id; let i = $index) {
+                <div 
+                  class="stage-slide" 
+                  [class.is-active]="activeShortStayIndex() === i">
+                  <img 
+                    [src]="stay.image" 
+                    [alt]="stay.title" 
+                    class="stage-img" 
+                    loading="lazy"
+                    (error)="onImageError($event)" 
+                  />
+                  <div class="stage-gradient-overlay"></div>
+                </div>
+              }
+            </div>
+
+            <!-- Floating Top Badges -->
+            <div class="stage-floating-top">
+              <span class="stage-badge stage-badge-red">
+                <i class="ri-hotel-bed-line"></i> {{ activeShortStay().categoryBadge }}
+              </span>
+              <span class="stage-badge stage-badge-glass">
+                <i class="ri-flashlight-line"></i> {{ activeShortStay().statusBadge }}
+              </span>
+            </div>
+
+            <!-- Floating Navigation Arrows -->
+            <button 
+              type="button" 
+              class="stage-nav-arrow arrow-prev" 
+              (click)="prevShortStay($event)" 
+              title="Previous Residence"
+              aria-label="Previous Residence">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <button 
+              type="button" 
+              class="stage-nav-arrow arrow-next" 
+              (click)="nextShortStay($event)" 
+              title="Next Residence"
+              aria-label="Next Residence">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+
+            <!-- Bottom Floating Glass Details Panel -->
+            <div class="stage-glass-panel">
+              <div class="stage-panel-info">
+                <div class="stage-meta-row">
+                  <span class="stage-pill-tag">Executive Stay</span>
+                  <span class="stage-counter">{{ activeShortStayIndex() + 1 }} / {{ shortStaySlides.length }}</span>
+                </div>
+                <h4 class="stage-slide-title">{{ activeShortStay().title }}</h4>
+                <p class="stage-slide-meta">
+                  <i class="ri-map-pin-2-fill"></i>
+                  <span>{{ activeShortStay().location }} &bull; {{ activeShortStay().price }}</span>
+                </p>
+              </div>
+
+              <a [routerLink]="activeShortStay().link" class="btn btn-red stage-cta-button" (click)="$event.stopPropagation()">
+                <span>Reserve Stay</span>
+                <i class="ri-arrow-right-line"></i>
+              </a>
+            </div>
+
+            <!-- Auto-Play Progress Track Indicator -->
+            <div class="stage-progress-track">
+              @for (stay of shortStaySlides; track stay.id; let i = $index) {
+                <div 
+                  class="progress-bar-segment" 
+                  [class.is-active]="activeShortStayIndex() === i"
+                  (click)="selectShortStay(i, $event)">
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Interactive Thumbnail Image Grid Strip (Auto-scrolls & clickable) -->
+          <div class="stage-thumbnails-grid">
+            @for (stay of shortStaySlides; track stay.id; let i = $index) {
+              <button 
+                type="button" 
+                class="thumbnail-card"
+                [class.is-active]="activeShortStayIndex() === i"
+                (click)="selectShortStay(i, $event)"
+                [title]="stay.title"
+                [attr.aria-label]="'Select ' + stay.title">
+                <div class="thumb-img-box">
+                  <img [src]="stay.image" [alt]="stay.title" (error)="onImageError($event)" />
+                  <span class="thumb-index-tag">0{{ i + 1 }}</span>
+                </div>
+                <div class="thumb-content">
+                  <span class="thumb-title">{{ stay.title }}</span>
+                  <span class="thumb-caption">{{ stay.price.replace('From ', '') }}</span>
+                </div>
+                <div class="thumb-active-indicator"></div>
+              </button>
+            }
+          </div>
+        </div>
+
       </div>
     </div>
 

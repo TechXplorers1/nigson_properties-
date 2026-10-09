@@ -1,52 +1,128 @@
 /* ==========================================================================
+   REMIX ICON & CW REAL ESTATE (cwlagos.com) SIGNATURE SATOSHI TYPOGRAPHY
+   ========================================================================== */
+@import 'remixicon/fonts/remixicon.css';
+@import url('https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@1,2&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,800,700,600,500,400,300&display=swap');
+
+/* Local Satoshi Fonts (Guaranteed 100% Offline & Instant Load from local /public/fonts) */
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-light.woff2') format('woff2'),
+       url('https://cdn.fontshare.com/wf/D7WD5OXZFWQ5T76HSPWAC7MNKAJXE2YG/LUGNSPO5YC34ABNB2O6K7AFDSOJZT56V/WNDVG7O66ENLOD43GS7FBUCC4KMT5OM2.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-regular.woff2') format('woff2'),
+       url('https://cdn.fontshare.com/wf/TTX2Z3BF3P6Y5BQT3IV2VNOK6FL22KUT/7QYRJOI3JIMYHGY6CH7SOIFRQLZOLNJ6/KFIAZD4RUMEZIYV6FQ3T3GP5PDBDB6JY.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-medium.woff2') format('woff2'),
+       url('https://cdn.fontshare.com/wf/P2LQKHE6KA6ZP4AAGN72KDWMHH6ZH3TA/ZC32TK2P7FPS5GFTL46EU6KQJA24ZYDB/7AHDUZ4A7LFLVFUIFSARGIWCRQJHISQP.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-bold.woff2') format('woff2'),
+       url('https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZELWQI/PXCT3G6LO6ICM5I3NTYENYPWJAECAWDD/GHM6WVH6MILNYOOCXHXB5GTSGNTMGXZR.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-bold.woff2') format('woff2'),
+       url('https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZELWQI/PXCT3G6LO6ICM5I3NTYENYPWJAECAWDD/GHM6WVH6MILNYOOCXHXB5GTSGNTMGXZR.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-black.woff2') format('woff2'),
+       url('https://cdn.fontshare.com/wf/NHPGVFYUXYXE33DZ75OIT4JFGHITX5PE/PSUTMASCDJTVPERDYJZPN23BVUFUCQIF/J64QX5IPOHK56I2KYUNBQ5M2XWZEYKYX.woff2') format('woff2');
+  font-weight: 800;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-black.woff2') format('woff2'),
+       url('https://cdn.fontshare.com/wf/NHPGVFYUXYXE33DZ75OIT4JFGHITX5PE/PSUTMASCDJTVPERDYJZPN23BVUFUCQIF/J64QX5IPOHK56I2KYUNBQ5M2XWZEYKYX.woff2') format('woff2');
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* ==========================================================================
    NIGSON PROPERTIES LIMITED - LUXURY REAL ESTATE DESIGN SYSTEM
    Brand Promise: Building Trust. Creating Value. Delivering Exceptional Real Estate Solutions.
    ========================================================================== */
 
 :root {
-  /* Color Palette */
-  --color-primary-dark: #070e1e;
-  --color-primary-navy: #0b1528;
-  --color-navy-card: #0f1c34;
-  --color-navy-card-border: rgba(197, 160, 89, 0.22);
-  --color-navy-light: #162646;
+  /* Color Palette - Nigson Red, Black, White Signature Theme */
+  --color-primary-dark: #0a0a0c;
+  --color-primary-navy: #111115;
+  --color-navy-card: #16161a;
+  --color-navy-card-border: rgba(215, 25, 32, 0.22);
+  --color-navy-light: #222227;
 
-  /* Champagne & Royal Gold */
-  --color-gold: #c5a059;
-  --color-gold-light: #dfbe7d;
-  --color-gold-hover: #b08d44;
-  --color-gold-glow: rgba(197, 160, 89, 0.35);
-  --color-gold-bg: rgba(197, 160, 89, 0.08);
-  --color-gold-border: rgba(197, 160, 89, 0.3);
+  /* Nigson Signature Crimson & Scarlet Red (Matched with Nigson E-Commerce Brand) */
+  --color-red: #D71920;
+  --color-red-light: #E6262E;
+  --color-red-hover: #B8151B;
+  --color-red-dark: #980F14;
+  --color-red-glow: rgba(215, 25, 32, 0.35);
+  --color-red-bg: rgba(215, 25, 32, 0.1);
+  --color-red-border: rgba(215, 25, 32, 0.35);
+
+  /* Gold Aliases remapped to Brand Red for seamless cross-app alignment */
+  --color-gold: var(--color-red);
+  --color-gold-light: var(--color-red-light);
+  --color-gold-hover: var(--color-red-hover);
+  --color-gold-glow: var(--color-red-glow);
+  --color-gold-bg: var(--color-red-bg);
+  --color-gold-border: var(--color-red-border);
 
   /* Neutrals & Surfaces */
   --color-bg-light: #f8fafc;
   --color-surface-white: #ffffff;
   --color-text-white: #ffffff;
-  --color-text-light: #f1f5f9;
-  --color-text-muted: #94a3b8;
-  --color-text-dark: #0f172a;
-  --color-text-dark-muted: #475569;
-  --color-border-light: #e2e8f0;
+  --color-text-light: #1e293b;
+  --color-text-muted: #1e293b;
+  --color-text-dark: #000000;
+  --color-text-dark-muted: #334155;
+  --color-border-light: #e4e4e7;
 
   /* Accents & Status */
   --color-emerald: #10b981;
   --color-amber: #f59e0b;
-  --color-sold: #ef4444;
+  --color-sold: #D71920;
   --color-whatsapp: #25d366;
   --color-whatsapp-hover: #20bd5a;
 
-  /* Typography */
-  --font-heading: 'Outfit', 'Playfair Display', sans-serif;
-  --font-serif: 'Playfair Display', serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  /* Typography - CW Real Estate (cwlagos.com) Signature Satoshi Font System */
+  --font-heading: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-body: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
   /* Shadows & Elevation */
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.12);
-  --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.22);
-  --shadow-gold: 0 8px 24px rgba(197, 160, 89, 0.28);
-  --shadow-card: 0 10px 30px -5px rgba(0, 15, 45, 0.3);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.5);
+  --shadow-gold: 0 8px 24px rgba(215, 25, 32, 0.3);
+  --shadow-red: 0 8px 24px rgba(215, 25, 32, 0.35);
+  --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.65);
 
   /* Transitions */
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -61,26 +137,224 @@
   --radius-full: 9999px;
 }
 
-/* Base Reset & Global Styles */
-*, *::before, *::after {
+/* ==========================================================================
+   UNIVERSAL TYPOGRAPHY ENFORCEMENT ACROSS ENTIRE WEBSITE (CW LAGOS STYLE)
+   Every heading, description, button, input and text element uses Satoshi
+   ========================================================================== */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
-  font-size: 14.5px;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  background-color: #ffffff;
+  color: #000000;
+  line-height: 1.6;
+  overflow-x: clip;
+  font-weight: 400;
+}
+
+/* Every Heading across entire website (CW Lagos architectural modern aesthetic) */
+h1, h2, h3, h4, h5, h6,
+.section-title,
+.modal-title,
+.card-title,
+.banner-title,
+.overlay-title,
+.hero-title,
+.service-title,
+.pillar-title,
+.prop-card-title,
+.project-title,
+.stage-slide-title,
+.modern-spotlight-title {
+  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  font-weight: 600;
+  color: #000000;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(2rem, 4.2vw, 3.2rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.15; }
+h2 { font-size: clamp(1.55rem, 3.2vw, 2.35rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+h3 { font-size: clamp(1.2rem, 2.2vw, 1.65rem); font-weight: 600; letter-spacing: -0.015em; line-height: 1.25; }
+h4 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; }
+
+/* Every Button, Input, Select, Textarea across entire website */
+button,
+input,
+select,
+textarea,
+.btn,
+.btn-red,
+.btn-gold,
+.btn-dark,
+.btn-outline-dark,
+.btn-outline-gold,
+.btn-outline-red,
+.badge,
+.section-badge,
+.nav-link,
+.dropdown-item,
+label {
+  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  letter-spacing: -0.005em;
+}
+
+/* Every Description, Paragraph & Text across entire website */
+p,
+span:not([class*="ri-"]),
+a:not([class*="ri-"]),
+li,
+td,
+th,
+small,
+strong,
+b,
+em,
+.desc,
+.subtitle,
+.section-subtitle,
+.prop-card-desc,
+.modern-spotlight-desc,
+.toast-desc {
+  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+p,
+.section-subtitle,
+.hero-statement,
+.service-desc,
+.pillar-desc {
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: -0.008em;
+}
+
+strong,
+b {
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   EXPLICIT SECTIONAL SATOSHI ENFORCEMENT (SHORT STAY, SERVICES, ABOUT, ALL PAGES)
+   Guarantees zero fallback leaks on every view across the entire website
+   ========================================================================== */
+.short-stay-page,
+.short-stay-page *:not([class*="ri-"]),
+.services-section,
+.services-section *:not([class*="ri-"]),
+.about-section,
+.about-section *:not([class*="ri-"]),
+.contact-section,
+.contact-section *:not([class*="ri-"]),
+.contact-page-layout,
+.contact-page-layout *:not([class*="ri-"]),
+.contact-form-card,
+.contact-form-card *:not([class*="ri-"]),
+.contact-form,
+.contact-form *:not([class*="ri-"]),
+app-contact,
+app-contact *:not([class*="ri-"]),
+app-contact-page,
+app-contact-page *:not([class*="ri-"]),
+.properties-section,
+.properties-section *:not([class*="ri-"]),
+.projects-section,
+.projects-section *:not([class*="ri-"]),
+.hero-section,
+.hero-section *:not([class*="ri-"]),
+.showcase-section,
+.showcase-section *:not([class*="ri-"]),
+.pillars-section,
+.pillars-section *:not([class*="ri-"]) {
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+/* ==========================================================================
+   BULLETPROOF REMIXICON PROTECTION (ALL ICONS ACROSS ENTIRE WEBSITE)
+   Ensures icon glyphs render crisply in buttons, headers, cards, badges & modals
+   ========================================================================== */
+i,
+i::before,
+i::after,
+[class^="ri-"],
+[class^="ri-"]::before,
+[class^="ri-"]::after,
+[class*=" ri-"],
+[class*=" ri-"]::before,
+[class*=" ri-"]::after,
+[class*="ri-"],
+[class*="ri-"]::before,
+[class*="ri-"]::after,
+.remixicon,
+.remixicon::before,
+.remixicon::after {
+  font-family: 'remixicon' !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  line-height: 1 !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  font-family: var(--font-body);
-  background-color: var(--color-primary-dark);
-  color: var(--color-text-light);
-  line-height: 1.6;
-  overflow-x: clip;
+/* Ensure icons nested inside buttons, links, headings & badges never inherit text font */
+.btn i,
+.btn i::before,
+.btn [class*="ri-"],
+.btn [class*="ri-"]::before,
+button i,
+button i::before,
+button [class*="ri-"],
+button [class*="ri-"]::before,
+a i,
+a i::before,
+a [class*="ri-"],
+a [class*="ri-"]::before,
+span i,
+span i::before,
+span [class*="ri-"],
+span [class*="ri-"]::before,
+p i,
+p i::before,
+p [class*="ri-"],
+p [class*="ri-"]::before,
+li i,
+li i::before,
+li [class*="ri-"],
+li [class*="ri-"]::before,
+label i,
+label i::before,
+label [class*="ri-"],
+label [class*="ri-"]::before,
+h1 i, h1 i::before,
+h2 i, h2 i::before,
+h3 i, h3 i::before,
+h4 i, h4 i::before,
+h5 i, h5 i::before,
+h6 i, h6 i::before,
+.badge i, .badge i::before,
+.section-badge i, .section-badge i::before,
+.hero-brand-badge i, .hero-brand-badge i::before,
+.nav-link i, .nav-link i::before,
+.dropdown-item i, .dropdown-item i::before {
+  font-family: 'remixicon' !important;
+  font-style: normal !important;
 }
 
 /* Custom Scrollbar */
@@ -88,33 +362,19 @@ body {
   width: 9px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-primary-dark);
+  background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #223455;
+  background: #cbd5e1;
   border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-gold);
+  background: var(--color-red);
 }
-
-/* Headings */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  color: var(--color-text-white);
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-}
-
-h1 { font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 800; }
-h2 { font-size: clamp(1.5rem, 3vw, 2.3rem); }
-h3 { font-size: clamp(1.2rem, 2.2vw, 1.65rem); }
-h4 { font-size: 1.1rem; font-weight: 600; }
 
 p {
   margin-bottom: 0.85rem;
-  color: var(--color-text-muted);
+  color: #000000;
 }
 
 a {
@@ -127,10 +387,6 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
-}
-
-button, input, select, textarea {
-  font-family: inherit;
 }
 
 /* Layout Utilities */
@@ -164,7 +420,13 @@ button, input, select, textarea {
 .about-page-layout .about-section,
 .contact-page-layout .contact-section,
 .calculator-page-layout .calculator-section {
-  padding-top: 1.75rem !important;
+  padding-top: 1.15rem !important;
+}
+
+/* Tighten gap between Hero header and Featured Properties section on Home Page */
+.home-page .showcase-section,
+.showcase-section {
+  padding-top: 2rem !important;
 }
 
 @media (max-width: 768px) {
@@ -176,7 +438,12 @@ button, input, select, textarea {
   .about-page-layout .about-section,
   .contact-page-layout .contact-section,
   .calculator-page-layout .calculator-section {
-    padding-top: 1.25rem !important;
+    padding-top: 0.85rem !important;
+  }
+
+  .home-page .showcase-section,
+  .showcase-section {
+    padding-top: 1.5rem !important;
   }
 }
 
@@ -186,38 +453,50 @@ button, input, select, textarea {
   align-items: center;
   gap: 0.45rem;
   font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--color-gold);
-  background: var(--color-gold-bg);
-  border: 1px solid var(--color-gold-border);
-  padding: 0.3rem 0.9rem;
+  letter-spacing: 0.1em;
+  color: var(--color-red) !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(215, 25, 32, 0.35);
+  padding: 0.25rem 0.75rem;
   border-radius: var(--radius-full);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.55rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.section-badge i,
+.section-badge span,
+.section-badge * {
+  color: var(--color-red) !important;
 }
 
 .section-title {
-  color: var(--color-text-white);
-  margin-bottom: 0.75rem;
+  font-size: clamp(1.35rem, 2.4vw, 1.95rem);
+  color: #000000;
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
 }
 
-.section-title .text-gold {
-  color: var(--color-gold);
-  background: linear-gradient(135deg, #dfbe7d 0%, #c5a059 50%, #9f7d35 100%);
+.section-title .text-gold,
+.section-title .text-red {
+  color: var(--color-red);
+  background: linear-gradient(135deg, #ff4d4d 0%, #D71920 50%, #B8151B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.text-gold {
-  color: var(--color-gold) !important;
+.text-gold,
+.text-red {
+  color: var(--color-red) !important;
 }
 
 .section-subtitle {
-  font-size: 0.95rem;
-  color: var(--color-text-muted);
-  max-width: 620px;
-  line-height: 1.6;
+  font-size: 0.88rem;
+  color: #475569;
+  max-width: 560px;
+  line-height: 1.5;
 }
 
 .text-center {
@@ -227,6 +506,13 @@ button, input, select, textarea {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Spacing Utilities */
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 1.25rem !important; }
+.mb-4 { margin-bottom: 1.75rem !important; }
+.mb-5 { margin-bottom: 2.5rem !important; }
 
 /* Buttons */
 .btn {
@@ -249,30 +535,89 @@ button, input, select, textarea {
   transform: translateY(1px);
 }
 
-.btn-gold {
-  background: linear-gradient(135deg, #dfbe7d 0%, #c5a059 100%);
-  color: #070e1e;
-  border-color: #dfbe7d;
-  box-shadow: 0 4px 18px rgba(197, 160, 89, 0.3);
+.btn-gold,
+.btn-red {
+  background: #D71920;
+  color: #ffffff !important;
+  border-color: #D71920;
+  box-shadow: 0 4px 16px rgba(215, 25, 32, 0.3);
+  font-weight: 700;
 }
 
-.btn-gold:hover {
-  background: linear-gradient(135deg, #eed299 0%, #d4ae65 100%);
-  box-shadow: 0 8px 26px rgba(197, 160, 89, 0.45);
+.btn-gold:hover,
+.btn-red:hover {
+  background: #B8151B;
+  border-color: #B8151B;
+  box-shadow: 0 8px 24px rgba(215, 25, 32, 0.45);
+  transform: translateY(-2px);
+  color: #ffffff !important;
+}
+
+.btn-gold i, .btn-red i, .btn-gold span, .btn-red span,
+.btn-gold *, .btn-red * {
+  color: #ffffff !important;
+}
+
+.btn-gold:hover i, .btn-red:hover i, .btn-gold:hover span, .btn-red:hover span,
+.btn-gold:hover *, .btn-red:hover * {
+  color: #ffffff !important;
+}
+
+.btn-outline-gold,
+.btn-outline-red {
+  background: #ffffff;
+  color: #000000 !important;
+  border: 1.5px solid var(--color-red);
+  font-weight: 700;
+}
+
+.btn-outline-gold i,
+.btn-outline-red i {
+  color: var(--color-red) !important;
+}
+
+.btn-outline-gold:hover,
+.btn-outline-red:hover {
+  background: var(--color-red);
+  color: #ffffff !important;
+  border-color: var(--color-red);
+  box-shadow: 0 6px 20px rgba(215, 25, 32, 0.35);
   transform: translateY(-2px);
 }
 
-.btn-outline-gold {
-  background: transparent;
-  color: var(--color-gold);
-  border: 1.5px solid var(--color-gold);
+.btn-outline-gold:hover i,
+.btn-outline-red:hover i,
+.btn-outline-gold:hover span,
+.btn-outline-red:hover span,
+.btn-outline-gold:hover *,
+.btn-outline-red:hover * {
+  color: #ffffff !important;
 }
 
-.btn-outline-gold:hover {
-  background: var(--color-gold);
-  color: #070e1e;
-  box-shadow: 0 6px 20px rgba(197, 160, 89, 0.25);
+.btn-outline-dark {
+  background: #ffffff;
+  color: #0B0F19 !important;
+  border: 1.5px solid #0B0F19;
+  font-weight: 700;
+}
+
+.btn-outline-dark i {
+  color: #0B0F19 !important;
+  transition: transform var(--transition-fast);
+}
+
+.btn-outline-dark:hover {
+  background: #0B0F19;
+  color: #ffffff !important;
+  border-color: #0B0F19;
+  box-shadow: 0 6px 20px rgba(11, 15, 25, 0.25);
   transform: translateY(-2px);
+}
+
+.btn-outline-dark:hover i,
+.btn-outline-dark:hover span,
+.btn-outline-dark:hover * {
+  color: #ffffff !important;
 }
 
 .btn-dark {
@@ -319,18 +664,18 @@ button, input, select, textarea {
 
 /* Luxury Cards */
 .luxury-card {
-  background: var(--color-navy-card);
-  border: 1px solid var(--color-navy-card-border);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: var(--radius-md);
   overflow: hidden;
   transition: all var(--transition-base);
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .luxury-card:hover {
-  border-color: var(--color-gold);
+  border-color: var(--color-red);
   transform: translateY(-4px);
-  box-shadow: 0 14px 30px -8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(197, 160, 89, 0.12);
+  box-shadow: 0 14px 30px -8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(215, 25, 32, 0.2);
 }
 
 /* Badges */
@@ -346,35 +691,63 @@ button, input, select, textarea {
   text-transform: uppercase;
 }
 
-.badge-sold {
-  background: rgba(239, 68, 68, 0.9);
-  color: #ffffff;
-  backdrop-filter: blur(4px);
+.badge-sold,
+.badge-gold,
+.badge-red {
+  background: #D71920 !important;
+  color: #ffffff !important;
+  font-weight: 800;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.badge-sold i,
+.badge-gold i,
+.badge-red i,
+.badge-sold span,
+.badge-gold span,
+.badge-red span,
+.badge-sold *,
+.badge-gold *,
+.badge-red * {
+  color: #ffffff !important;
+}
+
+.badge-sale {
+  background: #ffffff !important;
+  color: var(--color-red) !important;
+  font-weight: 800;
+  border: 1.5px solid var(--color-red);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.badge-sale i,
+.badge-sale span,
+.badge-sale * {
+  color: var(--color-red) !important;
 }
 
 .badge-available {
-  background: rgba(16, 185, 129, 0.9);
-  color: #ffffff;
-  backdrop-filter: blur(4px);
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 800;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .badge-ongoing {
-  background: rgba(59, 130, 246, 0.9);
-  color: #ffffff;
-  backdrop-filter: blur(4px);
-}
-
-.badge-gold {
-  background: var(--color-gold-bg);
-  color: var(--color-gold);
-  border: 1px solid var(--color-gold-border);
+  background: #000000 !important;
+  color: #ffffff !important;
+  font-weight: 800;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Modals & Overlays */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(4, 8, 18, 0.85);
+  background: rgba(8, 8, 10, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   z-index: 1000;
@@ -387,35 +760,34 @@ button, input, select, textarea {
 }
 
 .modal-content {
-  background: #0d172e;
-  border: 1px solid var(--color-gold-border);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: var(--radius-xl);
   max-width: 850px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(197, 160, 89, 0.18);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
   position: relative;
   animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal-header {
   padding: 1.75rem 2rem;
-  border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+  border-bottom: 1px solid #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: sticky;
   top: 0;
-  background: rgba(13, 23, 46, 0.96);
-  backdrop-filter: blur(8px);
+  background: #ffffff;
   z-index: 10;
 }
 
 .modal-close-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--color-text-muted);
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
   width: 38px;
   height: 38px;
   border-radius: var(--radius-full);
@@ -428,9 +800,9 @@ button, input, select, textarea {
 }
 
 .modal-close-btn:hover {
-  background: var(--color-gold);
-  color: #070e1e;
-  border-color: var(--color-gold);
+  background: var(--color-red);
+  color: #ffffff;
+  border-color: var(--color-red);
   transform: rotate(90deg);
 }
 
@@ -443,43 +815,62 @@ button, input, select, textarea {
   margin-bottom: 1.35rem;
 }
 
-.form-label {
+.form-label,
+label {
+  font-family: 'Satoshi', sans-serif !important;
   display: block;
   font-size: 0.88rem;
   font-weight: 600;
-  color: var(--color-text-light);
+  color: #000000;
   margin-bottom: 0.45rem;
+  letter-spacing: -0.01em;
 }
 
 .form-label span.req {
-  color: var(--color-gold);
+  color: var(--color-red);
 }
 
-.form-control {
+.form-control,
+input.form-control,
+textarea.form-control,
+select.form-control {
+  font-family: 'Satoshi', sans-serif !important;
   width: 100%;
   padding: 0.85rem 1.1rem;
   font-size: 0.95rem;
-  background: #091224;
-  border: 1.5px solid rgba(197, 160, 89, 0.22);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
   border-radius: var(--radius-md);
-  color: #ffffff;
+  color: #000000;
   transition: all var(--transition-fast);
 }
 
-.form-control:focus {
+.form-control:focus,
+input.form-control:focus,
+textarea.form-control:focus,
+select.form-control:focus {
+  font-family: 'Satoshi', sans-serif !important;
   outline: none;
-  border-color: var(--color-gold);
-  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2);
-  background: #0e1c36;
+  border-color: var(--color-red);
+  box-shadow: 0 0 0 3px rgba(215, 25, 32, 0.15);
+  background: #ffffff;
 }
 
-.form-control::placeholder {
-  color: #5d6f8f;
+.form-control::placeholder,
+input::placeholder,
+textarea::placeholder {
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 400;
+  color: #71717a;
+  letter-spacing: -0.01em;
 }
 
 select.form-control {
+  font-family: 'Satoshi', sans-serif !important;
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18' fill='%23c5a059'%3E%3Cpath d='M12 15.5l-6-6h12z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18' fill='%23D71920'%3E%3Cpath d='M12 15.5l-6-6h12z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   appearance: none;
@@ -488,56 +879,184 @@ select.form-control {
 }
 
 select.form-control option {
-  background: #091224;
-  color: #ffffff;
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 400;
+  background: #ffffff;
+  color: #0f172a;
 }
 
 textarea.form-control {
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 400;
+  letter-spacing: -0.01em;
   resize: vertical;
   min-height: 110px;
 }
 
-/* Toast Notifications */
+/* Toast Notifications - Modern Luxury Design */
 .toast-container {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  z-index: 2000;
+  z-index: 9999;
   max-width: 440px;
-  width: calc(100% - 4rem);
+  width: calc(100% - 3.5rem);
   animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .toast {
-  background: #0d1a33;
-  border: 1.5px solid var(--color-gold);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem 1.5rem;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(197, 160, 89, 0.25);
+  background: #ffffff !important;
+  border: 1.5px solid #e2e8f0;
+  border-left: 5px solid var(--color-red);
+  border-radius: 16px;
+  padding: 1.15rem 1.35rem 1.25rem;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.18), 0 0 25px rgba(215, 25, 32, 0.1);
   display: flex;
-  gap: 1rem;
+  gap: 0.95rem;
   align-items: flex-start;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
 }
 
-.toast-icon {
-  font-size: 1.75rem;
-  color: var(--color-gold);
+.toast:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.22), 0 0 28px rgba(215, 25, 32, 0.15);
+}
+
+.toast-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+  background: rgba(215, 25, 32, 0.1);
+  color: var(--color-red);
+  border: 1.5px solid rgba(215, 25, 32, 0.25);
+  box-shadow: 0 2px 8px rgba(215, 25, 32, 0.15);
+}
+
+.toast-success {
+  border-left-color: #10b981;
+}
+
+.toast-success .toast-icon-wrap {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.3);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+}
+
+.toast-error {
+  border-left-color: #ef4444;
+}
+
+.toast-error .toast-icon-wrap {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15);
+}
+
+.toast-body {
+  flex: 1;
+  min-width: 0;
+  padding-right: 0.35rem;
+}
+
+.toast-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.35rem;
+}
+
+.toast-title {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #0f172a !important;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.toast-type-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: rgba(215, 25, 32, 0.08);
+  color: var(--color-red);
+  border: 1px solid rgba(215, 25, 32, 0.25);
+}
+
+.toast-success .toast-type-badge {
+  background: rgba(16, 185, 129, 0.08);
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.toast-error .toast-type-badge {
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.toast-desc {
+  font-size: 0.9rem;
+  color: #334155 !important;
+  line-height: 1.55;
+  margin: 0;
+  font-weight: 500;
+}
+
+.toast-dismiss-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all var(--transition-fast);
   flex-shrink: 0;
   line-height: 1;
 }
 
-.toast-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 0.25rem;
+.toast-dismiss-btn:hover {
+  color: #0f172a;
+  background: #f1f5f9;
 }
 
-.toast-desc {
-  font-size: 0.88rem;
-  color: var(--color-text-muted);
-  line-height: 1.5;
-  margin-bottom: 0;
+/* Toast Auto-Dismiss Countdown Bar */
+.toast-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-red);
+  animation: toastCountdown 4.5s linear forwards;
+}
+
+.toast-success .toast-progress-bar {
+  background: #10b981;
+}
+
+.toast-error .toast-progress-bar {
+  background: #ef4444;
+}
+
+@keyframes toastCountdown {
+  from { width: 100%; }
+  to { width: 0%; }
 }
 
 /* Animations */
@@ -557,8 +1076,8 @@ textarea.form-control {
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 15px rgba(197, 160, 89, 0.2); }
-  50% { box-shadow: 0 0 30px rgba(197, 160, 89, 0.5); }
+  0%, 100% { box-shadow: 0 0 15px rgba(215, 25, 32, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(215, 25, 32, 0.5); }
 }
 
 /* Floating WhatsApp Widget */
@@ -596,7 +1115,7 @@ textarea.form-control {
 .float-whatsapp-btn .tooltip {
   position: absolute;
   right: 68px;
-  background: #0c1830;
+  background: #141418;
   color: #ffffff;
   padding: 0.4rem 0.85rem;
   border-radius: var(--radius-sm);
@@ -606,7 +1125,7 @@ textarea.form-control {
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--transition-fast);
-  border: 1px solid var(--color-gold-border);
+  border: 1px solid var(--color-red-border);
 }
 
 .float-whatsapp-btn:hover .tooltip {
@@ -615,22 +1134,22 @@ textarea.form-control {
 
 /* Page Banner Header for Dedicated Routes */
 .page-banner {
-  background: radial-gradient(circle at 75% 25%, rgba(197, 160, 89, 0.16) 0%, rgba(7, 14, 30, 0.98) 75%), #070e1e;
+  background: #f8fafc;
   padding: 4.5rem 0 3.5rem 0;
-  border-bottom: 1px solid rgba(197, 160, 89, 0.18);
+  border-bottom: 1px solid #e2e8f0;
   position: relative;
   text-align: center;
 }
 
 .page-banner-title {
   font-size: clamp(2rem, 4vw, 3rem);
-  color: #ffffff;
+  color: #000000;
   margin-bottom: 0.75rem;
 }
 
 .page-banner-subtitle {
   font-size: 1.05rem;
-  color: var(--color-text-muted);
+  color: #000000;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
@@ -642,7 +1161,7 @@ textarea.form-control {
   justify-content: center;
   gap: 0.5rem;
   font-size: 0.85rem;
-  color: var(--color-gold);
+  color: var(--color-red);
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -650,12 +1169,13 @@ textarea.form-control {
 }
 
 .page-breadcrumb a {
-  color: #94a3b8;
+  color: #000000;
+  font-weight: 600;
   transition: color var(--transition-fast);
 }
 
 .page-breadcrumb a:hover {
-  color: #ffffff;
+  color: var(--color-red);
 }
 
 
@@ -664,9 +1184,10 @@ textarea.form-control {
    ENHANCED ULTRA-MODERN LUXURY UTILITIES
    ========================================================================== */
 
-/* Gold Gradient Text */
-.text-gold-gradient {
-  background: linear-gradient(135deg, #FFE7B3 0%, #DFBE7D 40%, #C5A059 70%, #B08D44 100%);
+/* Red Gradient Text */
+.text-gold-gradient,
+.text-red-gradient {
+  background: linear-gradient(135deg, #FF6666 0%, #D71920 45%, #B8151B 75%, #980F14 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
@@ -674,22 +1195,24 @@ textarea.form-control {
 
 /* Glassmorphism Luxury Panel */
 .glass-panel-luxury {
-  background: rgba(11, 21, 40, 0.82);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(197, 160, 89, 0.25);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(197, 160, 89, 0.08);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   border-radius: var(--radius-xl);
 }
 
 /* Shimmer Effect on Buttons */
-.btn-gold {
+.btn-gold,
+.btn-red {
   position: relative;
   overflow: hidden;
   transition: all var(--transition-base);
 }
 
-.btn-gold::after {
+.btn-gold::after,
+.btn-red::after {
   content: '';
   position: absolute;
   top: -50%;
@@ -706,13 +1229,15 @@ textarea.form-control {
   transition: transform 0.75s ease-in-out;
 }
 
-.btn-gold:hover::after {
+.btn-gold:hover::after,
+.btn-red:hover::after {
   transform: rotate(30deg) translateX(100%);
 }
 
-.btn-gold:hover {
+.btn-gold:hover,
+.btn-red:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.45);
+  box-shadow: 0 8px 25px rgba(215, 25, 32, 0.45);
 }
 
 /* Enhanced Luxury Card Hover */
@@ -724,39 +1249,41 @@ textarea.form-control {
 
 .luxury-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(197, 160, 89, 0.45);
-  box-shadow: 0 20px 45px rgba(0, 10, 30, 0.6), 0 0 25px rgba(197, 160, 89, 0.12);
+  border-color: rgba(215, 25, 32, 0.5);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75), 0 0 25px rgba(215, 25, 32, 0.18);
 }
 
 /* Property Specs Pill Tag */
 .spec-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.65rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
   border-radius: var(--radius-full);
-  font-size: 0.78rem;
-  color: #e2e8f0;
-  font-weight: 500;
+  font-size: 0.8rem;
+  color: #000000 !important;
+  font-weight: 700;
+  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .spec-pill i {
-  color: var(--color-gold);
-  font-size: 0.95rem;
+  color: #D71920 !important;
+  font-size: 1rem;
   transition: transform 0.25s ease;
   display: inline-block;
 }
 
-.spec-pill {
-  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+.spec-pill span {
+  color: #000000 !important;
+  font-weight: 700;
 }
 
 .spec-pill:hover {
   transform: translateY(-2px);
-  background: rgba(197, 160, 89, 0.12);
-  border-color: rgba(197, 160, 89, 0.4);
+  background: #fee2e2;
+  border-color: #D71920;
 }
 
 .spec-pill:hover i {
@@ -857,12 +1384,12 @@ textarea.form-control {
 /* Micro-Animations: Section Badge Ambient Breathing Pulse */
 @keyframes badgeGlowPulse {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(197, 160, 89, 0);
-    border-color: rgba(197, 160, 89, 0.3);
+    box-shadow: 0 0 0 0 rgba(215, 25, 32, 0);
+    border-color: rgba(215, 25, 32, 0.3);
   }
   50% {
-    box-shadow: 0 0 16px 2px rgba(197, 160, 89, 0.22);
-    border-color: rgba(197, 160, 89, 0.6);
+    box-shadow: 0 0 16px 2px rgba(215, 25, 32, 0.3);
+    border-color: rgba(215, 25, 32, 0.7);
   }
 }
 
@@ -921,7 +1448,7 @@ textarea.form-control {
 
 .highlight-item:hover i {
   transform: scale(1.25) rotate(6deg);
-  color: var(--color-gold-light);
+  color: var(--color-red-light);
 }
 
 /* Reduced Motion Mode for Accessibility */
@@ -941,5 +1468,78 @@ textarea.form-control {
   .luxury-card::after {
     display: none !important;
   }
+}
+
+/* ==========================================================================
+   SERVICE CARDS FLOATING ICONS & BADGES (WHITE BACKGROUND, RED ICON & TEXT)
+   ========================================================================== */
+.service-icon-wrap {
+  background: #ffffff !important;
+  color: var(--color-red, #D71920) !important;
+  border: 1.5px solid var(--color-red, #D71920) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+}
+
+.service-icon-wrap i,
+.service-icon-wrap * {
+  color: var(--color-red, #D71920) !important;
+}
+
+.service-card:hover .service-icon-wrap,
+.service-card.is-expanded .service-icon-wrap {
+  background: #ffffff !important;
+  color: var(--color-red, #D71920) !important;
+  border-color: var(--color-red, #D71920) !important;
+  box-shadow: 0 6px 20px rgba(215, 25, 32, 0.35) !important;
+}
+
+.service-card:hover .service-icon-wrap i,
+.service-card:hover .service-icon-wrap *,
+.service-card.is-expanded .service-icon-wrap i,
+.service-card.is-expanded .service-icon-wrap * {
+  color: var(--color-red, #D71920) !important;
+}
+
+.service-number-badge {
+  background: #ffffff !important;
+  color: var(--color-red, #D71920) !important;
+  border: 1.5px solid var(--color-red, #D71920) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+}
+
+.service-number-badge * {
+  color: var(--color-red, #D71920) !important;
+}
+
+.service-card:hover .service-number-badge,
+.service-card.is-expanded .service-number-badge {
+  background: #ffffff !important;
+  color: var(--color-red, #D71920) !important;
+  border-color: var(--color-red, #D71920) !important;
+  box-shadow: 0 6px 20px rgba(215, 25, 32, 0.35) !important;
+}
+
+/* Pillar Cards Icon Box (Why Choose Us) */
+.pillar-icon-box {
+  background: #ffffff !important;
+  color: var(--color-red, #D71920) !important;
+  border: 1.5px solid var(--color-red, #D71920) !important;
+}
+
+.pillar-icon-box i,
+.pillar-icon-box * {
+  color: var(--color-red, #D71920) !important;
+}
+
+.pillar-card:hover .pillar-icon-box {
+  background: #ffffff !important;
+  color: var(--color-red, #D71920) !important;
+  border-color: var(--color-red, #D71920) !important;
+  box-shadow: 0 6px 20px rgba(215, 25, 32, 0.3) !important;
+}
+
+.pillar-card:hover .pillar-icon-box i,
+.pillar-card:hover .pillar-icon-box * {
+  color: var(--color-red, #D71920) !important;
 }
 

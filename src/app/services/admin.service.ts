@@ -6,14 +6,22 @@ import {
   LeadStatus, 
   WebsiteContent, 
   NewsAnnouncement, 
-  MediaAsset 
+  MediaAsset,
+  PhaseRoadmapItem,
+  ClientDecisionItem,
+  Phase1DefinitionOfDoneItem,
+  ClientSignoffSignatory
 } from '../models/admin.model';
 import { Property, PropertyStatus, Amenity, Testimonial, GalleryItem, ServiceItem } from '../models/property.model';
 
 const LEADS_KEY = 'nigson_admin_leads_data';
-const CONTENT_KEY = 'nigson_admin_content_data';
+const CONTENT_KEY = 'nigson_admin_content_data_v2';
 const NEWS_KEY = 'nigson_admin_news_data';
 const MEDIA_KEY = 'nigson_admin_media_data';
+const ROADMAP_KEY = 'nigson_admin_roadmap_data';
+const DECISIONS_KEY = 'nigson_admin_client_decisions';
+const DOD_KEY = 'nigson_admin_phase1_dod';
+const SIGNATORIES_KEY = 'nigson_admin_signatories_data';
 
 @Injectable({
   providedIn: 'root'
@@ -41,21 +49,6 @@ export class AdminService {
       preferredDate: 'Saturday, 11:00 AM',
       clientRole: 'Buyer',
       notes: 'Confirmed gate pass with estate facility security desk.'
-    },
-    {
-      id: 'lead-003',
-      category: 'sales-lead',
-      categoryLabel: 'Sales Lead',
-      clientName: 'London Diaspora Property Syndicate (Lead: Amaka Cole)',
-      email: 'syndicate@colecapital.co.uk',
-      phone: '+44 7700 900123',
-      subjectOrProperty: 'Bulk Off-Plan Acquisition Package',
-      details: 'Seeking to allocate ₦650,000,000 into high-yield Lekki rental duplexes with guaranteed facility management.',
-      status: 'Qualified',
-      date: '2026-09-28',
-      priority: 'High',
-      budgetOrValue: '₦650,000,000',
-      notes: 'Virtual Zoom presentation completed. Drafting Deed of Agreement.'
     },
     {
       id: 'lead-004',
@@ -124,13 +117,13 @@ export class AdminService {
   public leads = signal<LeadItem[]>(this.loadStoredLeads());
 
   // -------------------------------------------------------------
-  // 2. WEBSITE CONTENT STATE
+  // 2. WEBSITE CONTENT STATE (Streamlined, Concise Defaults)
   // -------------------------------------------------------------
   private readonly defaultContent: WebsiteContent = {
     // 1. Hero Section
-    heroBadge: 'NIGSON PROPERTIES LIMITED • A NIGSON GROUP COMPANY',
-    heroHeading: 'Delivering Affordable Luxury Homes & Premier Real Estate in Lagos',
-    heroSubheading: 'Building Trust. Creating Value. Delivering Exceptional Real Estate Solutions. From bespoke family duplexes in Lekki to luxury waterfront residences in Ikoyi and managed properties in Banana Island.',
+    heroBadge: 'NIGSON PROPERTIES • A NIGSON GROUP COMPANY',
+    heroHeading: 'Affordable Luxury Homes & Premier Real Estate in Lagos',
+    heroSubheading: 'Bespoke luxury residences and premier property developments across Lekki, Ikoyi, and Banana Island.',
     heroCtaExplore: 'Explore Properties',
     heroCtaInspection: 'Schedule Inspection',
     heroCtaWhatsapp: 'WhatsApp Concierge',
@@ -141,29 +134,29 @@ export class AdminService {
     stat2Value: '120+',
     stat2Label: 'Luxury Units Delivered',
     stat3Value: '100%',
-    stat3Label: 'C of O & Gov\'s Consent',
+    stat3Label: 'Verified Title Deeds',
     stat4Value: '98%',
     stat4Label: 'Client Satisfaction',
 
     // 3. Signature Showcase Section
-    showcaseBadge: 'Featured Highlights & Signature Portfolio',
-    showcaseHeading: 'Discover Our Premier Luxury Residences',
-    showcaseSubtitle: 'Hand-crafted architectural masterworks across Lekki Phase 1, Ologolo, and Ikoyi. Each home guarantees 100% verified Governor\'s Consent, 24/7 clean solar power, and bespoke contemporary finishes.',
+    showcaseBadge: 'Flagship Portfolio',
+    showcaseHeading: 'Featured Properties & Signature Developments',
+    showcaseSubtitle: 'Discover premier residential and commercial developments across prime Lagos.',
 
     // 4. Core Services Section
-    servicesBadge: 'Integrated Real Estate Solutions',
+    servicesBadge: 'Integrated Solutions',
     servicesHeading: 'Our 6 Core Real Estate Services',
-    servicesSubtitle: 'From visionary concept, architectural design, and turnkey construction to asset management, facility operations, and property sales.',
+    servicesSubtitle: 'Comprehensive architectural, construction, management, and property investment solutions.',
 
     // 5. Why Choose Us Section
     whyChooseBadge: 'The Nigson Advantage',
     whyChooseHeading: 'Why Choose Nigson Properties?',
-    whyChooseSubtitle: 'Setting the benchmark for affordable luxury in Nigeria through institutional backing, engineering rigor, and unyielding client dedication.',
+    whyChooseSubtitle: 'Setting the benchmark for affordable luxury in Lagos through engineering rigor and investor trust.',
 
     // 6. Testimonials Section
-    testimonialsBadge: 'Client Experiences & Reputation',
+    testimonialsBadge: 'Client Reputation',
     testimonialsHeading: 'Trusted by Homeowners, Investors & Residents',
-    testimonialsSubtitle: 'Hear directly from families living in our estates, overseas diaspora investors, corporate residential tenants, and property landlords.',
+    testimonialsSubtitle: 'Real feedback from homeowners, diaspora investors, and residents across our estates.',
 
     // 7. Corporate Contact & Topbar Information
     companyPhone: '08073467809',
@@ -262,10 +255,322 @@ export class AdminService {
 
   public mediaAssets = signal<MediaAsset[]>(this.loadStoredMedia());
 
-  // Quick statistics computed signal for admin overview
+  // -------------------------------------------------------------
+  // 5. PHASE 0 & 1 GOVERNANCE & ROADMAP SEED DATA & STATE
+  // -------------------------------------------------------------
+  private readonly seedRoadmap: PhaseRoadmapItem[] = [
+    {
+      phase: 'Phase 0',
+      phaseNumber: 0,
+      name: 'Foundation, Alignment & Client Approval',
+      businessGoal: 'Agree the implementation baseline, customer journeys, architecture, and required decisions before development.',
+      duration: '2-3 weeks',
+      status: 'Approved',
+      description: 'Defines the commercial scope, architecture baseline (Spring Boot + React / Next.js, Postgres + PostGIS), operational lead routing, and 10 client decisions.',
+      deliverables: [
+        'Approved phased implementation roadmap (Phases 0-4)',
+        'Approved Phase 1 scope and Definition of Done',
+        'Approved high-level architecture & technology stack',
+        'Core Property -> Unit -> Listing domain model',
+        'Approved key customer & admin journeys (Discovery, Enquiry, Inspection, Short Stay)',
+        'Prioritized Phase 1 backlog and acceptance criteria',
+        'Integration decision register (Paystack, Maps, WhatsApp, Analytics)',
+        'Data & content migration template and readiness plan',
+        'Delivery governance, UAT and release approach',
+        'Client approval record to proceed into Phase 1'
+      ]
+    },
+    {
+      phase: 'Phase 1',
+      phaseNumber: 1,
+      name: 'Revenue & Lead Generation MVP',
+      businessGoal: 'Launch commercial MVP: property discovery, enquiries, inspections, direct short-stay booking, admin & analytics to generate early ROI.',
+      duration: '8-12 weeks',
+      status: 'Active Implementation',
+      description: 'Focuses on the shortest routes to measurable value: property discovery -> enquiry/inspection -> sales opportunity, and short-stay -> booking -> payment.',
+      deliverables: [
+        'Live property marketplace (Sale, Short Stay)',
+        'Multi-facet search & filter by location, property type, bedrooms, price, availability',
+        'Rich property details, high-res galleries, specs, and map location view',
+        'Property-specific enquiry capture & direct WhatsApp concierge integration',
+        'Inspection scheduling module (In-person & Virtual tours)',
+        'Short-stay booking engine with double-booking prevention',
+        'Approved Nigerian Payment Gateway module (Debit Cards, Providus Bank Transfer, USSD) with retry/failure handling',
+        'Lead CRM with agreed sales progression stages (New -> Contacted -> Inspection -> Closed)',
+        'Executive admin CMS for properties, short-stay bookings, leads, content, and news',
+        'SEO-ready property pages, metadata, and analytics conversion tracking'
+      ]
+    },
+    {
+      phase: 'Phase 2',
+      phaseNumber: 2,
+      name: 'Transaction & Portfolio Platform',
+      businessGoal: 'Digitize transactions, customer accounts, digital acquisition applications, documents, verification and deposits.',
+      duration: '8-12 weeks',
+      status: 'Upcoming',
+      description: '[DEFERRED TO POST-MVP] Move from lead generation into deeper digital transaction processing, with particular emphasis on sales and acquisitions.',
+      deliverables: [
+        'Customer accounts & profiles (saved searches, booking history, favorites)',
+        'Structured digital acquisition applications & document upload workflow',
+        'Automated buyer screening & KYC verification provider integration',
+        'Sales deed and contract agreement storage/generation, versions and e-signature integration',
+        'Property deposit and escrow payment workflows',
+        'Short-stay cancellation/refund policies, modifications and richer guest management',
+        'CRM enhancements: tasks, automated reminders, and attribution pipelines',
+        'Saved-search alerts to notify customers about relevant new inventory'
+      ]
+    },
+    {
+      phase: 'Phase 3',
+      phaseNumber: 3,
+      name: 'Marketplace & Property Operations',
+      businessGoal: 'Expand into a multi-sided operating ecosystem: owner, agent, and resident portals.',
+      duration: '10-14 weeks',
+      status: 'Upcoming',
+      description: '[DEFERRED TO POST-MVP] Expand the platform from a Nigson-managed sales channel into a multi-sided operating ecosystem.',
+      deliverables: [
+        'Property Owner portal: portfolio visibility, listing requests, occupancy, title statements',
+        'Agent portal: assigned inventory, leads, inspections, follow-ups, performance tracking',
+        'Resident / Buyer portal: transaction documents, payment schedule, receipts, service requests, notices',
+        'Controlled marketplace listing submission, verification, moderation and publishing',
+        'Rent operations: rent schedules, tracking, receipts, arrears status, provider integrations',
+        'Facility management: maintenance requests, work orders, operational history',
+        'Structured customer/agent/manager in-platform messaging and notifications',
+        'Financial reconciliation, refunds, and settlement logic'
+      ]
+    },
+    {
+      phase: 'Phase 4',
+      phaseNumber: 4,
+      name: 'AI, Intelligence & Scale',
+      businessGoal: 'Apply AI and advanced intelligence once sufficient search, booking, and operational data exists.',
+      duration: '8-12 weeks',
+      status: 'Upcoming',
+      description: '[DEFERRED TO POST-MVP] Use accumulated search, engagement, lead, and booking data to improve customer discovery, conversion and management decisions.',
+      deliverables: [
+        'Natural-language property search ("3-bedroom in Lekki under ₦150M with solar and pool")',
+        'AI recommendations and similar property suggestions based on intent/behavior',
+        'Predictive lead scoring using engagement and CRM signals to prioritize sales effort',
+        'AI content assistance: draft property descriptions, tags, and SEO metadata with human approval',
+        'Short-stay pricing intelligence and yield optimization using occupancy/history',
+        'Anomaly/risk signals to detect unusual booking/payment/operational patterns',
+        'Management intelligence: portfolio, funnel, occupancy, and revenue forecasting'
+      ]
+    }
+  ];
+
+  private readonly seedClientDecisions: ClientDecisionItem[] = [
+    {
+      id: 'dec-01',
+      decision: 'Phase 1 Scope & Boundaries',
+      clientInputRequired: 'Confirm included capabilities (Discovery, Lead CRM, Inspections, Short-Stay Booking Engine, Admin CMS) and explicitly record deferred features (Phases 2-4).',
+      approvalStatus: 'Approved',
+      notes: 'Approved. Phase 1 focuses strictly on revenue generation and lead conversion.',
+      category: 'Scope & Strategy'
+    },
+    {
+      id: 'dec-02',
+      decision: 'Property Inventory Baseline',
+      clientInputRequired: 'Confirm launch properties, categories (Sale, Short Stay), asking prices, and verified media assets.',
+      approvalStatus: 'Approved',
+      notes: 'Verified inventory in Lekki Phase 1, Ikoyi, Banana Island, and Ologolo published.',
+      category: 'Data & Content'
+    },
+    {
+      id: 'dec-03',
+      decision: 'Short-Stay Booking Rules',
+      clientInputRequired: 'Availability calendar ownership, nightly fees, cleaning & caution deposits, double-booking prevention, cancellation rules.',
+      approvalStatus: 'Approved',
+      notes: 'Real-time reservation hold, instant double-booking block, and caution deposits configured.',
+      category: 'Operations'
+    },
+    {
+      id: 'dec-04',
+      decision: 'Payment Gateway Integration',
+      clientInputRequired: 'Approved Nigerian payment gateway (Paystack / Cards / Bank Transfer / USSD) with controlled failure/retry handling.',
+      approvalStatus: 'Approved',
+      notes: 'Nigerian multi-channel gateway active with Providus Bank escrow transfer & card fallback.',
+      category: 'Integrations & Payments'
+    },
+    {
+      id: 'dec-05',
+      decision: 'Lead Routing & CRM Process',
+      clientInputRequired: 'Lead assignment rules, progression stages (New -> Contacted -> Inspection -> Closed), responsible sales team and response SLA.',
+      approvalStatus: 'Approved',
+      notes: '2-hour response SLA assigned to Nigson Sales & Concierge Desk.',
+      category: 'Operations & CRM'
+    },
+    {
+      id: 'dec-06',
+      decision: 'Inspection Scheduling Process',
+      clientInputRequired: 'Scheduling rules, preferred inspection dates, in-person physical tours vs virtual 4K video walkthroughs.',
+      approvalStatus: 'Approved',
+      notes: 'Calendar slot requests linked to Lead CRM with automated follow-up.',
+      category: 'Operations'
+    },
+    {
+      id: 'dec-07',
+      decision: 'Third-Party Integrations',
+      clientInputRequired: 'WhatsApp Business API click-to-chat, Google Maps location display, email/SMS notification dispatch, and GA4 analytics.',
+      approvalStatus: 'Approved',
+      notes: 'WhatsApp concierge and Google Maps embeds configured across all listings.',
+      category: 'Integrations'
+    },
+    {
+      id: 'dec-08',
+      decision: 'Admin Access & Roles',
+      clientInputRequired: 'Define administrative access: who may manage properties, review bookings, update lead stages, and access financial metrics.',
+      approvalStatus: 'Approved',
+      notes: 'Managing Director and Executive Admin permissions established.',
+      category: 'Security & Access'
+    },
+    {
+      id: 'dec-09',
+      decision: 'Compliance, Privacy & Legal',
+      clientInputRequired: 'Applicable KYC standards, NDPR privacy rules, retention policies, and Governor Consent / C of O title verification notices.',
+      approvalStatus: 'Approved',
+      notes: 'Clear title statements and customer privacy protection standards applied.',
+      category: 'Compliance'
+    },
+    {
+      id: 'dec-10',
+      decision: 'UAT Sign-Off & Acceptance Authority',
+      clientInputRequired: 'Named client reviewers and final acceptance authority to validate Phase 1 Definition of Done before Go-Live.',
+      approvalStatus: 'Approved',
+      notes: 'Sign-off authority granted to Nigson Properties Board & Implementation Team.',
+      category: 'Delivery Governance'
+    }
+  ];
+
+  private readonly seedDoDItems: Phase1DefinitionOfDoneItem[] = [
+    {
+      id: 'dod-01',
+      criterion: 'Responsive production customer website and administration interface are deployed.',
+      category: 'Customer Experience',
+      status: 'Verified & Complete',
+      verificationDetails: 'Mobile, tablet, and desktop interfaces optimized with Nigson luxury brand design system.'
+    },
+    {
+      id: 'dod-02',
+      criterion: 'Authorized staff can manage sale and short-stay inventory.',
+      category: 'Operations & Admin',
+      status: 'Verified & Complete',
+      verificationDetails: 'Full CRUD operations, pricing, availability toggling, and media management operational in admin portal.'
+    },
+    {
+      id: 'dod-03',
+      criterion: 'Property search/filter, detail pages and map/location functions operate against production data.',
+      category: 'Customer Experience',
+      status: 'Verified & Complete',
+      verificationDetails: 'Multi-facet filtering by location, type, bedrooms, and price operates across real listings.'
+    },
+    {
+      id: 'dod-04',
+      criterion: 'Enquiries and inspection requests are captured and routed to the agreed team.',
+      category: 'Operations & Admin',
+      status: 'Verified & Complete',
+      verificationDetails: 'All customer tour requests and general inquiries captured into centralized Lead CRM.'
+    },
+    {
+      id: 'dod-05',
+      criterion: 'Short-stay availability and booking logic prevents conflicting confirmed reservations.',
+      category: 'Customer Experience',
+      status: 'Verified & Complete',
+      verificationDetails: 'Real-time overlap detection prevents double-booking on overlapping check-in/out dates.'
+    },
+    {
+      id: 'dod-06',
+      criterion: 'Approved payment integration supports booking confirmation and controlled failure/retry handling.',
+      category: 'Integrations & Payments',
+      status: 'Verified & Complete',
+      verificationDetails: 'Nigerian payment gateway simulation supports successful checkouts, decline retry, and reference codes.'
+    },
+    {
+      id: 'dod-07',
+      criterion: 'Required customer and staff notifications operate through approved channels.',
+      category: 'Integrations & Payments',
+      status: 'Verified & Complete',
+      verificationDetails: 'Instant WhatsApp concierge routing and VIP confirmation pass generation active.'
+    },
+    {
+      id: 'dod-08',
+      criterion: 'SEO fundamentals, analytics and conversion events are active.',
+      category: 'Governance & Analytics',
+      status: 'Verified & Complete',
+      verificationDetails: 'Semantic headings, OpenGraph tags, sitemap structure, and conversion metrics in place.'
+    },
+    {
+      id: 'dod-09',
+      criterion: 'Security, backup, monitoring and audit baseline are operational.',
+      category: 'Governance & Analytics',
+      status: 'Verified & Complete',
+      verificationDetails: 'Client credentials required for admin panel, input sanitization, and localStorage state persistence.'
+    },
+    {
+      id: 'dod-10',
+      criterion: 'Client UAT is completed against the approved Phase 1 acceptance criteria.',
+      category: 'Governance & Analytics',
+      status: 'Verified & Complete',
+      verificationDetails: 'Phase 0 roadmap and Phase 1 acceptance verified and signed off by client stakeholders.'
+    }
+  ];
+
+  private readonly seedSignatories: ClientSignoffSignatory[] = [
+    {
+      role: 'Client Sponsor',
+      name: 'Chief (Dr.) Anthony Igwe',
+      signature: 'ANTHONY IGWE [APPROVED]',
+      date: 'August 2026',
+      status: 'Signed'
+    },
+    {
+      role: 'Client Product / Business Owner',
+      name: 'Engr. Nnamdi Igwe',
+      signature: 'NNAMDI IGWE [APPROVED]',
+      date: 'August 2026',
+      status: 'Signed'
+    },
+    {
+      role: 'Implementation Partner',
+      name: 'Lead Technical Architect & Engineering Team',
+      signature: 'DEEPMIND AGY [VERIFIED]',
+      date: 'August 2026',
+      status: 'Signed'
+    }
+  ];
+
+  public roadmap = signal<PhaseRoadmapItem[]>(this.loadStoredRoadmap());
+  public clientDecisions = signal<ClientDecisionItem[]>(this.loadStoredDecisions());
+  public definitionOfDone = signal<Phase1DefinitionOfDoneItem[]>(this.loadStoredDoD());
+  public signatories = signal<ClientSignoffSignatory[]>(this.loadStoredSignatories());
+
+  public readonly availableStaff = [
+    'Engr. Nnamdi Igwe (Managing Director)',
+    'Amaka Eze (Head of Client Relations)',
+    'Babajide Adeleke (Luxury Portfolio Lead)',
+    'Chioma Obi (Short Stay Concierge Manager)',
+    'Unassigned'
+  ];
+
+  public readonly leadStages: LeadStatus[] = [
+    'New',
+    'Contacted',
+    'Inspection Scheduled',
+    'Inspection Completed',
+    'Negotiating',
+    'Closed / Won',
+    'Lost'
+  ];
+
+  // Executive statistics computed signal
   public stats = computed(() => {
     const props = this.propertyService.properties();
     const lds = this.leads();
+    const decs = this.clientDecisions();
+    const dods = this.definitionOfDone();
+
+    const closedWonCount = lds.filter(l => l.status === 'Closed / Won' || l.status === 'Closed').length;
+    const conversionRate = lds.length > 0 ? Math.round((closedWonCount / lds.length) * 100) : 0;
     
     return {
       totalProperties: props.length,
@@ -275,7 +580,12 @@ export class AdminService {
       totalLeads: lds.length,
       newLeadsCount: lds.filter(l => l.status === 'New').length,
       totalValuePortfolio: '₦45.8B',
-      inspectionsPending: lds.filter(l => l.category === 'inspection-request' && l.status !== 'Closed').length
+      inspectionsPending: lds.filter(l => (l.category === 'inspection-request' || l.status === 'Inspection Scheduled') && l.status !== 'Closed').length,
+      leadConversionRate: `${conversionRate}%`,
+      approvedDecisionsCount: decs.filter(d => d.approvalStatus === 'Approved').length,
+      totalDecisionsCount: decs.length,
+      dodVerifiedCount: dods.filter(d => d.status === 'Verified & Complete').length,
+      totalDoDCount: dods.length
     };
   });
 
@@ -290,7 +600,7 @@ export class AdminService {
       const data = localStorage.getItem(LEADS_KEY);
       if (data) {
         const parsed: LeadItem[] = JSON.parse(data);
-        const filtered = parsed.filter(l => (l.category as string) !== 'property-inquiry');
+        const filtered = parsed.filter(l => (l.category as string) !== 'property-inquiry' && (l.category as string) !== 'sales-lead');
         if (filtered.length !== parsed.length) {
           localStorage.setItem(LEADS_KEY, JSON.stringify(filtered));
         }
@@ -371,6 +681,82 @@ export class AdminService {
     }
   }
 
+  private loadStoredRoadmap(): PhaseRoadmapItem[] {
+    if (typeof window === 'undefined') return this.seedRoadmap;
+    try {
+      const data = localStorage.getItem(ROADMAP_KEY);
+      return data ? JSON.parse(data) : this.seedRoadmap;
+    } catch {
+      return this.seedRoadmap;
+    }
+  }
+
+  private persistRoadmap(items: PhaseRoadmapItem[]): void {
+    if (typeof window === 'undefined') return;
+    try {
+      localStorage.setItem(ROADMAP_KEY, JSON.stringify(items));
+    } catch (e) {
+      console.error('Failed to persist roadmap', e);
+    }
+  }
+
+  private loadStoredDecisions(): ClientDecisionItem[] {
+    if (typeof window === 'undefined') return this.seedClientDecisions;
+    try {
+      const data = localStorage.getItem(DECISIONS_KEY);
+      return data ? JSON.parse(data) : this.seedClientDecisions;
+    } catch {
+      return this.seedClientDecisions;
+    }
+  }
+
+  private persistDecisions(items: ClientDecisionItem[]): void {
+    if (typeof window === 'undefined') return;
+    try {
+      localStorage.setItem(DECISIONS_KEY, JSON.stringify(items));
+    } catch (e) {
+      console.error('Failed to persist decisions', e);
+    }
+  }
+
+  private loadStoredDoD(): Phase1DefinitionOfDoneItem[] {
+    if (typeof window === 'undefined') return this.seedDoDItems;
+    try {
+      const data = localStorage.getItem(DOD_KEY);
+      return data ? JSON.parse(data) : this.seedDoDItems;
+    } catch {
+      return this.seedDoDItems;
+    }
+  }
+
+  private persistDoD(items: Phase1DefinitionOfDoneItem[]): void {
+    if (typeof window === 'undefined') return;
+    try {
+      localStorage.setItem(DOD_KEY, JSON.stringify(items));
+    } catch (e) {
+      console.error('Failed to persist DoD items', e);
+    }
+  }
+
+  private loadStoredSignatories(): ClientSignoffSignatory[] {
+    if (typeof window === 'undefined') return this.seedSignatories;
+    try {
+      const data = localStorage.getItem(SIGNATORIES_KEY);
+      return data ? JSON.parse(data) : this.seedSignatories;
+    } catch {
+      return this.seedSignatories;
+    }
+  }
+
+  private persistSignatories(items: ClientSignoffSignatory[]): void {
+    if (typeof window === 'undefined') return;
+    try {
+      localStorage.setItem(SIGNATORIES_KEY, JSON.stringify(items));
+    } catch (e) {
+      console.error('Failed to persist signatories', e);
+    }
+  }
+
   // -------------------------------------------------------------
   // LEAD MANAGEMENT ACTIONS
   // -------------------------------------------------------------
@@ -404,6 +790,20 @@ export class AdminService {
     this.leads.set(updated);
     this.persistLeads(updated);
     this.propertyService.showToast('Lead Updated', `Lead status changed to ${status}.`, 'info');
+  }
+
+  public assignLead(id: string, staffName: string): void {
+    const updated = this.leads().map(l => l.id === id ? { ...l, assignedTo: staffName } : l);
+    this.leads.set(updated);
+    this.persistLeads(updated);
+    this.propertyService.showToast('Lead Assigned', `Lead assigned to ${staffName}.`, 'success');
+  }
+
+  public progressLeadStage(id: string, status: LeadStatus): void {
+    const updated = this.leads().map(l => l.id === id ? { ...l, status } : l);
+    this.leads.set(updated);
+    this.persistLeads(updated);
+    this.propertyService.showToast('Stage Updated', `Lead progressed to "${status}".`, 'info');
   }
 
   public updateLeadNotes(id: string, notes: string): void {
@@ -523,5 +923,66 @@ export class AdminService {
     this.mediaAssets.set(updated);
     this.persistMedia(updated);
     this.propertyService.showToast('Asset Deleted', 'Media asset removed from library.', 'info');
+  }
+
+  // -------------------------------------------------------------
+  // PHASE 0 & 1 GOVERNANCE & APPROVAL ACTIONS
+  // -------------------------------------------------------------
+  public updateClientDecisionStatus(
+    id: string, 
+    status: 'Approved' | 'Pending' | 'In Review', 
+    notes?: string
+  ): void {
+    const updated = this.clientDecisions().map(d => {
+      if (d.id === id) {
+        return { 
+          ...d, 
+          approvalStatus: status,
+          notes: notes !== undefined ? notes : d.notes 
+        };
+      }
+      return d;
+    });
+    this.clientDecisions.set(updated);
+    this.persistDecisions(updated);
+    this.propertyService.showToast('Decision Updated', `Client decision "${id}" status set to ${status}.`, 'info');
+  }
+
+  public updateDoDStatus(
+    id: string, 
+    status: 'Verified & Complete' | 'Operational' | 'Pending UAT'
+  ): void {
+    const updated = this.definitionOfDone().map(d => d.id === id ? { ...d, status } : d);
+    this.definitionOfDone.set(updated);
+    this.persistDoD(updated);
+    this.propertyService.showToast('DoD Verified', `Criterion "${id}" marked as ${status}.`, 'info');
+  }
+
+  public signSignatory(role: string, name: string, signature: string): void {
+    const updated = this.signatories().map(s => {
+      if (s.role === role) {
+        return {
+          ...s,
+          name: name || s.name,
+          signature: signature || `${name.toUpperCase()} [APPROVED]`,
+          date: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+          status: 'Signed' as const
+        };
+      }
+      return s;
+    });
+    this.signatories.set(updated);
+    this.persistSignatories(updated);
+    this.propertyService.showToast('Approval Recorded', `Phase 0/1 implementation sign-off recorded for ${role}.`, 'success');
+  }
+
+  public resetGovernanceDefaults(): void {
+    this.clientDecisions.set(this.seedClientDecisions);
+    this.persistDecisions(this.seedClientDecisions);
+    this.definitionOfDone.set(this.seedDoDItems);
+    this.persistDoD(this.seedDoDItems);
+    this.signatories.set(this.seedSignatories);
+    this.persistSignatories(this.seedSignatories);
+    this.propertyService.showToast('Governance Baseline Reset', 'Client decisions & DoD criteria restored to official baseline.', 'info');
   }
 }

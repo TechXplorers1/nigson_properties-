@@ -1,137 +1,203 @@
-<section id="services" class="section-spacing services-section">
+<section id="services" class="services-section">
   <div class="container">
-    <!-- Header -->
-    <div class="text-center section-header-wrap scroll-reveal">
+    <!-- Header (Always visible with zero scroll delay) -->
+    <div class="text-center section-header-wrap">
       <div class="section-badge">
-        <i class="ri-service-fill"></i>
-        <span>{{ adminService.websiteContent().servicesBadge }}</span>
+        <i class="ri-heart-fill"></i>
+        <span>{{ adminService.websiteContent().servicesBadge || 'Integrated Real Estate Solutions' }}</span>
       </div>
       <h2 class="section-title">
-        {{ adminService.websiteContent().servicesHeading }}
+        {{ adminService.websiteContent().servicesHeading || 'Our 6 Core Real Estate Services' }}
       </h2>
       <p class="section-subtitle mx-auto">
-        {{ adminService.websiteContent().servicesSubtitle }}
+        {{ adminService.websiteContent().servicesSubtitle || 'From visionary concept, architectural design, and turnkey construction to asset management, facility operations, and property sales.' }}
       </p>
     </div>
 
-    <!-- Services Grid (6 Core Services) -->
-    <div class="services-grid scroll-stagger">
-      @for (service of propertyService.services(); track service.id) {
-        <div 
-          class="luxury-card service-card" 
-          [class.is-expanded]="hoveredServiceId() === service.id"
-          (mouseenter)="setHoveredService(service.id)"
-          (mouseleave)="setHoveredService(null)"
-          (click)="openServiceDetails(service)"
-          tabindex="0"
-          role="button"
-          [attr.aria-label]="service.title + ' details'">
-          <!-- Service Hero Image Box -->
-          <div class="service-image-box">
-            <img 
-              [src]="service.image" 
-              [alt]="service.title" 
-              class="service-img" 
-              loading="lazy" 
-              (error)="onImageError($event)" 
-            />
-            <div class="service-img-overlay"></div>
-
-            <!-- Floating Badges Top Row -->
-            <div class="service-card-top-floating">
-              <div class="service-icon-wrap">
-                <i [class]="service.icon"></i>
-              </div>
-              <span class="service-number-badge">Service {{ service.number }}</span>
-            </div>
-          </div>
-
-          <!-- Service Content Body -->
-          <div class="service-card-body">
-            <h3 class="service-title">{{ service.title }}</h3>
-            <span class="service-tagline text-gold">{{ service.tagline }}</span>
-
-            <!-- Compact Initial Hint (Shown on small card, hidden when expanded) -->
-            <div class="service-expand-hint">
-              <span>Hover to expand</span>
-              <span class="hint-icon-wrap">
-                <i class="ri-arrow-down-s-line"></i>
-              </span>
-            </div>
-
-            <!-- Expandable Body Details (Unfolds on hover) -->
-            <div class="service-expand-wrapper">
-              <div class="service-expand-inner">
-                <p class="service-desc">
-                  {{ service.shortDescription }}
-                </p>
-
-                <!-- Key Highlights Checklist -->
-                <div class="service-highlights-list">
-                  @for (h of service.highlights.slice(0, 3); track h) {
-                    <div class="highlight-item">
-                      <i class="ri-check-line text-gold"></i>
-                      <span>{{ h }}</span>
-                    </div>
-                  }
-                </div>
-
-                <!-- Footer Actions -->
-                <div class="service-card-footer">
-                  <button class="btn btn-outline-gold btn-sm" (click)="openServiceDetails(service); $event.stopPropagation()">
-                    <span>Explore Scope</span>
-                    <i class="ri-arrow-right-line"></i>
-                  </button>
-
-                  <button class="service-consult-btn" (click)="requestConsultation(service, $event)" title="Request Service Consultation">
-                    <i class="ri-customer-service-2-line"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <!-- Circular Indicators / Service Selector Tabs Bar (Placed at Top) -->
+    <div class="services-carousel-pagination">
+      @for (service of propertyService.services(); track service.id; let idx = $index) {
+        <button 
+          type="button"
+          class="carousel-dot-btn" 
+          [class.is-active]="activeServiceIndex() === idx"
+          (click)="scrollToIndex(idx)"
+          [attr.aria-label]="'Navigate circularly to Service ' + service.number + ': ' + service.title">
+          <span class="dot-number">{{ service.number }}</span>
+          <span class="dot-label">{{ service.title }}</span>
+        </button>
       }
+    </div>
+
+    <!-- Circular Services Carousel Container with Floating Nav Arrows -->
+    <div 
+      class="services-carousel-wrapper"
+      (mouseenter)="onCarouselMouseEnter()"
+      (mouseleave)="onCarouselMouseLeave()">
+
+      <!-- Floating Prev Button (Left Edge) -->
+      <button 
+        type="button"
+        class="carousel-nav-btn prev-btn" 
+        (click)="scrollPrev()" 
+        title="Previous Service"
+        aria-label="Previous Service">
+        <i class="ri-arrow-left-s-line"></i>
+      </button>
+
+      <!-- Floating Next Button (Right Edge) -->
+      <button 
+        type="button"
+        class="carousel-nav-btn next-btn" 
+        (click)="scrollNext()" 
+        title="Next Service"
+        aria-label="Next Service">
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
+
+      <div 
+        #carouselTrack
+        class="services-carousel-track"
+        (mousedown)="onMouseDown($event)"
+        (mousemove)="onMouseMove($event)"
+        (mouseup)="onMouseUp()"
+        (mouseleave)="onMouseUp()"
+        (touchstart)="onTouchStart($event)"
+        (touchmove)="onTouchMove($event)"
+        (touchend)="onTouchEnd()">
+        
+        @for (service of circularServices(); track service.uniqueKey) {
+          <div 
+            class="luxury-card service-card" 
+            [class.is-expanded]="hoveredUniqueKey() === service.uniqueKey"
+            (mouseenter)="onCardMouseEnter(service.uniqueKey)"
+            (mouseleave)="onCardMouseLeave()"
+            tabindex="0"
+            role="article"
+            [attr.aria-label]="service.title + ' service card'">
+            <!-- Service Hero Image Box -->
+            <div class="service-image-box">
+              <img 
+                [src]="service.image" 
+                [alt]="service.title" 
+                class="service-img" 
+                loading="lazy" 
+                (error)="onImageError($event)" 
+              />
+              <div class="service-img-overlay"></div>
+
+              <!-- Floating Badges Top Row -->
+              <div class="service-card-top-floating">
+                <div class="service-icon-wrap">
+                  <i [class]="service.icon"></i>
+                </div>
+                <span class="service-number-badge">Service {{ service.number }}</span>
+              </div>
+            </div>
+
+            <!-- Service Content Body -->
+            <div class="service-card-body">
+              <h3 class="service-title">{{ service.title }}</h3>
+              <span class="service-tagline">{{ service.tagline }}</span>
+
+              <!-- Compact Initial Hint (Visible by default, smoothly collapses on hover) -->
+              <div class="service-expand-hint">
+                <span>Hover to expand</span>
+                <span class="hint-icon-wrap">
+                  <i class="ri-arrow-down-s-line"></i>
+                </span>
+              </div>
+
+              <!-- Expandable Body Details (Unfolds smoothly on hover to show basic details) -->
+              <div class="service-expand-wrapper">
+                <div class="service-expand-inner">
+                  <p class="service-desc">
+                    {{ service.shortDescription }}
+                  </p>
+
+                  <!-- Key Highlights Checklist -->
+                  <div class="service-highlights-list">
+                    @for (h of service.highlights.slice(0, 3); track h) {
+                      <div class="highlight-item">
+                        <i class="ri-check-line"></i>
+                        <span>{{ h }}</span>
+                      </div>
+                    }
+                  </div>
+
+                  <!-- Footer Actions -->
+                  <div class="service-card-footer">
+                    <button 
+                      type="button"
+                      class="explore-scope-btn" 
+                      (click)="openServiceDetails(service, $event)"
+                      title="Explore Scope for {{ service.title }}">
+                      <span>Explore Scope</span>
+                      <i class="ri-arrow-right-line"></i>
+                    </button>
+
+                    <button 
+                      type="button"
+                      class="service-consult-btn" 
+                      (click)="requestConsultation(service, $event)" 
+                      title="Request Service Consultation on WhatsApp">
+                      <i class="ri-customer-service-2-line"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Edge Gradient Fades for Infinite Carousel Illusion -->
+      <div class="carousel-fade-left"></div>
+      <div class="carousel-fade-right"></div>
     </div>
   </div>
 </section>
 
-<!-- Service Scope Modal Dialog -->
+<!-- Service Scope Modal Dialog (Opens when 'Explore Scope' is clicked) -->
 @if (propertyService.isServiceModalOpen() && propertyService.activeService(); as svc) {
-  <div class="modal-backdrop" (click)="propertyService.closeServiceModal()">
+  <div class="modal-backdrop" (click)="closeServiceModal()" role="dialog" aria-modal="true" [attr.aria-label]="svc.title + ' Scope Details'">
     <div class="modal-content service-modal-dialog" (click)="$event.stopPropagation()">
+      <!-- Modal Header -->
       <div class="modal-header">
         <div class="service-modal-header-text">
-          <span class="badge badge-gold">Service {{ svc.number }}</span>
+          <span class="service-modal-badge">Service {{ svc.number }}</span>
           <h2 class="modal-service-title">{{ svc.title }}</h2>
-          <span class="modal-service-tagline text-gold">{{ svc.tagline }}</span>
+          <span class="modal-service-tagline">{{ svc.tagline }}</span>
         </div>
-        <button class="modal-close-btn" (click)="propertyService.closeServiceModal()">
+        <button type="button" class="modal-close-btn" (click)="closeServiceModal()" aria-label="Close modal">
           <i class="ri-close-line"></i>
         </button>
       </div>
 
+      <!-- Modal Body -->
       <div class="modal-body">
         <div class="service-modal-image-wrap">
-          <img [src]="svc.image" [alt]="svc.title" class="service-modal-img" />
+          <img [src]="svc.image" [alt]="svc.title" class="service-modal-img" (error)="onImageError($event)" />
           <div class="service-modal-img-overlay"></div>
         </div>
 
         <div class="modal-section-block">
           <h4 class="block-title">
-            <i class="ri-information-line text-gold"></i> Detailed Capability & Approach
+            <i class="ri-information-line"></i>
+            <span>Detailed Capability & Approach</span>
           </h4>
           <p class="block-paragraph">{{ svc.fullDescription }}</p>
         </div>
 
         <div class="modal-section-block">
           <h4 class="block-title">
-            <i class="ri-checkbox-circle-line text-gold"></i> Key Value Deliverables
+            <i class="ri-checkbox-circle-line"></i>
+            <span>Key Value Deliverables</span>
           </h4>
           <div class="service-modal-deliverables-grid">
             @for (d of svc.deliverables; track d) {
               <div class="deliverable-item">
-                <i class="ri-check-double-line text-gold"></i>
+                <i class="ri-check-double-line"></i>
                 <span>{{ d }}</span>
               </div>
             }
@@ -140,12 +206,13 @@
 
         <div class="modal-section-block">
           <h4 class="block-title">
-            <i class="ri-sparkles-line text-gold"></i> Service Features & Capabilities
+            <i class="ri-sparkles-line"></i>
+            <span>Core Features & Capabilities</span>
           </h4>
           <div class="service-modal-features-list">
             @for (h of svc.highlights; track h) {
               <div class="modal-highlight-item">
-                <i class="ri-arrow-right-s-line text-gold"></i>
+                <i class="ri-arrow-right-s-line"></i>
                 <span>{{ h }}</span>
               </div>
             }
@@ -153,12 +220,18 @@
         </div>
       </div>
 
+      <!-- Modal Footer -->
       <div class="modal-footer">
         <span class="footer-prompt">Partner with Nigson Properties for this service:</span>
-        <button class="btn btn-gold btn-sm" (click)="requestConsultation(svc)">
-          <i class="ri-customer-service-2-line"></i>
-          <span>Schedule Service Consultation</span>
-        </button>
+        <div class="modal-footer-actions">
+          <button type="button" class="btn btn-outline-dark btn-sm" (click)="closeServiceModal()">
+            <span>Close Overview</span>
+          </button>
+          <button type="button" class="btn btn-red btn-sm" (click)="requestConsultation(svc)">
+            <i class="ri-customer-service-2-line"></i>
+            <span>Schedule Service Consultation</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

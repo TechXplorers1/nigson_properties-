@@ -17,17 +17,20 @@
     <!-- Quick Presets -->
     <div class="calculator-presets-bar">
       <span class="preset-label">Quick Presets:</span>
-      <button class="preset-btn" (click)="quickSetProperty(185000000, 16000000)">
-        Whitesand Beach (₦185M)
-      </button>
       <button class="preset-btn" (click)="quickSetProperty(195000000, 18000000)">
-        Fatai Bankole (₦195M)
+        The Pearl Horizon (₦195M)
       </button>
-      <button class="preset-btn" (click)="quickSetProperty(210000000, 20000000)">
-        White Oaks (₦210M)
+      <button class="preset-btn" (click)="quickSetProperty(285000000, 24000000)">
+        The Sovereign Lekki (₦285M)
       </button>
-      <button class="preset-btn" (click)="quickSetProperty(230000000, 22000000)">
-        Olufemi Olatunji (₦230M)
+      <button class="preset-btn" (click)="quickSetProperty(340000000, 28000000)">
+        Monarch Coastal Villa (₦340M)
+      </button>
+      <button class="preset-btn" (click)="quickSetProperty(420000000, 36000000)">
+        Obsidian Penthouse (₦420M)
+      </button>
+      <button class="preset-btn" (click)="quickSetProperty(650000000, 52000000)">
+        Grand Azure Banana Island (₦650M)
       </button>
     </div>
 
@@ -48,7 +51,7 @@
           <input 
             type="range" 
             min="50000000" 
-            max="400000000" 
+            max="750000000" 
             step="5000000" 
             class="range-slider" 
             [ngModel]="propertyPrice()" 

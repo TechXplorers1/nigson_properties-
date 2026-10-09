@@ -29,9 +29,9 @@ export const routes: Routes = [
     component: HomeComponent, 
     title: 'Nigson Properties | Affordable Luxury Real Estate in Lagos' 
   },
-  { path: 'properties', component: PropertiesPageComponent, title: 'Properties for Sale & Lease | Nigson Properties' },
+  { path: 'properties', component: PropertiesPageComponent, title: 'Properties for Sale | Nigson Properties' },
   { path: 'short-stay', component: ShortStayPageComponent, title: 'Luxury Short Stay Apartments, Penthouses & Villas | Nigson Properties' },
-  { path: 'about', component: AboutPageComponent, title: 'About Us & Leadership | Nigson Properties' },
+  { path: 'about', component: AboutPageComponent, title: 'About Us | Nigson Properties' },
   { path: 'projects', component: ProjectsPageComponent, title: 'Project Development Matrix | Nigson Properties' },
   { path: 'portfolio', redirectTo: 'projects', pathMatch: 'full' },
   { path: 'services', component: ServicesPageComponent, title: 'Our 6 Core Real Estate Services | Nigson Properties' },

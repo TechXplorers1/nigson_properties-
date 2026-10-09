@@ -335,6 +335,42 @@ export class ShortStayService {
     return this.shortStays().find(p => p.id === id);
   }
 
+  // -------------------------------------------------------------
+  // DOUBLE-BOOKING CONFLICT PREVENTION (Phase 1 Definition of Done)
+  // -------------------------------------------------------------
+  public isDateRangeAvailable(propertyId: string, checkIn: string, checkOut: string, excludeBookingId?: string): boolean {
+    if (!checkIn || !checkOut) return true;
+    const requestedStart = new Date(checkIn).getTime();
+    const requestedEnd = new Date(checkOut).getTime();
+    if (isNaN(requestedStart) || isNaN(requestedEnd) || requestedEnd <= requestedStart) return false;
+
+    // Check all active reservations (Confirmed or Pending Payment)
+    const activeReservations = this.bookings().filter(b => 
+      b.propertyId === propertyId && 
+      b.status !== 'Cancelled' &&
+      (!excludeBookingId || b.id !== excludeBookingId)
+    );
+
+    for (const b of activeReservations) {
+      const existingStart = new Date(b.checkInDate).getTime();
+      const existingEnd = new Date(b.checkOutDate).getTime();
+      // Date overlap condition: (StartA < EndB) and (EndA > StartB)
+      if (requestedStart < existingEnd && requestedEnd > existingStart) {
+        return false; // Conflicting confirmed reservation detected
+      }
+    }
+    return true;
+  }
+
+  public getBookedDateRanges(propertyId: string): { start: string; end: string; id: string; clientName: string }[] {
+    return this.bookings()
+      .filter(b => b.propertyId === propertyId && b.status !== 'Cancelled')
+      .map(b => ({ start: b.checkInDate, end: b.checkOutDate, id: b.id, clientName: b.clientName }));
+  }
+
+  // -------------------------------------------------------------
+  // SHORT-STAY RESERVATION CREATION WITH TEMPORARY HOLD & DOUBLE-BOOKING GUARD
+  // -------------------------------------------------------------
   public bookStay(bookingData: {
     propertyId: string;
     clientName: string;
@@ -346,8 +382,17 @@ export class ShortStayService {
     specialRequests?: string;
     airportPickup?: boolean;
     chefService?: boolean;
-  }): ShortStayBooking {
+    paymentMethod?: string;
+  }): { success: boolean; booking?: ShortStayBooking; error?: string } {
     const prop = this.getPropertyById(bookingData.propertyId) || this.shortStays()[0];
+
+    // Double-booking check
+    if (!this.isDateRangeAvailable(prop.id, bookingData.checkInDate, bookingData.checkOutDate)) {
+      return {
+        success: false,
+        error: `Conflicting Reservation: "${prop.title}" is already booked for the selected dates. Please select alternative dates.`
+      };
+    }
     
     // Calculate nights
     const start = new Date(bookingData.checkInDate);
@@ -391,7 +436,9 @@ export class ShortStayService {
       specialRequests: bookingData.specialRequests?.trim(),
       airportPickup: bookingData.airportPickup,
       chefService: bookingData.chefService,
-      status: 'Confirmed',
+      status: 'Pending Payment',
+      paymentMethod: bookingData.paymentMethod || 'Card',
+      paymentStatus: 'Pending',
       createdAt: new Date().toISOString()
     };
 
@@ -415,24 +462,178 @@ export class ShortStayService {
       notes: `Booking ID: ${bookingId}. Nightly rate applied: ₦${nightlyRate.toLocaleString()}. Cleaning fee: ₦${prop.cleaningFee.toLocaleString()}. Deposit: ₦${prop.securityDeposit.toLocaleString()}.`
     });
 
+    return { success: true, booking: newBooking };
+  }
+
+  // -------------------------------------------------------------
+  // NIGERIAN GATEWAY PAYMENT PROCESSING (Controlled Failure / Retry Handling)
+  // -------------------------------------------------------------
+  public processBookingPayment(
+    bookingId: string, 
+    paymentMethod: 'Card' | 'Bank Transfer' | 'USSD' | 'Paystack', 
+    simulateFailure: boolean = false
+  ): { success: boolean; paymentReference?: string; error?: string } {
+    const booking = this.bookings().find(b => b.id === bookingId);
+    if (!booking) return { success: false, error: 'Booking reservation not found.' };
+
+    if (simulateFailure) {
+      // Simulate controlled payment failure / card decline (Appendix A DoD requirement)
+      const updated = this.bookings().map(b => 
+        b.id === bookingId ? { ...b, paymentStatus: 'Failed' as const } : b
+      );
+      this.bookings.set(updated);
+      this.persistBookings(updated);
+
+      return {
+        success: false,
+        error: 'Payment Authorization Declined: Insufficient balance or bank security check. Please retry with a valid card or choose Direct Bank Transfer.'
+      };
+    }
+
+    // Success transaction
+    const paymentRef = 'PAY-NG-' + Math.floor(100000 + Math.random() * 900000);
+    const updated = this.bookings().map(b => {
+      if (b.id === bookingId) {
+        return {
+          ...b,
+          status: 'Confirmed' as const,
+          paymentMethod,
+          paymentReference: paymentRef,
+          paymentStatus: 'Paid' as const,
+          paidAt: new Date().toISOString()
+        };
+      }
+      return b;
+    });
+
+    this.bookings.set(updated);
+    this.persistBookings(updated);
+
     this.propertyService.showToast(
-      'Reservation Request Confirmed!',
-      `Booking Ref: ${bookingId}. Our VIP concierge has received your stay request for ${prop.title}.`,
+      'Reservation Confirmed!',
+      `Transaction ${paymentRef} successful. VIP reservation confirmed for ${booking.propertyTitle}.`,
       'success'
     );
 
-    return newBooking;
+    return { success: true, paymentReference: paymentRef };
+  }
+
+  // -------------------------------------------------------------
+  // STAFF BOOKING LIFECYCLE MANAGEMENT (Phase 1 Staff Operations)
+  // -------------------------------------------------------------
+  public updateBookingStatus(id: string, status: ShortStayBooking['status']): void {
+    const updated = this.bookings().map(b => b.id === id ? { ...b, status } : b);
+    this.bookings.set(updated);
+    this.persistBookings(updated);
+    this.propertyService.showToast('Booking Updated', `Reservation ${id} status set to ${status}.`, 'info');
+  }
+
+  public cancelBooking(id: string, reason: string = 'Client cancellation'): void {
+    const updated = this.bookings().map(b => 
+      b.id === id ? { ...b, status: 'Cancelled' as const, specialRequests: `${b.specialRequests || ''} [Cancelled: ${reason}]` } : b
+    );
+    this.bookings.set(updated);
+    this.persistBookings(updated);
+    this.propertyService.showToast('Reservation Cancelled', `Reservation ${id} released.`, 'info');
+  }
+
+  public togglePropertyAvailability(id: string): void {
+    const updated = this.shortStays().map(p => 
+      p.id === id ? { ...p, available: !p.available } : p
+    );
+    this.shortStays.set(updated);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(SHORT_STAY_KEY, JSON.stringify(updated));
+    }
+    const prop = updated.find(p => p.id === id);
+    this.propertyService.showToast(
+      'Availability Updated', 
+      `${prop?.title} is now ${prop?.available ? 'Available' : 'Set to Maintenance Hold'}.`, 
+      'info'
+    );
+  }
+
+  // -------------------------------------------------------------
+  // SHORT-STAY INVENTORY MANAGEMENT (ADD / EDIT / DELETE)
+  // -------------------------------------------------------------
+  public addShortStay(property: Omit<ShortStayProperty, 'id' | 'priceFormatted'> & { id?: string }): ShortStayProperty {
+    const newId = property.id || 'stay-' + Date.now().toString().slice(-4);
+    const newStay: ShortStayProperty = {
+      ...property,
+      id: newId,
+      slug: property.slug || property.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      available: property.available ?? true,
+      rating: property.rating || 5.0,
+      reviewCount: property.reviewCount || 1,
+      isInstantBook: property.isInstantBook ?? true,
+      isSuperhost: property.isSuperhost ?? true,
+      priceFormatted: `₦${property.pricePerNight.toLocaleString()}`,
+      weeklyDiscountPercent: property.weeklyDiscountPercent ?? 10,
+      monthlyDiscountPercent: property.monthlyDiscountPercent ?? 20,
+      cleaningFee: property.cleaningFee ?? 25000,
+      securityDeposit: property.securityDeposit ?? 50000,
+      checkInTime: property.checkInTime || '2:00 PM',
+      checkOutTime: property.checkOutTime || '11:00 AM',
+      houseRules: property.houseRules?.length ? property.houseRules : [
+        'Check-in: 2:00 PM – 10:00 PM',
+        'Check-out: 11:00 AM',
+        'No smoking indoors (balconies permitted)',
+        'Valid Government ID required at check-in'
+      ],
+      gallery: property.gallery?.length ? property.gallery : [property.heroImage]
+    };
+
+    const updated = [newStay, ...this.shortStays()];
+    this.shortStays.set(updated);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(SHORT_STAY_KEY, JSON.stringify(updated));
+    }
+    this.propertyService.showToast(
+      'Short-Stay Added!', 
+      `"${newStay.title}" has been published to live short-stay inventory.`, 
+      'success'
+    );
+    return newStay;
+  }
+
+  public updateShortStay(id: string, updates: Partial<ShortStayProperty>): void {
+    const updated = this.shortStays().map(p => {
+      if (p.id === id) {
+        const merged = { ...p, ...updates };
+        if (updates.pricePerNight) {
+          merged.priceFormatted = `₦${updates.pricePerNight.toLocaleString()}`;
+        }
+        return merged;
+      }
+      return p;
+    });
+    this.shortStays.set(updated);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(SHORT_STAY_KEY, JSON.stringify(updated));
+    }
+    this.propertyService.showToast('Short-Stay Updated', `Short-stay details updated successfully.`, 'success');
+  }
+
+  public deleteShortStay(id: string): void {
+    const prop = this.shortStays().find(p => p.id === id);
+    const updated = this.shortStays().filter(p => p.id !== id);
+    this.shortStays.set(updated);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(SHORT_STAY_KEY, JSON.stringify(updated));
+    }
+    this.propertyService.showToast('Short-Stay Removed', `"${prop?.title || id}" removed from active inventory.`, 'info');
   }
 
   public getWhatsAppBookingLink(booking: ShortStayBooking): string {
     const text = `Hello Nigson Properties Concierge, I have reserved a luxury short stay:
 *Property:* ${booking.propertyTitle}
 *Booking Ref:* ${booking.id}
+*Payment Ref:* ${booking.paymentReference || 'Pending verification'}
 *Guest:* ${booking.clientName}
 *Dates:* ${booking.checkInDate} to ${booking.checkOutDate} (${booking.nights} Nights)
 *Guests:* ${booking.guestsCount}
-*Total Estimated:* ₦${booking.totalAmount.toLocaleString()}
-Please confirm check-in instructions and payment verification. Thank you!`;
+*Total Paid/Due:* ₦${booking.totalAmount.toLocaleString()}
+Please confirm check-in access instructions. Thank you!`;
     return `https://wa.me/2348073467809?text=${encodeURIComponent(text)}`;
   }
 

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { PropertyService } from '../../services/property.service';
 import { AuthService } from '../../services/auth.service';
 import { Property } from '../../models/property.model';
@@ -8,7 +9,7 @@ import { Property } from '../../models/property.model';
 @Component({
   selector: 'app-properties',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './properties.html',
   styleUrl: './properties.css'
 })
@@ -19,7 +20,6 @@ export class PropertiesComponent {
   public categories = [
     { id: 'all', label: 'All Developments' },
     { id: 'sale', label: 'For Sale' },
-    { id: 'lease', label: 'For Lease' },
     { id: 'completed', label: 'Completed & Sold Out' },
     { id: 'ongoing', label: 'Ongoing Projects' }
   ];
@@ -43,7 +43,7 @@ export class PropertiesComponent {
     this.propertyService.setCategory('all');
     this.propertyService.setLocation('all');
     this.propertyService.setBedrooms('all');
-    this.propertyService.setMaxPrice(300000000);
+    this.propertyService.setMaxPrice(1000000000);
     this.propertyService.setSearch('');
   }
 
@@ -64,7 +64,7 @@ export class PropertiesComponent {
 
   public getBadgeClass(status: string): string {
     if (status.includes('Sold')) return 'badge-sold';
-    if (status.includes('Lease') || status.includes('Sale')) return 'badge-available';
+    if (status.includes('Sale')) return 'badge-available';
     if (status.includes('Ongoing')) return 'badge-ongoing';
     return 'badge-gold';
   }

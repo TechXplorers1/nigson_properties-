@@ -40,7 +40,7 @@ export class AuthService {
         role: 'investor',
         roleLabel: 'High-Net-Worth Investor',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-        savedPropertyIds: ['whitesand-ologolo', 'brenthill-ikoyi'],
+        savedPropertyIds: ['grand-azure-banana-island', 'obsidian-penthouse-ikoyi'],
         membershipTier: 'Black Card Investor',
         createdAt: '2024-03-15'
       }
@@ -56,7 +56,7 @@ export class AuthService {
         role: 'client',
         roleLabel: 'Private Residence Buyer',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-        savedPropertyIds: ['orchid-road-villa'],
+        savedPropertyIds: ['sovereign-residence-lekki'],
         membershipTier: 'Gold Private Client',
         createdAt: '2024-06-20'
       }
@@ -72,7 +72,7 @@ export class AuthService {
         role: 'diaspora',
         roleLabel: 'Diaspora Real Estate Client',
         avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
-        savedPropertyIds: ['whitesand-ologolo'],
+        savedPropertyIds: ['pearl-horizon-osapa'],
         membershipTier: 'Silver Member',
         createdAt: '2024-08-10'
       }
@@ -167,7 +167,7 @@ export class AuthService {
           : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
         role: isAdminLogin ? 'admin' : 'client',
         roleLabel: isAdminLogin ? 'Managing Director & System Admin' : 'Private Client',
-        savedPropertyIds: ['whitesand-ologolo'],
+        savedPropertyIds: ['grand-azure-banana-island'],
         membershipTier: isAdminLogin ? 'Black Card Investor' : 'Gold Private Client',
         createdAt: new Date().toISOString().split('T')[0]
       };

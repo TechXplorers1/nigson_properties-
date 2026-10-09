@@ -1,5 +1,5 @@
 .inquiry-section {
-  background: #070e1e;
+  background: #0a0a0c;
   position: relative;
 }
 
@@ -134,7 +134,7 @@
   color: #ffffff;
   margin-bottom: 1.75rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+  border-bottom: 1px solid rgba(215, 25, 32, 0.15);
 }
 
 .inquiry-type-pills {
@@ -144,8 +144,8 @@
 }
 
 .type-pill-btn {
-  background: #091326;
-  border: 1px solid rgba(197, 160, 89, 0.2);
+  background: #111115;
+  border: 1px solid rgba(215, 25, 32, 0.2);
   color: #cbd5e1;
   padding: 0.4rem 0.85rem;
   border-radius: var(--radius-full);
@@ -157,6 +157,11 @@
 
 .type-pill-btn.active, .type-pill-btn:hover {
   background: var(--color-gold);
-  color: #070e1e;
+  color: #ffffff !important;
   border-color: var(--color-gold);
+}
+
+.type-pill-btn.active i, .type-pill-btn.active span, .type-pill-btn.active *,
+.type-pill-btn:hover i, .type-pill-btn:hover span, .type-pill-btn:hover * {
+  color: #ffffff !important;
 }

@@ -5,10 +5,12 @@
       <div class="modal-header">
         <div class="modal-title-wrap">
           <div class="modal-badges-row">
-            <span class="badge" [class.badge-sold]="prop.status.includes('Sold')" [class.badge-available]="prop.status.includes('Sale') || prop.status.includes('Lease')">
+            <span class="badge" [class.badge-sold]="prop.status.includes('Sold')" [class.badge-available]="prop.status.includes('Sale')">
               {{ prop.status }}
             </span>
-            <span class="badge badge-gold">{{ prop.categoryLabel }}</span>
+            @if (prop.categoryLabel && prop.categoryLabel !== 'Property For Sale') {
+              <span class="badge badge-gold">{{ prop.categoryLabel }}</span>
+            }
             <span class="badge-units">{{ prop.units }} Units Total</span>
           </div>
           <h2 class="modal-prop-title">{{ prop.title }}</h2>
@@ -58,19 +60,31 @@
 
         <!-- Quick Specs Ribbon -->
         <div class="modal-specs-ribbon">
-          <div class="ribbon-item">
-            <i class="ri-hotel-bed-line text-gold"></i>
-            <div>
-              <span class="ribbon-val">{{ prop.bedrooms }}</span>
-              <span class="ribbon-lbl">Bedrooms</span>
+          @if (prop.bedrooms && prop.bedrooms > 0) {
+            <div class="ribbon-item">
+              <i class="ri-hotel-bed-line text-gold"></i>
+              <div>
+                <span class="ribbon-val">{{ prop.bedrooms }}</span>
+                <span class="ribbon-lbl">Bedrooms</span>
+              </div>
             </div>
-          </div>
-          <div class="ribbon-divider"></div>
+            <div class="ribbon-divider"></div>
+          }
+          @if (prop.bathrooms && prop.bathrooms > 0) {
+            <div class="ribbon-item">
+              <i class="ri-drop-line text-gold"></i>
+              <div>
+                <span class="ribbon-val">{{ prop.bathrooms }}</span>
+                <span class="ribbon-lbl">Bathrooms</span>
+              </div>
+            </div>
+            <div class="ribbon-divider"></div>
+          }
           <div class="ribbon-item">
-            <i class="ri-drop-line text-gold"></i>
+            <i class="ri-building-line text-gold"></i>
             <div>
-              <span class="ribbon-val">{{ prop.bathrooms }}</span>
-              <span class="ribbon-lbl">Bathrooms</span>
+              <span class="ribbon-val">{{ prop.units }}</span>
+              <span class="ribbon-lbl">{{ prop.units === 1 ? 'Master Unit' : 'Units Total' }}</span>
             </div>
           </div>
           <div class="ribbon-divider"></div>

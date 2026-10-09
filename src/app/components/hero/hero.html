@@ -1,16 +1,17 @@
 <section id="hero" class="hero-section">
   <!-- Hero Background Layer -->
   <div class="hero-bg-layer">
-    <img 
-      src="/images/hero-drone-shot.jpg" 
-      alt="Nigson Properties Luxury Real Estate Lagos - Aerial Drone View" 
-      class="hero-bg-image"
-      loading="eager"
-      fetchpriority="high"
-      decoding="async"
-    />
-    <div class="hero-gradient-overlay"></div>
-    <div class="hero-mesh-overlay"></div>
+    <video 
+      #heroVideo 
+      autoplay 
+      muted 
+      loop 
+      playsinline 
+      preload="auto"
+      class="hero-bg-image" 
+      poster="/images/hero-drone-shot.jpg">
+      <source src="/images/hero-drone.mp4" type="video/mp4" />
+    </video>
   </div>
 
   <div class="container hero-container">
@@ -48,4 +49,20 @@
       </div>
     </div>
   </div>
+
+  <!-- Modern Minimalist Scroll Animation Icon -->
+  <button 
+    type="button" 
+    class="hero-scroll-icon-btn" 
+    (click)="scrollDown()" 
+    title="Scroll to explore"
+    aria-label="Scroll down to explore featured properties">
+    <div class="scroll-mouse-track">
+      <span class="scroll-wheel-pip"></span>
+    </div>
+    <div class="scroll-arrow-trail">
+      <i class="ri-arrow-down-s-line"></i>
+    </div>
+    <span class="scroll-down-text">Scroll Down</span>
+  </button>
 </section>

@@ -129,9 +129,6 @@
               <div class="stay-img-wrap" (click)="openDetailsModal(stay)">
                 <img [src]="stay.heroImage" [alt]="stay.title" loading="lazy" />
                 <div class="stay-badges-overlay">
-                  @if (stay.isSuperhost) {
-                    <span class="badge superhost-badge"><i class="ri-medal-fill text-gold"></i> Superhost</span>
-                  }
                   @if (stay.isInstantBook) {
                     <span class="badge instant-badge"><i class="ri-flashlight-line"></i> Instant Book</span>
                   }
@@ -150,25 +147,6 @@
                 </div>
 
                 <h3 class="stay-title" (click)="openDetailsModal(stay)">{{ stay.title }}</h3>
-
-                <!-- Key Specs (Beds, Baths, Max Guests) -->
-                <div class="stay-specs-bar">
-                  <span><i class="ri-hotel-bed-line text-gold"></i> {{ stay.bedrooms }} Beds</span>
-                  <span><i class="ri-drop-line text-gold"></i> {{ stay.bathrooms }} Baths</span>
-                  <span><i class="ri-user-line text-gold"></i> Up to {{ stay.maxGuests }} Guests</span>
-                </div>
-
-                <!-- Amenity Chips -->
-                <div class="stay-amenities-preview">
-                  @for (amenity of stay.amenities.slice(0, 3); track amenity.label) {
-                    <span class="amenity-mini-pill">
-                      <i [class]="amenity.icon + ' text-gold'"></i> {{ amenity.label }}
-                    </span>
-                  }
-                  @if (stay.amenities.length > 3) {
-                    <span class="amenity-mini-pill more">+{{ stay.amenities.length - 3 }} more</span>
-                  }
-                </div>
 
                 <!-- Price and Discounts -->
                 <div class="stay-price-row">
@@ -242,107 +220,13 @@
     </div>
   </section>
 
-  <!-- 5. CORPORATE & EXTENDED LEASING INQUIRY SECTION -->
-  <section class="corporate-leasing-section">
-    <div class="container">
-      <div class="leasing-card-glass">
-        <div class="leasing-left">
-          <span class="sub-title text-gold">CORPORATE & EXTENDED LEASING</span>
-          <h2 class="leasing-title">Planning an Extended Stay or Corporate Relocation in Lagos?</h2>
-          <p class="leasing-desc">
-            We provide customized short-to-medium term leasing arrangements for multinational executives, diaspora families, film productions, and energy sector contractors.
-          </p>
-          <ul class="leasing-perks">
-            <li><i class="ri-check-double-line text-gold"></i> Corporate invoicing with VAT & WHT receipts</li>
-            <li><i class="ri-check-double-line text-gold"></i> Customized flexible tenancy from 2 weeks to 12 months</li>
-            <li><i class="ri-check-double-line text-gold"></i> Dedicated facility manager and housekeeping staff</li>
-            <li><i class="ri-check-double-line text-gold"></i> Exclusive discounted rates on long-term bookings</li>
-          </ul>
 
-          <div class="quick-call-box">
-            <i class="ri-phone-fill text-gold"></i>
-            <div>
-              <span class="call-label">Speak Directly to Corporate Leasing:</span>
-              <a href="tel:08073467809" class="call-number">0807 346 7809 / 0913 444 6722</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="leasing-right">
-          @if (leaseSubmitted()) {
-            <div class="lease-success-box text-center">
-              <i class="ri-checkbox-circle-fill text-gold success-icon"></i>
-              <h3>Corporate Inquiry Received!</h3>
-              <p>Thank you. A dedicated Nigson corporate leasing manager has received your requirements and will reach out promptly.</p>
-              <button type="button" class="btn btn-outline-gold btn-sm" (click)="leaseSubmitted.set(false)">
-                Submit Another Request
-              </button>
-            </div>
-          } @else {
-            <form (ngSubmit)="submitLeaseInquiry()" class="leasing-form">
-              <h3>Corporate Leasing Inquiry</h3>
-              <p class="form-caption">Receive custom tailored terms within 2 hours.</p>
-
-              <div class="form-group">
-                <label>Full Name *</label>
-                <input type="text" [ngModel]="leaseName()" (ngModelChange)="leaseName.set($event)" name="lName" placeholder="e.g. Chief Babatunde Adeleke" required />
-              </div>
-
-              <div class="form-row-2">
-                <div class="form-group">
-                  <label>Corporate / Personal Email *</label>
-                  <input type="email" [ngModel]="leaseEmail()" (ngModelChange)="leaseEmail.set($event)" name="lEmail" placeholder="name@company.com" required />
-                </div>
-                <div class="form-group">
-                  <label>WhatsApp / Mobile *</label>
-                  <input type="tel" [ngModel]="leasePhone()" (ngModelChange)="leasePhone.set($event)" name="lPhone" placeholder="+234..." required />
-                </div>
-              </div>
-
-              <div class="form-row-2">
-                <div class="form-group">
-                  <label>Organization / Company</label>
-                  <input type="text" [ngModel]="leaseCompany()" (ngModelChange)="leaseCompany.set($event)" name="lComp" placeholder="e.g. Chevron Nigeria / Private" />
-                </div>
-                <div class="form-group">
-                  <label>Expected Duration</label>
-                  <select [ngModel]="leaseDuration()" (ngModelChange)="leaseDuration.set($event)" name="lDur">
-                    <option value="2 Weeks to 1 Month">2 Weeks – 1 Month</option>
-                    <option value="1 Month to 3 Months">1 Month – 3 Months</option>
-                    <option value="3 Months to 6 Months">3 Months – 6 Months</option>
-                    <option value="6 Months to 1 Year">6 Months – 1 Year (Extended)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label>Preferred Prime Location</label>
-                <select [ngModel]="leaseLocation()" (ngModelChange)="leaseLocation.set($event)" name="lLoc">
-                  <option value="Lekki Phase 1">Lekki Phase 1</option>
-                  <option value="Old Ikoyi">Old Ikoyi</option>
-                  <option value="Banana Island">Banana Island</option>
-                  <option value="Victoria Island / Eko Atlantic">Victoria Island / Eko Atlantic</option>
-                  <option value="Beachside Lekki (Ologolo)">Beachside Lekki (Ologolo)</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label>Special Requirements & Team Size</label>
-                <textarea [ngModel]="leaseMessage()" (ngModelChange)="leaseMessage.set($event)" name="lMsg" rows="3" placeholder="Tell us about number of guests, chauffeur needs, dietary preferences, or specific security protocols..."></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-gold btn-block">
-                <i class="ri-send-plane-fill"></i> Submit Corporate Inquiry
-              </button>
-            </form>
-          }
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ========================================================= -->
   <!-- 6. INTERACTIVE BOOKING MODAL                              -->
+  <!-- ========================================================= -->
+  <!-- ========================================================= -->
+  <!-- 6. INTERACTIVE BOOKING MODAL (PHASE 1 MVP ENGINE)         -->
   <!-- ========================================================= -->
   @if (isBookingModalOpen() && bookingProperty(); as prop) {
     <div class="modal-backdrop" (click)="closeBookingModal()">
@@ -351,79 +235,294 @@
           <i class="ri-close-line"></i>
         </button>
 
-        @if (bookingSuccess(); as confirmed) {
-          <!-- BOOKING CONFIRMATION SUCCESS VIEW -->
+        <!-- Luxury Step Indicator Header -->
+        <div class="booking-steps-stepper">
+          <div class="step-item" [class.active]="bookingStep() === 'details'" [class.completed]="bookingStep() === 'payment' || bookingStep() === 'confirmation'">
+            <span class="step-num">
+              @if (bookingStep() === 'payment' || bookingStep() === 'confirmation') {
+                <i class="ri-check-line"></i>
+              } @else {
+                1
+              }
+            </span>
+            <span class="step-name">Guest & Dates</span>
+          </div>
+          <div class="step-line" [class.completed]="bookingStep() === 'payment' || bookingStep() === 'confirmation'"></div>
+          <div class="step-item" [class.active]="bookingStep() === 'payment'" [class.completed]="bookingStep() === 'confirmation'">
+            <span class="step-num">
+              @if (bookingStep() === 'confirmation') {
+                <i class="ri-check-line"></i>
+              } @else {
+                2
+              }
+            </span>
+            <span class="step-name">Payment Gateway</span>
+          </div>
+          <div class="step-line" [class.completed]="bookingStep() === 'confirmation'"></div>
+          <div class="step-item" [class.active]="bookingStep() === 'confirmation'">
+            <span class="step-num">3</span>
+            <span class="step-name">VIP Confirmation</span>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- STEP 3: BOOKING CONFIRMATION & RECEIPT VIEW -->
+        <!-- ========================================== -->
+        @if (bookingStep() === 'confirmation' && bookingSuccess(); as confirmed) {
           <div class="booking-success-view text-center">
             <div class="success-icon-wrap">
-              <i class="ri-checkbox-circle-fill text-gold"></i>
+              <i class="ri-checkbox-circle-fill"></i>
             </div>
-            <h2>Reservation Request Confirmed!</h2>
-            <div class="booking-ref-chip">Booking Reference: <strong>{{ confirmed.id }}</strong></div>
+            <span class="success-kicker text-gold">RESERVATION COMPLETE</span>
+            <h2>VIP Luxury Stay Confirmed!</h2>
+            <div class="booking-ref-badge-row">
+              <span class="booking-ref-chip"><i class="ri-bookmark-line"></i> Booking ID: <strong>{{ confirmed.id }}</strong></span>
+              <span class="payment-ref-chip"><i class="ri-shield-check-line"></i> Payment Ref: <strong>{{ confirmed.paymentReference || 'PAY-NG-SUCCESS' }}</strong></span>
+            </div>
+
             <p class="success-p">
-              Thank you, <strong>{{ confirmed.clientName }}</strong>. We have reserved 
-              <strong>{{ confirmed.propertyTitle }}</strong> for you from 
+              Thank you, <strong>{{ confirmed.clientName }}</strong>. Your luxury stay at 
+              <strong>{{ confirmed.propertyTitle }}</strong> is fully confirmed from 
               <strong>{{ confirmed.checkInDate }}</strong> to <strong>{{ confirmed.checkOutDate }}</strong> ({{ confirmed.nights }} Nights).
             </p>
 
             <div class="confirmed-summary-box">
               <div class="summary-line">
-                <span>Total Amount:</span>
+                <span>Total Paid:</span>
                 <strong class="text-gold">₦{{ confirmed.totalAmount.toLocaleString() }}</strong>
+              </div>
+              <div class="summary-line">
+                <span>Payment Status:</span>
+                <span class="status-pill paid"><i class="ri-shield-check-fill"></i> Verified & Paid ({{ confirmed.paymentMethod || 'Card' }})</span>
               </div>
               <div class="summary-line">
                 <span>Guests:</span>
                 <span>{{ confirmed.guestsCount }} Guests</span>
               </div>
               <div class="summary-line">
-                <span>Status:</span>
-                <span class="status-pill confirmed">Reserved & Awaiting Concierge Check-in</span>
+                <span>Check-in Instructions:</span>
+                <span>VIP Concierge Gatehouse Pass Sent</span>
               </div>
             </div>
 
             <p class="next-step-hint">
-              Click below to immediately confirm via WhatsApp with our VIP concierge desk and receive your arrival access pass:
+              You can download/print your official VIP guest reservation pass or confirm access directly via WhatsApp:
             </p>
 
             <div class="success-actions-flex">
               <a [href]="getWhatsAppLink(confirmed)" target="_blank" class="btn btn-gold btn-block">
-                <i class="ri-whatsapp-line"></i> Confirm Reservation on WhatsApp
+                <i class="ri-whatsapp-line"></i> Confirm on WhatsApp Concierge
               </a>
+              <button type="button" class="btn btn-outline-white btn-block" (click)="printReceipt()">
+                <i class="ri-printer-line"></i> Print VIP Reservation Receipt
+              </button>
               <button type="button" class="btn btn-outline-white btn-block" (click)="closeBookingModal()">
                 Back to Stays
               </button>
             </div>
           </div>
-        } @else {
-          <!-- BOOKING INPUT FORM VIEW -->
+        } 
+        
+        <!-- ========================================== -->
+        <!-- STEP 2: NIGERIAN PAYMENT GATEWAY CHECKOUT -->
+        <!-- ========================================== -->
+        @else if (bookingStep() === 'payment' && bookingSuccess(); as pending) {
+          <div class="payment-gateway-view">
+            <div class="payment-hold-banner">
+              <i class="ri-time-line text-gold"></i>
+              <div>
+                <strong>Reservation Held (Ref: {{ pending.id }})</strong>
+                <span>Temporary reservation hold active for {{ pending.propertyTitle }}. Complete payment below.</span>
+              </div>
+            </div>
+
+            @if (paymentError()) {
+              <div class="payment-error-alert">
+                <i class="ri-error-warning-fill"></i>
+                <div>
+                  <strong>Payment Failed:</strong>
+                  <span>{{ paymentError() }}</span>
+                </div>
+              </div>
+            }
+
+            <!-- Method Selector -->
+            <div class="payment-methods-tabs">
+              <button 
+                type="button" 
+                class="pay-method-btn" 
+                [class.active]="selectedPaymentMethod() === 'Card'"
+                (click)="selectedPaymentMethod.set('Card')">
+                <i class="ri-bank-card-line"></i>
+                <span>Debit/Credit Card</span>
+              </button>
+              <button 
+                type="button" 
+                class="pay-method-btn" 
+                [class.active]="selectedPaymentMethod() === 'Bank Transfer'"
+                (click)="selectedPaymentMethod.set('Bank Transfer')">
+                <i class="ri-exchange-funds-line"></i>
+                <span>Bank Transfer</span>
+              </button>
+              <button 
+                type="button" 
+                class="pay-method-btn" 
+                [class.active]="selectedPaymentMethod() === 'USSD'"
+                (click)="selectedPaymentMethod.set('USSD')">
+                <i class="ri-smartphone-line"></i>
+                <span>USSD Code</span>
+              </button>
+            </div>
+
+            <!-- Card Payment Simulation -->
+            @if (selectedPaymentMethod() === 'Card') {
+              <div class="payment-subform card-subform">
+                <div class="form-group">
+                  <label>Cardholder Name</label>
+                  <input type="text" [value]="pending.clientName" readonly />
+                </div>
+                <div class="form-group">
+                  <label>Card Number (Paystack / Nigerian Gateway)</label>
+                  <div class="card-input-wrap">
+                    <input type="text" value="5399 •••• •••• 8820" readonly />
+                    <span class="card-badge"><i class="ri-mastercard-fill"></i> Mastercard / Verve</span>
+                  </div>
+                </div>
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label>Expiry Date</label>
+                    <input type="text" value="08 / 28" readonly />
+                  </div>
+                  <div class="form-group">
+                    <label>CVV / CVC</label>
+                    <input type="password" value="•••" readonly />
+                  </div>
+                </div>
+                <div class="gateway-security-badge">
+                  <i class="ri-shield-check-fill text-gold"></i>
+                  <span>Secured by 256-bit SSL Bank-Grade Encryption & Paystack Payment Infrastructure</span>
+                </div>
+              </div>
+            }
+
+            <!-- Bank Transfer Details -->
+            @if (selectedPaymentMethod() === 'Bank Transfer') {
+              <div class="payment-subform bank-subform">
+                <div class="escrow-bank-box">
+                  <div class="escrow-title">Nigson Properties Client Escrow Account</div>
+                  <div class="escrow-detail-row">
+                    <span>Bank Name:</span>
+                    <strong>Providus Bank Nigeria</strong>
+                  </div>
+                  <div class="escrow-detail-row">
+                    <span>Account Number:</span>
+                    <strong class="account-num-highlight">1029384756</strong>
+                  </div>
+                  <div class="escrow-detail-row">
+                    <span>Account Name:</span>
+                    <strong>Nigson Properties Limited</strong>
+                  </div>
+                  <div class="escrow-detail-row">
+                    <span>Payment Reference:</span>
+                    <strong>{{ pending.id }}</strong>
+                  </div>
+                </div>
+              </div>
+            }
+
+            <!-- USSD Details -->
+            @if (selectedPaymentMethod() === 'USSD') {
+              <div class="payment-subform ussd-subform">
+                <div class="ussd-info-box">
+                  <p>Dial from your registered mobile phone:</p>
+                  <div class="ussd-code-display">*737*000*{{ pending.totalAmount }}#</div>
+                  <span>Supported Banks: GTBank, Zenith, Access Bank, UBA, FirstBank</span>
+                </div>
+              </div>
+            }
+
+            <!-- Summary -->
+            <div class="payment-amount-box">
+              <span>Total Amount Due:</span>
+              <strong class="text-gold">₦{{ pending.totalAmount.toLocaleString() }}</strong>
+            </div>
+
+            <!-- Gateway Buttons -->
+            <div class="payment-actions-flex">
+              <button 
+                type="button" 
+                class="btn btn-gold btn-block btn-lg" 
+                (click)="confirmPayment(false)"
+                [disabled]="isProcessingPayment()">
+                @if (isProcessingPayment()) {
+                  <i class="ri-loader-4-line spin"></i> Processing Gateway Authorization...
+                } @else {
+                  <i class="ri-lock-line"></i> Authorize & Confirm Payment (₦{{ pending.totalAmount.toLocaleString() }})
+                }
+              </button>
+
+              <!-- Controlled Failure / Retry Test Trigger -->
+              <button 
+                type="button" 
+                class="btn btn-outline-warning btn-sm btn-block" 
+                (click)="confirmPayment(true)"
+                [disabled]="isProcessingPayment()"
+                title="Test controlled decline and retry error handling">
+                <i class="ri-bug-line"></i> Simulate Payment Decline (Test Controlled Retry)
+              </button>
+
+              <button type="button" class="btn btn-outline-white btn-block" (click)="backToDetails()">
+                <i class="ri-arrow-left-line"></i> Back to Guest Details
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- ========================================== -->
+        <!-- STEP 1: GUEST & DATES INPUT FORM VIEW      -->
+        <!-- ========================================== -->
+        @else {
           <div class="booking-form-view">
+            <!-- Property Header Summary Card -->
             <div class="booking-modal-header">
               <div class="prop-thumb-meta">
                 <img [src]="prop.heroImage" [alt]="prop.title" class="booking-prop-thumb" />
-                <div>
-                  <span class="type-badge text-gold">{{ prop.propertyType }}</span>
+                <div class="prop-info-col">
+                  <span class="type-badge">{{ prop.propertyType }}</span>
                   <h3 class="booking-prop-title">{{ prop.title }}</h3>
-                  <span class="booking-prop-loc"><i class="ri-map-pin-line text-gold"></i> {{ prop.location }}</span>
+                  <span class="booking-prop-loc"><i class="ri-map-pin-2-fill"></i> {{ prop.location }}</span>
                 </div>
               </div>
               <div class="prop-rate-tag">
                 <span class="rate-num">{{ prop.priceFormatted }}</span>
-                <span class="rate-sub">/ night</span>
+                <span class="rate-sub">per night</span>
               </div>
             </div>
 
-            <form (ngSubmit)="submitBooking()" class="booking-grid-form">
-              <!-- Dates Section -->
+            <!-- Double-Booking Conflict Alert -->
+            @if (!isCurrentDatesAvailable()) {
+              <div class="booking-conflict-alert">
+                <i class="ri-error-warning-fill"></i>
+                <div>
+                  <strong>Reservation Conflict Detected:</strong>
+                  <span>"{{ prop.title }}" is already booked for the selected dates. Please adjust your calendar dates below.</span>
+                </div>
+              </div>
+            }
+
+            <form (ngSubmit)="proceedToPayment()" class="booking-grid-form">
+              <!-- Dates & Guests Section -->
               <div class="dates-selection-box">
                 <div class="form-group">
-                  <label><i class="ri-calendar-event-line text-gold"></i> Check-in Date *</label>
+                  <label><i class="ri-calendar-event-line"></i> Check-in Date *</label>
                   <input type="date" [ngModel]="bookCheckIn()" (ngModelChange)="bookCheckIn.set($event)" name="bCheckIn" required />
                 </div>
                 <div class="form-group">
-                  <label><i class="ri-calendar-check-line text-gold"></i> Check-out Date *</label>
+                  <label><i class="ri-calendar-check-line"></i> Check-out Date *</label>
                   <input type="date" [ngModel]="bookCheckOut()" (ngModelChange)="bookCheckOut.set($event)" name="bCheckOut" required />
                 </div>
                 <div class="form-group">
-                  <label><i class="ri-user-line text-gold"></i> Number of Guests *</label>
+                  <label><i class="ri-user-line"></i> Guests *</label>
                   <select [ngModel]="bookGuests()" (ngModelChange)="bookGuests.set(+$event)" name="bGuests">
                     @for (num of [1,2,3,4,5,6,7,8,9,10]; track num) {
                       @if (num <= prop.maxGuests) {
@@ -436,11 +535,15 @@
 
               <!-- Guest Personal Information -->
               <div class="guest-info-section">
-                <h4>Guest Information</h4>
+                <div class="form-section-header">
+                  <h4><i class="ri-user-3-line"></i> Guest Information</h4>
+                  <span class="form-section-hint">Primary contact for VIP gatehouse pass</span>
+                </div>
+
                 <div class="form-row-2">
                   <div class="form-group">
                     <label>Full Name *</label>
-                    <input type="text" [ngModel]="bookClientName()" (ngModelChange)="bookClientName.set($event)" name="bName" placeholder="Dr. / Chief / Mr. / Mrs." required />
+                    <input type="text" [ngModel]="bookClientName()" (ngModelChange)="bookClientName.set($event)" name="bName" placeholder="Dr. / Chief / Mr. / Mrs. Somtochukwu Obi" required />
                   </div>
                   <div class="form-group">
                     <label>Email Address *</label>
@@ -459,58 +562,93 @@
                   </div>
                 </div>
 
-                <!-- Add-on checkboxes -->
-                <div class="addons-flex">
-                  <label class="checkbox-label">
-                    <input type="checkbox" [ngModel]="bookAirportPickup()" (ngModelChange)="bookAirportPickup.set($event)" name="bAir" />
-                    <span><i class="ri-car-line text-gold"></i> Add MMIA Airport VIP Chauffeur Transfer (+₦35,000)</span>
-                  </label>
-                  <label class="checkbox-label">
-                    <input type="checkbox" [ngModel]="bookChefService()" (ngModelChange)="bookChefService.set($event)" name="bChef" />
-                    <span><i class="ri-restaurant-line text-gold"></i> Add Private Chef Service on Demand (+₦50,000/day)</span>
-                  </label>
+                <!-- Add-on upgrades -->
+                <div class="addons-container">
+                  <span class="addons-label"><i class="ri-vip-crown-line"></i> Optional VIP Concierge Upgrades</span>
+                  <div class="addons-grid">
+                    <label class="addon-card" [class.active]="bookAirportPickup()">
+                      <input type="checkbox" [ngModel]="bookAirportPickup()" (ngModelChange)="bookAirportPickup.set($event)" name="bAir" />
+                      <div class="addon-content">
+                        <div class="addon-title-row">
+                          <i class="ri-car-fill"></i>
+                          <span>MMIA Airport VIP Chauffeur Transfer</span>
+                        </div>
+                        <span class="addon-desc">Luxury private SUV terminal greeting & transfer</span>
+                      </div>
+                      <span class="addon-badge">+₦35,000</span>
+                    </label>
+
+                    <label class="addon-card" [class.active]="bookChefService()">
+                      <input type="checkbox" [ngModel]="bookChefService()" (ngModelChange)="bookChefService.set($event)" name="bChef" />
+                      <div class="addon-content">
+                        <div class="addon-title-row">
+                          <i class="ri-restaurant-fill"></i>
+                          <span>Private Chef Service On Demand</span>
+                        </div>
+                        <span class="addon-desc">Curated 3-course private gourmet dining service</span>
+                      </div>
+                      <span class="addon-badge">+₦50,000/day</span>
+                    </label>
+                  </div>
                 </div>
               </div>
 
               <!-- Live Transparent Pricing Breakdown -->
               <div class="pricing-breakdown-card">
-                <h4>Price Details ({{ calculatedBookingNights() }} Nights)</h4>
-                <div class="price-calc-row">
-                  <span>{{ prop.priceFormatted }} × {{ calculatedBookingNights() }} nights</span>
-                  <span>₦{{ (prop.pricePerNight * calculatedBookingNights()).toLocaleString() }}</span>
+                <div class="pricing-card-header">
+                  <h4>Price Details</h4>
+                  <span class="nights-chip"><i class="ri-moon-line"></i> {{ calculatedBookingNights() }} Nights</span>
                 </div>
-                <div class="price-calc-row">
-                  <span>Cleaning & Professional Sanitation Fee</span>
-                  <span>₦{{ prop.cleaningFee.toLocaleString() }}</span>
-                </div>
-                <div class="price-calc-row">
-                  <span>Refundable Security / Caution Deposit</span>
-                  <span>₦{{ prop.securityDeposit.toLocaleString() }}</span>
-                </div>
-                @if (bookAirportPickup()) {
+                <div class="price-calc-rows">
                   <div class="price-calc-row">
-                    <span>VIP Airport Chauffeur Transfer</span>
-                    <span>₦35,000</span>
+                    <span>{{ prop.priceFormatted }} × {{ calculatedBookingNights() }} nights</span>
+                    <strong>₦{{ (prop.pricePerNight * calculatedBookingNights()).toLocaleString() }}</strong>
                   </div>
-                }
-                @if (bookChefService()) {
                   <div class="price-calc-row">
-                    <span>Private Chef On Demand</span>
-                    <span>₦50,000</span>
+                    <span>Cleaning & Professional Sanitation Fee</span>
+                    <strong>₦{{ prop.cleaningFee.toLocaleString() }}</strong>
                   </div>
-                }
+                  <div class="price-calc-row">
+                    <span>Refundable Caution / Security Deposit</span>
+                    <strong>₦{{ prop.securityDeposit.toLocaleString() }}</strong>
+                  </div>
+                  @if (bookAirportPickup()) {
+                    <div class="price-calc-row addon-calc-row">
+                      <span><i class="ri-car-fill"></i> VIP Airport Chauffeur Transfer</span>
+                      <strong>+₦35,000</strong>
+                    </div>
+                  }
+                  @if (bookChefService()) {
+                    <div class="price-calc-row addon-calc-row">
+                      <span><i class="ri-restaurant-fill"></i> Private Chef On Demand</span>
+                      <strong>+₦50,000</strong>
+                    </div>
+                  }
+                </div>
                 <div class="price-calc-divider"></div>
                 <div class="price-calc-total">
-                  <span>Total Estimated Investment:</span>
-                  <strong class="text-gold">₦{{ calculatedBookingTotal().toLocaleString() }}</strong>
+                  <div class="total-text-col">
+                    <span class="total-title">Total Due</span>
+                    <span class="total-sub">All taxes, utilities, and security deposit included</span>
+                  </div>
+                  <strong class="total-amount">₦{{ calculatedBookingTotal().toLocaleString() }}</strong>
                 </div>
               </div>
 
-              <!-- Submit Button -->
+              <!-- Submit Button (Proceed to Payment) -->
               <div class="modal-form-actions">
-                <button type="submit" class="btn btn-gold btn-block btn-lg">
-                  <i class="ri-check-line"></i> Confirm & Request Reservation
+                <button 
+                  type="submit" 
+                  class="btn-booking-primary"
+                  [disabled]="!isCurrentDatesAvailable()">
+                  <span>Proceed to Payment & Hold Reservation</span>
+                  <i class="ri-arrow-right-line"></i>
                 </button>
+                <div class="booking-trust-bar">
+                  <span><i class="ri-shield-check-fill text-gold"></i> Direct Developer Guarantee</span>
+                  <span><i class="ri-lock-2-fill text-gold"></i> Bank-Grade SSL</span>
+                  <span><i class="ri-customer-service-2-fill text-gold"></i> 24/7 Concierge</span>
+                </div>
               </div>
             </form>
           </div>
