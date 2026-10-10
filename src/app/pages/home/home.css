@@ -1,3 +1,13 @@
+:host {
+  display: block;
+  font-family: 'Satoshi', sans-serif !important;
+}
+
 .home-page {
   position: relative;
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+.home-page *:not([class*="ri-"]) {
+  font-family: 'Satoshi', sans-serif !important;
 }

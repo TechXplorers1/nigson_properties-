@@ -2,17 +2,57 @@
   <div class="container">
     <div class="text-center section-header-wrap scroll-reveal">
       <div class="section-badge">
-        <i class="ri-thumb-up-line"></i>
-        <span>{{ adminService.websiteContent().whyChooseBadge }}</span>
+        <i class="ri-shield-star-line"></i>
+        <span>{{ adminService.websiteContent().whyChooseBadge || 'The Standard of Excellence' }}</span>
       </div>
       <h2 class="section-title">
-        {{ adminService.websiteContent().whyChooseHeading }}
+        {{ adminService.websiteContent().whyChooseHeading || 'Why Nigeria\'s Discerning Investors Choose Nigson' }}
       </h2>
       <p class="section-subtitle mx-auto">
-        {{ adminService.websiteContent().whyChooseSubtitle }}
+        {{ adminService.websiteContent().whyChooseSubtitle || 'Rooted in institutional engineering rigor, absolute legal transparency, and bespoke architectural quality across Lagos\' most prestigious postcodes.' }}
       </p>
     </div>
 
+    <!-- 3 Large High-Impact Metric Cards (CW Lagos Signature Standard) -->
+    <div class="standards-metrics-grid scroll-reveal">
+      <div class="standard-metric-card luxury-card">
+        <div class="metric-top-bar">
+          <span class="metric-tag">Legal Assurance</span>
+          <i class="ri-shield-check-fill text-red"></i>
+        </div>
+        <div class="metric-big-num">99.8%</div>
+        <h3 class="metric-heading">Documented Title Integrity</h3>
+        <p class="metric-explanation">
+          Every land parcel and property carries unencumbered Certificates of Occupancy (C of O) and Governor's Consent thoroughly vetted by our in-house regulatory counsel.
+        </p>
+      </div>
+
+      <div class="standard-metric-card luxury-card">
+        <div class="metric-top-bar">
+          <span class="metric-tag">Project Delivery</span>
+          <i class="ri-calendar-check-fill text-gold"></i>
+        </div>
+        <div class="metric-big-num">100%</div>
+        <h3 class="metric-heading">Punctual Milestone Handover</h3>
+        <p class="metric-explanation">
+          Zero project abandonment record. Our PMP-certified engineering directors oversee construction schedules with strict adherence to European building standards.
+        </p>
+      </div>
+
+      <div class="standard-metric-card luxury-card">
+        <div class="metric-top-bar">
+          <span class="metric-tag">Infrastructure</span>
+          <i class="ri-flashlight-fill text-red"></i>
+        </div>
+        <div class="metric-big-num">24/7</div>
+        <h3 class="metric-heading">Guaranteed Clean Energy</h3>
+        <p class="metric-explanation">
+          Integrated high-capacity solar hybrid inverters and soundproof generators standard in every development—guaranteeing uninterrupted luxury living.
+        </p>
+      </div>
+    </div>
+
+    <!-- 6 Core Pillars Grid -->
     <div class="pillars-grid scroll-stagger">
       @for (pillar of pillars; track pillar.title) {
         <div class="luxury-card pillar-card">

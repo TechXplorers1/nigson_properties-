@@ -12,16 +12,12 @@
       poster="/images/hero-drone-shot.jpg">
       <source src="/images/hero-drone.mp4" type="video/mp4" />
     </video>
+    <div class="hero-gradient-overlay"></div>
   </div>
 
   <div class="container hero-container">
     <!-- Hero Text Content -->
     <div class="hero-content">
-      <div class="hero-brand-badge">
-        <i class="ri-shield-check-fill text-gold"></i>
-        <span>{{ adminService.websiteContent().heroBadge }}</span>
-      </div>
-
       <h1 class="hero-title">
         {{ adminService.websiteContent().heroHeading }}
       </h1>
@@ -37,15 +33,111 @@
           <span>{{ adminService.websiteContent().heroCtaExplore }}</span>
         </a>
 
-        <button class="btn btn-outline-gold btn-lg" (click)="openInspection()">
+        <button type="button" class="btn btn-outline-gold btn-lg" (click)="openInspection()">
           <i class="ri-calendar-check-line"></i>
           <span>{{ adminService.websiteContent().heroCtaInspection }}</span>
         </button>
 
-        <button class="btn btn-whatsapp btn-lg" (click)="openWhatsApp()">
+        <button type="button" class="btn btn-whatsapp btn-lg" (click)="openWhatsApp()">
           <i class="ri-whatsapp-line"></i>
           <span>{{ adminService.websiteContent().heroCtaWhatsapp }}</span>
         </button>
+      </div>
+    </div>
+
+    <!-- CW LAGOS SIGNATURE FLOATING LUXURY PROPERTY SEARCH ENGINE -->
+    <div class="hero-search-container">
+      <div class="hero-search-card">
+        <!-- Purpose Tabs -->
+        <div class="hero-search-tabs">
+          <button 
+            type="button" 
+            class="search-tab-pill" 
+            [class.active]="selectedTab() === 'all'" 
+            (click)="selectTab('all')">
+            <i class="ri-apps-line"></i> All Properties
+          </button>
+          <button 
+            type="button" 
+            class="search-tab-pill" 
+            [class.active]="selectedTab() === 'sale'" 
+            (click)="selectTab('sale')">
+            <i class="ri-home-smile-line"></i> Buy / For Sale
+          </button>
+          <button 
+            type="button" 
+            class="search-tab-pill" 
+            (click)="selectTab('short-stay')">
+            <i class="ri-hotel-bed-line"></i> Short-Stay Stays
+          </button>
+          <button 
+            type="button" 
+            class="search-tab-pill" 
+            (click)="selectTab('projects')">
+            <i class="ri-building-line"></i> Development Projects
+          </button>
+        </div>
+
+        <!-- Search Fields Form -->
+        <div class="hero-search-fields">
+          <!-- Field 1: Location -->
+          <div class="search-input-col">
+            <label class="search-field-label">
+              <i class="ri-map-pin-2-line text-red"></i> Location
+            </label>
+            <div class="select-field-wrap">
+              <select class="search-select" [ngModel]="searchLocation()" (ngModelChange)="searchLocation.set($event)">
+                <option value="all">All Prime Lagos Areas</option>
+                <option value="Ikoyi">Old Ikoyi & Osborne</option>
+                <option value="Banana Island">Banana Island</option>
+                <option value="Lekki Phase 1">Lekki Phase 1</option>
+                <option value="Victoria Island">Victoria Island / Eko Pearl</option>
+                <option value="Ologolo">Ologolo & Coastal Axis</option>
+                <option value="Osapa">Osapa London</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Field 2: Bedrooms -->
+          <div class="search-input-col">
+            <label class="search-field-label">
+              <i class="ri-hotel-bed-line text-red"></i> Bedrooms
+            </label>
+            <div class="select-field-wrap">
+              <select class="search-select" [ngModel]="searchBedrooms()" (ngModelChange)="searchBedrooms.set($event)">
+                <option value="all">Any Bedrooms</option>
+                <option value="1">1 Bedroom Suite</option>
+                <option value="3">3 Bedrooms</option>
+                <option value="4">4 Bedrooms</option>
+                <option value="5+">5+ Bedrooms (Duplex/Villa)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Field 3: Max Budget -->
+          <div class="search-input-col">
+            <label class="search-field-label">
+              <i class="ri-money-dollar-circle-line text-red"></i> Max Budget
+            </label>
+            <div class="select-field-wrap">
+              <select class="search-select" [ngModel]="searchMaxPrice()" (ngModelChange)="searchMaxPrice.set(+$event)">
+                <option [value]="1000000000">Any Budget (Up to ₦1B+)</option>
+                <option [value]="200000000">≤ ₦200 Million</option>
+                <option [value]="300000000">≤ ₦300 Million</option>
+                <option [value]="450000000">≤ ₦450 Million</option>
+                <option [value]="700000000">≤ ₦700 Million</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Field 4: Search Button -->
+          <div class="search-submit-col">
+            <button type="button" class="btn btn-red search-btn" (click)="applySearch()">
+              <i class="ri-search-2-line"></i>
+              <span>Search Properties</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

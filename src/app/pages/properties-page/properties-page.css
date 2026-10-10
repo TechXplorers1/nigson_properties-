@@ -1,3 +1,14 @@
+:host {
+  display: block;
+  font-family: 'Satoshi', sans-serif !important;
+}
+
 .properties-page-layout {
   position: relative;
+  font-family: 'Satoshi', sans-serif !important;
 }
+
+.properties-page-layout *:not([class*="ri-"]) {
+  font-family: 'Satoshi', sans-serif !important;
+}
+

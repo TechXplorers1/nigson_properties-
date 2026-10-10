@@ -2,6 +2,17 @@
 /* SHORT STAY PAGE - LUXURY NIGSON AESTHETICS                */
 /* ========================================================= */
 
+:host {
+  display: block;
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+:host *:not([class*="ri-"]),
+.short-stay-page *:not([class*="ri-"]),
+.short-stay-page-layout *:not([class*="ri-"]) {
+  font-family: 'Satoshi', sans-serif !important;
+}
+
 .short-stay-page {
   background-color: #ffffff;
   color: #000000;
@@ -207,6 +218,7 @@
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .stay-card:hover {
@@ -244,6 +256,7 @@
 }
 
 .badge {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.7rem;
   font-weight: 700;
   padding: 0.25rem 0.55rem;
@@ -289,6 +302,7 @@
   display: flex;
   align-items: center;
   gap: 0.3rem;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .stay-card-body {
@@ -304,23 +318,27 @@
   justify-content: space-between;
   margin-bottom: 0.4rem;
   font-size: 0.74rem;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .stay-type {
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .stay-location {
   color: #000000;
   font-weight: 600;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .stay-title {
   font-size: 1.2rem;
   font-weight: 800;
   color: #000000 !important;
+  font-family: 'Satoshi', sans-serif !important;
   margin: 0.2rem 0 0.75rem 0;
   line-height: 1.35;
   min-height: 3.2rem;
@@ -387,17 +405,20 @@
   display: flex;
   align-items: baseline;
   gap: 0.3rem;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .price-block .price-val {
   font-size: 1.3rem;
   font-weight: 800;
   color: #E6262E;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .price-block .price-sub {
   font-size: 0.75rem;
   color: #94a3b8;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .discount-badge {
@@ -408,6 +429,7 @@
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   border: 1px solid rgba(52, 211, 153, 0.25);
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .stay-card-actions {
@@ -415,6 +437,12 @@
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 0.75rem;
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+.stay-card-actions button,
+.stay-card-actions .btn {
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .secondary-actions {

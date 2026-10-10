@@ -1,11 +1,11 @@
 <section id="showcase" class="section-spacing showcase-section">
   <div class="container">
     
-    <!-- Section Header -->
+    <!-- Section Header with CW Lagos Pill Tabs -->
     <div class="text-center section-header-wrap scroll-reveal">
       <div class="section-badge">
         <i class="ri-sparkles-line"></i>
-        <span>{{ adminService.websiteContent().showcaseBadge || 'Flagship Real Estate' }}</span>
+        <span>{{ adminService.websiteContent().showcaseBadge || 'Curated Portfolio' }}</span>
       </div>
       <h2 class="section-title">
         {{ adminService.websiteContent().showcaseHeading || 'Featured Properties & Signature Developments' }}
@@ -13,11 +13,50 @@
       <p class="section-subtitle mx-auto">
         {{ adminService.websiteContent().showcaseSubtitle || 'Discover institutional-grade residential masterpieces, prime commercial lands, and bespoke executive short-stay residences across prime Lagos.' }}
       </p>
+
+      <!-- CW Lagos Filter Tabs -->
+      <div class="cw-filter-tabs">
+        <button 
+          type="button" 
+          class="cw-tab-pill" 
+          [class.active]="activeLocationFilter() === 'all'" 
+          (click)="setLocationFilter('all')">
+          <i class="ri-apps-line"></i> All Prime Locations
+        </button>
+        <button 
+          type="button" 
+          class="cw-tab-pill" 
+          [class.active]="activeLocationFilter() === 'Ikoyi'" 
+          (click)="setLocationFilter('Ikoyi')">
+          <i class="ri-map-pin-2-line"></i> Ikoyi
+        </button>
+        <button 
+          type="button" 
+          class="cw-tab-pill" 
+          [class.active]="activeLocationFilter() === 'Banana Island'" 
+          (click)="setLocationFilter('Banana Island')">
+          <i class="ri-map-pin-2-line"></i> Banana Island
+        </button>
+        <button 
+          type="button" 
+          class="cw-tab-pill" 
+          [class.active]="activeLocationFilter() === 'Lekki Phase 1'" 
+          (click)="setLocationFilter('Lekki Phase 1')">
+          <i class="ri-map-pin-2-line"></i> Lekki Phase 1
+        </button>
+        <button 
+          type="button" 
+          class="cw-tab-pill" 
+          [class.active]="activeLocationFilter() === 'Victoria Island'" 
+          (click)="setLocationFilter('Victoria Island')">
+          <i class="ri-map-pin-2-line"></i> Victoria Island
+        </button>
+      </div>
     </div>
 
-    <!-- Featured Properties Grid (Top 3 Signature Listings) -->
+    <!-- Featured Properties Grid (3-Column Luxury Cards) -->
     <div class="featured-properties-grid scroll-stagger">
-      @for (property of propertyService.properties().slice(0, 3); track property.id) {
+      @for (property of curatedProperties(); track property.id) {
         <div class="luxury-card featured-prop-card" (click)="openPropertyDetails(property)">
           <!-- Image Box -->
           <div class="prop-img-box">
@@ -42,6 +81,17 @@
               }
             </div>
 
+            <!-- Favorite Heart Button -->
+            <button 
+              type="button" 
+              class="prop-fav-btn" 
+              [class.active]="isFavorite(property.id)"
+              (click)="toggleFavorite(property.id, $event)"
+              title="Save to favorites"
+              aria-label="Save property to favorites">
+              <i [class]="isFavorite(property.id) ? 'ri-heart-fill' : 'ri-heart-line'"></i>
+            </button>
+
             <!-- Price Tag on Image -->
             <div class="prop-price-tag">
               <span class="price-val">{{ property.price }}</span>
@@ -52,34 +102,11 @@
           <!-- Card Content -->
           <div class="prop-card-body">
             <div class="prop-location">
-              <i class="ri-map-pin-2-fill"></i>
+              <i class="ri-map-pin-2-fill text-red"></i>
               <span>{{ property.location }}</span>
             </div>
 
             <h3 class="prop-card-title">{{ property.title }}</h3>
-            <p class="prop-card-desc">{{ property.description | slice:0:75 }}...</p>
-
-            <!-- Key Specs Ribbon -->
-            <div class="prop-specs-row">
-              @if (property.bedrooms) {
-                <div class="spec-pill">
-                  <i class="ri-hotel-bed-line"></i>
-                  <span>{{ property.bedrooms }} Beds</span>
-                </div>
-              }
-              @if (property.bathrooms) {
-                <div class="spec-pill">
-                  <i class="ri-drop-line"></i>
-                  <span>{{ property.bathrooms }} Baths</span>
-                </div>
-              }
-              @if (property.units) {
-                <div class="spec-pill">
-                  <i class="ri-building-line"></i>
-                  <span>{{ property.units }} Units</span>
-                </div>
-              }
-            </div>
 
             <!-- Card Actions -->
             <div class="prop-card-actions">
@@ -87,13 +114,21 @@
                 type="button" 
                 class="btn btn-outline-dark btn-sm flex-1" 
                 (click)="$event.stopPropagation(); openPropertyDetails(property)">
-                <i class="ri-eye-line"></i> View Details
+                <i class="ri-eye-line"></i> Details
               </button>
               <button 
                 type="button" 
                 class="btn btn-red btn-sm flex-1" 
                 (click)="$event.stopPropagation(); openInspection(property)">
                 <i class="ri-calendar-check-line"></i> Inspect
+              </button>
+              <button 
+                type="button" 
+                class="btn btn-whatsapp-icon btn-sm" 
+                (click)="openWhatsApp(property, $event)"
+                title="WhatsApp Inquiry"
+                aria-label="WhatsApp Inquiry">
+                <i class="ri-whatsapp-line"></i>
               </button>
             </div>
           </div>
@@ -116,6 +151,52 @@
         <span class="meta-item"><i class="ri-map-pin-2-fill text-red"></i> Prime Lagos Locations</span>
         <span class="meta-dot">•</span>
         <span class="meta-item"><i class="ri-building-4-line text-gold"></i> 50+ Exclusive Listings</span>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- PRIME LAGOS NEIGHBORHOODS BENTO GRID (CW Lagos Signature Pattern) -->
+    <!-- ========================================================================= -->
+    <div class="neighborhoods-section scroll-reveal">
+      <div class="text-center section-header-wrap">
+        <div class="section-badge">
+          <i class="ri-compass-3-line"></i>
+          <span>Prime Corridors & Postcodes</span>
+        </div>
+        <h2 class="section-title">
+          Explore Lagos <span class="highlight-red">Prime Neighborhoods</span>
+        </h2>
+        <p class="section-subtitle mx-auto">
+          From the exclusive private waterways of Banana Island to the vibrant cosmopolitan pulse of Lekki Phase 1, secure high-yield assets in Lagos' most prestigious enclaves.
+        </p>
+      </div>
+
+      <div class="neighborhoods-bento-grid">
+        @for (hood of neighborhoods; track hood.id; let i = $index) {
+          <div 
+            class="bento-hood-card" 
+            [class.bento-card-large]="i === 0 || i === 1"
+            (click)="navigateToNeighborhood(hood.query)">
+            <img [src]="hood.image" [alt]="hood.name" class="bento-hood-img" loading="lazy" (error)="onImageError($event)" />
+            <div class="bento-hood-overlay"></div>
+            
+            <div class="bento-hood-content">
+              <div class="bento-hood-top">
+                <span class="bento-count-pill">
+                  <i class="ri-building-line"></i> {{ hood.propertiesCount }}
+                </span>
+                <span class="bento-arrow-circle">
+                  <i class="ri-arrow-right-up-line"></i>
+                </span>
+              </div>
+
+              <div class="bento-hood-bottom">
+                <span class="bento-hood-tag">{{ hood.tag }}</span>
+                <h3 class="bento-hood-name">{{ hood.name }}</h3>
+              </div>
+            </div>
+          </div>
+        }
       </div>
     </div>
 

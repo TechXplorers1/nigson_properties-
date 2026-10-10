@@ -1,4 +1,10 @@
+:host {
+  display: block;
+  font-family: 'Satoshi', sans-serif !important;
+}
+
 .showcase-section {
+  font-family: 'Satoshi', sans-serif !important;
   background: #ffffff;
   position: relative;
   border-bottom: 1px solid #e2e8f0;
@@ -6,8 +12,152 @@
   padding-top: 2rem !important;
 }
 
+.showcase-section *:not([class*="ri-"]) {
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+.showcase-section i[class*="ri-"],
+.showcase-section [class*="ri-"],
+.showcase-section [class^="ri-"] {
+  font-family: 'remixicon' !important;
+}
+
+.section-header-wrap {
+  margin-bottom: 2.5rem;
+}
+
+.section-title {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: clamp(1.4rem, 2.6vw, 2.15rem);
+  font-weight: 600;
+  color: #000000 !important;
+  margin-bottom: 0.5rem;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 0.92rem;
+  color: #475569 !important;
+  max-width: 580px;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: -0.008em;
+}
+
+/* CW Lagos Signature Location Filter Tabs */
+.cw-filter-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 1.75rem auto 0 auto;
+}
+
+.cw-tab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #334155;
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cw-tab-pill:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.cw-tab-pill.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.22);
+}
+
+.cw-tab-pill.active i {
+  color: var(--color-red, #D71920);
+}
+
+.prop-fav-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 5;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.prop-fav-btn:hover {
+  background: rgba(215, 25, 32, 0.95);
+  border-color: var(--color-red, #D71920);
+  transform: scale(1.1);
+  color: #ffffff;
+}
+
+.prop-fav-btn.active {
+  background: #ffffff;
+  color: var(--color-red, #D71920);
+  border-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(215, 25, 32, 0.4);
+}
+
+.prop-fav-btn i {
+  font-size: 1.1rem;
+  font-family: 'remixicon' !important;
+}
+
+.btn-whatsapp-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #25D366;
+  color: #ffffff;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(37, 211, 102, 0.35);
+  transition: all 0.2s ease;
+}
+
+.btn-whatsapp-icon:hover {
+  background: #1eb855;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(37, 211, 102, 0.5);
+  color: #ffffff;
+}
+
+.btn-whatsapp-icon i {
+  font-family: 'remixicon' !important;
+}
+
 /* =========================================================
-   Featured Properties Grid (Top 3 Signature Listings)
+   Featured Properties Grid (3-Column Luxury Listings)
 ========================================================= */
 .featured-properties-grid {
   display: grid;
@@ -82,15 +232,17 @@
 
 .price-val {
   font-size: 1.25rem;
-  font-weight: 800;
-  font-family: var(--font-heading);
+  font-weight: 700;
+  font-family: 'Satoshi', sans-serif !important;
   color: #ffffff;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+  letter-spacing: -0.02em;
 }
 
 .price-sub {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #000000 !important;
   background: #ffffff;
   padding: 0.2rem 0.6rem;
@@ -106,6 +258,7 @@
   flex-direction: column;
   flex: 1;
   background: #ffffff;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .prop-location {
@@ -116,21 +269,25 @@
   color: #475569 !important;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .prop-location i {
   color: var(--color-red) !important;
   font-size: 0.95rem;
+  font-family: 'remixicon' !important;
 }
 
 .prop-card-title {
-  font-size: 1.08rem;
+  font-size: 1.1rem;
   color: #000000 !important;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  margin-bottom: 0.45rem;
-  line-height: 1.3;
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin-bottom: 1.25rem;
+  line-height: 1.35;
   transition: color var(--transition-fast);
+  flex: 1;
 }
 
 .featured-prop-card:hover .prop-card-title {
@@ -138,12 +295,14 @@
 }
 
 .prop-card-desc {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.8rem;
   color: #475569 !important;
   line-height: 1.45;
   margin-bottom: 0.85rem;
   flex: 1;
-  font-weight: 500;
+  font-weight: 400;
+  letter-spacing: -0.005em;
 }
 
 .prop-specs-row {
@@ -354,6 +513,153 @@
   }
 }
 
+/* =========================================================================
+   PRIME LAGOS NEIGHBORHOODS BENTO GRID (CW Lagos Signature Pattern)
+   ========================================================================= */
+.neighborhoods-section {
+  margin: 4.5rem 0 3.5rem 0;
+}
+
+.neighborhoods-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.5rem;
+}
+
+.bento-hood-card {
+  position: relative;
+  height: 280px;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  grid-column: span 2;
+}
+
+.bento-hood-card.bento-card-large {
+  grid-column: span 3;
+  height: 330px;
+}
+
+.bento-hood-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+  border-color: rgba(215, 25, 32, 0.4);
+}
+
+.bento-hood-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-hood-card:hover .bento-hood-img {
+  transform: scale(1.08);
+}
+
+.bento-hood-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 12, 0.25) 0%,
+    rgba(10, 10, 12, 0.15) 35%,
+    rgba(10, 10, 12, 0.88) 100%
+  );
+  transition: background 0.35s ease;
+}
+
+.bento-hood-card:hover .bento-hood-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 12, 0.35) 0%,
+    rgba(10, 10, 12, 0.2) 30%,
+    rgba(10, 10, 12, 0.94) 100%
+  );
+}
+
+.bento-hood-content {
+  position: absolute;
+  inset: 0;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.bento-hood-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bento-count-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f172a;
+  padding: 0.32rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.bento-count-pill i {
+  color: var(--color-red, #D71920);
+}
+
+.bento-arrow-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-hood-card:hover .bento-arrow-circle {
+  background: var(--color-red, #D71920);
+  transform: translate(3px, -3px);
+  box-shadow: 0 4px 14px rgba(215, 25, 32, 0.5);
+}
+
+.bento-hood-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.bento-hood-tag {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.bento-hood-name {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.22;
+  margin: 0;
+  letter-spacing: -0.015em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
 /* =========================================================
    Modern Spotlight Cards (Projects & Short Stay)
 ========================================================= */
@@ -366,6 +672,7 @@
   position: relative;
   overflow: hidden;
   margin-top: 3.5rem;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .modern-spotlight-grid {
@@ -390,45 +697,50 @@
   background: #ffffff !important;
   border: 1.5px solid rgba(215, 25, 32, 0.35);
   color: var(--color-red) !important;
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.74rem;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 0.85rem;
   box-shadow: 0 2px 8px rgba(215, 25, 32, 0.08);
 }
 
+.section-badge span {
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
 .section-badge i {
   color: var(--color-red) !important;
   font-size: 0.82rem;
+  font-family: 'remixicon' !important;
 }
 
 /* Content Headings & Descriptions */
 .modern-spotlight-title {
-  font-size: 2.15rem;
-  font-family: var(--font-heading);
-  font-weight: 800;
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  font-weight: 600;
   color: #000000;
   line-height: 1.25;
-  margin-bottom: 1.15rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.65rem;
 }
 
 .highlight-red {
   color: var(--color-red) !important;
 }
 
-.modern-spotlight-title {
-  font-size: clamp(1.25rem, 2vw, 1.65rem);
-  margin-bottom: 0.65rem;
-  line-height: 1.25;
-}
-
 .modern-spotlight-desc {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.88rem;
   color: #475569;
   line-height: 1.5;
   margin-bottom: 1.15rem;
-  font-weight: 450;
+  font-weight: 400;
+  letter-spacing: -0.008em;
 }
 
 /* Modern Highlights Stack */
@@ -448,6 +760,7 @@
   border-radius: 10px;
   padding: 0.55rem 0.85rem;
   transition: all 0.25s ease;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .modern-feature-item:hover {
@@ -473,20 +786,29 @@
   box-shadow: 0 2px 6px rgba(215, 25, 32, 0.15);
 }
 
+.feature-icon-badge i {
+  font-family: 'remixicon' !important;
+}
+
 .feature-text-block {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.82rem;
   line-height: 1.38;
 }
 
 .feature-head {
+  font-family: 'Satoshi', sans-serif !important;
   color: #000000;
   font-weight: 700;
+  letter-spacing: -0.01em;
   margin-right: 0.35rem;
 }
 
 .feature-body {
+  font-family: 'Satoshi', sans-serif !important;
   color: #475569;
-  font-weight: 500;
+  font-weight: 400;
+  letter-spacing: -0.005em;
 }
 
 /* Modern Stats Ribbon */
@@ -500,25 +822,29 @@
   padding: 0.75rem 1.15rem;
   margin-bottom: 1.35rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .stat-box {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .stat-value {
-  font-family: var(--font-heading);
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 1.22rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--color-red);
   line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .stat-label {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.68rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #475569;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -532,15 +858,23 @@
 
 /* Primary CTA Button */
 .modern-primary-cta {
+  font-family: 'Satoshi', sans-serif !important;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 1.45rem;
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   font-size: 0.88rem;
   border-radius: var(--radius-full);
   box-shadow: 0 6px 20px rgba(215, 25, 32, 0.3);
   transition: all 0.25s ease;
+}
+
+.modern-primary-cta span {
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .modern-primary-cta:hover {
@@ -649,15 +983,20 @@
 }
 
 .stage-badge {
+  font-family: 'Satoshi', sans-serif !important;
   padding: 0.32rem 0.85rem;
   border-radius: var(--radius-full);
   font-size: 0.74rem;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+}
+
+.stage-badge i {
+  font-family: 'remixicon' !important;
 }
 
 .stage-badge-red {
@@ -676,6 +1015,7 @@
 
 .stage-badge-glass i {
   color: var(--color-red);
+  font-family: 'remixicon' !important;
 }
 
 /* Floating Navigation Arrows */
@@ -698,6 +1038,10 @@
   z-index: 15;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
   transition: all 0.25s ease;
+}
+
+.stage-nav-arrow i {
+  font-family: 'remixicon' !important;
 }
 
 .stage-nav-arrow.arrow-prev {
@@ -729,6 +1073,7 @@
   justify-content: space-between;
   gap: 1rem;
   background: linear-gradient(0deg, rgba(10, 10, 12, 0.98) 0%, rgba(10, 10, 12, 0.65) 75%, transparent 100%);
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .stage-panel-info {
@@ -737,6 +1082,7 @@
   gap: 0.25rem;
   flex: 1;
   min-width: 0;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .stage-meta-row {
@@ -744,17 +1090,20 @@
   align-items: center;
   gap: 0.65rem;
   margin-bottom: 0.15rem;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .stage-pill-tag {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--color-red);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 .stage-counter {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.68rem;
   font-weight: 700;
   color: #94a3b8;
@@ -764,17 +1113,21 @@
 }
 
 .stage-slide-title {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 1.25rem;
-  font-weight: 800;
+  font-weight: 600;
   color: #ffffff;
   margin: 0;
   line-height: 1.25;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.015em;
 }
 
-.stage-slide-meta {
+.stage-slide-meta,
+.stage-slide-meta span {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.82rem;
   color: #cbd5e1;
   margin: 0;
@@ -784,17 +1137,26 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 500;
+  letter-spacing: -0.008em;
 }
 
 .stage-slide-meta i {
   color: var(--color-red);
   font-size: 0.9rem;
+  font-family: 'remixicon' !important;
+}
+
+.stage-cta-button,
+.stage-cta-button span {
+  font-family: 'Satoshi', sans-serif !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .stage-cta-button {
   padding: 0.55rem 1.15rem;
   font-size: 0.84rem;
-  font-weight: 700;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
@@ -802,6 +1164,10 @@
   flex-shrink: 0;
   box-shadow: 0 4px 14px rgba(215, 25, 32, 0.4);
   transition: all 0.25s ease;
+}
+
+.stage-cta-button i {
+  font-family: 'remixicon' !important;
 }
 
 .stage-cta-button:hover {
@@ -843,6 +1209,7 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 0.55rem;
   width: 100%;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .thumbnail-card {
@@ -858,6 +1225,7 @@
   position: relative;
   overflow: hidden;
   text-align: left;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .thumbnail-card:hover {
@@ -890,11 +1258,12 @@
 }
 
 .thumb-index-tag {
+  font-family: 'Satoshi', sans-serif !important;
   position: absolute;
   top: 3px;
   left: 3px;
   font-size: 0.62rem;
-  font-weight: 800;
+  font-weight: 700;
   background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(4px);
   color: #ffffff;
@@ -907,29 +1276,34 @@
   flex-direction: column;
   gap: 0.15rem;
   min-width: 0;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .thumb-title {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.74rem;
   font-weight: 700;
   color: #1e293b;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
 }
 
 .thumbnail-card.is-active .thumb-title {
   color: var(--color-red);
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .thumb-caption {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.68rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #64748b;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.005em;
 }
 
 .thumb-active-indicator {
@@ -1050,5 +1424,147 @@
   .modern-primary-cta {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* =========================================================================
+   EXECUTIVE LEADERSHIP & ADVISORY TEAM (CW Lagos Corporate Excellence)
+   ========================================================================= */
+.leadership-section {
+  margin: 5rem 0 3rem 0;
+}
+
+.leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.leadership-card {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.leadership-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(215, 25, 32, 0.35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.09);
+}
+
+.leader-img-box {
+  position: relative;
+  height: 290px;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.leader-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.leadership-card:hover .leader-img {
+  transform: scale(1.05);
+}
+
+.leader-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(10, 10, 12, 0.8) 100%);
+}
+
+.leader-cred-badge {
+  position: absolute;
+  bottom: 0.95rem;
+  left: 0.95rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f172a;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.28rem 0.75rem;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.leader-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.leader-name {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.015em;
+}
+
+.leader-title {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-red, #D71920);
+  margin-bottom: 0.8rem;
+}
+
+.leader-desc {
+  font-family: 'Satoshi', sans-serif !important;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #64748b;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+
+.leader-contact-row {
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+  padding-top: 0.85rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+@media (max-width: 992px) {
+  .leadership-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .neighborhoods-bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .bento-hood-card,
+  .bento-hood-card.bento-card-large {
+    grid-column: span 1;
+    height: 260px;
+  }
+}
+
+@media (max-width: 640px) {
+  .leadership-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .neighborhoods-bento-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bento-hood-card,
+  .bento-hood-card.bento-card-large {
+    grid-column: span 1;
+    height: 230px;
   }
 }

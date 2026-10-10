@@ -1,7 +1,18 @@
+:host {
+  display: block;
+  font-family: 'Satoshi', sans-serif !important;
+}
+
+:host *:not([class*="ri-"]),
+.properties-section *:not([class*="ri-"]) {
+  font-family: 'Satoshi', sans-serif !important;
+}
+
 .properties-section {
   background-color: #ffffff;
   position: relative;
   padding-top: 1.15rem;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .section-header-wrap {
@@ -212,7 +223,13 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-md); box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; }
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  overflow: hidden;
+  font-family: 'Satoshi', sans-serif !important;
+}
 
 /* Card Image */
 .property-image-box {
@@ -304,7 +321,7 @@ background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-md);
 }
 
 .price-val {
-  font-family: var(--font-heading);
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 1.22rem;
   font-weight: 800;
   color: #ffffff;
@@ -313,6 +330,7 @@ background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-md);
 }
 
 .price-sub {
+  font-family: 'Satoshi', sans-serif !important;
   font-size: 0.7rem;
   font-weight: 800;
   color: #000000 !important;
@@ -331,6 +349,7 @@ background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-md);
   flex-direction: column;
   flex: 1;
   background: #ffffff;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .property-location-tag {
@@ -341,6 +360,7 @@ background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-md);
   color: #000000 !important;
   margin-bottom: 0.4rem;
   font-weight: 600;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 .property-card-title {
@@ -348,6 +368,7 @@ background: #ffffff; border: 1px solid #e2e8f0; border-radius: var(--radius-md);
   font-weight: 800;
   margin-bottom: 1rem;
   color: #000000 !important;
+  font-family: 'Satoshi', sans-serif !important;
   line-height: 1.35;
   min-height: 2.7rem;
   transition: color var(--transition-fast);

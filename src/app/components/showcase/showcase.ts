@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PropertyService } from '../../services/property.service';
 import { AdminService } from '../../services/admin.service';
+import { AuthService } from '../../services/auth.service';
 import { Property } from '../../models/property.model';
 
 export interface ProjectSlide {
@@ -41,6 +42,65 @@ export interface ShortStaySlide {
 export class ShowcaseComponent implements OnInit, OnDestroy {
   public propertyService = inject(PropertyService);
   public adminService = inject(AdminService);
+  public authService = inject(AuthService);
+  public router = inject(Router);
+
+  // Filter for Curated Luxury Properties Grid
+  public activeLocationFilter = signal<string>('all');
+
+  public curatedProperties = computed(() => {
+    const filter = this.activeLocationFilter();
+    const all = this.propertyService.properties();
+    if (filter === 'all') return all.slice(0, 6);
+    return all.filter(p => 
+      p.location.toLowerCase().includes(filter.toLowerCase()) || 
+      (p.neighborhoodArea && p.neighborhoodArea.toLowerCase().includes(filter.toLowerCase()))
+    );
+  });
+
+  // Prime Lagos Neighborhoods Bento Grid Data
+  public readonly neighborhoods = [
+    {
+      id: 'ikoyi',
+      name: 'Old Ikoyi & Osborne',
+      tag: 'Diplomatic Enclave & Elite Waterfronts',
+      propertiesCount: '18+ Properties',
+      image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
+      query: 'Ikoyi'
+    },
+    {
+      id: 'banana-island',
+      name: 'Banana Island',
+      tag: 'Ultra-Luxury Gated Billionaire Row',
+      propertiesCount: '12+ Properties',
+      image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80',
+      query: 'Banana Island'
+    },
+    {
+      id: 'lekki-1',
+      name: 'Lekki Phase 1',
+      tag: 'Contemporary Luxury & Cosmopolitan Living',
+      propertiesCount: '24+ Properties',
+      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+      query: 'Lekki Phase 1'
+    },
+    {
+      id: 'vi',
+      name: 'Victoria Island / Eko Pearl',
+      tag: 'Financial Epicenter & High-Rise Towers',
+      propertiesCount: '15+ Properties',
+      image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
+      query: 'Victoria Island'
+    },
+    {
+      id: 'ologolo',
+      name: 'Ologolo & Coastal Axis',
+      tag: 'Rapidly Appreciating Residential Hubs',
+      propertiesCount: '16+ Properties',
+      image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80',
+      query: 'Ologolo'
+    }
+  ];
 
   // 1. Featured Landmark Project Developments Data
   public readonly projectSlides: ProjectSlide[] = [
@@ -262,6 +322,32 @@ export class ShowcaseComponent implements OnInit, OnDestroy {
 
   public onShortStayMouseLeave(): void {
     this.isShortStayHovered.set(false);
+  }
+
+  public setLocationFilter(loc: string): void {
+    this.activeLocationFilter.set(loc);
+  }
+
+  public navigateToNeighborhood(locationQuery: string): void {
+    this.router.navigate(['/properties'], { queryParams: { location: locationQuery } });
+  }
+
+  public toggleFavorite(propertyId: string, event: Event): void {
+    event.stopPropagation();
+    this.authService.toggleSaveProperty(propertyId);
+  }
+
+  public isFavorite(propertyId: string): boolean {
+    return this.authService.isPropertySaved(propertyId);
+  }
+
+  public openWhatsApp(property?: Property, event?: Event): void {
+    if (event) event.stopPropagation();
+    const text = property
+      ? `Hello Nigson Properties, I am interested in inquiring about ${property.title} located in ${property.location} priced at ${property.price}.`
+      : 'Hello Nigson Properties, I would like to inquire about your luxury listings in Lagos.';
+    const link = this.propertyService.getWhatsAppLink(text);
+    window.open(link, '_blank');
   }
 
   // --- Modal Helpers ---

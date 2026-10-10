@@ -47,4 +47,13 @@ export class TestimonialsComponent {
   public togglePause(): void {
     this.isPaused.update(val => !val);
   }
+
+  public openValuationModal(): void {
+    this.propertyService.openInspectionModal('Property Valuation & Strategic Advisory Request');
+  }
+
+  public openWhatsApp(): void {
+    const link = this.propertyService.getWhatsAppLink('Hello Nigson Properties, I would like to request a property valuation and speak with an investment advisor.');
+    window.open(link, '_blank');
+  }
 }

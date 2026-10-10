@@ -1,19 +1,28 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { PropertyService } from '../../services/property.service';
 import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './hero.html',
   styleUrl: './hero.css'
 })
 export class HeroComponent implements AfterViewInit {
   public propertyService = inject(PropertyService);
   public adminService = inject(AdminService);
+  public router = inject(Router);
+
+  // Search Engine State
+  public selectedTab = signal<string>('all');
+  public searchLocation = signal<string>('all');
+  public searchPropertyType = signal<string>('all');
+  public searchBedrooms = signal<string>('all');
+  public searchMaxPrice = signal<number>(1000000000);
 
   @ViewChild('heroVideo') public heroVideoRef?: ElementRef<HTMLVideoElement>;
 
@@ -27,6 +36,33 @@ export class HeroComponent implements AfterViewInit {
         // Handled: muted autoplay policy
       });
     }
+  }
+
+  public selectTab(tab: string): void {
+    this.selectedTab.set(tab);
+    if (tab === 'short-stay') {
+      this.router.navigate(['/short-stay']);
+    } else if (tab === 'projects') {
+      this.router.navigate(['/projects']);
+    }
+  }
+
+  public applySearch(): void {
+    const tab = this.selectedTab();
+    if (tab === 'short-stay') {
+      this.router.navigate(['/short-stay']);
+      return;
+    }
+    if (tab === 'projects') {
+      this.router.navigate(['/projects']);
+      return;
+    }
+
+    this.propertyService.setCategory(tab);
+    this.propertyService.setLocation(this.searchLocation());
+    this.propertyService.setBedrooms(this.searchBedrooms());
+    this.propertyService.setMaxPrice(this.searchMaxPrice());
+    this.router.navigate(['/properties']);
   }
 
   public openInspection(): void {

@@ -6,10 +6,22 @@
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@1,2&display=swap');
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,800,700,600,500,400,300&display=swap');
 
-/* Local Satoshi Fonts (Guaranteed 100% Offline & Instant Load from local /public/fonts) */
+/* Local & CDN Satoshi Fonts (Guaranteed 100% Offline & Instant Load from local /public/fonts) */
 @font-face {
   font-family: 'Satoshi';
-  src: url('/fonts/satoshi-light.woff2') format('woff2'),
+  src: local('Satoshi'),
+       local('Satoshi-Variable'),
+       url('/fonts/satoshi-variable.woff2') format('woff2-variations'),
+       url('/fonts/satoshi-variable.woff2') format('woff2'),
+       url('https://cdn.fontshare.com/wf/NWBQYJIM7GCZ5XWD7D26ARB3VDY55ZRT/K63EV2KZIGKLE7RANQ2U42S6SVHU5RJ7/X6XYTKIVDUW7GZTZPZNN4EUM5KH54KHF.woff2') format('woff2');
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: local('Satoshi Light'),
+       url('/fonts/satoshi-light.woff2') format('woff2'),
        url('https://cdn.fontshare.com/wf/D7WD5OXZFWQ5T76HSPWAC7MNKAJXE2YG/LUGNSPO5YC34ABNB2O6K7AFDSOJZT56V/WNDVG7O66ENLOD43GS7FBUCC4KMT5OM2.woff2') format('woff2');
   font-weight: 300;
   font-display: swap;
@@ -17,7 +29,10 @@
 }
 @font-face {
   font-family: 'Satoshi';
-  src: url('/fonts/satoshi-regular.woff2') format('woff2'),
+  src: local('Satoshi'),
+       local('Satoshi Regular'),
+       local('Satoshi-Regular'),
+       url('/fonts/satoshi-regular.woff2') format('woff2'),
        url('https://cdn.fontshare.com/wf/TTX2Z3BF3P6Y5BQT3IV2VNOK6FL22KUT/7QYRJOI3JIMYHGY6CH7SOIFRQLZOLNJ6/KFIAZD4RUMEZIYV6FQ3T3GP5PDBDB6JY.woff2') format('woff2');
   font-weight: 400;
   font-display: swap;
@@ -25,7 +40,8 @@
 }
 @font-face {
   font-family: 'Satoshi';
-  src: url('/fonts/satoshi-medium.woff2') format('woff2'),
+  src: local('Satoshi Medium'),
+       url('/fonts/satoshi-medium.woff2') format('woff2'),
        url('https://cdn.fontshare.com/wf/P2LQKHE6KA6ZP4AAGN72KDWMHH6ZH3TA/ZC32TK2P7FPS5GFTL46EU6KQJA24ZYDB/7AHDUZ4A7LFLVFUIFSARGIWCRQJHISQP.woff2') format('woff2');
   font-weight: 500;
   font-display: swap;
@@ -33,7 +49,8 @@
 }
 @font-face {
   font-family: 'Satoshi';
-  src: url('/fonts/satoshi-bold.woff2') format('woff2'),
+  src: local('Satoshi Bold'),
+       url('/fonts/satoshi-bold.woff2') format('woff2'),
        url('https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZELWQI/PXCT3G6LO6ICM5I3NTYENYPWJAECAWDD/GHM6WVH6MILNYOOCXHXB5GTSGNTMGXZR.woff2') format('woff2');
   font-weight: 600;
   font-display: swap;
@@ -41,7 +58,8 @@
 }
 @font-face {
   font-family: 'Satoshi';
-  src: url('/fonts/satoshi-bold.woff2') format('woff2'),
+  src: local('Satoshi Bold'),
+       url('/fonts/satoshi-bold.woff2') format('woff2'),
        url('https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZELWQI/PXCT3G6LO6ICM5I3NTYENYPWJAECAWDD/GHM6WVH6MILNYOOCXHXB5GTSGNTMGXZR.woff2') format('woff2');
   font-weight: 700;
   font-display: swap;
@@ -49,7 +67,8 @@
 }
 @font-face {
   font-family: 'Satoshi';
-  src: url('/fonts/satoshi-black.woff2') format('woff2'),
+  src: local('Satoshi Black'),
+       url('/fonts/satoshi-black.woff2') format('woff2'),
        url('https://cdn.fontshare.com/wf/NHPGVFYUXYXE33DZ75OIT4JFGHITX5PE/PSUTMASCDJTVPERDYJZPN23BVUFUCQIF/J64QX5IPOHK56I2KYUNBQ5M2XWZEYKYX.woff2') format('woff2');
   font-weight: 800;
   font-display: swap;
@@ -57,7 +76,8 @@
 }
 @font-face {
   font-family: 'Satoshi';
-  src: url('/fonts/satoshi-black.woff2') format('woff2'),
+  src: local('Satoshi Black'),
+       url('/fonts/satoshi-black.woff2') format('woff2'),
        url('https://cdn.fontshare.com/wf/NHPGVFYUXYXE33DZ75OIT4JFGHITX5PE/PSUTMASCDJTVPERDYJZPN23BVUFUCQIF/J64QX5IPOHK56I2KYUNBQ5M2XWZEYKYX.woff2') format('woff2');
   font-weight: 900;
   font-display: swap;
@@ -112,9 +132,9 @@
   --color-whatsapp-hover: #20bd5a;
 
   /* Typography - CW Real Estate (cwlagos.com) Signature Satoshi Font System */
-  --font-heading: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-serif: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-body: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: 'Satoshi', sans-serif;
+  --font-serif: 'Satoshi', sans-serif;
+  --font-body: 'Satoshi', sans-serif;
 
   /* Shadows & Elevation */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -147,7 +167,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Satoshi', sans-serif;
 }
 
 html {
@@ -159,7 +179,7 @@ html {
 }
 
 body {
-  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  font-family: 'Satoshi', sans-serif !important;
   background-color: #ffffff;
   color: #000000;
   line-height: 1.6;
@@ -178,10 +198,12 @@ h1, h2, h3, h4, h5, h6,
 .service-title,
 .pillar-title,
 .prop-card-title,
+.property-card-title,
+.stay-title,
 .project-title,
 .stage-slide-title,
 .modern-spotlight-title {
-  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  font-family: 'Satoshi', sans-serif !important;
   font-weight: 600;
   color: #000000;
   line-height: 1.22;
@@ -210,7 +232,7 @@ textarea,
 .nav-link,
 .dropdown-item,
 label {
-  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  font-family: 'Satoshi', sans-serif !important;
   letter-spacing: -0.005em;
 }
 
@@ -229,9 +251,10 @@ em,
 .subtitle,
 .section-subtitle,
 .prop-card-desc,
+.property-card-desc,
 .modern-spotlight-desc,
 .toast-desc {
-  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  font-family: 'Satoshi', sans-serif !important;
 }
 
 p,
@@ -250,11 +273,47 @@ b {
 }
 
 /* ==========================================================================
-   EXPLICIT SECTIONAL SATOSHI ENFORCEMENT (SHORT STAY, SERVICES, ABOUT, ALL PAGES)
+   EXPLICIT SECTIONAL SATOSHI ENFORCEMENT (PROPERTIES, SHORT STAY, PROJECTS, ALL PAGES)
    Guarantees zero fallback leaks on every view across the entire website
    ========================================================================== */
+app-properties,
+app-properties *:not([class*="ri-"]),
+app-properties-page,
+app-properties-page *:not([class*="ri-"]),
+.properties-page-layout,
+.properties-page-layout *:not([class*="ri-"]),
+.properties-section,
+.properties-section *:not([class*="ri-"]),
+.property-card,
+.property-card *:not([class*="ri-"]),
+.properties-grid,
+.properties-grid *:not([class*="ri-"]),
+.properties-search-wrapper,
+.properties-search-wrapper *:not([class*="ri-"]),
+app-projects-page,
+app-projects-page *:not([class*="ri-"]),
+.projects-page-layout,
+.projects-page-layout *:not([class*="ri-"]),
+app-projects-matrix,
+app-projects-matrix *:not([class*="ri-"]),
+.projects-matrix-section,
+.projects-matrix-section *:not([class*="ri-"]),
+.projects-grid,
+.projects-grid *:not([class*="ri-"]),
+.project-card,
+.project-card *:not([class*="ri-"]),
+.matrix-table,
+.matrix-table *:not([class*="ri-"]),
+app-short-stay-page,
+app-short-stay-page *:not([class*="ri-"]),
 .short-stay-page,
 .short-stay-page *:not([class*="ri-"]),
+.short-stay-page-layout,
+.short-stay-page-layout *:not([class*="ri-"]),
+.stay-card,
+.stay-card *:not([class*="ri-"]),
+.stays-grid,
+.stays-grid *:not([class*="ri-"]),
 .services-section,
 .services-section *:not([class*="ri-"]),
 .about-section,
@@ -271,12 +330,20 @@ app-contact,
 app-contact *:not([class*="ri-"]),
 app-contact-page,
 app-contact-page *:not([class*="ri-"]),
-.properties-section,
-.properties-section *:not([class*="ri-"]),
 .projects-section,
 .projects-section *:not([class*="ri-"]),
 .hero-section,
 .hero-section *:not([class*="ri-"]),
+.home-page,
+.home-page *:not([class*="ri-"]),
+app-showcase,
+app-showcase *:not([class*="ri-"]),
+.modern-spotlight-card,
+.modern-spotlight-card *:not([class*="ri-"]),
+.modern-projects-spotlight,
+.modern-projects-spotlight *:not([class*="ri-"]),
+.modern-shortstay-spotlight,
+.modern-shortstay-spotlight *:not([class*="ri-"]),
 .showcase-section,
 .showcase-section *:not([class*="ri-"]),
 .pillars-section,
