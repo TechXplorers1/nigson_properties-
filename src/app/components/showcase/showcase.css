@@ -1,10 +1,10 @@
 :host {
   display: block;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .showcase-section {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   background: #ffffff;
   position: relative;
   border-bottom: 1px solid #e2e8f0;
@@ -13,7 +13,7 @@
 }
 
 .showcase-section *:not([class*="ri-"]) {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .showcase-section i[class*="ri-"],
@@ -27,7 +27,7 @@
 }
 
 .section-title {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: clamp(1.4rem, 2.6vw, 2.15rem);
   font-weight: 600;
   color: #000000 !important;
@@ -37,7 +37,7 @@
 }
 
 .section-subtitle {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.92rem;
   color: #475569 !important;
   max-width: 580px;
@@ -65,7 +65,7 @@
   border: 1px solid #e2e8f0;
   background: #f8fafc;
   color: #334155;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
@@ -167,26 +167,27 @@
 }
 
 .featured-prop-card {
-  border-radius: var(--radius-lg);
+  position: relative;
+  height: 440px;
+  border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  border: 1.5px solid #e2e8f0;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
-  transition: all var(--transition-base);
+  background: #0d1017;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
 }
 
 .featured-prop-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(215, 25, 32, 0.4);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08), 0 0 20px rgba(215, 25, 32, 0.1);
+  transform: translateY(-8px);
+  border-color: rgba(215, 25, 32, 0.45);
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.28), 0 0 30px rgba(215, 25, 32, 0.18);
 }
 
 .prop-img-box {
   position: relative;
-  height: 240px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -194,71 +195,148 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  object-position: center;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
 }
 
 .featured-prop-card:hover .prop-img {
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
-.prop-img-gradient {
+/* Base Gradient for contrast on badges & resting price */
+.prop-base-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10, 10, 12, 0.1) 0%, rgba(10, 10, 12, 0.88) 100%);
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    180deg, 
+    rgba(0, 0, 0, 0.4) 0%, 
+    transparent 22%, 
+    transparent 65%, 
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  transition: opacity 0.35s ease;
 }
 
+/* Top Floating Badges */
 .prop-top-badges {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  right: 1rem;
+  top: 1.1rem;
+  left: 1.1rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
-  z-index: 2;
+  z-index: 6;
 }
 
-.prop-price-tag {
+.prop-top-badges .badge {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.38rem 0.85rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.badge-gold {
+  background: var(--color-red, #D71920);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.badge-sold {
+  background: #0f172a;
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.badge-sale {
+  background: rgba(15, 23, 42, 0.75);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Resting Price Tag (Visible when not hovering on desktop) */
+.prop-default-price {
   position: absolute;
-  bottom: 0.85rem;
-  left: 1rem;
-  right: 1rem;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   z-index: 2;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.price-val {
-  font-size: 1.25rem;
-  font-weight: 700;
-  font-family: 'Satoshi', sans-serif !important;
+.featured-prop-card:hover .prop-default-price {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+.prop-default-price .price-val {
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
-  letter-spacing: -0.02em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  letter-spacing: -0.025em;
 }
 
-.price-sub {
-  font-family: 'Satoshi', sans-serif !important;
+.prop-default-price .price-sub {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.72rem;
   font-weight: 700;
-  color: #000000 !important;
+  color: #0b0c10 !important;
   background: #ffffff;
-  padding: 0.2rem 0.6rem;
-  border-radius: var(--radius-full);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
-.prop-card-body {
-  padding: 1.5rem;
+/* =========================================================
+   Modern Blended Details Overlay (Revealed on Hover)
+   ========================================================= */
+.prop-hover-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
   display: flex;
   flex-direction: column;
-  flex: 1;
-  background: #ffffff;
-  font-family: 'Satoshi', sans-serif !important;
+  justify-content: flex-end;
+  padding: 3.5rem 1.35rem 1.35rem;
+  background: linear-gradient(
+    180deg, 
+    rgba(0, 0, 0, 0) 0%, 
+    rgba(8, 10, 15, 0.4) 22%, 
+    rgba(8, 10, 15, 0.82) 55%, 
+    rgba(5, 7, 10, 0.95) 100%
+  );
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.featured-prop-card:hover .prop-hover-overlay {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.prop-hover-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .prop-location {
@@ -266,74 +344,166 @@
   align-items: center;
   gap: 0.4rem;
   font-size: 0.82rem;
-  color: #475569 !important;
+  color: rgba(255, 255, 255, 0.88) !important;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  font-family: 'Satoshi', sans-serif !important;
+  margin-bottom: 0.4rem;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .prop-location i {
-  color: var(--color-red) !important;
+  color: var(--color-red, #D71920) !important;
   font-size: 0.95rem;
-  font-family: 'remixicon' !important;
+  filter: drop-shadow(0 0 6px rgba(215, 25, 32, 0.6));
 }
 
 .prop-card-title {
-  font-size: 1.1rem;
-  color: #000000 !important;
-  font-family: 'Satoshi', sans-serif !important;
+  font-size: 1.22rem;
+  color: #ffffff !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-weight: 700;
-  letter-spacing: -0.015em;
-  margin-bottom: 1.25rem;
-  line-height: 1.35;
-  transition: color var(--transition-fast);
-  flex: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
-.featured-prop-card:hover .prop-card-title {
-  color: var(--color-red) !important;
-}
-
-.prop-card-desc {
-  font-family: 'Satoshi', sans-serif !important;
-  font-size: 0.8rem;
-  color: #475569 !important;
-  line-height: 1.45;
-  margin-bottom: 0.85rem;
-  flex: 1;
-  font-weight: 400;
-  letter-spacing: -0.005em;
-}
-
-.prop-specs-row {
+.prop-hover-price-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.25rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid #e2e8f0;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.15rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
 }
 
-.spec-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #334155;
-  background: #f1f5f9;
-  padding: 0.25rem 0.65rem;
-  border-radius: var(--radius-full);
+.prop-hover-price-row .price-val {
+  font-size: 1.3rem;
+  font-weight: 800;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  color: #ffffff;
+  letter-spacing: -0.02em;
 }
 
-.spec-pill i {
-  color: var(--color-red);
-  font-size: 0.85rem;
+.prop-hover-price-row .price-sub {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #0b0c10 !important;
+  background: #ffffff;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .prop-card-actions {
   display: flex;
-  gap: 0.75rem;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+/* Details Glass Button */
+.btn-details-glass {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-weight: 600;
+  font-size: 0.84rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-details-glass:hover {
+  background: #ffffff;
+  color: #0b0c10 !important;
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
+}
+
+/* Inspect Red Button */
+.prop-card-actions .btn-red {
+  background: var(--color-red, #D71920);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-weight: 700;
+  font-size: 0.84rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(215, 25, 32, 0.45);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.prop-card-actions .btn-red:hover {
+  background: #be141a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(215, 25, 32, 0.7);
+}
+
+/* WhatsApp Icon Button */
+.btn-whatsapp-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #25D366;
+  color: #ffffff;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-whatsapp-icon:hover {
+  background: #1eb855;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.6);
+  color: #ffffff;
+}
+
+/* Responsive and Touch Fallbacks */
+@media (max-width: 768px), (hover: none) {
+  .featured-prop-card {
+    height: 420px;
+  }
+
+  .prop-default-price {
+    display: none;
+  }
+
+  .prop-hover-overlay {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    background: linear-gradient(
+      180deg, 
+      rgba(0, 0, 0, 0) 0%, 
+      rgba(8, 10, 15, 0.4) 22%, 
+      rgba(8, 10, 15, 0.82) 55%, 
+      rgba(5, 7, 10, 0.95) 100%
+    );
+  }
 }
 
 /* =========================================================
@@ -360,7 +530,7 @@
   background: var(--color-red, #D71920);
   background: linear-gradient(135deg, #E6262E 0%, #D71920 100%);
   color: #ffffff !important;
-  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.015em;
@@ -650,7 +820,7 @@
 }
 
 .bento-hood-name {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 1.35rem;
   font-weight: 700;
   color: #ffffff;
@@ -672,7 +842,7 @@
   position: relative;
   overflow: hidden;
   margin-top: 3.5rem;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .modern-spotlight-grid {
@@ -697,7 +867,7 @@
   background: #ffffff !important;
   border: 1.5px solid rgba(215, 25, 32, 0.35);
   color: var(--color-red) !important;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.74rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -707,7 +877,7 @@
 }
 
 .section-badge span {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-weight: 700;
   letter-spacing: 0.08em;
 }
@@ -720,7 +890,7 @@
 
 /* Content Headings & Descriptions */
 .modern-spotlight-title {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: clamp(1.35rem, 2.2vw, 1.85rem);
   font-weight: 600;
   color: #000000;
@@ -734,7 +904,7 @@
 }
 
 .modern-spotlight-desc {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.88rem;
   color: #475569;
   line-height: 1.5;
@@ -760,7 +930,7 @@
   border-radius: 10px;
   padding: 0.55rem 0.85rem;
   transition: all 0.25s ease;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .modern-feature-item:hover {
@@ -791,13 +961,13 @@
 }
 
 .feature-text-block {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.82rem;
   line-height: 1.38;
 }
 
 .feature-head {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   color: #000000;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -805,7 +975,7 @@
 }
 
 .feature-body {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   color: #475569;
   font-weight: 400;
   letter-spacing: -0.005em;
@@ -822,18 +992,18 @@
   padding: 0.75rem 1.15rem;
   margin-bottom: 1.35rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .stat-box {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .stat-value {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 1.22rem;
   font-weight: 700;
   color: var(--color-red);
@@ -842,7 +1012,7 @@
 }
 
 .stat-label {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.68rem;
   font-weight: 600;
   color: #475569;
@@ -858,7 +1028,7 @@
 
 /* Primary CTA Button */
 .modern-primary-cta {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -872,7 +1042,7 @@
 }
 
 .modern-primary-cta span {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
@@ -983,7 +1153,7 @@
 }
 
 .stage-badge {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   padding: 0.32rem 0.85rem;
   border-radius: var(--radius-full);
   font-size: 0.74rem;
@@ -1073,7 +1243,7 @@
   justify-content: space-between;
   gap: 1rem;
   background: linear-gradient(0deg, rgba(10, 10, 12, 0.98) 0%, rgba(10, 10, 12, 0.65) 75%, transparent 100%);
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .stage-panel-info {
@@ -1082,7 +1252,7 @@
   gap: 0.25rem;
   flex: 1;
   min-width: 0;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .stage-meta-row {
@@ -1090,11 +1260,11 @@
   align-items: center;
   gap: 0.65rem;
   margin-bottom: 0.15rem;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .stage-pill-tag {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.68rem;
   font-weight: 700;
   color: var(--color-red);
@@ -1103,7 +1273,7 @@
 }
 
 .stage-counter {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.68rem;
   font-weight: 700;
   color: #94a3b8;
@@ -1113,7 +1283,7 @@
 }
 
 .stage-slide-title {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 1.25rem;
   font-weight: 600;
   color: #ffffff;
@@ -1127,7 +1297,7 @@
 
 .stage-slide-meta,
 .stage-slide-meta span {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.82rem;
   color: #cbd5e1;
   margin: 0;
@@ -1149,7 +1319,7 @@
 
 .stage-cta-button,
 .stage-cta-button span {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
@@ -1209,7 +1379,7 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 0.55rem;
   width: 100%;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .thumbnail-card {
@@ -1225,7 +1395,7 @@
   position: relative;
   overflow: hidden;
   text-align: left;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .thumbnail-card:hover {
@@ -1258,7 +1428,7 @@
 }
 
 .thumb-index-tag {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   position: absolute;
   top: 3px;
   left: 3px;
@@ -1276,11 +1446,11 @@
   flex-direction: column;
   gap: 0.15rem;
   min-width: 0;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .thumb-title {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.74rem;
   font-weight: 700;
   color: #1e293b;
@@ -1296,7 +1466,7 @@
 }
 
 .thumb-caption {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.68rem;
   font-weight: 500;
   color: #64748b;
@@ -1504,7 +1674,7 @@
 }
 
 .leader-name {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 1.18rem;
   font-weight: 700;
   color: #0f172a;
@@ -1513,7 +1683,7 @@
 }
 
 .leader-title {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--color-red, #D71920);
@@ -1521,7 +1691,7 @@
 }
 
 .leader-desc {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.82rem;
   line-height: 1.55;
   color: #64748b;

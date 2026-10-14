@@ -14,6 +14,7 @@ import { PropertyService } from '../../services/property.service';
 export class FooterComponent {
   public propertyService = inject(PropertyService);
   public newsletterEmail = signal<string>('');
+  public currentYear = new Date().getFullYear();
 
   public scrollTo(sectionId: string): void {
     const el = document.getElementById(sectionId);
@@ -23,14 +24,15 @@ export class FooterComponent {
   }
 
   public subscribeNewsletter(): void {
-    if (!this.newsletterEmail()) {
+    const email = this.newsletterEmail().trim();
+    if (!email) {
       this.propertyService.showToast('Notice', 'Please enter your email address to receive property updates.', 'info');
       return;
     }
 
     this.propertyService.showToast(
       'Newsletter Subscription Confirmed',
-      `Thank you. ${this.newsletterEmail()} has been registered for exclusive off-plan launches and investor insights.`,
+      `Thank you. ${email} has been registered for Nigson Properties listings and investment updates.`,
       'success'
     );
     this.newsletterEmail.set('');

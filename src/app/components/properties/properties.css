@@ -1,18 +1,18 @@
 :host {
   display: block;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 :host *:not([class*="ri-"]),
 .properties-section *:not([class*="ri-"]) {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .properties-section {
   background-color: #ffffff;
   position: relative;
   padding-top: 1.15rem;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .section-header-wrap {
@@ -220,21 +220,29 @@
 }
 
 .property-card {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: var(--radius-md);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  position: relative;
+  height: 440px;
+  border-radius: 20px;
   overflow: hidden;
-  font-family: 'Satoshi', sans-serif !important;
+  cursor: pointer;
+  background: #0d1017;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+}
+
+.property-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(215, 25, 32, 0.45);
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.28), 0 0 30px rgba(215, 25, 32, 0.18);
 }
 
 /* Card Image */
 .property-image-box {
   position: relative;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -242,29 +250,39 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-smooth);
+  object-position: center;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
 }
 
 .property-card:hover .property-img {
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 .property-img-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10, 10, 12, 0.25) 0%, rgba(10, 10, 12, 0.75) 100%);
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    180deg, 
+    rgba(0, 0, 0, 0.4) 0%, 
+    transparent 22%, 
+    transparent 65%, 
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  transition: opacity 0.35s ease;
 }
 
 .card-badges-top {
   position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  right: 0.75rem;
+  top: 1.1rem;
+  left: 1.1rem;
+  right: 1.1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 0.4rem;
-  z-index: 5;
+  z-index: 6;
 }
 
 .badges-left-group {
@@ -274,108 +292,316 @@
   flex-wrap: wrap;
 }
 
+.card-badges-top .badge {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.38rem 0.85rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.badge-sold {
+  background: #0f172a;
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.badge-gold {
+  background: var(--color-red, #D71920);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
 .property-fav-btn {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: #ffffff !important;
-  border: 1px solid rgba(215, 25, 32, 0.35);
-  color: var(--color-red) !important;
+  background: rgba(15, 23, 42, 0.6) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff !important;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: all var(--transition-fast, 0.2s);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .property-fav-btn i {
-  color: var(--color-red) !important;
+  color: #ffffff !important;
 }
 
 .property-fav-btn:hover {
-  background: #ffffff !important;
-  border-color: var(--color-gold, #D71920);
-  color: var(--color-red) !important;
+  background: var(--color-red, #D71920) !important;
+  border-color: var(--color-red, #D71920);
+  color: #ffffff !important;
   transform: scale(1.12);
-  box-shadow: 0 6px 16px rgba(215, 25, 32, 0.25);
+  box-shadow: 0 6px 16px rgba(215, 25, 32, 0.35);
 }
 
 .property-fav-btn.saved {
-  color: #D71920 !important;
-  border-color: #D71920;
+  color: var(--color-red, #D71920) !important;
+  border-color: #ffffff;
   background: #ffffff !important;
 }
 
-.card-price-tag {
-  position: absolute;
-  bottom: 0.75rem;
-  left: 0.75rem;
-  right: 0.75rem;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.property-fav-btn.saved i {
+  color: var(--color-red, #D71920) !important;
 }
 
-.price-val {
-  font-family: 'Satoshi', sans-serif !important;
-  font-size: 1.22rem;
+/* Resting Price Tag (Visible when not hovering on desktop) */
+.card-default-price {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  z-index: 2;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.property-card:hover .card-default-price {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+.card-default-price .price-val {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 1.35rem;
   font-weight: 800;
   color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  letter-spacing: -0.025em;
   line-height: 1.1;
 }
 
-.price-sub {
-  font-family: 'Satoshi', sans-serif !important;
-  font-size: 0.7rem;
-  font-weight: 800;
-  color: #000000 !important;
+.card-default-price .price-sub {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #0b0c10 !important;
   background: #ffffff;
-  padding: 0.18rem 0.55rem;
-  border-radius: var(--radius-full);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* =========================================================
+   Modern Blended Details Overlay (Revealed on Hover)
+   ========================================================= */
+.prop-hover-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 3.5rem 1.35rem 1.35rem;
+  background: linear-gradient(
+    180deg, 
+    rgba(0, 0, 0, 0) 0%, 
+    rgba(8, 10, 15, 0.4) 22%, 
+    rgba(8, 10, 15, 0.82) 55%, 
+    rgba(5, 7, 10, 0.95) 100%
+  );
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.property-card:hover .prop-hover-overlay {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.prop-hover-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.prop-location {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.prop-location i {
+  color: var(--color-red, #D71920) !important;
+  font-size: 0.95rem;
+  filter: drop-shadow(0 0 6px rgba(215, 25, 32, 0.6));
+}
+
+.prop-card-title {
+  font-size: 1.22rem;
+  color: #ffffff !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.prop-hover-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1.15rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.prop-hover-price-row .price-val {
+  font-size: 1.3rem;
+  font-weight: 800;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.prop-hover-price-row .price-sub {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #0b0c10 !important;
+  background: #ffffff;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
-/* Body */
-.property-body {
-  padding: 1.15rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  background: #ffffff;
-  font-family: 'Satoshi', sans-serif !important;
-}
-
-.property-location-tag {
+.prop-card-actions {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.8rem;
-  color: #000000 !important;
-  margin-bottom: 0.4rem;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+/* Details Glass Button */
+.btn-details-glass {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-weight: 600;
-  font-family: 'Satoshi', sans-serif !important;
+  font-size: 0.84rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.property-card-title {
-  font-size: 1.12rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  color: #000000 !important;
-  font-family: 'Satoshi', sans-serif !important;
-  line-height: 1.35;
-  min-height: 2.7rem;
-  transition: color var(--transition-fast);
+.btn-details-glass:hover {
+  background: #ffffff;
+  color: #0b0c10 !important;
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.25);
 }
 
-.property-card:hover .property-card-title {
-  color: var(--color-gold);
+/* Inspect Red Button */
+.prop-card-actions .btn-red {
+  background: var(--color-red, #D71920);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-weight: 700;
+  font-size: 0.84rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(215, 25, 32, 0.45);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.prop-card-actions .btn-red:hover {
+  background: #be141a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(215, 25, 32, 0.7);
+}
+
+/* WhatsApp Icon Button */
+.btn-whatsapp-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #25D366;
+  color: #ffffff;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-whatsapp-icon:hover {
+  background: #1eb855;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.6);
+  color: #ffffff;
+}
+
+/* Responsive and Touch Fallbacks */
+@media (max-width: 768px), (hover: none) {
+  .property-card {
+    height: 420px;
+  }
+
+  .card-default-price {
+    display: none;
+  }
+
+  .prop-hover-overlay {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    background: linear-gradient(
+      180deg, 
+      rgba(0, 0, 0, 0) 0%, 
+      rgba(8, 10, 15, 0.4) 22%, 
+      rgba(8, 10, 15, 0.82) 55%, 
+      rgba(5, 7, 10, 0.95) 100%
+    );
+  }
 }
 
 .property-card-desc {

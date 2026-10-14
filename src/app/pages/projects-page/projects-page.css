@@ -1,14 +1,14 @@
 :host {
   display: block;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .projects-page-layout {
   position: relative;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .projects-page-layout *:not([class*="ri-"]) {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 

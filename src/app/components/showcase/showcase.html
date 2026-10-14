@@ -58,7 +58,7 @@
     <div class="featured-properties-grid scroll-stagger">
       @for (property of curatedProperties(); track property.id) {
         <div class="luxury-card featured-prop-card" (click)="openPropertyDetails(property)">
-          <!-- Image Box -->
+          <!-- Image Box & Blended Elements -->
           <div class="prop-img-box">
             <img 
               [src]="property.heroImage" 
@@ -67,7 +67,7 @@
               loading="lazy" 
               (error)="onImageError($event)" 
             />
-            <div class="prop-img-gradient"></div>
+            <div class="prop-base-gradient"></div>
 
             <!-- Top Floating Badges -->
             <div class="prop-top-badges">
@@ -92,44 +92,56 @@
               <i [class]="isFavorite(property.id) ? 'ri-heart-fill' : 'ri-heart-line'"></i>
             </button>
 
-            <!-- Price Tag on Image -->
-            <div class="prop-price-tag">
+            <!-- Resting Price Tag (Visible before hover) -->
+            <div class="prop-default-price">
               <span class="price-val">{{ property.price }}</span>
               <span class="price-sub">Verified Title</span>
             </div>
-          </div>
 
-          <!-- Card Content -->
-          <div class="prop-card-body">
-            <div class="prop-location">
-              <i class="ri-map-pin-2-fill text-red"></i>
-              <span>{{ property.location }}</span>
-            </div>
+            <!-- Modern Blended Details Overlay (Revealed on Hover) -->
+            <div class="prop-hover-overlay">
+              <div class="prop-hover-content">
+                <!-- Location -->
+                <div class="prop-location">
+                  <i class="ri-map-pin-2-fill text-red"></i>
+                  <span>{{ property.location }}</span>
+                </div>
 
-            <h3 class="prop-card-title">{{ property.title }}</h3>
+                <!-- Property Name -->
+                <h3 class="prop-card-title">{{ property.title }}</h3>
 
-            <!-- Card Actions -->
-            <div class="prop-card-actions">
-              <button 
-                type="button" 
-                class="btn btn-outline-dark btn-sm flex-1" 
-                (click)="$event.stopPropagation(); openPropertyDetails(property)">
-                <i class="ri-eye-line"></i> Details
-              </button>
-              <button 
-                type="button" 
-                class="btn btn-red btn-sm flex-1" 
-                (click)="$event.stopPropagation(); openInspection(property)">
-                <i class="ri-calendar-check-line"></i> Inspect
-              </button>
-              <button 
-                type="button" 
-                class="btn btn-whatsapp-icon btn-sm" 
-                (click)="openWhatsApp(property, $event)"
-                title="WhatsApp Inquiry"
-                aria-label="WhatsApp Inquiry">
-                <i class="ri-whatsapp-line"></i>
-              </button>
+                <!-- Price Row in Hover State -->
+                <div class="prop-hover-price-row">
+                  <span class="price-val">{{ property.price }}</span>
+                  <span class="price-sub">Verified Title</span>
+                </div>
+
+                <!-- Card Actions: Details, Inspect, WhatsApp -->
+                <div class="prop-card-actions">
+                  <button 
+                    type="button" 
+                    class="btn btn-details-glass btn-sm flex-1" 
+                    (click)="$event.stopPropagation(); openPropertyDetails(property)">
+                    <i class="ri-eye-line"></i>
+                    <span>Details</span>
+                  </button>
+                  <button 
+                    type="button" 
+                    class="btn btn-red btn-sm flex-1" 
+                    (click)="$event.stopPropagation(); openInspection(property)">
+                    <i class="ri-calendar-check-line"></i>
+                    <span>Inspect</span>
+                  </button>
+                  <button 
+                    type="button" 
+                    class="btn btn-whatsapp-icon btn-sm" 
+                    (click)="openWhatsApp(property, $event)"
+                    title="WhatsApp Inquiry"
+                    aria-label="WhatsApp Inquiry">
+                    <i class="ri-whatsapp-line"></i>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

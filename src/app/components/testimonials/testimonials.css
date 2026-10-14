@@ -346,7 +346,7 @@
 }
 
 .valuation-title {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: clamp(1.4rem, 2.2vw, 1.95rem);
   font-weight: 700;
   color: #ffffff;
@@ -356,7 +356,7 @@
 }
 
 .valuation-desc {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.9rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.75);

@@ -1,88 +1,10 @@
 /* ==========================================================================
-   REMIX ICON & CW REAL ESTATE (cwlagos.com) SIGNATURE SATOSHI TYPOGRAPHY
+   REMIX ICON & CORMORANT GARAMOND LUXURY TYPOGRAPHY SYSTEM
    ========================================================================== */
 @import 'remixicon/fonts/remixicon.css';
 @import url('https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css');
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@1,2&display=swap');
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,800,700,600,500,400,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
-/* Local & CDN Satoshi Fonts (Guaranteed 100% Offline & Instant Load from local /public/fonts) */
-@font-face {
-  font-family: 'Satoshi';
-  src: local('Satoshi'),
-       local('Satoshi-Variable'),
-       url('/fonts/satoshi-variable.woff2') format('woff2-variations'),
-       url('/fonts/satoshi-variable.woff2') format('woff2'),
-       url('https://cdn.fontshare.com/wf/NWBQYJIM7GCZ5XWD7D26ARB3VDY55ZRT/K63EV2KZIGKLE7RANQ2U42S6SVHU5RJ7/X6XYTKIVDUW7GZTZPZNN4EUM5KH54KHF.woff2') format('woff2');
-  font-weight: 300 900;
-  font-display: swap;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Satoshi';
-  src: local('Satoshi Light'),
-       url('/fonts/satoshi-light.woff2') format('woff2'),
-       url('https://cdn.fontshare.com/wf/D7WD5OXZFWQ5T76HSPWAC7MNKAJXE2YG/LUGNSPO5YC34ABNB2O6K7AFDSOJZT56V/WNDVG7O66ENLOD43GS7FBUCC4KMT5OM2.woff2') format('woff2');
-  font-weight: 300;
-  font-display: swap;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Satoshi';
-  src: local('Satoshi'),
-       local('Satoshi Regular'),
-       local('Satoshi-Regular'),
-       url('/fonts/satoshi-regular.woff2') format('woff2'),
-       url('https://cdn.fontshare.com/wf/TTX2Z3BF3P6Y5BQT3IV2VNOK6FL22KUT/7QYRJOI3JIMYHGY6CH7SOIFRQLZOLNJ6/KFIAZD4RUMEZIYV6FQ3T3GP5PDBDB6JY.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Satoshi';
-  src: local('Satoshi Medium'),
-       url('/fonts/satoshi-medium.woff2') format('woff2'),
-       url('https://cdn.fontshare.com/wf/P2LQKHE6KA6ZP4AAGN72KDWMHH6ZH3TA/ZC32TK2P7FPS5GFTL46EU6KQJA24ZYDB/7AHDUZ4A7LFLVFUIFSARGIWCRQJHISQP.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Satoshi';
-  src: local('Satoshi Bold'),
-       url('/fonts/satoshi-bold.woff2') format('woff2'),
-       url('https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZELWQI/PXCT3G6LO6ICM5I3NTYENYPWJAECAWDD/GHM6WVH6MILNYOOCXHXB5GTSGNTMGXZR.woff2') format('woff2');
-  font-weight: 600;
-  font-display: swap;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Satoshi';
-  src: local('Satoshi Bold'),
-       url('/fonts/satoshi-bold.woff2') format('woff2'),
-       url('https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZELWQI/PXCT3G6LO6ICM5I3NTYENYPWJAECAWDD/GHM6WVH6MILNYOOCXHXB5GTSGNTMGXZR.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Satoshi';
-  src: local('Satoshi Black'),
-       url('/fonts/satoshi-black.woff2') format('woff2'),
-       url('https://cdn.fontshare.com/wf/NHPGVFYUXYXE33DZ75OIT4JFGHITX5PE/PSUTMASCDJTVPERDYJZPN23BVUFUCQIF/J64QX5IPOHK56I2KYUNBQ5M2XWZEYKYX.woff2') format('woff2');
-  font-weight: 800;
-  font-display: swap;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Satoshi';
-  src: local('Satoshi Black'),
-       url('/fonts/satoshi-black.woff2') format('woff2'),
-       url('https://cdn.fontshare.com/wf/NHPGVFYUXYXE33DZ75OIT4JFGHITX5PE/PSUTMASCDJTVPERDYJZPN23BVUFUCQIF/J64QX5IPOHK56I2KYUNBQ5M2XWZEYKYX.woff2') format('woff2');
-  font-weight: 900;
-  font-display: swap;
-  font-style: normal;
-}
 
 /* ==========================================================================
    NIGSON PROPERTIES LIMITED - LUXURY REAL ESTATE DESIGN SYSTEM
@@ -131,10 +53,10 @@
   --color-whatsapp: #25d366;
   --color-whatsapp-hover: #20bd5a;
 
-  /* Typography - CW Real Estate (cwlagos.com) Signature Satoshi Font System */
-  --font-heading: 'Satoshi', sans-serif;
-  --font-serif: 'Satoshi', sans-serif;
-  --font-body: 'Satoshi', sans-serif;
+  /* Typography - CW Real Estate (cwlagos.com) Signature Cormorant Garamond Font System */
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Cormorant Garamond', Georgia, serif;
 
   /* Shadows & Elevation */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -159,7 +81,7 @@
 
 /* ==========================================================================
    UNIVERSAL TYPOGRAPHY ENFORCEMENT ACROSS ENTIRE WEBSITE (CW LAGOS STYLE)
-   Every heading, description, button, input and text element uses Satoshi
+   Every heading, description, button, input and text element uses Cormorant Garamond
    ========================================================================== */
 *,
 *::before,
@@ -167,7 +89,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Satoshi', sans-serif;
+  font-family: 'Cormorant Garamond', Georgia, serif;
 }
 
 html {
@@ -179,7 +101,7 @@ html {
 }
 
 body {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   background-color: #ffffff;
   color: #000000;
   line-height: 1.6;
@@ -203,7 +125,7 @@ h1, h2, h3, h4, h5, h6,
 .project-title,
 .stage-slide-title,
 .modern-spotlight-title {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-weight: 600;
   color: #000000;
   line-height: 1.22;
@@ -232,7 +154,7 @@ textarea,
 .nav-link,
 .dropdown-item,
 label {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   letter-spacing: -0.005em;
 }
 
@@ -254,7 +176,7 @@ em,
 .property-card-desc,
 .modern-spotlight-desc,
 .toast-desc {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 p,
@@ -348,7 +270,7 @@ app-showcase *:not([class*="ri-"]),
 .showcase-section *:not([class*="ri-"]),
 .pillars-section,
 .pillars-section *:not([class*="ri-"]) {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 /* ==========================================================================
@@ -884,7 +806,7 @@ img {
 
 .form-label,
 label {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   display: block;
   font-size: 0.88rem;
   font-weight: 600;
@@ -901,7 +823,7 @@ label {
 input.form-control,
 textarea.form-control,
 select.form-control {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   width: 100%;
   padding: 0.85rem 1.1rem;
   font-size: 0.95rem;
@@ -918,7 +840,7 @@ select.form-control {
 input.form-control:focus,
 textarea.form-control:focus,
 select.form-control:focus {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   outline: none;
   border-color: var(--color-red);
   box-shadow: 0 0 0 3px rgba(215, 25, 32, 0.15);
@@ -928,14 +850,14 @@ select.form-control:focus {
 .form-control::placeholder,
 input::placeholder,
 textarea::placeholder {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-weight: 400;
   color: #71717a;
   letter-spacing: -0.01em;
 }
 
 select.form-control {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   cursor: pointer;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='18' height='18' fill='%23D71920'%3E%3Cpath d='M12 15.5l-6-6h12z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -946,14 +868,14 @@ select.form-control {
 }
 
 select.form-control option {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-weight: 400;
   background: #ffffff;
   color: #0f172a;
 }
 
 textarea.form-control {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-weight: 400;
   letter-spacing: -0.01em;
   resize: vertical;

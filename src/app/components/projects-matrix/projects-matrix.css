@@ -1,18 +1,18 @@
 :host {
   display: block;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 :host *:not([class*="ri-"]),
 .projects-matrix-section *:not([class*="ri-"]) {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .projects-matrix-section {
   background: #ffffff;
   position: relative;
   padding-top: 1.75rem;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 /* Toolbar & Filters */
@@ -110,7 +110,7 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 /* Card Image Box */
@@ -150,7 +150,7 @@
   align-items: center;
   gap: 0.4rem;
   z-index: 2;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .card-price-tag {
@@ -165,7 +165,7 @@
 }
 
 .price-val {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 1.22rem;
   font-weight: 800;
   color: #ffffff;
@@ -174,7 +174,7 @@
 }
 
 .price-sub {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.7rem;
   font-weight: 800;
   color: #000000 !important;
@@ -193,7 +193,7 @@
   flex-direction: column;
   flex: 1;
   background: #ffffff;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .property-location-tag {
@@ -204,7 +204,7 @@
   color: #000000 !important;
   margin-bottom: 0.4rem;
   font-weight: 600;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
 }
 
 .property-card-title {
@@ -212,7 +212,7 @@
   font-weight: 800;
   margin-bottom: 1rem;
   color: #000000 !important;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   line-height: 1.35;
   min-height: 2.7rem;
   transition: color var(--transition-fast);
@@ -346,7 +346,7 @@
 
 .matrix-table th {
   padding: 1.25rem 1.5rem;
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-weight: 700;
   color: var(--color-gold);
   text-transform: uppercase;

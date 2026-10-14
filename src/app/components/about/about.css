@@ -1,5 +1,5 @@
 .about-section {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   background: #ffffff;
   position: relative;
   padding-top: 1.75rem;
@@ -52,7 +52,7 @@
 }
 
 .about-card-title {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 1.6rem;
   font-weight: 600;
   color: #000000;

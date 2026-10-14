@@ -50,7 +50,7 @@
 }
 
 .metric-big-num {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: clamp(2.2rem, 3.2vw, 3rem);
   font-weight: 800;
   color: #ffffff;
@@ -60,7 +60,7 @@
 }
 
 .metric-heading {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 1.1rem;
   font-weight: 700;
   color: #ffffff;
@@ -69,7 +69,7 @@
 }
 
 .metric-explanation {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.84rem;
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.72);

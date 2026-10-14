@@ -1,14 +1,13 @@
 import { Component, ElementRef, ViewChild, AfterViewInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PropertyService } from '../../services/property.service';
 import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule],
   templateUrl: './hero.html',
   styleUrl: './hero.css'
 })
@@ -29,12 +28,19 @@ export class HeroComponent implements AfterViewInit {
   public ngAfterViewInit(): void {
     if (this.heroVideoRef?.nativeElement) {
       const video = this.heroVideoRef.nativeElement;
-      // Set to 0.5x slow motion for ultra-smooth cinematic DJI Inspire 3 drone gliding
+      video.muted = true;
+      video.defaultMuted = true;
+      // Set to 0.5x slow motion for ultra-smooth cinematic drone gliding
       video.playbackRate = 0.5;
 
-      video.play().catch(() => {
-        // Handled: muted autoplay policy
-      });
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Fallback if browser policy requires re-affirmation
+          video.muted = true;
+          video.play().catch(() => {});
+        });
+      }
     }
   }
 

@@ -1,5 +1,5 @@
 .services-section {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   background: #f8fafc;
   position: relative;
   overflow: hidden;
@@ -42,7 +42,7 @@
 }
 
 .section-title {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: clamp(1.4rem, 2.6vw, 2.15rem);
   font-weight: 600;
   color: #000000 !important;
@@ -52,7 +52,7 @@
 }
 
 .section-subtitle {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 0.92rem;
   color: #475569 !important;
   max-width: 580px;
@@ -293,7 +293,7 @@
 }
 
 .service-title {
-  font-family: 'Satoshi', sans-serif !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
   font-size: 1.05rem;
   font-weight: 600;
   color: #000000;
