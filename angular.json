@@ -3,11 +3,11 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": "c04cb62f-975f-49f3-9e8e-deee9fc11dff"
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
-    "nigson-properties": {
+    "nigsonproperties": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -50,20 +50,22 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"]
+            "styles": [
+              "src/styles.css"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1MB",
-                  "maximumError": "2MB"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "60kB",
-                  "maximumError": "100kB"
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
                 }
               ],
               "outputHashing": "all"
@@ -80,10 +82,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "nigson-properties:build:production"
+              "buildTarget": "nigsonproperties:build:production"
             },
             "development": {
-              "buildTarget": "nigson-properties:build:development"
+              "buildTarget": "nigsonproperties:build:development"
             }
           },
           "defaultConfiguration": "development"

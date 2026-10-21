@@ -1,53 +1,88 @@
-import { inject } from '@angular/core';
-import { Routes, CanActivateFn, Router } from '@angular/router';
-import { AuthService } from './services/auth.service';
-import { HomeComponent } from './pages/home/home';
-import { PropertiesPageComponent } from './pages/properties-page/properties-page';
-import { AboutPageComponent } from './pages/about-page/about-page';
-import { ProjectsPageComponent } from './pages/projects-page/projects-page';
-import { ServicesPageComponent } from './pages/services-page/services-page';
-import { ContactPageComponent } from './pages/contact-page/contact-page';
-import { CalculatorPageComponent } from './pages/calculator-page/calculator-page';
-import { LoginPageComponent } from './pages/login-page/login-page';
-import { ProfilePageComponent } from './pages/profile-page/profile-page';
-import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard';
-
-import { ShortStayPageComponent } from './pages/short-stay-page/short-stay-page';
-
-export const adminLoginGuard: CanActivateFn = () => {
-  const authService = inject(AuthService);
-  const router = inject(Router);
-  if (authService.isAdmin()) {
-    return router.createUrlTree(['/admin']);
-  }
-  return true;
-};
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { 
-    path: '', 
-    component: HomeComponent, 
-    title: 'Nigson Properties | Affordable Luxury Real Estate in Lagos' 
+  {
+    path: '',
+    loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent),
+    title: 'Nigson Properties Limited — Architectural Luxury Across Lagos & Abuja'
   },
-  { path: 'properties', component: PropertiesPageComponent, title: 'Properties for Sale | Nigson Properties' },
-  { path: 'short-stay', component: ShortStayPageComponent, title: 'Luxury Short Stay Apartments, Penthouses & Villas | Nigson Properties' },
-  { path: 'about', component: AboutPageComponent, title: 'About Us | Nigson Properties' },
-  { path: 'projects', component: ProjectsPageComponent, title: 'Project Development Matrix | Nigson Properties' },
-  { path: 'portfolio', redirectTo: 'projects', pathMatch: 'full' },
-  { path: 'services', component: ServicesPageComponent, title: 'Our 6 Core Real Estate Services | Nigson Properties' },
-  { path: 'calculator', component: CalculatorPageComponent, title: 'Mortgage & ROI Investment Calculator | Nigson Properties' },
-  { path: 'gallery', redirectTo: 'properties', pathMatch: 'full' },
-  { path: 'contact', component: ContactPageComponent, title: 'Contact Us | Nigson Properties Lagos' },
-  { 
-    path: 'login', 
-    component: LoginPageComponent, 
-    canActivate: [adminLoginGuard],
-    title: 'Client Portal & Login | Nigson Properties' 
+  {
+    path: 'properties',
+    loadComponent: () => import('./pages/properties-hub/properties-hub.component').then(m => m.PropertiesHubComponent),
+    title: 'Exclusive Properties Portfolio — Nigson Properties Limited'
   },
-  { path: 'profile', component: ProfilePageComponent, title: 'Private Client Profile Dashboard | Nigson Properties' },
-  { path: 'admin', component: AdminDashboardComponent, title: 'Executive Admin Control Panel | Nigson Properties' },
-  { path: 'admin/dashboard', redirectTo: 'admin', pathMatch: 'full' },
-  { path: 'portal', redirectTo: 'profile', pathMatch: 'full' },
-  { path: 'dashboard', redirectTo: 'profile', pathMatch: 'full' },
-  { path: '**', redirectTo: '' }
+  {
+    path: 'properties/:id',
+    loadComponent: () => import('./pages/property-detail/property-detail.component').then(m => m.PropertyDetailComponent),
+    title: 'Residence Dossier — Nigson Properties Limited'
+  },
+  {
+    path: 'projects',
+    loadComponent: () => import('./pages/projects-hub/projects-hub.component').then(m => m.ProjectsHubComponent),
+    title: 'Master Developments Matrix — Nigson Properties Limited'
+  },
+  {
+    path: 'projects/:id',
+    loadComponent: () => import('./pages/project-detail/project-detail.component').then(m => m.ProjectDetailComponent),
+    title: 'Development Project Dossier — Nigson Properties Limited'
+  },
+  {
+    path: 'short-stay',
+    loadComponent: () => import('./pages/short-stay-hub/short-stay-hub.component').then(m => m.ShortStayHubComponent),
+    title: 'Executive Short-Stay Suites — Nigson Properties Limited'
+  },
+  {
+    path: 'short-stay/:id',
+    loadComponent: () => import('./pages/short-stay-detail/short-stay-detail.component').then(m => m.ShortStayDetailComponent),
+    title: 'Serviced Suite Reservation — Nigson Properties Limited'
+  },
+  {
+    path: 'gallery',
+    redirectTo: 'projects',
+    pathMatch: 'full'
+  },
+  {
+    path: 'services',
+    loadComponent: () => import('./pages/services-page/services-page.component').then(m => m.ServicesPageComponent),
+    title: 'Core Real Estate Services — Nigson Properties Limited'
+  },
+  {
+    path: 'about',
+    loadComponent: () => import('./pages/about-page/about-page.component').then(m => m.AboutPageComponent),
+    title: 'Corporate Pedigree & Leadership — Nigson Properties Limited'
+  },
+  {
+    path: 'contact',
+    loadComponent: () => import('./pages/contact-page/contact-page.component').then(m => m.ContactPageComponent),
+    title: 'Corporate Headquarters & VIP Desk — Nigson Properties Limited'
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/auth/login.component').then(m => m.LoginComponent),
+    title: 'Private Client Portal Authentication — Nigson Properties Limited'
+  },
+  {
+    path: 'signup',
+    loadComponent: () => import('./pages/auth/signup.component').then(m => m.SignupComponent),
+    title: 'Investor Onboarding — Nigson Properties Limited'
+  },
+  {
+    path: 'forgot-password',
+    loadComponent: () => import('./pages/auth/forgot-password.component').then(m => m.ForgotPasswordComponent),
+    title: 'Reset Password — Nigson Properties Limited'
+  },
+  {
+    path: 'portal',
+    loadComponent: () => import('./pages/portal/portal.component').then(m => m.PortalComponent),
+    title: 'Client Portal Vault — Nigson Properties Limited'
+  },
+  {
+    path: 'admin',
+    loadComponent: () => import('./pages/admin/admin.component').then(m => m.AdminComponent),
+    title: 'Executive CRM Console — Nigson Properties Limited'
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];

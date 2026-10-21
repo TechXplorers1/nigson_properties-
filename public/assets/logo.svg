@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" fill="none" class="w-auto h-full">
+  <!-- Red Rounded Icon Box -->
+  <rect x="2" y="2" width="60" height="60" rx="10" fill="#CC0D23" />
+
+  <!-- White Architectural Building Icon -->
+  <g stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Base Line -->
+    <path d="M 11 47 H 53" />
+
+    <!-- Center Main Tower -->
+    <path d="M 21 47 V 20 A 4 4 0 0 1 25 16 H 39 A 4 4 0 0 1 43 20 V 47" />
+
+    <!-- Left Wing -->
+    <path d="M 13 47 V 30 A 3 3 0 0 1 16 27 H 21" />
+
+    <!-- Right Wing -->
+    <path d="M 43 27 H 48 A 3 3 0 0 1 51 30 V 47" />
+
+    <!-- Upper Window -->
+    <path d="M 27 25 H 37" />
+
+    <!-- Arched Portal / Entrance -->
+    <path d="M 28 47 V 39 A 4 4 0 0 1 36 39 V 47" />
+  </g>
+
+  <!-- Brand Typography -->
+  <!-- Primary Title: NIGSON PROPERTIES -->
+  <text x="80" y="32" font-family="'Manrope', 'Montserrat', -apple-system, sans-serif" font-weight="800" font-size="20" letter-spacing="3.5">
+    <tspan fill="#0B0C10">NIGSON</tspan>
+    <tspan dx="5" fill="#CC0D23">PROPERTIES</tspan>
+  </text>
+
+  <!-- Subtitle: A NIGSON GROUP COMPANY -->
+  <text x="81" y="49" font-family="'Manrope', 'Montserrat', -apple-system, sans-serif" font-weight="500" font-size="9" fill="#64748B" letter-spacing="3.8">
+    A NIGSON GROUP COMPANY
+  </text>
+</svg>

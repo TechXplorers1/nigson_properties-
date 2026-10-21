@@ -1,17 +1,11 @@
-import { Component, inject, signal, computed, effect } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { PropertyService } from './services/property.service';
-import { AuthService } from './services/auth.service';
-import { AnimationService } from './services/animation.service';
-
-// Global Layout Components
-import { HeaderComponent } from './components/header/header';
-import { FooterComponent } from './components/footer/footer';
-import { PropertyModalComponent } from './components/property-modal/property-modal';
-import { InspectionModalComponent } from './components/inspection-modal/inspection-modal';
-import { AuthModalComponent } from './components/auth-modal/auth-modal';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { InspectionModalComponent } from './components/inspection-modal/inspection-modal.component';
+import { BrochureModalComponent } from './components/brochure-modal/brochure-modal.component';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -19,47 +13,29 @@ import { AuthModalComponent } from './components/auth-modal/auth-modal';
   imports: [
     CommonModule,
     RouterOutlet,
-    HeaderComponent,
+    NavbarComponent,
     FooterComponent,
-    PropertyModalComponent,
     InspectionModalComponent,
-    AuthModalComponent
+    BrochureModalComponent
   ],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-  public propertyService = inject(PropertyService);
-  public authService = inject(AuthService);
-  public animationService = inject(AnimationService);
-  public router = inject(Router);
-
-  public currentUrl = signal<string>(typeof window !== 'undefined' ? window.location.pathname : '');
-
-  // On admin page (/admin), show only the dedicated admin layout (hiding public header/footer)
-  public isAdminView = computed(() => {
-    return this.currentUrl().startsWith('/admin');
-  });
+  router = inject(Router);
+  isAdminPage = signal<boolean>(false);
 
   constructor() {
+    this.checkRoute(this.router.url);
     this.router.events.pipe(
-      filter((e): e is NavigationEnd => e instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      const url = event.urlAfterRedirects || event.url;
-      this.currentUrl.set(url);
-      setTimeout(() => this.animationService.initScrollObserver(), 80);
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      this.checkRoute(event.urlAfterRedirects || event.url);
     });
-
-    // Initial check on page boot
-    setTimeout(() => this.animationService.initScrollObserver(), 100);
   }
 
-  public openFloatingWhatsApp(): void {
-    const msg = 'Hello Nigson Properties, I am browsing your corporate website and would like to speak to an agent regarding your properties.';
-    window.open(this.propertyService.getWhatsAppLink(msg), '_blank');
-  }
-
-  public openFloatingInspection(): void {
-    this.propertyService.openInspectionModal();
+  private checkRoute(url: string) {
+    const cleanUrl = url ? url.split('?')[0].split('#')[0] : '';
+    this.isAdminPage.set(cleanUrl.startsWith('/admin'));
   }
 }
