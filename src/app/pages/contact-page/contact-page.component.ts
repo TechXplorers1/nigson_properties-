@@ -1,9 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { SubpageHeroComponent } from '../../components/subpage-hero/subpage-hero.component';
 import { waLink, addLead } from '../../models/data';
+import { CmsService } from '../../services/cms.service';
 
 @Component({
   selector: 'app-contact-page',
@@ -12,12 +13,12 @@ import { waLink, addLead } from '../../models/data';
   template: `
     <div class="min-h-screen bg-white text-zinc-900 font-sans flex flex-col">
       <app-subpage-hero
-        kicker="Corporate Contact & Headquarters"
-        title="Consultation &"
-        highlight="Headquarters"
-        subtitle="Visit our corporate headquarters on Oladimeji Alo Street, Lekki Phase 1, or schedule a consultation with our executive team."
+        [kicker]="cms.hero.kicker"
+        [title]="cms.hero.title"
+        [highlight]="cms.hero.highlight"
+        [subtitle]="cms.hero.subtitle"
         [breadcrumbs]="[{ label: 'Contact Us' }]"
-        bgImage="/assets/consultation.jpg"
+        [bgImage]="cms.hero.bgImage"
       />
 
       <main class="flex-1 mx-auto max-w-7xl px-6 md:px-12 py-16 w-full">
@@ -25,12 +26,12 @@ import { waLink, addLead } from '../../models/data';
           <!-- Left Column: Direct Channels & Office Info -->
           <div class="lg:col-span-5 space-y-8">
             <div>
-              <p class="kicker text-red-600">Direct Communications</p>
+              <p class="kicker text-red-600">{{ cms.office.kicker }}</p>
               <h2 class="font-serif text-3xl font-medium text-zinc-950 mt-1">
-                Lagos Corporate Office
+                {{ cms.office.title }}
               </h2>
               <p class="text-xs md:text-sm text-zinc-500 mt-2 font-light">
-                We welcome prospective homeowners, diaspora investors, short-stay guests, and corporate partners by appointment or walk-in.
+                {{ cms.office.desc }}
               </p>
             </div>
 
@@ -41,9 +42,9 @@ import { waLink, addLead } from '../../models/data';
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
                 </div>
                 <div>
-                  <span class="text-[0.68rem] font-bold uppercase tracking-wider text-zinc-400">Headquarters</span>
-                  <p class="text-sm font-semibold text-zinc-900 mt-0.5">Plot 30B, Block 110, Oladimeji Alo Street</p>
-                  <p class="text-xs text-zinc-500">Lekki Phase 1, Lagos, Nigeria</p>
+                  <span class="text-[0.68rem] font-bold uppercase tracking-wider text-zinc-400">{{ cms.office.headquartersTitle }}</span>
+                  <p class="text-sm font-semibold text-zinc-900 mt-0.5">{{ cms.office.addressLine1 }}</p>
+                  <p class="text-xs text-zinc-500">{{ cms.office.addressLine2 }}</p>
                 </div>
               </div>
 
@@ -54,9 +55,12 @@ import { waLink, addLead } from '../../models/data';
                 <div>
                   <span class="text-[0.68rem] font-bold uppercase tracking-wider text-zinc-400">Telephone Lines</span>
                   <p class="text-sm font-semibold text-zinc-900 mt-0.5">
-                    <a href="tel:+2348073467809" class="hover:text-red-600">08073467809</a> · <a href="tel:+2349134446722" class="hover:text-red-600">09134446722</a>
+                    <ng-container *ngFor="let phone of cms.office.phones; let last = last">
+                      <a [href]="'tel:' + phone" class="hover:text-red-600">{{ phone }}</a>
+                      <span *ngIf="!last"> · </span>
+                    </ng-container>
                   </p>
-                  <p class="text-xs text-zinc-500">Office Hours: Monday–Friday, 9:00 AM–5:00 PM</p>
+                  <p class="text-xs text-zinc-500">{{ cms.office.hours }}</p>
                 </div>
               </div>
 
@@ -67,7 +71,7 @@ import { waLink, addLead } from '../../models/data';
                 <div>
                   <span class="text-[0.68rem] font-bold uppercase tracking-wider text-zinc-400">Electronic Mail</span>
                   <p class="text-sm font-semibold text-zinc-900 mt-0.5">
-                    <a href="mailto:Hello@Nigson.com" class="hover:text-red-600">Hello&#64;Nigson.com</a>
+                    <a [href]="'mailto:' + cms.office.email" class="hover:text-red-600">{{ cms.office.email }}</a>
                   </p>
                   <p class="text-xs text-zinc-500">Corporate Inquiries & Property Support</p>
                 </div>
@@ -92,17 +96,17 @@ import { waLink, addLead } from '../../models/data';
           <!-- Right Column: Property Inquiry Form (BRD Section 14) -->
           <div class="lg:col-span-7">
             <div class="bg-white border border-zinc-200/90 rounded-2xl p-8 md:p-10 shadow-lg">
-              <p class="kicker text-red-600">Client Engagement</p>
-              <h3 class="font-serif text-3xl font-medium text-zinc-950 mt-1">Property Inquiry & Consultation</h3>
-              <p class="text-xs text-zinc-500 mt-1 mb-6">Complete this inquiry form and our designated sales and client services team will contact you promptly.</p>
+              <p class="kicker text-red-600">{{ activeInquiry.kicker }}</p>
+              <h3 class="font-serif text-3xl font-medium text-zinc-950 mt-1">{{ activeInquiry.title }}</h3>
+              <p class="text-xs text-zinc-500 mt-1 mb-6">{{ activeInquiry.desc }}</p>
 
               <div *ngIf="submitted()" class="bg-emerald-50 border border-emerald-300 p-5 rounded-xl text-emerald-900 text-sm mb-6">
                 <p class="font-bold flex items-center gap-2 text-base">
                   <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                  Inquiry Dispatched Successfully
+                  {{ activeInquiry.successTitle || 'Inquiry Dispatched Successfully' }}
                 </p>
                 <p class="text-xs text-emerald-800 mt-1 leading-relaxed">
-                  Thank you, {{ fullName }}. Our sales and client services team will contact you shortly.
+                  Thank you, {{ fullName }}. {{ activeInquiry.successMessage || 'Our sales and client services team will contact you shortly.' }}
                 </p>
                 <button (click)="submitted.set(false)" class="mt-4 px-4 py-2 bg-emerald-700 text-white rounded text-xs font-semibold uppercase tracking-wider">
                   Submit Another Inquiry
@@ -214,7 +218,7 @@ import { waLink, addLead } from '../../models/data';
                   type="submit"
                   class="btn-sweep w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-widest rounded transition-all"
                 >
-                  Submit Property Inquiry
+                  {{ activeInquiry.buttonText || 'Submit Property Inquiry' }}
                 </button>
               </form>
             </div>
@@ -225,6 +229,22 @@ import { waLink, addLead } from '../../models/data';
   `
 })
 export class ContactPageComponent {
+  cmsService = inject(CmsService);
+  get cms() {
+    return this.cmsService.cmsData().contact;
+  }
+
+  get activeInquiry() {
+    return this.cms.inquiryForm || {
+      kicker: 'Client Engagement',
+      title: 'Property Inquiry & Consultation',
+      desc: 'Complete this inquiry form and our designated sales and client services team will contact you promptly.',
+      buttonText: 'Submit Property Inquiry',
+      successTitle: 'Inquiry Dispatched Successfully',
+      successMessage: 'Our sales and client services team will contact you shortly.'
+    };
+  }
+
   fullName = '';
   email = '';
   phone = '';

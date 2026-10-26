@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { SubpageHeroComponent } from '../../components/subpage-hero/subpage-hero.component';
 import { ModalService } from '../../services/modal.service';
 import { projects, Project } from '../../models/data';
+import { CmsService } from '../../services/cms.service';
 
 type StatusFilter = 'all' | 'completed' | 'ongoing';
 type CategoryFilter = 'all' | 'Construction' | 'Property Management' | 'Short Stay';
@@ -16,61 +17,22 @@ type CategoryFilter = 'all' | 'Construction' | 'Property Management' | 'Short St
     <div class="min-h-screen bg-zinc-50 text-zinc-900 font-sans flex flex-col">
       <!-- Subpage Hero -->
       <app-subpage-hero
-        kicker="Track Record & Pipeline"
-        title="Project"
-        highlight="Portfolio"
-        subtitle="Showcasing our completed architectural landmarks across Lekki, Banana Island, and Ikoyi, alongside next-generation master-planned and ongoing developments."
+        [kicker]="cms.hero.kicker"
+        [title]="cms.hero.title"
+        [highlight]="cms.hero.highlight"
+        [subtitle]="cms.hero.subtitle"
         [breadcrumbs]="[{ label: 'Portfolio' }]"
-        bgImage="/assets/projects/whitesand-1.jpg"
+        [bgImage]="cms.hero.bgImage"
       >
         <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-zinc-300 font-medium">
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 6 Landmark Completed Deliveries</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> 100% Sold Out Track Record</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Prime Lekki, Banana Island & Ikoyi</span>
+          <span *ngFor="let b of cms.hero.badges" class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> {{ b }}
+          </span>
         </div>
       </app-subpage-hero>
 
       <!-- Main Content Container -->
       <main class="flex-1 mx-auto max-w-7xl px-4 sm:px-6 md:px-12 py-10 w-full">
-
-        <!-- Executive Portfolio Stats Bar -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-          <div class="bg-white border border-zinc-200/90 rounded-2xl p-5 shadow-sm">
-            <span class="text-[0.68rem] font-bold uppercase tracking-wider text-zinc-500 block">Total Portfolio Units</span>
-            <div class="mt-1 flex items-baseline gap-2">
-              <span class="text-3xl font-serif font-bold text-zinc-950">440+</span>
-              <span class="text-xs text-emerald-600 font-semibold font-sans">Units</span>
-            </div>
-            <p class="text-[0.7rem] text-zinc-400 mt-1">Across 8 High-Yield Developments</p>
-          </div>
-
-          <div class="bg-white border border-zinc-200/90 rounded-2xl p-5 shadow-sm">
-            <span class="text-[0.68rem] font-bold uppercase tracking-wider text-zinc-500 block">Completed & Sold Out</span>
-            <div class="mt-1 flex items-baseline gap-2">
-              <span class="text-3xl font-serif font-bold text-emerald-600">100%</span>
-              <span class="text-xs text-zinc-600 font-semibold font-sans">Turnkey</span>
-            </div>
-            <p class="text-[0.7rem] text-zinc-400 mt-1">Delivered to European Engineering Codes</p>
-          </div>
-
-          <div class="bg-white border border-zinc-200/90 rounded-2xl p-5 shadow-sm">
-            <span class="text-[0.68rem] font-bold uppercase tracking-wider text-zinc-500 block">Prime Corridors</span>
-            <div class="mt-1 flex items-baseline gap-2">
-              <span class="text-3xl font-serif font-bold text-zinc-950">5</span>
-              <span class="text-xs text-zinc-600 font-semibold font-sans">Districts</span>
-            </div>
-            <p class="text-[0.7rem] text-zinc-400 mt-1">Ologolo, Osapa, Banana Island, Ikoyi, Ibeju</p>
-          </div>
-
-          <div class="bg-white border border-zinc-200/90 rounded-2xl p-5 shadow-sm">
-            <span class="text-[0.68rem] font-bold uppercase tracking-wider text-zinc-500 block">Ongoing Pipeline</span>
-            <div class="mt-1 flex items-baseline gap-2">
-              <span class="text-3xl font-serif font-bold text-red-600">2</span>
-              <span class="text-xs text-red-600 font-semibold font-sans">Active Sites</span>
-            </div>
-            <p class="text-[0.7rem] text-zinc-400 mt-1">Master Communities & Skyline Towers</p>
-          </div>
-        </div>
 
         <!-- Filter Controls Header -->
         <div class="bg-white border border-zinc-200/90 rounded-2xl p-6 shadow-sm mb-10">
@@ -231,13 +193,26 @@ type CategoryFilter = 'all' | 'Construction' | 'Property Management' | 'Short St
                     </div>
                   </td>
                   <td class="py-4 px-6 text-right">
-                    <a
-                      [routerLink]="['/projects', pr.id]"
-                      class="inline-flex items-center gap-1 px-3 py-1.5 bg-zinc-950 hover:bg-red-600 text-white rounded text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
-                    >
-                      <span>Explore</span>
-                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </a>
+                    <div class="flex items-center justify-end gap-2">
+                      <a
+                        *ngIf="pr.driveLink"
+                        [href]="pr.driveLink"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="px-2.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded text-[0.68rem] font-bold border border-blue-200 transition-colors inline-flex items-center gap-1"
+                        title="View Google Drive photos"
+                      >
+                        <span>Drive</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                      </a>
+                      <a
+                        [routerLink]="['/projects', pr.id]"
+                        class="inline-flex items-center gap-1 px-3 py-1.5 bg-zinc-950 hover:bg-red-600 text-white rounded text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                      >
+                        <span>Explore</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                      </a>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -390,6 +365,17 @@ type CategoryFilter = 'all' | 'Construction' | 'Property Management' | 'Short St
                   >
                     View Project Dossier →
                   </a>
+                  <a
+                    *ngIf="pr.driveLink"
+                    [href]="pr.driveLink"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="w-full sm:w-auto px-4 py-3.5 bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer text-center border border-amber-300/60 flex items-center justify-center gap-1.5"
+                    title="View client Google Drive media assets"
+                  >
+                    <svg class="w-3.5 h-3.5 text-amber-600" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                    Drive Folder
+                  </a>
                   <button
                     (click)="modalService.openInspection()"
                     class="w-full sm:w-auto px-5 py-3.5 bg-zinc-950 hover:bg-zinc-800 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer shadow-sm text-center"
@@ -434,6 +420,11 @@ type CategoryFilter = 'all' | 'Construction' | 'Property Management' | 'Short St
 })
 export class ProjectsHubComponent {
   modalService = inject(ModalService);
+  cmsService = inject(CmsService);
+  get cms() {
+    return this.cmsService.cmsData().projects;
+  }
+
   allProjects: Project[] = projects;
 
   // Active status filter: 'all' | 'completed' | 'ongoing'

@@ -137,6 +137,99 @@ import { projects, Project, naira, waLink } from '../../models/data';
               <p class="mt-4 text-zinc-600 leading-relaxed text-base font-light">
                 {{ project()!.description }}
               </p>
+              <div *ngIf="project()!.homeSize" class="mt-6 pt-5 border-t border-zinc-100 flex items-center gap-3">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-red-100 text-red-600 font-bold text-sm">📐</span>
+                <div>
+                  <span class="text-[0.68rem] font-bold uppercase tracking-wider text-zinc-400 block">Home Size & Configuration</span>
+                  <span class="text-sm font-serif font-bold text-zinc-900">{{ project()!.homeSize }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Architectural Specifications & Space Layout (Client PDF 2 Portfolio Details) -->
+            <div *ngIf="project()!.bedroomsDetail || project()!.livingSpaceDetail || project()!.amenitiesDetail" class="bg-white border border-zinc-200 p-8 rounded-3xl shadow-sm space-y-8">
+              <div>
+                <p class="kicker text-red-600">Architectural Specifications</p>
+                <h2 class="font-serif text-2xl font-medium text-zinc-950 mt-1">Detailed Space Breakdown & Inclusions</h2>
+                <p class="text-xs text-zinc-500 mt-1">Official layout specifications certified by Nigson Properties development engineering.</p>
+              </div>
+
+              <!-- Bedrooms Breakdown -->
+              <div *ngIf="project()!.bedroomsDetail" class="space-y-3">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-950 flex items-center gap-2">
+                  <span class="text-base">🛏</span> Bedrooms & Private Suites
+                </h3>
+                <div class="grid sm:grid-cols-2 gap-3">
+                  <div *ngFor="let b of project()!.bedroomsDetail" class="p-4 rounded-xl bg-zinc-50 border border-zinc-200/80">
+                    <span class="text-xs font-bold text-zinc-900 block">{{ b.name }}</span>
+                    <p *ngIf="b.desc" class="text-xs text-zinc-600 mt-1 leading-relaxed">{{ b.desc }}</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bathrooms -->
+              <div *ngIf="project()!.bathroomsDetail" class="space-y-3 pt-4 border-t border-zinc-100">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-950 flex items-center gap-2">
+                  <span class="text-base">🚿</span> Bathrooms & Sanitary Features
+                </h3>
+                <div class="grid sm:grid-cols-2 gap-3">
+                  <div *ngFor="let bath of project()!.bathroomsDetail" class="p-3.5 rounded-xl bg-zinc-50 border border-zinc-200/80 flex items-center gap-2.5">
+                    <span class="w-2 h-2 rounded-full bg-red-600 shrink-0"></span>
+                    <span class="text-xs font-medium text-zinc-800">{{ bath }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Living Space & Kitchen -->
+              <div *ngIf="project()!.livingSpaceDetail" class="space-y-3 pt-4 border-t border-zinc-100">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-950 flex items-center gap-2">
+                  <span class="text-base">🛋</span> Living Space & Kitchen Appliances
+                </h3>
+                <div class="grid sm:grid-cols-2 gap-3">
+                  <div *ngFor="let sp of project()!.livingSpaceDetail" class="p-3.5 rounded-xl bg-zinc-50 border border-zinc-200/80 flex items-center gap-2.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-600 shrink-0"></span>
+                    <span class="text-xs font-medium text-zinc-800">{{ sp }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Amenities & Power -->
+              <div *ngIf="project()!.amenitiesDetail" class="space-y-3 pt-4 border-t border-zinc-100">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-950 flex items-center gap-2">
+                  <span class="text-base">⚡</span> Utilities, Power & Water Infrastructure
+                </h3>
+                <div class="grid sm:grid-cols-2 gap-3">
+                  <div *ngFor="let am of project()!.amenitiesDetail" class="p-3.5 rounded-xl bg-zinc-50 border border-zinc-200/80 flex items-center gap-2.5">
+                    <span class="w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
+                    <span class="text-xs font-medium text-zinc-800">{{ am }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Outdoor Features & BQ -->
+              <div *ngIf="project()!.outdoorDetail" class="space-y-3 pt-4 border-t border-zinc-100">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-950 flex items-center gap-2">
+                  <span class="text-base">🚗</span> Outdoor Features, Parking & Security
+                </h3>
+                <div class="grid sm:grid-cols-2 gap-3">
+                  <div *ngFor="let out of project()!.outdoorDetail" class="p-3.5 rounded-xl bg-zinc-50 border border-zinc-200/80 flex items-center gap-2.5">
+                    <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0"></span>
+                    <span class="text-xs font-medium text-zinc-800">{{ out }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Neighborhood & Connectivity -->
+              <div *ngIf="project()!.neighborhoodDetail" class="space-y-3 pt-4 border-t border-zinc-100">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-950 flex items-center gap-2">
+                  <span class="text-base">🏙</span> Neighborhood Features & Proximity
+                </h3>
+                <div class="space-y-2.5">
+                  <div *ngFor="let n of project()!.neighborhoodDetail" class="p-4 rounded-xl bg-[#FAF9F6] border border-zinc-200 text-xs text-zinc-700 leading-relaxed">
+                    {{ n }}
+                  </div>
+                </div>
+              </div>
             </div>
 
             <!-- Features -->
@@ -237,12 +330,39 @@ import { projects, Project, naira, waLink } from '../../models/data';
                 </div>
               </div>
 
+              <!-- Short Stay Quick Action if Benson Close -->
+              <div *ngIf="project()!.status === 'Shortlet'" class="mt-5 pt-4 border-t border-white/10">
+                <a
+                  routerLink="/short-stay/benson-close-suite"
+                  class="w-full py-3 bg-white text-zinc-950 hover:bg-zinc-100 font-bold text-xs uppercase tracking-wider rounded-xl transition-all cursor-pointer block text-center shadow-md mb-2"
+                >
+                  Book 1-Bedroom Suite (Shortlet) →
+                </a>
+              </div>
+
               <button
                 (click)="modalService.openInspection()"
-                class="w-full mt-6 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-widest rounded-xl transition-all cursor-pointer block text-center shadow-md"
+                class="w-full mt-4 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-widest rounded-xl transition-all cursor-pointer block text-center shadow-md"
               >
                 Inquire on this Project
               </button>
+            </div>
+
+            <!-- Google Drive High-Resolution Media Link (from PDF 2 Section E) -->
+            <div *ngIf="project()!.driveLink" class="p-6 bg-blue-50 border border-blue-200 rounded-3xl shadow-xs">
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-900 block mb-1">Google Drive Media Assets</span>
+              <p class="text-xs text-blue-700 leading-relaxed mb-4">
+                Access official high-resolution architectural photography directly on Google Drive as provided in the project portfolio.
+              </p>
+              <a
+                [href]="project()!.driveLink"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-colors"
+              >
+                <span>Open Google Drive Folder</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>
             </div>
 
             <!-- WhatsApp Link Card -->

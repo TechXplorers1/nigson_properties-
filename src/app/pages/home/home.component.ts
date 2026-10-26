@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ModalService } from '../../services/modal.service';
+import { CmsService } from '../../services/cms.service';
 import {
   properties,
   projects,
@@ -40,36 +41,36 @@ interface WhyChooseItem {
       <!-- HERO SECTION -->
       <section id="home" class="relative flex min-h-[92vh] flex-col justify-end bg-[#0B0C10] pt-[72px]">
         <img
-          src="/assets/hero.jpg"
+          [src]="cms.hero.bgImage"
           alt="Nigson waterfront villa at dusk"
           class="absolute inset-0 h-full w-full object-cover filter brightness-[0.75] contrast-[1.05]"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/30 pointer-events-none"></div>
 
         <div class="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-12 pb-20 pt-24 text-white">
-          <p class="kicker text-red-500 mb-3 tracking-[0.35em]">Luxury Real Estate · Lagos & Abuja</p>
+          <p class="kicker text-red-500 mb-3 tracking-[0.35em]">{{ cms.hero.kicker }}</p>
           <h1 class="max-w-6xl font-serif text-4xl leading-[1.05] sm:text-5xl md:text-6xl lg:text-[4.6rem] xl:text-[5.25rem] text-white drop-shadow-md">
-            <span class="block">Redefining <em class="text-red-500 font-serif italic">Architectural Luxury</em></span>
-            <span class="block">Across Lagos & Abuja</span>
+            <span class="block">{{ cms.hero.titleLine1 }} <em class="text-red-500 font-serif italic">{{ cms.hero.titleHighlight }}</em></span>
+            <span class="block">{{ cms.hero.titleLine2 }}</span>
           </h1>
 
           <p class="mt-6 max-w-xl text-base text-zinc-200/95 md:text-lg font-light leading-relaxed">
-            Curating bespoke waterfront residences, smart penthouses, and green communities with guaranteed 24/7 clean energy and unencumbered titles.
+            {{ cms.hero.subtitle }}
           </p>
 
           <div class="mt-9 flex flex-wrap gap-4">
             <a
-              routerLink="/properties"
+              [routerLink]="cms.hero.cta1Link || '/properties'"
               class="btn-sweep flex items-center gap-2 bg-red-600 hover:bg-red-700 px-7 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white rounded transition-all shadow-lg"
             >
-              Explore Developments
+              {{ cms.hero.cta1Text }}
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </a>
             <button
               (click)="modalService.openInspection()"
               class="btn-sweep border border-white/60 bg-black/30 backdrop-blur-sm px-7 py-4 text-xs font-bold uppercase tracking-[0.25em] text-white hover:bg-white hover:text-zinc-950 rounded transition-all"
             >
-              Schedule Private Tour
+              {{ cms.hero.cta2Text }}
             </button>
           </div>
         </div>
@@ -79,23 +80,23 @@ interface WhyChooseItem {
       <section class="bg-white py-24 md:py-32">
         <div class="mx-auto grid max-w-7xl gap-12 px-6 md:px-12 md:grid-cols-2 md:gap-20">
           <div>
-            <p class="kicker text-red-600">The Nigson Standard</p>
+            <p class="kicker text-red-600">{{ cms.standard.kicker }}</p>
             <blockquote class="mt-6 font-serif text-4xl italic leading-tight text-zinc-950 md:text-5xl">
-              “We don’t just build structures; we craft <span class="text-red-600 font-serif not-italic">generational wealth</span> and iconic skylines.”
+              {{ cms.standard.quote }} <span class="text-red-600 font-serif not-italic">{{ cms.standard.quoteHighlight }}</span> {{ cms.standard.quoteSuffix }}
             </blockquote>
           </div>
           <div class="flex flex-col justify-end text-zinc-600">
             <p class="text-base md:text-lg leading-relaxed">
-              Every Nigson residence is engineered to European structural and finishing standards — German fittings, Italian stone, and independent solar microgrids — then placed on the most coveted addresses in Lagos: Lekki Phase 1, Ikoyi, and Banana Island.
+              {{ cms.standard.p1 }}
             </p>
             <p class="mt-5 text-base md:text-lg leading-relaxed">
-              Each title is verified before sale, with Governor’s Consent and C of O guaranteed, so your investment is as secure as it is beautiful.
+              {{ cms.standard.p2 }}
             </p>
             <button
               (click)="modalService.openInspection()"
               class="mt-8 self-start border-b border-red-600 pb-1 text-xs font-bold uppercase tracking-[0.3em] text-red-600 transition hover:border-zinc-950 hover:text-zinc-950"
             >
-              Book a private consultation →
+              {{ cms.standard.consultationText }}
             </button>
           </div>
         </div>
@@ -105,12 +106,12 @@ interface WhyChooseItem {
       <section id="properties" class="bg-[#FAF9F6] py-24 md:py-32 border-t border-zinc-200/60">
         <div class="mx-auto max-w-7xl px-6 md:px-12">
           <div class="mx-auto mb-14 max-w-3xl text-center">
-            <p class="kicker text-red-600">Curated Portfolio</p>
+            <p class="kicker text-red-600">{{ cms.propertiesSection?.kicker || 'Exclusive Inventory' }}</p>
             <h2 class="mt-4 font-serif text-4xl leading-[1.05] md:text-6xl text-zinc-950">
-              Signature Residences & <em class="text-red-600 font-serif italic">Waterfront Villas</em>
+              {{ cms.propertiesSection?.title || 'Featured Residences & Estates' }}
             </h2>
             <p class="mt-4 text-zinc-500 text-sm md:text-base">
-              Explore meticulously finished luxury townhomes, private beachfront compounds, and sky penthouses with uncompromised land documentation.
+              {{ cms.propertiesSection?.subtitle || 'Curated luxury residences across Ikoyi, Banana Island, and Victoria Island available for immediate acquisition.' }}
             </p>
           </div>
 
@@ -206,7 +207,7 @@ interface WhyChooseItem {
               routerLink="/properties"
               class="btn-sweep inline-flex items-center gap-3 px-8 py-4 bg-zinc-950 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-[0.22em] rounded transition-all shadow-md group cursor-pointer"
             >
-              <span>View All Properties</span>
+              <span>{{ cms.propertiesSection?.viewAllText || 'View All Properties' }}</span>
               <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
               </svg>
@@ -219,12 +220,12 @@ interface WhyChooseItem {
       <section id="projects" class="bg-white py-24 md:py-32">
         <div class="mx-auto max-w-7xl px-6 md:px-12">
           <div class="mx-auto mb-12 max-w-3xl text-center">
-            <p class="kicker text-red-600">Track Record & Pipeline</p>
+            <p class="kicker text-red-600">{{ cms.projectsSection?.kicker || 'Track Record & Pipeline' }}</p>
             <h2 class="mt-4 font-serif text-4xl leading-[1.05] md:text-6xl text-zinc-950">
-              Project <em class="text-red-600 font-serif italic">Portfolio Matrix</em>
+              {{ cms.projectsSection?.title || 'Project' }} <em class="text-red-600 font-serif italic">{{ cms.projectsSection?.highlight || 'Portfolio Matrix' }}</em>
             </h2>
             <p class="mt-4 text-zinc-500 text-sm md:text-base">
-              Showcasing 100% completed & sold-out architectural landmarks across Lekki, Banana Island, and Ikoyi, alongside next-generation master developments.
+              {{ cms.projectsSection?.subtitle || 'Showcasing 100% completed & sold-out architectural landmarks across Lekki, Banana Island, and Ikoyi, alongside next-generation master developments.' }}
             </p>
 
             <!-- Status Tabs for Completed vs Ongoing -->
@@ -351,7 +352,7 @@ interface WhyChooseItem {
               routerLink="/projects"
               class="btn-sweep inline-flex items-center gap-3 px-8 py-4 bg-zinc-950 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-[0.22em] rounded transition-all shadow-md group cursor-pointer"
             >
-              <span>View All Developments & Projects</span>
+              <span>{{ cms.projectsSection?.viewAllText || 'View All Developments & Projects' }}</span>
               <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
               </svg>
@@ -364,12 +365,12 @@ interface WhyChooseItem {
       <section id="shortstay" class="relative bg-[#0B0C10] py-24 md:py-32 text-white">
         <div class="relative mx-auto max-w-7xl px-6 md:px-12">
           <div class="mx-auto mb-14 max-w-3xl text-center">
-            <p class="kicker text-red-500">Hospitality & Executive Living</p>
+            <p class="kicker text-red-500">{{ cms.shortStaySection?.kicker || 'Hospitality & Executive Living' }}</p>
             <h2 class="mt-4 font-serif text-4xl leading-[1.05] md:text-6xl text-white">
-              Luxury Short Stay <em class="text-red-500 font-serif italic">Apartments & Suites</em>
+              {{ cms.shortStaySection?.title || 'Luxury Short Stay' }} <em class="text-red-500 font-serif italic">{{ cms.shortStaySection?.highlight || 'Apartments & Suites' }}</em>
             </h2>
             <p class="mt-4 text-zinc-400 text-sm md:text-base">
-              Experience 5-star hotel luxury with the privacy of a private residence in Lagos's most exclusive enclaves.
+              {{ cms.shortStaySection?.subtitle || "Experience 5-star hotel luxury with the privacy of a private residence in Lagos's most exclusive enclaves." }}
             </p>
           </div>
 
@@ -422,7 +423,7 @@ interface WhyChooseItem {
               routerLink="/short-stay"
               class="btn-sweep inline-flex items-center gap-3 px-8 py-4 bg-white hover:bg-red-600 text-zinc-950 hover:text-white font-bold text-xs uppercase tracking-[0.22em] rounded transition-all shadow-md group cursor-pointer"
             >
-              <span>View All Short-Stay Suites</span>
+              <span>{{ cms.shortStaySection?.viewAllText || 'View All Short-Stay Suites' }}</span>
               <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
               </svg>
@@ -431,23 +432,23 @@ interface WhyChooseItem {
         </div>
       </section>
 
-      <!-- 6 CORE CAPABILITIES (INTERACTIVE BOOKSHELF ACCORDION) -->
+      <!-- 7 CORE CAPABILITIES (INTERACTIVE BOOKSHELF ACCORDION) -->
       <section id="services" class="bg-white py-24 md:py-32">
         <div class="mx-auto max-w-7xl px-6 md:px-12">
           <div class="mx-auto mb-14 max-w-3xl text-center">
-            <p class="kicker text-red-600">Integrated Expertise</p>
+            <p class="kicker text-red-600">{{ cms.servicesSection?.kicker || 'Integrated Expertise' }}</p>
             <h2 class="mt-4 font-serif text-4xl leading-[1.05] md:text-6xl text-zinc-950">
-              Our 6 Core <em class="text-red-600 font-serif italic">Capabilities</em>
+              {{ cms.servicesSection?.title || 'Explore 7 Core' }} <em class="text-red-600 font-serif italic">{{ cms.servicesSection?.highlight || 'Capabilities' }}</em>
             </h2>
             <p class="mt-4 text-zinc-500 text-sm md:text-base">
-              Click on each capability tab to explore how Nigson safeguards investments across the property value chain.
+              {{ cms.servicesSection?.subtitle || 'Click on each capability tab to explore how Nigson safeguards investments across the property value chain.' }}
             </p>
           </div>
 
           <!-- DESKTOP BOOKSHELF ACCORDION (md and up) -->
           <div class="hidden md:flex gap-3.5 h-[530px] items-stretch">
             <div
-              *ngFor="let s of allServices; let i = index"
+              *ngFor="let s of servicesList; let i = index"
               (click)="activeService.set(i)"
               class="group relative rounded-3xl transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-hidden cursor-pointer"
               [ngClass]="activeService() === i
@@ -513,7 +514,7 @@ interface WhyChooseItem {
           <!-- MOBILE ACCORDION (< md) -->
           <div class="flex md:hidden flex-col gap-3">
             <div
-              *ngFor="let s of allServices; let i = index"
+              *ngFor="let s of servicesList; let i = index"
               (click)="activeService.set(activeService() === i ? -1 : i)"
               class="rounded-2xl transition-all duration-300 overflow-hidden border"
               [ngClass]="activeService() === i
@@ -582,18 +583,18 @@ interface WhyChooseItem {
       <section id="why-choose" class="border-t border-zinc-200 bg-[#FAF9F6] py-24 md:py-32">
         <div class="mx-auto max-w-7xl px-6 md:px-12">
           <div class="mx-auto mb-14 max-w-3xl text-center">
-            <p class="kicker text-red-600">The Nigson Standard</p>
+            <p class="kicker text-red-600">{{ cms.whyChooseSection?.kicker || 'The Nigson Standard' }}</p>
             <h2 class="mt-4 font-serif text-4xl leading-[1.05] md:text-6xl text-zinc-950">
-              Why Choose <em class="text-red-600 font-serif italic">Nigson Properties</em>
+              {{ cms.whyChooseSection?.title || 'Why Choose' }} <em class="text-red-600 font-serif italic">{{ cms.whyChooseSection?.highlight || 'Nigson Properties' }}</em>
             </h2>
             <p class="mt-4 text-zinc-500 text-sm md:text-base">
-              Built on institutional integrity, European engineering standards, and transparent client partnerships across Nigeria's prime corridors.
+              {{ cms.whyChooseSection?.subtitle || "Built on institutional integrity, European engineering standards, and transparent client partnerships across Nigeria's prime corridors." }}
             </p>
           </div>
 
           <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <div
-              *ngFor="let item of whyChooseItems"
+              *ngFor="let item of whyChooseList"
               class="group h-full rounded-2xl border border-zinc-200/90 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-500/40 hover:shadow-lg"
             >
               <div class="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-red-500/40 bg-red-50 text-red-600 transition-all duration-300 group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white">
@@ -615,12 +616,12 @@ interface WhyChooseItem {
         <div class="mx-auto max-w-7xl px-6 md:px-12">
           <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
-              <p class="kicker text-red-600">Proven Trust & Reputation</p>
+              <p class="kicker text-red-600">{{ cms.testimonialsSection?.kicker || 'Proven Trust & Reputation' }}</p>
               <h2 class="mt-3 font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-zinc-950">
-                Client Testimonials & Reviews
+                {{ cms.testimonialsSection?.title || 'Client Testimonials & Reviews' }}
               </h2>
               <p class="mt-2 text-zinc-500 text-sm max-w-xl">
-                Hear directly from verified homeowners, diaspora investors, short-stay guests, and corporate partners.
+                {{ cms.testimonialsSection?.subtitle || 'Hear directly from verified homeowners, diaspora investors, short-stay guests, and corporate partners.' }}
               </p>
             </div>
 
@@ -784,6 +785,10 @@ interface WhyChooseItem {
 })
 export class HomeComponent {
   modalService = inject(ModalService);
+  cmsService = inject(CmsService);
+  get cms() {
+    return this.cmsService.cmsData().home;
+  }
 
   // Exclusively 6 premier showcase residences and 3 flagship short-stay suites for the Home Page
   allProperties = properties.slice(0, 6);
@@ -814,94 +819,120 @@ export class HomeComponent {
   allTestimonials = testimonials;
   testimonialTab = signal<string>('All');
 
+  get servicesList() {
+    return this.cms.servicesSection?.items?.length ? this.cms.servicesSection.items : this.allServices;
+  }
+
+  get whyChooseList() {
+    return this.cms.whyChooseSection?.items?.length ? this.cms.whyChooseSection.items : this.whyChooseItems;
+  }
+
+  get testimonialsList(): Testimonial[] {
+    if (this.cms.testimonialsSection?.items?.length) {
+      return this.cms.testimonialsSection.items.map((it, idx) => ({
+        id: `cms-test-${idx}`,
+        name: it.name,
+        role: it.role,
+        project: it.project || 'Signature Lekki Estate',
+        location: it.location || 'Lagos, Nigeria',
+        category: (it.category as any) || 'Homeowner',
+        rating: it.rating || 5,
+        quote: it.quote,
+        image: '/assets/team/olubukola-ladeinde.jpg'
+      }));
+    }
+    return this.allTestimonials;
+  }
+
   filteredTestimonials = computed(() => {
     const tab = this.testimonialTab();
-    if (tab === 'All') return this.allTestimonials;
-    return this.allTestimonials.filter(t => t.category === tab);
+    const list = this.testimonialsList;
+    if (tab === 'All') return list;
+    return list.filter(t => t.category === tab);
   });
 
   allServices: ServiceItem[] = [
     {
       num: '01',
       title: 'Building Construction',
-      desc: 'Modern architectural designs, smart home tech, solar power, and family-friendly layouts.',
+      desc: 'Luxurious yet affordable buildings, precision from design to completion, elegance, functionality, and cost-effectiveness.',
       image: '/assets/villa.jpg',
       tag: 'Construction'
     },
     {
       num: '02',
       title: 'Project Development',
-      desc: 'Concept → Feasibility → Design → Development → Construction → Turnkey Handover.',
+      desc: 'In-depth feasibility studies, innovative architectural designs, and sustainable impactful solutions.',
       image: '/assets/community.jpg',
       tag: 'Development'
     },
     {
       num: '03',
       title: 'Property Management',
-      desc: 'Preventive maintenance, tenant relations, and asset value preservation for multi-unit portfolios.',
+      desc: 'Rooted in empathy, proactive maintenance, tenant relations, and financial management to maximize asset value.',
       image: '/assets/banana-1.jpg',
       tag: 'Management'
     },
     {
       num: '04',
-      title: 'Short-Stay Booking',
-      desc: 'Fully furnished serviced suites with seamless online booking, waterfront vistas, and 24/7 power.',
-      image: '/assets/benson-close-1.jpg',
-      tag: 'Short-Stay'
-    },
-    {
-      num: '05',
       title: 'Project Management',
-      desc: 'PMP-certified project scheduling, risk assessment, budget monitoring, and quality assurance.',
+      desc: 'Meticulous planning, risk assessment, seamless coordination, completed on time and within budget.',
       image: '/assets/consultation.jpg',
       tag: 'Project Management'
     },
     {
-      num: '06',
+      num: '05',
       title: 'Facility Management',
-      desc: '24/7 preventative operations, solar microgrid optimization, and continuous asset stewardship.',
+      desc: 'Resilient and value-driven asset care, preventive maintenance, energy optimization, and effective space utilization.',
       image: '/assets/towers.jpg',
       tag: 'Facility Operations'
     },
     {
-      num: '07',
-      title: 'Property Sales',
-      desc: 'Direct developer sales, verified Governor’s Consent titles, and transparent buyer advisory.',
+      num: '06',
+      title: 'Property Sales and Leasing Services',
+      desc: 'Built on trust, integrity, and deep market expertise to ensure every buying, selling, or leasing transaction is seamless.',
       image: '/assets/penthouse.jpg',
-      tag: 'Property Sales'
+      tag: 'Sales & Leasing'
+    },
+    {
+      num: '07',
+      title: 'Short-Stay Luxury Suites',
+      desc: 'Waterfront serviced suites (Benson Close, Ikoyi) with 24/7 power, Wi-Fi, housekeeping every 2 days, and seamless booking.',
+      image: '/assets/benson-close-1.jpg',
+      tag: 'Short Stay'
     }
   ];
 
   whyChooseItems: WhyChooseItem[] = [
     {
-      title: 'A Trusted Name You Can Rely On',
-      desc: 'Backed by the institutional strength, financial integrity, and corporate foundation of Nigson Group.',
-      iconName: 'Building2'
-    },
-    {
-      title: 'Quality Without Compromise',
-      desc: 'Architectural precision, European structural standards, and premium turnkey finishes in every home.',
+      title: 'A Decade of Excellence',
+      desc: 'With over 10 years of experience in real estate, we deliver quality developments that combine modern design, functionality, and affordability.',
       iconName: 'Award'
     },
     {
-      title: 'Lagos Market Expertise',
-      desc: 'Granular micro-market intelligence and strategic property investment insight across prime corridors.',
-      iconName: 'TrendingUp'
+      title: 'Secure & Safe Living',
+      desc: 'Our properties are designed to promote safety and peace of mind, with secure environments and carefully considered security features.',
+      iconName: 'Shield'
     },
     {
-      title: 'Customer-First Transparency',
-      desc: 'Verified land titles, clear documentation, transparent milestone reporting, and dedicated aftercare.',
-      iconName: 'UserCheck'
+      title: 'Sustainable Energy Solutions',
+      desc: 'We incorporate solar panel installations to improve energy efficiency, promote sustainability, and enhance everyday convenience.',
+      iconName: 'Sun'
     },
     {
-      title: 'Innovation-Driven Engineering',
-      desc: 'Standardized smart home automation, high-capacity solar inverters, and central clean water plants.',
-      iconName: 'Cpu'
+      title: 'Ample Parking Spaces',
+      desc: 'Our developments feature well-planned parking spaces that provide convenience for residents and visitors alike.',
+      iconName: 'Car'
     },
     {
-      title: 'Sustainable Long-Term Value',
-      desc: 'Prime high-appreciation assets designed for strong rental yields and generational wealth creation.',
-      iconName: 'Sprout'
+      title: 'Modern Amenities',
+      desc: 'From contemporary facilities to thoughtfully designed living spaces, we integrate modern amenities that enhance comfort, functionality, and quality of life.',
+      iconName: 'Sparkles'
+    },
+    {
+      title: 'Proper Title Documentation',
+      desc: 'We prioritize transparency and confidence in property ownership by ensuring appropriate title documentation and conducting due diligence to help clients make informed and secure property investments.',
+      iconName: 'FileCheck'
     }
   ];
 

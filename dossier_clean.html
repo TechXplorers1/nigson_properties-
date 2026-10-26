@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nigson Properties Limited — Client Review Dossier</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 0;
+      background: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* EXACT A4 SHEET: 210mm x 297mm. NO GAPS, NO OVERFLOWS */
+    .sheet {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      overflow: hidden;
+      padding: 10mm 12mm 8mm 12mm;
+      box-sizing: border-box;
+      page-break-after: always;
+      break-after: page;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: #ffffff !important;
+    }
+
+    /* COVER PAGE */
+    .cover-sheet {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      overflow: hidden;
+      padding: 18mm 16mm 14mm 16mm;
+      box-sizing: border-box;
+      page-break-after: always;
+      break-after: page;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(145deg, #090e17 0%, #151f32 100%) !important;
+      color: #ffffff !important;
+    }
+
+    .cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 14px;
+    }
+
+    .cover-brand {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: #ffffff;
+    }
+
+    .cover-brand span {
+      color: #ef4444;
+    }
+
+    .cover-badge {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .cover-kicker {
+      color: #ef4444;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .cover-title {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #ffffff;
+      margin-bottom: 18px;
+    }
+
+    .cover-desc {
+      color: #cbd5e1;
+      font-size: 13.5px;
+      line-height: 1.6;
+      max-width: 620px;
+      margin-bottom: 28px;
+    }
+
+    .cover-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 18px;
+      border-radius: 8px;
+    }
+
+    .cover-meta-item label {
+      display: block;
+      color: #94a3b8;
+      font-size: 9.5px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .cover-meta-item value {
+      display: block;
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    .cover-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      color: #94a3b8;
+      font-size: 9.5px;
+    }
+
+    /* REVIEW SHEETS */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid #0f172a;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-category {
+      background: #dc2626 !important;
+      color: #ffffff !important;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      padding: 2.5px 7px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .header-doc {
+      font-size: 9.5px;
+      color: #334155;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .header-right {
+      font-size: 9.5px;
+      color: #0f172a;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    /* TITLE BLOCK */
+    .title-block {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .num-badge {
+      background: #0f172a !important;
+      color: #ffffff !important;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      line-height: 1;
+    }
+
+    .title-details {
+      flex: 1;
+    }
+
+    .page-heading {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a !important;
+      line-height: 1.2;
+    }
+
+    .meta-row {
+      margin-top: 2px;
+      font-size: 10px;
+    }
+
+    .meta-label {
+      font-weight: 700;
+      color: #475569 !important;
+      margin-right: 4px;
+    }
+
+    /* HIGH-CONTRAST READABLE URL - NO BLURRY PILLS */
+    .meta-url {
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-weight: 700;
+      color: #b91c1c !important;
+      background: none !important;
+      font-size: 10.5px;
+    }
+
+    /* SCREENSHOT CONTAINER - FIXED PROPORTION WITHOUT GAPS */
+    .screenshot-box {
+      width: 100%;
+      height: 130mm;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .screenshot-img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      object-position: top center;
+      display: block;
+    }
+
+    /* TABLE SECTION */
+    .table-card {
+      width: 100%;
+    }
+
+    .table-header-title {
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: #0f172a !important;
+      margin-bottom: 4px;
+      border-left: 3px solid #dc2626;
+      padding-left: 5px;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9px;
+      border: 1.5px solid #94a3b8;
+      background: #ffffff !important;
+    }
+
+    .data-table th {
+      background: #e2e8f0 !important;
+      color: #0f172a !important;
+      font-weight: 800;
+      text-align: left;
+      padding: 4px 6px;
+      border: 1px solid #94a3b8;
+    }
+
+    .data-table td {
+      padding: 4px 6px;
+      border: 1px solid #cbd5e1;
+      vertical-align: top;
+      color: #0f172a !important;
+      line-height: 1.35;
+    }
+
+    .col-name {
+      font-weight: 700;
+      color: #0f172a !important;
+    }
+
+    .col-curr {
+      color: #1e293b !important;
+    }
+
+    .col-rev {
+      background: #fafafa !important;
+      border-bottom: 1px dashed #94a3b8 !important;
+      min-height: 16px;
+    }
+
+    .status-pill {
+      display: inline-block;
+      background: #fef3c7 !important;
+      color: #78350f !important;
+      font-weight: 700;
+      font-size: 8px;
+      padding: 1.5px 5px;
+      border-radius: 3px;
+      border: 1px solid #fde68a;
+    }
+
+    /* FOOTER BAR */
+    .footer-bar {
+      border-top: 1px solid #cbd5e1;
+      padding-top: 4px;
+      display: flex;
+      justify-content: space-between;
+      color: #64748b !important;
+      font-size: 8.5px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE (PAGE 1) -->
+  <div class="cover-sheet">
+    <div class="cover-top">
+      <div class="cover-brand">NIGSON <span>PROPERTIES</span></div>
+      <div class="cover-badge">EXECUTIVE CLIENT DOSSIER</div>
+    </div>
+
+    <div>
+      <div class="cover-kicker">Client Meeting Copy Audit & Review</div>
+      <h1 class="cover-title">Client Content Review Dossier</h1>
+      <p class="cover-desc">
+        A comprehensive visual catalog and text verification dossier covering all 20 pages of the Nigson Properties Limited platform. Designed for executive review, client copy annotations, and direct feedback sign-off across public pages and the management CRM console.
+      </p>
+
+      <div class="cover-meta-grid">
+        <div class="cover-meta-item">
+          <label>Document Reference</label>
+          <value>NPL-REV-2026-OCT</value>
+        </div>
+        <div class="cover-meta-item">
+          <label>Audit Date</label>
+          <value>October 2026</value>
+        </div>
+        <div class="cover-meta-item">
+          <label>Application Environment</label>
+          <value>http://localhost:4200 (Live Dev)</value>
+        </div>
+        <div class="cover-meta-item">
+          <label>Total Screens Audited</label>
+          <value>20 Full-Page Screens (10 Public, 4 Portal, 6 Admin)</value>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <span>Nigson Properties Limited · CAMA RC 1894231</span>
+      <span>Corporate Headquarters: Lekki Phase 1, Lagos</span>
+      <span>Strictly Confidential</span>
+    </div>
+  </div>
+
+  <!-- ALL 20 REVIEW SHEETS (PAGES 2 TO 21) -->
+  
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">PUBLIC CLIENT PAGES</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 01 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">01</div>
+        <div class="title-details">
+          <h2 class="page-heading">Home Page</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/01_home.png" alt="Home Page" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Hero Tagline</td>
+          <td class="col-curr">LUXURY REAL ESTATE · LAGOS & ABUJA</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Hero Headline</td>
+          <td class="col-curr">Redefining Architectural Luxury Across Lagos & Abuja</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Hero Paragraph</td>
+          <td class="col-curr">Curating bespoke waterfront residences, smart penthouses, and green communities with guaranteed 24/7 clean energy and unencumbered titles.</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Calls to Action</td>
+          <td class="col-curr">EXPLORE DEVELOPMENTS ↓  |  SCHEDULE PRIVATE TOUR</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Stats Bar</td>
+          <td class="col-curr">₦18.4B Gross Pipeline  |  94.2% Occupancy  |  100% Titled Ownership</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 1 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">PUBLIC CLIENT PAGES</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 02 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">02</div>
+        <div class="title-details">
+          <h2 class="page-heading">Properties Portfolio Hub</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/properties</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/02_properties_hub.png" alt="Properties Portfolio Hub" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Banner Tagline</td>
+          <td class="col-curr">EXCLUSIVE ACQUISITIONS PORTFOLIO</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Banner Heading</td>
+          <td class="col-curr">Curated Residences of Distinction</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Banner Description</td>
+          <td class="col-curr">Discover unencumbered Governor's Consent and C-of-O titled private waterfront villas, smart contemporary terraces, and sky penthouses across Banana Island, Ikoyi, Eko Atlantic, and Abuja.</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Category Filters</td>
+          <td class="col-curr">All Residences (17)  |  Luxury Villas  |  Waterfront Penthouses  |  Smart Terraces</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 2 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">PUBLIC CLIENT PAGES</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 03 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">03</div>
+        <div class="title-details">
+          <h2 class="page-heading">Property Detail Dossier — Grand Azure Villa</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/properties/azure</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/03_property_detail.png" alt="Property Detail Dossier — Grand Azure Villa" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Title & Location</td>
+          <td class="col-curr">The Grand Azure Waterfront Villa — Zone A, Ocean Parade Way, Banana Island, Ikoyi</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Price & Specs</td>
+          <td class="col-curr">₦1,250,000,000  ·  5 Beds  ·  5.5 Baths  ·  850 sqm</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Title Deed Status</td>
+          <td class="col-curr">Federal C-of-O & Lagos State Governor's Consent Verified</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Description</td>
+          <td class="col-curr">Ultra-luxury waterfront estate with private deep-water jetty, infinity edge pool, cinema room, and integrated Schneider smart home ecosystem.</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 3 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">PUBLIC CLIENT PAGES</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 04 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">04</div>
+        <div class="title-details">
+          <h2 class="page-heading">Master Developments Matrix</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/projects</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/04_projects_hub.png" alt="Master Developments Matrix" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Tagline</td>
+          <td class="col-curr">MASTER-PLANNED DEVELOPMENTS & CONSTRUCTION</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Heading</td>
+          <td class="col-curr">Engineering Tomorrow's Iconic Landmarks</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Subheading</td>
+          <td class="col-curr">Track structural progress, bored piling, and capital allocation across our landmark residential estates in Lekki, Ikoyi, and Abuja.</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Developments Tracked</td>
+          <td class="col-curr">Opposite Whitesand, Fatai Bankole, White Oaks Estate, Olufemi Olatunji, Nigson Villa</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 4 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">PUBLIC CLIENT PAGES</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 05 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">05</div>
+        <div class="title-details">
+          <h2 class="page-heading">Development Dossier — Opposite Whitesand Estate</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/projects/opposite-whitesand</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/05_project_detail.png" alt="Development Dossier — Opposite Whitesand Estate" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Project Title</td>
+          <td class="col-curr">Opposite Whitesand Beach Estate</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Tagline</td>
+          <td class="col-curr">Luxurious Modern 5-Bedroom Fully & Semi-Detached Duplex in Ologolo, Lekki, Lagos</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Milestone Progress</td>
+          <td class="col-curr">100% Construction Complete · Handed Over to Investors · 32% Projected ROI</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Engineering Specs</td>
+          <td class="col-curr">Structural Grade C35 Concrete, German Hansgrohe Sanity fittings, Inverter & Solar Grid</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 5 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">PUBLIC CLIENT PAGES</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 06 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">06</div>
+        <div class="title-details">
+          <h2 class="page-heading">Executive Short-Stay Suites Hub</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/short-stay</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/06_short_stay_hub.png" alt="Executive Short-Stay Suites Hub" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Tagline</td>
+          <td class="col-curr">HOSPITALITY & CONCIERGE RESIDENCES</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Heading</td>
+          <td class="col-curr">Ultra-Luxury Serviced Executive Short-Lets</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Description</td>
+          <td class="col-curr">Furnished 1 to 4 bedroom waterfront residences and penthouses in Ikoyi, Lekki Phase 1, Eko Atlantic, and Banana Island for corporate executives and travelers.</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Rates & Inclusions</td>
+          <td class="col-curr">Starting from ₦220,000/night with 24/7 Chef, Starlink WiFi, and Security Chauffeur</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 6 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">PUBLIC CLIENT PAGES</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 07 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">07</div>
+        <div class="title-details">
+          <h2 class="page-heading">Short-Stay Detail — Benson Close Ikoyi Suite</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/short-stay/benson-close-suite</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/07_short_stay_detail.png" alt="Short-Stay Detail — Benson Close Ikoyi Suite" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Suite Title</td>
+          <td class="col-curr">Benson Close Ikoyi Short-Stay Apartment</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Location & Rate</td>
+          <td class="col-curr">Benson Close, Awolowo, Old Ikoyi, Lagos — ₦280,000 per night</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Occupancy Specs</td>
+          <td class="col-curr">1 Bedroom · 1.5 Baths · Max 2 Guests</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Terms & Policies</td>
+          <td class="col-curr">Check-in: 2:00 PM / Check-out: 11:00 AM. Caution Deposit: ₦100,000 refundable.</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 7 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">PUBLIC CLIENT PAGES</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 08 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">08</div>
+        <div class="title-details">
+          <h2 class="page-heading">Core Real Estate Services</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/services</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/08_services.png" alt="Core Real Estate Services" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Section Tag</td>
+          <td class="col-curr">COMPREHENSIVE ADVISORY & DEVELOPMENT SERVICES</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Heading</td>
+          <td class="col-curr">Bespoke Real Estate Services for HNWIs & Institutional Investors</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Core Pillars</td>
+          <td class="col-curr">1. Turnkey Construction | 2. Private Client Advisory | 3. Title Due Diligence | 4. Asset Management | 5. Short-Stay Concierge | 6. Diaspora Syndication</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 8 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">PUBLIC CLIENT PAGES</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 09 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">09</div>
+        <div class="title-details">
+          <h2 class="page-heading">Corporate Pedigree & Heritage</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/about</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/09_about.png" alt="Corporate Pedigree & Heritage" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Section Tag</td>
+          <td class="col-curr">HERITAGE & INSTITUTIONAL STRENGTH</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Heading</td>
+          <td class="col-curr">Building Trust. Creating Value.</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Mission & Vision</td>
+          <td class="col-curr">Transforming prime African skylines through uncompromising engineering excellence, transparent corporate governance, and zero legal ambiguity.</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Registration Details</td>
+          <td class="col-curr">Incorporated under CAMA (CAMA 2020), Federal Republic of Nigeria, RC 1894231</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Leadership Status</td>
+          <td class="col-curr">Executive Board Leadership section removed as requested by client.</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 9 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">PUBLIC CLIENT PAGES</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 10 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">10</div>
+        <div class="title-details">
+          <h2 class="page-heading">Corporate Headquarters & VIP Desk</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/contact</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/10_contact.png" alt="Corporate Headquarters & VIP Desk" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Section Tag</td>
+          <td class="col-curr">CONNECT WITH OUR EXECUTIVES</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Heading</td>
+          <td class="col-curr">Private Consultations & Confidential Inquiries</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Office Address</td>
+          <td class="col-curr">Plot 30B, Block 110, Oladimeji Alo Street, Lekki Phase 1, Lagos</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Phone & Email</td>
+          <td class="col-curr">+234 807 346 7809 / +234 913 444 6722 · Hello@Nigson.com</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 10 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">AUTHENTICATION & VAULT</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 11 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">11</div>
+        <div class="title-details">
+          <h2 class="page-heading">Client Portal Login</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/login</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/11_login.png" alt="Client Portal Login" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Headline</td>
+          <td class="col-curr">Sign In to Your Private Client Vault</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Subtitle</td>
+          <td class="col-curr">Access allocation documents, construction live cameras, payment milestones, and deed registries.</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Form Fields</td>
+          <td class="col-curr">Email Address, Password, Remember Workstation checkbox, Sign In button</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 11 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">AUTHENTICATION & VAULT</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 12 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">12</div>
+        <div class="title-details">
+          <h2 class="page-heading">Investor Onboarding Registration</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/signup</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/12_signup.png" alt="Investor Onboarding Registration" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Headline</td>
+          <td class="col-curr">Private Investor Onboarding Registration</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Subtitle</td>
+          <td class="col-curr">Join our syndicate of discerning local and diaspora investors receiving exclusive off-market allocations and pre-launch pricing.</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Form Fields</td>
+          <td class="col-curr">Full Legal Name, Email Address, WhatsApp Phone, Country of Residence, Target Scope</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 12 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">AUTHENTICATION & VAULT</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 13 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">13</div>
+        <div class="title-details">
+          <h2 class="page-heading">Password Reset Vault</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/forgot-password</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/13_forgot_password.png" alt="Password Reset Vault" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Headline</td>
+          <td class="col-curr">Reset Your Vault Password</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Instructions</td>
+          <td class="col-curr">Enter your verified corporate or investor email to receive single-use authentication credentials.</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 13 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">AUTHENTICATION & VAULT</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 14 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">14</div>
+        <div class="title-details">
+          <h2 class="page-heading">Client Portal Vault Dashboard</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/portal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/14_client_portal.png" alt="Client Portal Vault Dashboard" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Header</td>
+          <td class="col-curr">Investor Asset Vault & Telemetry</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Vault Sections</td>
+          <td class="col-curr">Active Allocations, Payment Receipts & Deeds, Live Construction Feeds, Concierge Requests</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 14 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">EXECUTIVE ADMIN CONSOLE</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 15 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">15</div>
+        <div class="title-details">
+          <h2 class="page-heading">Admin — Executive Overview Module</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/admin (Overview)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/15_admin_overview.png" alt="Admin — Executive Overview Module" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Category & Title</td>
+          <td class="col-curr">TELEMETRY & PERFORMANCE — Executive Overview</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Gross Pipeline KPI</td>
+          <td class="col-curr">₦18.4 Billion (↑ 16.4% MoM Growth)</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Active Private Leads</td>
+          <td class="col-curr">48 Investors (12 UK/US Diaspora)</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Off-Plan Closures</td>
+          <td class="col-curr">14 Units (White Oaks & Lagoon Crest)</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Hospitality Occupancy</td>
+          <td class="col-curr">94.2% Executive Short-Stay</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 15 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">EXECUTIVE ADMIN CONSOLE</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 16 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">16</div>
+        <div class="title-details">
+          <h2 class="page-heading">Admin — Property Management CMS</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/admin (Properties)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/16_admin_properties.png" alt="Admin — Property Management CMS" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Category & Title</td>
+          <td class="col-curr">INVENTORY CMS — Property Management</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Count & Status</td>
+          <td class="col-curr">17 Total Residences loaded in active management console</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Sample Properties</td>
+          <td class="col-curr">The Grand Azure (₦1.25B), Sovereign Penthouse (₦850M), Obsidian Terrace (₦450M)</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 16 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">EXECUTIVE ADMIN CONSOLE</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 17 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">17</div>
+        <div class="title-details">
+          <h2 class="page-heading">Admin — Project Developments Matrix</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/admin (Projects)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/17_admin_projects.png" alt="Admin — Project Developments Matrix" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Category & Title</td>
+          <td class="col-curr">MASTERPLAN TELEMETRY — Project Developments</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Count & Scope</td>
+          <td class="col-curr">8 Total Projects tracked with structural stages and bored piling</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Milestones</td>
+          <td class="col-curr">Opposite Whitesand (100%), Fatai Bankole (100%), White Oaks Coastal (78%), Lagoon Crest (62%)</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 17 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">EXECUTIVE ADMIN CONSOLE</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 18 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">18</div>
+        <div class="title-details">
+          <h2 class="page-heading">Admin — Short-Stay Bookings</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/admin (Short-Stay)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/18_admin_shortstay.png" alt="Admin — Short-Stay Bookings" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Category & Title</td>
+          <td class="col-curr">HOSPITALITY & CONCIERGE — Short-Stay Bookings</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Suites Count</td>
+          <td class="col-curr">8 Managed Executive Suites with 94.2% Occupancy rate</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Active Tariffs</td>
+          <td class="col-curr">Benson Close (₦280K/nt), Admiralty Suite (₦220K/nt), Banana Island Villa (₦650K/nt)</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 18 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">EXECUTIVE ADMIN CONSOLE</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 19 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">19</div>
+        <div class="title-details">
+          <h2 class="page-heading">Admin — VIP Leads CRM & Inquiries</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/admin (Leads)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/19_admin_leads.png" alt="Admin — VIP Leads CRM & Inquiries" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Category & Title</td>
+          <td class="col-curr">EXECUTIVE VIP CRM — Lead Management</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Pipeline Scope</td>
+          <td class="col-curr">14 Inquiries · 6 Action Required · 3 Tours Scheduled · ₦8.45B Capital In Play</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Inquiry Categories</td>
+          <td class="col-curr">Property Inquiry, Inspection Request, Sales Lead, Leasing Inquiry, Concierge Booking</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 19 of 20</span>
+      </div>
+    </div>
+    
+    <div class="sheet">
+      <!-- Top Running Header -->
+      <div class="header-bar">
+        <div class="header-left">
+          <span class="badge-category">EXECUTIVE ADMIN CONSOLE</span>
+          <span class="header-doc">NIGSON PROPERTIES LIMITED · CLIENT AUDIT</span>
+        </div>
+        <div class="header-right">
+          PAGE 20 OF 20
+        </div>
+      </div>
+
+      <!-- Page Title & Meta Block -->
+      <div class="title-block">
+        <div class="num-badge">20</div>
+        <div class="title-details">
+          <h2 class="page-heading">Admin — Users, Roles & Permissions</h2>
+          <div class="meta-row">
+            <span class="meta-label">Route URL:</span>
+            <span class="meta-url">http://localhost:4200/admin (Users)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Card (Crisp, High-res, Bordered, No Gap) -->
+      <div class="screenshot-box">
+        <img class="screenshot-img" src="file:///c:/Users/user/Desktop/nigson/nigson_properties-/screenshots/20_admin_users.png" alt="Admin — Users, Roles & Permissions" />
+      </div>
+
+      <!-- Change Request Table -->
+      <div class="table-card">
+        <div class="table-header-title">CURRENT TEXT INVENTORY & CLIENT CHANGE REQUEST FORM</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Section / Element</th>
+              <th style="width: 42%;">Current Text in Codebase</th>
+              <th style="width: 28%;">Client Requested Revision</th>
+              <th style="width: 8%;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td class="col-name">Category & Title</td>
+          <td class="col-curr">ENTERPRISE ACCESS & GOVERNANCE — Users, Roles & Permissions</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">User Count</td>
+          <td class="col-curr">9 Total System Users (6 Staff & Executives, 3 Private Investors)</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+        <tr>
+          <td class="col-name">Key Profiles</td>
+          <td class="col-curr">Miss Ijeoma Odunukwe (MD & CEO), Adedamola Adeyemi (Project Director), Ladeinde Olubukola (Sales)</td>
+          <td class="col-rev"></td>
+          <td class="col-status"><span class="status-pill">Pending</span></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Bar -->
+      <div class="footer-bar">
+        <span>Confidential Client Review Dossier · Ref: NPL-REV-2026-OCT</span>
+        <span>Corporate Headquarters: Lekki Phase 1, Lagos · CAMA RC 1894231</span>
+        <span>Sheet 20 of 20</span>
+      </div>
+    </div>
+    
+
+</body>
+</html>

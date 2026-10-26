@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { SubpageHeroComponent } from '../../components/subpage-hero/subpage-hero.component';
 import { ModalService } from '../../services/modal.service';
 import { properties, Property, naira, waLink } from '../../models/data';
+import { CmsService } from '../../services/cms.service';
 
 @Component({
   selector: 'app-properties-hub',
@@ -13,17 +14,17 @@ import { properties, Property, naira, waLink } from '../../models/data';
   template: `
     <div class="min-h-screen bg-white text-zinc-900 font-sans flex flex-col">
       <app-subpage-hero
-        kicker="Curated Portfolio"
-        title="Exclusive Real Estate"
-        highlight="Portfolio"
-        subtitle="Waterfront villas, smart penthouses, and master-planned residences in Lagos's most coveted zip codes. Verified C of O and Governor's Consent guaranteed."
+        [kicker]="cms.hero.kicker"
+        [title]="cms.hero.title"
+        [highlight]="cms.hero.highlight"
+        [subtitle]="cms.hero.subtitle"
         [breadcrumbs]="[{ label: 'Properties' }]"
-        bgImage="/assets/hero.jpg"
+        [bgImage]="cms.hero.bgImage"
       >
         <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-zinc-300 font-medium">
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> 100% Verified Land Titles</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> 24/7 Redundant Solar Grid</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Direct Developer Allocations</span>
+          <span *ngFor="let b of cms.hero.badges" class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> {{ b }}
+          </span>
         </div>
       </app-subpage-hero>
 
@@ -257,6 +258,10 @@ import { properties, Property, naira, waLink } from '../../models/data';
 })
 export class PropertiesHubComponent {
   modalService = inject(ModalService);
+  cmsService = inject(CmsService);
+  get cms() {
+    return this.cmsService.cmsData().properties;
+  }
 
   allProperties = properties;
   search = '';

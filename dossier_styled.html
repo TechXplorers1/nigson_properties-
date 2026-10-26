@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nigson Properties Limited — Client Review Dossier</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 18mm 16mm 18mm 16mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #1e293b;
+      background: #ffffff;
+      padding: 0;
+      margin: 0 auto;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Page breaks for major sections */
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.25;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+      page-break-before: always;
+      break-before: page;
+    }
+
+    /* First h1 on document doesn't need page break */
+    h1:first-of-type {
+      page-break-before: avoid;
+      break-before: avoid;
+      margin-top: 0;
+      font-size: 32px;
+      border-bottom: 3px solid #dc2626;
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* Each individual page review starts on a fresh page */
+    h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 32px;
+      margin-bottom: 12px;
+      padding-top: 10px;
+      page-break-before: always;
+      break-before: page;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-left: 4px solid #dc2626;
+      padding-left: 10px;
+    }
+
+    h4 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #475569;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 12px;
+      color: #334155;
+    }
+
+    ul, ol {
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 6px;
+      color: #334155;
+    }
+
+    strong {
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11.5px;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: #e2e8f0;
+      margin: 24px 0;
+    }
+
+    /* SCREENSHOT IMAGES - High resolution, natural proportions, elegant frame */
+    img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 16px 0 20px 0;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* TABLES - Full width, clean borders, professional zebra-striping */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px 0;
+      font-size: 12px;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #0f172a;
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 2px solid #cbd5e1;
+      border-right: 1px solid #e2e8f0;
+    }
+
+    th:last-child {
+      border-right: none;
+    }
+
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
+      vertical-align: top;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    td:last-child {
+      border-right: none;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:nth-child(even) td {
+      background: #fbfcfe;
+    }
+
+    /* Client revision writable area */
+    td:nth-child(3) {
+      background: #fafafa;
+      min-width: 140px;
+    }
+
+    /* Links */
+    a {
+      color: #dc2626;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <p>﻿# Nigson Properties Limited — Complete Website &amp; Admin Content Review Dossier</p>
+<p><strong>Document Reference:</strong> <code>NPL-REV-2026-OCT</code><br><strong>Application Environment:</strong> <code>http://localhost:4200</code><br><strong>Purpose:</strong> Client text review, copy audit, and change-request catalog across all public pages, investor portals, and the executive admin console.</p>
+<hr>
+<h2>How to Use This Document</h2>
+<p>This dossier presents every screen of the <strong>Nigson Properties Limited</strong> application. For each page, you will find:</p>
+<ol>
+<li><strong>Full-page high-resolution screenshot</strong> capturing the live visual layout and typography.</li>
+<li><strong>Current Content Text Breakdown</strong>: Headings, body copy, and value propositions currently rendered.</li>
+<li><strong>Client Change Request Form</strong>: A structured table where clients can write their revised text, notes, and approvals.</li>
+</ol>
+<hr>
+<h2>Table of Contents</h2>
+<ul>
+<li><a href="#1-public-client-pages">1. Public Client Pages</a><ul>
+<li><a href="#11-home-page-">1.1 Home Page (<code>/</code>)</a></li>
+<li><a href="#12-properties-portfolio-hub-properties">1.2 Properties Portfolio Hub (<code>/properties</code>)</a></li>
+<li><a href="#13-property-detail-dossier-propertiesazure">1.3 Property Detail Dossier (<code>/properties/azure</code>)</a></li>
+<li><a href="#14-master-developments-matrix-projects">1.4 Master Developments Matrix (<code>/projects</code>)</a></li>
+<li><a href="#15-development-project-dossier-projectsopposite-whitesand">1.5 Development Project Dossier (<code>/projects/opposite-whitesand</code>)</a></li>
+<li><a href="#16-executive-short-stay-suites-hub-short-stay">1.6 Executive Short-Stay Suites Hub (<code>/short-stay</code>)</a></li>
+<li><a href="#17-short-stay-suite-detail-short-staybenson-close-suite">1.7 Short-Stay Suite Detail (<code>/short-stay/benson-close-suite</code>)</a></li>
+<li><a href="#18-core-real-estate-services-services">1.8 Core Real Estate Services (<code>/services</code>)</a></li>
+<li><a href="#19-corporate-pedigree--leadership-about">1.9 Corporate Pedigree &amp; Heritage (<code>/about</code>)</a></li>
+<li><a href="#110-corporate-headquarters--vip-desk-contact">1.10 Corporate Headquarters &amp; VIP Desk (<code>/contact</code>)</a></li>
+</ul>
+</li>
+<li><a href="#2-authentication--client-portal">2. Authentication &amp; Client Portal</a><ul>
+<li><a href="#21-client-portal-login-login">2.1 Client Portal Login (<code>/login</code>)</a></li>
+<li><a href="#22-investor-onboarding--sign-up-signup">2.2 Investor Onboarding / Sign Up (<code>/signup</code>)</a></li>
+<li><a href="#23-password-reset-forgot-password">2.3 Password Reset (<code>/forgot-password</code>)</a></li>
+<li><a href="#24-client-portal-vault-portal">2.4 Client Portal Vault (<code>/portal</code>)</a></li>
+</ul>
+</li>
+<li><a href="#3-executive-admin-crm-console-admin">3. Executive Admin CRM Console (<code>/admin</code>)</a><ul>
+<li><a href="#31-executive-overview-module">3.1 Executive Overview Module</a></li>
+<li><a href="#32-property-management-cms">3.2 Property Management CMS</a></li>
+<li><a href="#33-masterplan-projects--developments">3.3 Masterplan Projects &amp; Developments</a></li>
+<li><a href="#34-hospitality--short-stay-bookings">3.4 Hospitality &amp; Short-Stay Bookings</a></li>
+<li><a href="#35-vip-leads-crm--inquiries">3.5 VIP Leads CRM &amp; Inquiries</a></li>
+<li><a href="#36-enterprise-access-users--permissions">3.6 Enterprise Access, Users &amp; Permissions</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1>1. Public Client Pages</h1>
+<h3>1.1 Home Page (<code>/</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/</code></li>
+<li><strong>Route Title:</strong> <code>Nigson Properties Limited — Architectural Luxury Across Lagos &amp; Abuja</code></li>
+</ul>
+<p><img src="./screenshots/01_home.png" alt="Home Page Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Hero Tagline:</strong> <code>LUXURY REAL ESTATE · LAGOS &amp; ABUJA</code></li>
+<li><strong>Hero Headline:</strong> <code>Redefining Architectural Luxury Across Lagos &amp; Abuja</code></li>
+<li><strong>Hero Paragraph:</strong> <code>Curating bespoke waterfront residences, smart penthouses, and green communities with guaranteed 24/7 clean energy and unencumbered titles.</code></li>
+<li><strong>Calls to Action:</strong> <code>EXPLORE DEVELOPMENTS ↓</code> | <code>SCHEDULE PRIVATE TOUR</code></li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Section / Element</th>
+<th align="left">Current Text</th>
+<th align="left">Proposed Client Revised Text</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Hero Headline</td>
+<td align="left">Redefining Architectural Luxury Across Lagos &amp; Abuja</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Hero Paragraph</td>
+<td align="left">Curating bespoke waterfront residences, smart penthouses...</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Featured Stats</td>
+<td align="left">₦18.4B Pipeline / 94.2% Occupancy / 100% Titled</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>1.2 Properties Portfolio Hub (<code>/properties</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/properties</code></li>
+<li><strong>Route Title:</strong> <code>Exclusive Properties Portfolio — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/02_properties_hub.png" alt="Properties Portfolio Hub Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Banner Category:</strong> <code>EXCLUSIVE ACQUISITIONS PORTFOLIO</code></li>
+<li><strong>Banner Headline:</strong> <code>Curated Residences of Distinction</code></li>
+<li><strong>Banner Subtitle:</strong> <code>Discover unencumbered Governor&#39;s Consent and C-of-O titled private waterfront villas, smart contemporary terraces, and sky penthouses across Banana Island, Ikoyi, Eko Atlantic, and Abuja.</code></li>
+<li><strong>Filters:</strong> <code>All Residences</code>, <code>Waterfront Penthouses</code>, <code>Smart Terraces</code>, <code>Luxury Villas</code></li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Section / Element</th>
+<th align="left">Current Text</th>
+<th align="left">Proposed Client Revised Text</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Portfolio Heading</td>
+<td align="left">Curated Residences of Distinction</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Filter Categories</td>
+<td align="left">All Residences / Waterfront Penthouses / Smart Terraces / Luxury Villas</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Pricing Labels</td>
+<td align="left">₦1,250,000,000 / Ready for Handover / Off-Plan</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>1.3 Property Detail Dossier (<code>/properties/azure</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/properties/azure</code></li>
+<li><strong>Route Title:</strong> <code>Residence Dossier — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/03_property_detail.png" alt="Property Detail Dossier Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Property Title:</strong> <code>The Grand Azure Waterfront Villa</code></li>
+<li><strong>Location &amp; Address:</strong> <code>Zone A, Ocean Parade Way, Banana Island, Ikoyi, Lagos</code></li>
+<li><strong>Specs:</strong> <code>5 Beds · 5.5 Baths · 850 sqm · ₦1,250,000,000</code></li>
+<li><strong>Title Deed:</strong> <code>Federal C-of-O &amp; Lagos State Governor&#39;s Consent Verified</code></li>
+<li><strong>Summary Copy:</strong> <code>An ultra-luxury waterfront estate featuring private deep-water jetty, infinity edge pool overlooking Lagos lagoon, cinema room, and integrated Schneider smart home ecosystem.</code></li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Section / Element</th>
+<th align="left">Current Text</th>
+<th align="left">Proposed Client Revised Text</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Title &amp; Tagline</td>
+<td align="left">The Grand Azure Waterfront Villa</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Description / Amenities</td>
+<td align="left">Deep-water jetty, infinity pool, Schneider smart home...</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Title Deed Disclaimer</td>
+<td align="left">Federal C-of-O &amp; Lagos State Governor&#39;s Consent Verified</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>1.4 Master Developments Matrix (<code>/projects</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/projects</code></li>
+<li><strong>Route Title:</strong> <code>Master Developments Matrix — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/04_projects_hub.png" alt="Developments Matrix Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Section Tag:</strong> <code>MASTER-PLANNED DEVELOPMENTS &amp; CONSTRUCTION</code></li>
+<li><strong>Headline:</strong> <code>Engineering Tomorrow&#39;s Iconic Landmarks</code></li>
+<li><strong>Description:</strong> <code>Track structural progress, bored piling, and capital allocation across our landmark residential estates in Lekki, Ikoyi, and Abuja.</code></li>
+<li><strong>Key Projects Listed:</strong> <code>Opposite Whitesand Beach Estate</code>, <code>Fatai Bankole Residences</code>, <code>White Oaks Estate</code>, <code>Olufemi Olatunji Residences</code>, <code>Nigson Villa Banana Island</code>.</li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Section / Element</th>
+<th align="left">Current Text</th>
+<th align="left">Proposed Client Revised Text</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Main Headline</td>
+<td align="left">Engineering Tomorrow&#39;s Iconic Landmarks</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Status Badges</td>
+<td align="left">Completed &amp; Sold Out / Under Construction</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">ROI Callouts</td>
+<td align="left">32% Projected ROI / 100% Construction Completion</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>1.5 Development Project Dossier (<code>/projects/opposite-whitesand</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/projects/opposite-whitesand</code></li>
+<li><strong>Route Title:</strong> <code>Development Project Dossier — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/05_project_detail.png" alt="Development Project Dossier Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Project Name:</strong> <code>Opposite Whitesand Beach Estate</code></li>
+<li><strong>Tagline:</strong> <code>Luxurious Modern 5-Bedroom Fully and Semi-Detached Duplex in Ologolo, Lekki, Lagos</code></li>
+<li><strong>Milestone Progress:</strong> <code>100% Construction Complete · Handed Over to Investors</code></li>
+<li><strong>Engineering Specs:</strong> <code>Structural Grade C35 Concrete, German Hansgrohe Sanity fittings, Inverter &amp; Solar Grid.</code></li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Section / Element</th>
+<th align="left">Current Text</th>
+<th align="left">Proposed Client Revised Text</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Project Heading</td>
+<td align="left">Opposite Whitesand Beach Estate</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Construction Details</td>
+<td align="left">100% Construction Complete / Sold Out</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>1.6 Executive Short-Stay Suites Hub (<code>/short-stay</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/short-stay</code></li>
+<li><strong>Route Title:</strong> <code>Executive Short-Stay Suites — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/06_short_stay_hub.png" alt="Short-Stay Suites Hub Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Section Tag:</strong> <code>HOSPITALITY &amp; CONCIERGE RESIDENCES</code></li>
+<li><strong>Headline:</strong> <code>Ultra-Luxury Serviced Executive Short-Lets</code></li>
+<li><strong>Subheading:</strong> <code>Impeccably furnished 1 to 4 bedroom waterfront residences and penthouses in Ikoyi, Lekki Phase 1, Eko Atlantic, and Banana Island for corporate executives and discerning travelers.</code></li>
+<li><strong>Nightly Rates Shown:</strong> <code>₦220,000/night to ₦650,000/night</code> with 24/7 Chef, High-speed Starlink WiFi, and Security Chauffeur.</li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Section / Element</th>
+<th align="left">Current Text</th>
+<th align="left">Proposed Client Revised Text</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Section Header</td>
+<td align="left">Ultra-Luxury Serviced Executive Short-Lets</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Included Services</td>
+<td align="left">24/7 Power, Starlink Internet, Private Concierge</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>1.7 Short-Stay Suite Detail (<code>/short-stay/benson-close-suite</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/short-stay/benson-close-suite</code></li>
+<li><strong>Route Title:</strong> <code>Serviced Suite Reservation — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/07_short_stay_detail.png" alt="Short-Stay Suite Detail Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Suite Title:</strong> <code>Benson Close Ikoyi Short-Stay Apartment</code></li>
+<li><strong>Location:</strong> <code>Benson Close, Awolowo, Old Ikoyi, Lagos</code></li>
+<li><strong>Rate:</strong> <code>₦280,000 per night</code></li>
+<li><strong>Capacity:</strong> <code>1 Bedroom · 1.5 Baths · Max 2 Guests</code></li>
+<li><strong>House Rules &amp; Booking Form:</strong> <code>Check-in 2:00 PM / Check-out 11:00 AM. Minimum 2 nights stay.</code></li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Section / Element</th>
+<th align="left">Current Text</th>
+<th align="left">Proposed Client Revised Text</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Suite Description</td>
+<td align="left">Luxury 1-Bedroom Waterfront Short-let Apartment...</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Booking Terms</td>
+<td align="left">Check-in, Check-out, Caution Deposit Policy</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>1.8 Core Real Estate Services (<code>/services</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/services</code></li>
+<li><strong>Route Title:</strong> <code>Core Real Estate Services — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/08_services.png" alt="Services Page Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Header Tag:</strong> <code>COMPREHENSIVE ADVISORY &amp; DEVELOPMENT SERVICES</code></li>
+<li><strong>Headline:</strong> <code>Bespoke Real Estate Services for High-Net-Worth Individuals &amp; Institutional Investors</code></li>
+<li><strong>Services Grid:</strong><ol>
+<li><code>Architectural Master-Planning &amp; Turnkey Construction</code></li>
+<li><code>Private Client Real Estate Advisory &amp; Acquisitions</code></li>
+<li><code>Title Regularization &amp; Governor&#39;s Consent Due Diligence</code></li>
+<li><code>Luxury Asset Management &amp; Executive Facility Care</code></li>
+<li><code>Hospitality &amp; Short-Stay Facility Operations</code></li>
+<li><code>Diaspora Investment Syndication Desk</code></li>
+</ol>
+</li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Service Module</th>
+<th align="left">Current Title / Description</th>
+<th align="left">Proposed Client Revised Text</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Construction</td>
+<td align="left">Architectural Master-Planning &amp; Turnkey Construction</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Advisory</td>
+<td align="left">Private Client Real Estate Advisory &amp; Acquisitions</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Due Diligence</td>
+<td align="left">Title Regularization &amp; Governor&#39;s Consent</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Diaspora Desk</td>
+<td align="left">Diaspora Investment Syndication Desk</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>1.9 Corporate Pedigree &amp; Heritage (<code>/about</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/about</code></li>
+<li><strong>Route Title:</strong> <code>Corporate Pedigree &amp; Leadership — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/09_about.png" alt="About Page Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Section Tag:</strong> <code>OUR PEDIGREE &amp; HERITAGE</code></li>
+<li><strong>Headline:</strong> <code>Pioneering Architectural Integrity &amp; Unassailable Title Ownership</code></li>
+<li><strong>Mission &amp; Vision:</strong> <code>Transforming prime African skylines through uncompromising engineering excellence, transparent corporate governance, and zero legal ambiguity.</code></li>
+<li><strong>Corporate Details:</strong> <code>CAMA RC 1894231 · Plot 30B, Block 110, Oladimeji Alo Street, Lekki Phase 1, Lagos</code></li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Section / Element</th>
+<th align="left">Current Text</th>
+<th align="left">Proposed Client Revised Text</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Mission Statement</td>
+<td align="left">Transforming prime African skylines through...</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Registration Details</td>
+<td align="left">RC 1894231 &amp; Corporate Disclosures</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>1.10 Corporate Headquarters &amp; VIP Desk (<code>/contact</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/contact</code></li>
+<li><strong>Route Title:</strong> <code>Corporate Headquarters &amp; VIP Desk — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/10_contact.png" alt="Contact Page Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Section Tag:</strong> <code>CONNECT WITH OUR EXECUTIVES</code></li>
+<li><strong>Headline:</strong> <code>Private Consultations &amp; Confidential Inquiries</code></li>
+<li><strong>Contact Information:</strong><ul>
+<li><strong>Headquarters:</strong> <code>Plot 30B, Block 110, Oladimeji Alo Street, Lekki Phase 1, Lagos</code></li>
+<li><strong>Direct Phones:</strong> <code>+234 807 346 7809 / +234 913 444 6722</code></li>
+<li><strong>Email:</strong> <code>Hello@Nigson.com</code></li>
+<li><strong>Office Hours:</strong> <code>Monday–Friday, 9:00 AM–5:00 PM (WAT)</code></li>
+</ul>
+</li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Field / Label</th>
+<th align="left">Current Information</th>
+<th align="left">Proposed Client Revised Text</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Office Address</td>
+<td align="left">Plot 30B, Block 110, Oladimeji Alo Street, Lekki Phase 1</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Contact Numbers</td>
+<td align="left">08073467809 / 09134446722</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Inquiry Form Fields</td>
+<td align="left">Name, Corporate Email, Investment Scope, Date</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h1>2. Authentication &amp; Client Portal</h1>
+<h3>2.1 Client Portal Login (<code>/login</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/login</code></li>
+<li><strong>Route Title:</strong> <code>Private Client Portal Authentication — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/11_login.png" alt="Login Page Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Title:</strong> <code>Sign In to Your Private Client Vault</code></li>
+<li><strong>Subtitle:</strong> <code>Access allocation documents, construction live cameras, payment milestones, and deed registries.</code></li>
+<li><strong>Inputs:</strong> <code>Email Address</code>, <code>Password</code>, <code>Remember this workstation</code></li>
+<li><strong>Links:</strong> <code>Forgot Password?</code>, <code>Apply for Investor Onboarding</code></li>
+</ul>
+<hr>
+<h3>2.2 Investor Onboarding / Sign Up (<code>/signup</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/signup</code></li>
+<li><strong>Route Title:</strong> <code>Investor Onboarding — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/12_signup.png" alt="Signup Page Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Title:</strong> <code>Private Investor Onboarding Registration</code></li>
+<li><strong>Subtitle:</strong> <code>Join our syndicate of discerning local and diaspora investors receiving exclusive off-market allocations and pre-launch pricing.</code></li>
+<li><strong>Fields:</strong> <code>Full Legal Name</code>, <code>Email Address</code>, <code>Phone Number (WhatsApp)</code>, <code>Country of Residence</code>, <code>Target Investment Scope</code>, <code>Password</code></li>
+</ul>
+<hr>
+<h3>2.3 Password Reset (<code>/forgot-password</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/forgot-password</code></li>
+<li><strong>Route Title:</strong> <code>Reset Password — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/13_forgot_password.png" alt="Forgot Password Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Title:</strong> <code>Reset Your Vault Password</code></li>
+<li><strong>Instruction:</strong> <code>Enter your verified corporate or investor email to receive single-use authentication credentials.</code></li>
+</ul>
+<hr>
+<h3>2.4 Client Portal Vault (<code>/portal</code>)</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/portal</code></li>
+<li><strong>Route Title:</strong> <code>Client Portal Vault — Nigson Properties Limited</code></li>
+</ul>
+<p><img src="./screenshots/14_client_portal.png" alt="Client Portal Vault Screenshot"></p>
+<h4>Current Text Inventory</h4>
+<ul>
+<li><strong>Header:</strong> <code>Investor Asset Vault &amp; Telemetry</code></li>
+<li><strong>Tabs:</strong> <code>Active Allocations</code>, <code>Payment Receipts &amp; Deeds</code>, <code>Live Construction Feeds</code>, <code>Concierge Requests</code></li>
+</ul>
+<hr>
+<h1>3. Executive Admin CRM Console (<code>/admin</code>)</h1>
+<h3>3.1 Executive Overview Module</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/admin</code> (Module: <code>overview</code>)</li>
+<li><strong>Console Category:</strong> <code>TELEMETRY &amp; PERFORMANCE</code></li>
+</ul>
+<p><img src="./screenshots/15_admin_overview.png" alt="Admin Executive Overview Screenshot"></p>
+<h4>Current Telemetry KPI Cards</h4>
+<ol>
+<li><strong>Gross Pipeline:</strong> <code>₦18.4 Billion</code> (↑ 16.4% MoM Growth)</li>
+<li><strong>Active Private Leads:</strong> <code>48 Investors</code> (12 UK/US Diaspora)</li>
+<li><strong>Off-Plan Closures:</strong> <code>14 Units</code> (White Oaks &amp; Lagoon Crest)</li>
+<li><strong>Hospitality Occupancy:</strong> <code>94.2%</code> (Executive Short-Stay)</li>
+<li><strong>Recent Priority Inquiries:</strong> Quick list with Dr. Chidi Okeke, Senator Patricia Adeleke, Chief Babatunde Coker, Engr. Emeka Nwosu.</li>
+</ol>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Widget / Metric</th>
+<th align="left">Current Metric / Label</th>
+<th align="left">Proposed Client Adjustment</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Gross Pipeline KPI</td>
+<td align="left">₦18.4 Billion / 16.4% MoM Growth</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Target Occupancy KPI</td>
+<td align="left">94.2% Executive Short-Stay</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>3.2 Property Management CMS</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/admin</code> (Module: <code>properties</code>)</li>
+<li><strong>Console Category:</strong> <code>INVENTORY CMS</code></li>
+</ul>
+<p><img src="./screenshots/16_admin_properties.png" alt="Admin Property Management Screenshot"></p>
+<h4>Current Text &amp; Listings Inventory</h4>
+<ul>
+<li><strong>Header Tag:</strong> <code>INVENTORY CMS</code></li>
+<li><strong>Headline:</strong> <code>Property Management</code></li>
+<li><strong>Subheading:</strong> <code>Manage live properties, pricing, allocations, and handover status.</code></li>
+<li><strong>Count:</strong> <code>17 Total Residences</code></li>
+<li><strong>Filter Badges:</strong> <code>All</code>, <code>Luxury Villas</code>, <code>Waterfront Penthouses</code>, <code>Smart Terraces</code></li>
+<li><strong>Key Listing Cards Rendered:</strong><ul>
+<li><code>The Grand Azure Waterfront Villa</code> — ₦1,250,000,000 (Banana Island)</li>
+<li><code>The Sovereign Smart Penthouse</code> — ₦850,000,000 (Eko Atlantic)</li>
+<li><code>The Obsidian Contemporary Terrace</code> — ₦450,000,000 (Lekki Phase 1)</li>
+<li><code>Maison Noir Lagoon Residence</code> — ₦1,600,000,000 (Ikoyi)</li>
+<li><code>Lagoon Crest Sky Duplex</code> — ₦720,000,000 (Ikoyi)</li>
+<li><code>The Onyx Garden Terrace</code> — ₦385,000,000 (Lekki Phase 1)</li>
+<li><code>The Lumina Marina Mansion</code> — ₦2,100,000,000 (Victoria Island)</li>
+<li><code>The Maitama Diplomatic Sky Residence</code> — ₦1,450,000,000 (Maitama, Abuja)</li>
+<li><code>The Guzape Cascades Smart Terraces</code> — ₦420,000,000 (Guzape, Abuja)</li>
+</ul>
+</li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Listing / Field</th>
+<th align="left">Current Text / Price</th>
+<th align="left">Proposed Client Revision</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Category Filters</td>
+<td align="left">Luxury Villas / Waterfront Penthouses / Smart Terraces</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Action Buttons</td>
+<td align="left">View / Delete / + Add Property</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>3.3 Masterplan Projects &amp; Developments</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/admin</code> (Module: <code>projects</code>)</li>
+<li><strong>Console Category:</strong> <code>MASTERPLAN TELEMETRY</code></li>
+</ul>
+<p><img src="./screenshots/17_admin_projects.png" alt="Admin Projects &amp; Developments Screenshot"></p>
+<h4>Current Text &amp; Milestone Inventory</h4>
+<ul>
+<li><strong>Headline:</strong> <code>Project Developments</code></li>
+<li><strong>Subheading:</strong> <code>Track structural engineering stages, bored piling, and capital allocation.</code></li>
+<li><strong>Count:</strong> <code>8 Total Projects</code></li>
+<li><strong>Active Developments Tracked:</strong><ul>
+<li><code>Opposite Whitesand Beach Estate</code> — 100% Completion (32% Projected ROI)</li>
+<li><code>Fatai Bankole</code> — 100% Completion (30% Projected ROI)</li>
+<li><code>White Oaks Estate</code> — 100% Completion (35% Projected ROI)</li>
+<li><code>Olufemi Olatunji</code> — 100% Completion (29% Projected ROI)</li>
+<li><code>Nigson Villa</code> — 100% Completion (26% Projected ROI)</li>
+<li><code>Benson Close</code> — 100% Completion (34% Projected ROI)</li>
+<li><code>White Oaks Coastal Community</code> — 78% Completion (Handover Q4 2026)</li>
+<li><code>Ikoyi Lagoon Crest Towers</code> — 62% Completion (Handover Q2 2027)</li>
+</ul>
+</li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Development Name</th>
+<th align="left">Current Completion % &amp; ROI</th>
+<th align="left">Proposed Client Revision</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Opposite Whitesand</td>
+<td align="left">100% Completion / 32% ROI</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">White Oaks Coastal</td>
+<td align="left">78% Completion / Handover Q4 2026</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Ikoyi Lagoon Crest</td>
+<td align="left">62% Completion / Handover Q2 2027</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>3.4 Hospitality &amp; Short-Stay Bookings</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/admin</code> (Module: <code>shortstay</code>)</li>
+<li><strong>Console Category:</strong> <code>HOSPITALITY &amp; CONCIERGE</code></li>
+</ul>
+<p><img src="./screenshots/18_admin_shortstay.png" alt="Admin Short-Stay Bookings Screenshot"></p>
+<h4>Current Suites &amp; Tariff Breakdown</h4>
+<ul>
+<li><strong>Headline:</strong> <code>Short-Stay Bookings</code></li>
+<li><strong>Count:</strong> <code>8 Managed Suites</code></li>
+<li><strong>Suites Active:</strong><ol>
+<li><code>Benson Close Ikoyi Short-Stay Apartment</code> — ₦280,000 / night (Ikoyi)</li>
+<li><code>The Admiralty Executive Suite</code> — ₦220,000 / night (Lekki Phase 1)</li>
+<li><code>Sovereign Sky Penthouse</code> — ₦350,000 / night (Ikoyi)</li>
+<li><code>Atlantic Horizon Residence</code> — ₦480,000 / night (Eko Atlantic)</li>
+<li><code>The Banana Island Waterfront Villa Suite</code> — ₦650,000 / night (Banana Island)</li>
+<li><code>The Maitama Diplomatic Oasis</code> — ₦380,000 / night (Maitama, Abuja)</li>
+<li><code>The Victoria Marina Sky Suite</code> — ₦420,000 / night (Victoria Island)</li>
+<li><code>The Asokoro Presidential Loft</code> — ₦320,000 / night (Asokoro, Abuja)</li>
+</ol>
+</li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Suite Name</th>
+<th align="left">Current Nightly Rate</th>
+<th align="left">Proposed Nightly Rate / Copy</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Benson Close</td>
+<td align="left">₦280,000 / night</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Admiralty Suite</td>
+<td align="left">₦220,000 / night</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Banana Island Villa</td>
+<td align="left">₦650,000 / night</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>3.5 VIP Leads CRM &amp; Inquiries</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/admin</code> (Module: <code>leads</code>)</li>
+<li><strong>Console Category:</strong> <code>EXECUTIVE VIP CRM</code></li>
+</ul>
+<p><img src="./screenshots/19_admin_leads.png" alt="Admin VIP Leads CRM Screenshot"></p>
+<h4>Current Leads &amp; Pipeline Metrics</h4>
+<ul>
+<li><strong>Total Inquiries:</strong> <code>14 Inquiries Across 7 Active Categories</code></li>
+<li><strong>Action Required:</strong> <code>6 New (Awaiting First Outreach)</code></li>
+<li><strong>Scheduled Tours:</strong> <code>3 VIP Viewings Confirmed</code></li>
+<li><strong>Pipeline Scope:</strong> <code>₦8.45B Total Capital In Play</code></li>
+<li><strong>Categories:</strong> <code>Property Inquiry</code>, <code>Inspection Request</code>, <code>Sales Lead</code>, <code>Leasing Inquiry</code>, <code>Contact Inquiry</code>, <code>Booking Details</code>, <code>Property Management</code></li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">CRM Element</th>
+<th align="left">Current Setting / Label</th>
+<th align="left">Proposed Client Revision</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Categories</td>
+<td align="left">Property Inquiry / Inspection / Sales Lead / Leasing...</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Status Labels</td>
+<td align="left">New / In Progress / Scheduled / Closed</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>3.6 Enterprise Access, Users &amp; Permissions</h3>
+<ul>
+<li><strong>URL:</strong> <code>http://localhost:4200/admin</code> (Module: <code>users</code>)</li>
+<li><strong>Console Category:</strong> <code>ENTERPRISE ACCESS &amp; GOVERNANCE</code></li>
+</ul>
+<p><img src="./screenshots/20_admin_users.png" alt="Admin Users, Roles &amp; Permissions Screenshot"></p>
+<h4>Current User Directory &amp; Roles</h4>
+<ul>
+<li><strong>Total System Users:</strong> <code>9 Users Across 5 Operational Roles</code></li>
+<li><strong>Staff &amp; Executives:</strong> <code>6</code> | <strong>Private Investors:</strong> <code>3</code></li>
+<li><strong>Security Status:</strong> <code>Active Shield — RBAC Strict Enforced</code></li>
+<li><strong>Key Executive Profiles:</strong><ul>
+<li><code>Miss Ijeoma Odunukwe</code> — Super Admin (Managing Director &amp; CEO)</li>
+<li><code>Adedamola Adeyemi, PMP</code> — Project Director (Head of Operations)</li>
+<li><code>Ladeinde Olubukola</code> — Senior Sales Advisor (Head of Commercial Sales)</li>
+<li><code>Director, Properties</code> — Super Admin (Board Member)</li>
+<li><code>Chinedu Nwosu</code> — Hospitality &amp; Short-Stay Desk (Concierge Lead)</li>
+<li><code>Engr. Babatunde Fashanu</code> — Facility &amp; Property Manager (Lead Engineer)</li>
+<li><code>Chief Adeleke</code> — Verified Private Investor</li>
+<li><code>Dr. Ngozi Okonjo-Eze</code> — Verified Private Investor (UK Diaspora Lead)</li>
+<li><code>Tunde Balogun</code> — Verified Private Investor (Pending KYC)</li>
+</ul>
+</li>
+</ul>
+<h4>Client Change Request Table</h4>
+<table>
+<thead>
+<tr>
+<th align="left">User / Role Profile</th>
+<th align="left">Current Title &amp; Department</th>
+<th align="left">Proposed Client Revision</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Managing Director &amp; CEO</td>
+<td align="left">Miss Ijeoma Odunukwe</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Head of Operations</td>
+<td align="left">Adedamola Adeyemi, PMP</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Head of Commercial Sales</td>
+<td align="left">Ladeinde Olubukola</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+<tr>
+<td align="left">Role Tiers</td>
+<td align="left">Super Admin / Project Director / Sales Advisor / Facility / Investor</td>
+<td align="left"></td>
+<td align="left">Pending</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Next Steps for the Client</h2>
+<ol>
+<li>Review each screenshot and corresponding text block above.</li>
+<li>In the <strong>Proposed Client Revised Text</strong> column of each table, enter your updated copy, price corrections, address adjustments, or executive title changes.</li>
+<li>Once completed, share the marked document back so the content changes can be applied directly to the codebase.</li>
+</ol>
+
+</body>
+</html>

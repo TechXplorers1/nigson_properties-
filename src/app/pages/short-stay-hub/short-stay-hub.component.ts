@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SubpageHeroComponent } from '../../components/subpage-hero/subpage-hero.component';
 import { suites, Suite, naira, waLink } from '../../models/data';
+import { CmsService } from '../../services/cms.service';
 
 @Component({
   selector: 'app-short-stay-hub',
@@ -11,17 +12,17 @@ import { suites, Suite, naira, waLink } from '../../models/data';
   template: `
     <div class="min-h-screen bg-[#0B0C10] text-white font-sans flex flex-col">
       <app-subpage-hero
-        kicker="Hospitality & Executive Living"
-        title="Executive Short-Stay"
-        highlight="Suites"
-        subtitle="Turnkey residential hospitality in prime Banana Island, Ikoyi, Victoria Island, Eko Atlantic, and Abuja. Tailored for traveling executives, diaspora investors, and diplomatic missions."
+        [kicker]="cms.hero.kicker"
+        [title]="cms.hero.title"
+        [highlight]="cms.hero.highlight"
+        [subtitle]="cms.hero.subtitle"
         [breadcrumbs]="[{ label: 'Short Stay' }]"
-        bgImage="/assets/suite1.jpg"
+        [bgImage]="cms.hero.bgImage"
       >
         <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-zinc-300 font-medium">
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Starlink 300Mbps Uncapped WiFi</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 24/7 Redundant Solar Grid</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Range Rover Chauffeur on Call</span>
+          <span *ngFor="let b of cms.hero.badges" class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> {{ b }}
+          </span>
         </div>
       </app-subpage-hero>
 
@@ -97,6 +98,11 @@ import { suites, Suite, naira, waLink } from '../../models/data';
   `
 })
 export class ShortStayHubComponent {
+  cmsService = inject(CmsService);
+  get cms() {
+    return this.cmsService.cmsData().shortStay;
+  }
+
   allSuites = suites;
   naira = naira;
   waLink = waLink;

@@ -15,17 +15,21 @@ import {
   users, permissions, auditLogs, initialPermissions,
   persistUsers, persistPermissions, persistAuditLogs
 } from '../../models/data';
+import { AdminCmsComponent } from './admin-cms.component';
 
-type AdminModule = 'overview' | 'properties' | 'projects' | 'shortstay' | 'leads' | 'users';
+type AdminModule = 'overview' | 'properties' | 'projects' | 'shortstay' | 'leads' | 'users' | 'content';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, LogoComponent],
+  imports: [CommonModule, RouterLink, FormsModule, LogoComponent, AdminCmsComponent],
   template: `
     <div class="min-h-screen bg-zinc-100 text-zinc-900 font-sans flex flex-col" (window:keydown.escape)="closeAllModals()">
       <!-- Main Layout: Side Panel + Active Module Content -->
-      <div class="flex-1 flex mx-auto max-w-7xl w-full relative">
+      <div
+        class="flex-1 flex mx-auto w-full relative transition-all duration-300"
+        [ngClass]="activeModule() === 'content' ? 'max-w-[1800px] px-2 sm:px-4 lg:px-6' : 'max-w-7xl'"
+      >
         <!-- Backdrop for mobile drawer -->
         <div
           *ngIf="sidebarOpen()"
@@ -255,6 +259,35 @@ type AdminModule = 'overview' | 'properties' | 'projects' | 'shortstay' | 'leads
                       : 'bg-zinc-100 text-zinc-700 border border-zinc-200'"
                   >
                     {{ allUsers.length }}
+                  </span>
+                </button>
+
+                <!-- 7. Content Management -->
+                <button
+                  type="button"
+                  (click)="selectModule('content')"
+                  class="w-full text-left transition-all duration-200 cursor-pointer select-none"
+                  [ngClass]="activeModule() === 'content'
+                    ? 'bg-[#CC0D23] text-white rounded-2xl shadow-lg shadow-red-600/25 px-4 py-3.5 flex items-center justify-between'
+                    : 'text-zinc-800 hover:bg-zinc-100 rounded-2xl px-4 py-3.5 flex items-center justify-between'"
+                >
+                  <div class="flex items-center gap-3.5">
+                    <div class="w-6 h-6 flex items-center justify-center shrink-0">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <span class="font-serif text-[15px] font-medium leading-none">
+                      Content Management
+                    </span>
+                  </div>
+                  <span
+                    class="px-2 py-0.5 text-xs font-bold rounded-full transition-colors"
+                    [ngClass]="activeModule() === 'content'
+                      ? 'bg-white text-red-600'
+                      : 'bg-red-50 text-red-600 border border-red-100'"
+                  >
+                    7 Pages
                   </span>
                 </button>
               </div>
@@ -1467,6 +1500,14 @@ type AdminModule = 'overview' | 'properties' | 'projects' | 'shortstay' | 'leads
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- MODULE 7: CONTENT MANAGEMENT STUDIO (ALL 7 PAGES & LIVE EXACT VIEW) -->
+          <div *ngIf="activeModule() === 'content'" class="animate-fadeIn">
+            <app-admin-cms
+              (logAction)="onCmsLogAction($event)"
+              (showToastMsg)="showToast($event)"
+            ></app-admin-cms>
           </div>
 
         </main>
@@ -4402,6 +4443,22 @@ export class AdminComponent {
     link.click();
     document.body.removeChild(link);
     this.showToast(`Audit log exported (${this.allAuditLogs.length} events).`);
+  }
+
+  onCmsLogAction(event: { action: string; target: string }) {
+    const logItem: AuditLogItem = {
+      id: `log-${Date.now()}`,
+      timestamp: 'Just now',
+      actor: 'Executive Admin',
+      role: 'Super Admin',
+      action: event.action,
+      target: event.target,
+      ipAddress: '102.89.43.12 (CMS Studio)',
+      status: 'Success'
+    };
+    this.allAuditLogs.unshift(logItem);
+    auditLogs.splice(0, auditLogs.length, ...this.allAuditLogs);
+    persistAuditLogs(this.allAuditLogs);
   }
 
 }

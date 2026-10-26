@@ -152,3 +152,29 @@
   0% { transform: scale(1); opacity: 0.6; }
   100% { transform: scale(1.8); opacity: 0; }
 }
+
+/* Custom Studio Scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(204, 13, 35, 0.4) rgba(244, 244, 245, 0.8);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(244, 244, 245, 0.8);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(204, 13, 35, 0.4);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(204, 13, 35, 0.8);
+}
+

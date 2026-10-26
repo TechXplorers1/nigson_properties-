@@ -827,6 +827,14 @@ export interface Project {
   milestones: { title: string; date: string; progress: number; status: "Completed" | "In Progress" | "Scheduled" }[];
   phases: { name: string; status: "Sold Out" | "Selling Fast" | "Coming Soon"; units: string; priceFrom: number }[];
   metrics: { label: string; value: string }[];
+  homeSize?: string;
+  bedroomsDetail?: { name: string; desc?: string }[];
+  bathroomsDetail?: string[];
+  livingSpaceDetail?: string[];
+  amenitiesDetail?: string[];
+  outdoorDetail?: string[];
+  neighborhoodDetail?: string[];
+  driveLink?: string;
 }
 
 export const projects: Project[] = [
@@ -835,8 +843,8 @@ export const projects: Project[] = [
     id: "opposite-whitesand",
     slug: "opposite-whitesand-beach-estate",
     name: "Opposite Whitesand Beach Estate",
-    tagline: "6 Bespoke Contemporary Luxury Residences in Prime Ologolo, Lekki",
-    location: "Ologolo, Lekki",
+    tagline: "Luxurious Modern 5-Bedroom Fully and Semi-Detached Duplex in Ologolo, Lekki, Lagos",
+    location: "Opposite Whitesand Beach Estate, Ologolo, Lekki",
     image: "/assets/whitesand-1.jpg",
     renderings: [
       "/assets/whitesand-1.jpg",
@@ -853,18 +861,49 @@ export const projects: Project[] = [
     statusType: "completed",
     landArea: "2,400 m²",
     category: "Construction",
-    description: "A landmark turnkey residential development situated directly opposite Whitesand Beach Estate in prime Ologolo, Lekki. Engineered to stringent Eurocode standards, featuring private swimming pools, high-perimeter smart security, bespoke marble interiors, and independent solar-lithium power infrastructure. Fully delivered and 100% sold out to discerning diaspora and local investors.",
+    driveLink: "https://drive.google.com/drive/folders/17UIbH-DrYe_SFM28rwVR0d6mKeXzxjWh?usp=drive_link",
+    homeSize: "Spacious 5-bedroom fully and semi-detached duplexes",
+    bedroomsDetail: [
+      { name: "Master Bedroom", desc: "Includes a dedicated Master Lounge for ultimate relaxation." },
+      { name: "Madam’s Bedroom", desc: "Designed for premium comfort, luxury, and privacy." },
+      { name: "Children’s Bedroom (2)", desc: "Two dedicated, naturally lit children’s bedrooms." },
+      { name: "Guest Room", desc: "Separate, private guest accommodation." }
+    ],
+    bathroomsDetail: [
+      "All Rooms Ensuite: Each bedroom features a private luxury bathroom.",
+      "Visitor’s Toilet: Added convenience for guests on the ground level."
+    ],
+    livingSpaceDetail: [
+      "Living Room / Dining Area: Spacious, elegant, and filled with natural light.",
+      "Fully Fitted Kitchen: Modern appliances including cooker unit, microwave, oven, and heat extractor.",
+      "Cinema Room: Designed for family entertainment and media immersion.",
+      "Family Lounge: Cozy upstairs area for family relaxation."
+    ],
+    amenitiesDetail: [
+      "24/7 Power Supply: Uninterrupted electricity for comfort.",
+      "Solar Panels and Inverter: Reliable alternative clean power source."
+    ],
+    outdoorDetail: [
+      "Driveway / Parking Lot: Sufficient parking spaces for residents and visitors.",
+      "Security House: Dedicated fortified post for 24/7 security personnel.",
+      "BQ (Boys' Quarters): Additional functional domestic staff space."
+    ],
+    neighborhoodDetail: [
+      "Prime Location: Situated opposite White Sand Beach Estate in Ologolo, offering direct proximity to Lekki-Epe Expressway.",
+      "Nearby Lifestyle & Commercial Amenities: Circle Mall, MedPlus Pharmacy, CedarCare Hospital, Domino's Pizza, I-Fitness Gym, Mobil Filling Station, Chicken Republic, Whitesand School, banks, and marts."
+    ],
+    description: "Opposite White Sand Beach Estate, Aro-Ologolo is a luxurious modern 5-bedroom fully and semi-detached duplex community in Ologolo, Lekki, Lagos. Thoughtfully engineered with a master lounge, cinema room, fitted chef's kitchen, solar microgrid, security house, and BQ. 100% completed and fully sold out.",
     features: [
-      "Private Swimming Pools & Sun Decks",
-      "Smart Home Automation & CCTV Surveillance Grid",
-      "Fully Fitted Italian Kitchens with Integrated Appliances",
-      "Double-Height Living Ceilings & Schuco Acoustic Glazing",
-      "24/7 Guaranteed Independent Power Infrastructure",
-      "Prime Direct Access to Lekki-Epe Expressway Corridor"
+      "Spacious 5-Bedroom Fully & Semi-Detached Duplexes",
+      "Master Suite with Dedicated Master Lounge",
+      "Private Cinema Room & Family Lounge",
+      "Fully Fitted Kitchen with Cooker, Microwave, Oven & Extractor",
+      "24/7 Power Supply with Solar Panels & Inverter System",
+      "Driveway Parking, Security House & BQ (Boys' Quarters)"
     ],
     metrics: [
       { label: "Portfolio Status", value: "Completed & Sold Out" },
-      { label: "Total Units", value: "6 Luxury Homes" },
+      { label: "Total Units", value: "6 Units" },
       { label: "Category", value: "Construction" },
       { label: "Location", value: "Ologolo, Lekki" }
     ],
@@ -875,7 +914,7 @@ export const projects: Project[] = [
       { title: "Commissioning & Resident Handover", date: "Q4 2024", progress: 100, status: "Completed" }
     ],
     phases: [
-      { name: "Executive Terrace Enclave", status: "Sold Out", units: "6 Units", priceFrom: 185_000_000 }
+      { name: "5-Bedroom Duplex Enclave", status: "Sold Out", units: "6 Units", priceFrom: 185_000_000 }
     ]
   },
 
@@ -884,8 +923,8 @@ export const projects: Project[] = [
     id: "fatai-bankole",
     slug: "fatai-bankole-residences",
     name: "Fatai Bankole",
-    tagline: "7 Architectural Luxury Residences in Aro-Ologolo, Lekki",
-    location: "Aro-Ologolo, Lekki",
+    tagline: "7 Units of 5-Bedroom Semi-Detached & Fully Detached in Aro-Ologolo, Lekki",
+    location: "Fatai Bankole, Aro-Ologolo, Lekki",
     image: "/assets/fatai-bankole-1.jpg",
     renderings: [
       "/assets/fatai-bankole-1.jpg",
@@ -902,14 +941,42 @@ export const projects: Project[] = [
     statusType: "completed",
     landArea: "2,800 m²",
     category: "Construction",
-    description: "An architectural showcase comprising 7 high-end turnkey residences along Fatai Bankole in Aro-Ologolo, Lekki. Designed with striking cantilevered cubic geometry, expansive master sanctuaries, rooftop sunset sky lounges, and dedicated smart security access control. Executed on schedule and 100% sold out.",
+    homeSize: "7 units of 5 Bedroom Semi-detached and Fully detached",
+    bedroomsDetail: [
+      { name: "Master Bedroom", desc: "Spacious primary suite designed for absolute comfort." },
+      { name: "Madam’s Bedroom with Jacuzzi", desc: "Private sanctuary fitted with a relaxing hydro-massage Jacuzzi." },
+      { name: "Children’s Room (2)", desc: "Two generous ensuite bedrooms for children." },
+      { name: "Guest Room", desc: "Dedicated guest accommodation ensuring hospitality." }
+    ],
+    bathroomsDetail: [
+      "All Rooms Ensuite: Private bathroom for each room.",
+      "Jacuzzi in Madam’s Bedroom for luxury relaxation."
+    ],
+    livingSpaceDetail: [
+      "Modern living and dining areas crafted with contemporary aesthetics.",
+      "Fully Fitted Kitchen with high-grade cabinetry and modern appliances."
+    ],
+    amenitiesDetail: [
+      "Solar Panels and Inverter for continuous clean energy.",
+      "Water Treatment Plant providing purified, pressurized water.",
+      "24/7 Power Supply guarantee."
+    ],
+    outdoorDetail: [
+      "Driveway / Parking Lot with ample capacity.",
+      "Fortified Security House for round-the-clock peace of mind."
+    ],
+    neighborhoodDetail: [
+      "Prime Location near Lekki-Epe Expressway corridor.",
+      "Close to essential services, top schools, healthcare, and lifestyle hubs."
+    ],
+    description: "An architectural development of 7 units of 5-bedroom semi-detached and fully detached luxury homes in Fatai Bankole, Aro-Ologolo, Lekki. Highlights include a Madam's bedroom with Jacuzzi, water treatment plant, solar power grid, and 24/7 security. Delivered on schedule and 100% sold out.",
     features: [
-      "Cantilevered Modern Architectural Geometry",
-      "Rooftop Private Sky Lounges & BBQ Terraces",
-      "En-Suite Master Suites with Walk-in Closets",
-      "Clean Solar Inverter & Battery Energy Backup",
-      "Gated Perimeter Security & Biometric Access",
-      "Rapid Linkage to Lekki Toll & Commercial Centers"
+      "7 Units of 5-Bedroom Semi-Detached & Fully Detached",
+      "Madam’s Bedroom with Jacuzzi & All Rooms Ensuite",
+      "Modern Living & Dining Areas with Fully Fitted Kitchen",
+      "Solar Panels, Inverter & Water Treatment Plant",
+      "24/7 Power Supply & Security House",
+      "Prime Lekki-Epe Expressway Proximity"
     ],
     metrics: [
       { label: "Portfolio Status", value: "Completed & Sold Out" },
@@ -924,7 +991,7 @@ export const projects: Project[] = [
       { title: "Full Handover to Homeowners", date: "Q3 2024", progress: 100, status: "Completed" }
     ],
     phases: [
-      { name: "Turnkey Terrace Phase", status: "Sold Out", units: "7 Units", priceFrom: 195_000_000 }
+      { name: "5-Bedroom Duplex Release", status: "Sold Out", units: "7 Units", priceFrom: 195_000_000 }
     ]
   },
 
@@ -933,8 +1000,8 @@ export const projects: Project[] = [
     id: "white-oaks-estate",
     slug: "white-oaks-estate-ologolo",
     name: "White Oaks Estate",
-    tagline: "14 Contemporary Gated Enclave Homes in Aro-Ologolo, Lekki",
-    location: "Aro-Ologolo, Lekki",
+    tagline: "14 Units of 5-Bedroom Semi-Detached & Fully Detached in Aro-Ologolo, Lekki",
+    location: "White Oaks Estate, Aro-Ologolo, Lekki",
     image: "/assets/white-oaks-1.jpg",
     renderings: [
       "/assets/white-oaks-1.jpg",
@@ -951,14 +1018,42 @@ export const projects: Project[] = [
     statusType: "completed",
     landArea: "5,500 m²",
     category: "Construction",
-    description: "A secure, master-engineered gated residential community of 14 contemporary luxury units in Aro-Ologolo, Lekki. Featuring manicured private internal paved boulevards, underground drainage, centralized clean water treatment plant, and 24/7 smart security surveillance. Completely executed and fully sold out.",
+    homeSize: "14 units of 5 Bedroom Semi-detached and Fully detached",
+    bedroomsDetail: [
+      { name: "Master Bedroom", desc: "Grand master suite with private balcony and wardrobe." },
+      { name: "Madam’s Bedroom with Jacuzzi", desc: "Comfortable retreat with an ensuite Jacuzzi bath." },
+      { name: "Children’s Room (2)", desc: "Two children's ensuite bedrooms." },
+      { name: "Guest Room", desc: "Independent guest accommodation." }
+    ],
+    bathroomsDetail: [
+      "All Rooms Ensuite: Complete privacy for every occupant.",
+      "Jacuzzi in Madam’s Bedroom."
+    ],
+    livingSpaceDetail: [
+      "Modern living and dining areas with double-height accents.",
+      "Fully Fitted Kitchen with high-end appliances and storage."
+    ],
+    amenitiesDetail: [
+      "Solar Panels and Inverter: Eco-friendly energy security.",
+      "Water Treatment Plant: Central potable water filtration.",
+      "24/7 Power Supply: Continuous uninterrupted electricity."
+    ],
+    outdoorDetail: [
+      "Driveway / Parking Lot for residents and visitors.",
+      "Dedicated Security House with CCTV perimeter control."
+    ],
+    neighborhoodDetail: [
+      "Prime Location near Lekki-Epe Expressway.",
+      "Close to essential services, Circle Mall, international schools, and lifestyle hubs."
+    ],
+    description: "A secure, master-engineered gated residential community of 14 units of 5-bedroom semi-detached and fully detached luxury duplexes in Aro-Ologolo, Lekki. Featuring Madam's Jacuzzi suites, water treatment plant, solar energy backup, and 24/7 security. Delivered and 100% sold out.",
     features: [
-      "Private Gated Enclave of 14 Modern Homes",
-      "Central Water Treatment & High-Pressure Filtration",
-      "Underground Power Cabling & Stormwater Drainage",
-      "Perimeter Electric Fencing & Biometric Access",
-      "Dedicated Covered Parking for Each Residence",
-      "Outstanding Capital Appreciation Performance"
+      "14 Units of 5-Bedroom Semi-Detached & Fully Detached",
+      "Madam’s Bedroom with Jacuzzi & All Rooms Ensuite",
+      "Fully Fitted Kitchen & Modern Open-Plan Living",
+      "Solar Panels, Inverter & Clean Water Treatment",
+      "24/7 Power Supply & Fortified Security Post",
+      "Immediate Lekki-Epe Expressway Connectivity"
     ],
     metrics: [
       { label: "Portfolio Status", value: "Completed & Sold Out" },
@@ -982,8 +1077,8 @@ export const projects: Project[] = [
     id: "olufemi-olatunji",
     slug: "olufemi-olatunji-osapa",
     name: "Olufemi Olatunji",
-    tagline: "9 Boutique Architectural Residences in Osapa, Lekki",
-    location: "Osapa, Lekki",
+    tagline: "9 Units of Fully & Semi-Detached Apartments on 2,100sqm in Osapa, Lekki",
+    location: "Olufemi Olatunji, Osapa, Lekki, Lagos",
     image: "/assets/olufemi-olatunji-1.jpg",
     renderings: [
       "/assets/olufemi-olatunji-1.jpg",
@@ -998,16 +1093,42 @@ export const projects: Project[] = [
     unitCount: 9,
     status: "Completed & Sold Out",
     statusType: "completed",
-    landArea: "3,600 m²",
+    landArea: "2,100 m²",
     category: "Construction",
-    description: "An exclusive residential cluster of 9 architectural duplexes situated on Olufemi Olatunji Street, Osapa, Lekki. Engineered with bespoke finishes, expansive thermal glazing, private family lounges, and multi-car parking driveways. Delivered on schedule and 100% sold out.",
+    homeSize: "9 Units of Fully detached and semi-detached apartments on 2,100sqm",
+    bedroomsDetail: [
+      { name: "Master Bedroom", desc: "Spacious primary suite with architectural luxury finishes." },
+      { name: "Madam’s Bedroom", desc: "Elegantly finished bedroom designed for privacy and tranquility." },
+      { name: "Children’s Room (2)", desc: "Two ensuite bedrooms for children." },
+      { name: "Guest Room", desc: "Ensuite guest bedroom ensuring guest discretion." }
+    ],
+    bathroomsDetail: [
+      "All rooms are ensuite: Each bedroom features a private bathroom."
+    ],
+    livingSpaceDetail: [
+      "Modern living room with high-end fittings and refined finishes."
+    ],
+    amenitiesDetail: [
+      "Solar Panels and Inverter for clean, continuous energy.",
+      "Water Treatment Plant providing clean, safe running water.",
+      "24/7 Power Supply guarantee."
+    ],
+    outdoorDetail: [
+      "Dedicated Parking Lots for residents and visitors.",
+      "Fortified Security House for 24/7 access control."
+    ],
+    neighborhoodDetail: [
+      "Proximity to Key Amenities: Located in a sought-after, quiet residential neighborhood with excellent access to Primefort Hospital, Blue Coral Health Care Services, Zenith and Polaris Banks, Chicken Republic, The Chop Box, Cold Stone/Domino’s, Burger King, Medplus Pharmacy, and neighborhood Mart Stores.",
+      "Proximity to Key Locations: 17 minutes from Ikoyi, 13 minutes from Lekki hub, 17 minutes from Victoria Island, and 26 minutes from Lagos Mainland — offering an ideal combination of convenience and connectivity."
+    ],
+    description: "An exclusive development of 9 units of fully detached and semi-detached luxury residences set on 2,100 sqm on Olufemi Olatunji Street, Osapa, Lekki. Boasting modern living rooms with high-end fittings, all ensuite bedrooms, solar power, water treatment, and central location just 13-17 mins from Lekki and Ikoyi. 100% completed and sold out.",
     features: [
-      "9 Ultra-Modern Bespoke Duplexes",
-      "Floor-to-Ceiling Thermal Insulated Windows",
-      "Custom Fitted German Hardware & Sanitaryware",
-      "Dedicated En-Suite Staff Quarters per Unit",
-      "Underground Clean Utility Infrastructure",
-      "Minutes to Circle Mall & Lekki Phase 1"
+      "9 Units of Fully & Semi-Detached on 2,100 sqm Parcel",
+      "All Rooms Ensuite (Master, Madam's, 2 Children's, Guest Room)",
+      "Modern Living Room with High-End European Fittings",
+      "Solar Panels, Inverter & Central Water Treatment Plant",
+      "24/7 Power Supply & Fortified Security House",
+      "13-17 Mins to Lekki Hub, Ikoyi & Victoria Island"
     ],
     metrics: [
       { label: "Portfolio Status", value: "Completed & Sold Out" },
@@ -1031,8 +1152,8 @@ export const projects: Project[] = [
     id: "nigson-villa",
     slug: "nigson-villa-banana-island",
     name: "Nigson Villa",
-    tagline: "8 Ultra-Prime Waterfront Residences in Banana Island, Lagos",
-    location: "Banana Island, Lagos",
+    tagline: "Spacious 8 Units of 3-Bedroom & 2-Bedroom Apartments in Banana Island, Lagos",
+    location: "Banana Island, Ikoyi, Lagos",
     image: "/assets/banana-1.jpg",
     renderings: [
       "/assets/banana-1.jpg",
@@ -1047,16 +1168,41 @@ export const projects: Project[] = [
     unitCount: 8,
     status: "Completed",
     statusType: "completed",
-    landArea: "4,200 m² Waterfront Parcel",
+    landArea: "4,200 m²",
     category: "Property Management",
-    description: "A prestigious waterfront portfolio of 8 ultra-luxury villas situated in Banana Island, Lagos. Overseen under Nigson's comprehensive Property Management division, providing 24/7 dedicated facility management, marine jetty maintenance, continuous clean power generation, and white-glove concierge services.",
+    homeSize: "Spacious 8 Units of 3-bedroom and 2-bedroom apartments",
+    bedroomsDetail: [
+      { name: "3-Bedroom & 2-Bedroom Configurations", desc: "Each apartment includes 3 or 2 bedrooms finished to luxury international standards." }
+    ],
+    bathroomsDetail: [
+      "Each apartment includes modern bathrooms.",
+      "Visitor’s Toilet: Added convenience for visiting guests."
+    ],
+    livingSpaceDetail: [
+      "Comfortable living/dining area with contemporary interiors equipped with modern amenities.",
+      "A BQ (Boys’ Quarters) providing dedicated staff space."
+    ],
+    amenitiesDetail: [
+      "24/7 Power Supply: Uninterrupted electricity for comfort.",
+      "High-Level Security: Robust safety measures with biometric and guard access.",
+      "Ample Parking Space: Sufficient parking for residents and visitors.",
+      "Reverse Osmosis Water System: Provides purified, clean water."
+    ],
+    outdoorDetail: [
+      "Serene Environment: A tranquil, beautifully maintained atmosphere.",
+      "Swimming Pool: Perfect for relaxation, wellness, and leisure."
+    ],
+    neighborhoodDetail: [
+      "Prestigious Location: Situated in Banana Island, one of Lagos' most exclusive neighborhoods."
+    ],
+    description: "Nigson Villa is a prestigious enclave of 8 units of 3-bedroom and 2-bedroom luxury apartments situated in Banana Island, Lagos. Features a sparkling swimming pool, serene landscaped environment, reverse osmosis water purification, high-level security, and Boys' Quarters (BQ). Professionally managed by Nigson Properties Limited.",
     features: [
-      "8 Palatial Waterfront Villa Residences",
-      "Active Turnkey Asset & Facility Management",
-      "Private Deep-Water Marine Jetty & Boat Slips",
-      "Centralized 24/7 Energy & Water Treatment Facility",
-      "Armed Perimeter Security & Biometric Access",
-      "High-Yield Diaspora Tenant Leasing Portfolio"
+      "Spacious 8 Units of 3-Bedroom & 2-Bedroom Apartments",
+      "Contemporary Living/Dining Area & Boys’ Quarters (BQ)",
+      "Swimming Pool & Beautifully Maintained Serene Atmosphere",
+      "Reverse Osmosis (RO) Water Purification System",
+      "24/7 Power Supply & High-Level Gated Security",
+      "Prestigious Banana Island Waterfront Location"
     ],
     metrics: [
       { label: "Portfolio Status", value: "Completed (Managed)" },
@@ -1071,7 +1217,7 @@ export const projects: Project[] = [
       { title: "Active Facility Management Operations", date: "Ongoing", progress: 100, status: "Completed" }
     ],
     phases: [
-      { name: "Waterfront Villa Enclave", status: "Sold Out", units: "8 Units", priceFrom: 950_000_000 }
+      { name: "Banana Island Managed Enclave", status: "Sold Out", units: "8 Units", priceFrom: 950_000_000 }
     ]
   },
 
@@ -1080,8 +1226,8 @@ export const projects: Project[] = [
     id: "benson-close",
     slug: "benson-close-ikoyi",
     name: "Benson Close",
-    tagline: "Exclusive Luxury Short-Stay Haven in Old Ikoyi",
-    location: "Ikoyi",
+    tagline: "Luxury 1-Bedroom Waterfront Short-let Apartment – Benson Close, Awolowo, Ikoyi",
+    location: "Benson Close, Awolowo, Ikoyi",
     image: "/assets/benson-close-1.jpg",
     renderings: [
       "/assets/benson-close-1.jpg",
@@ -1098,19 +1244,44 @@ export const projects: Project[] = [
     statusType: "completed",
     landArea: "650 m²",
     category: "Short Stay",
-    description: "An ultra-exclusive private luxury residence situated on quiet, leafy Benson Close in Old Ikoyi. Operated under Nigson's premium Short Stay hospitality division, catering to diplomatic travelers, multinational executives, and diaspora tastemakers with 24/7 solar microgrid power, private chef options, and dedicated concierge.",
+    homeSize: "Luxury 1-Bedroom Waterfront Short-let Apartment – Ikoyi",
+    bedroomsDetail: [
+      { name: "Furnished Master Bedroom", desc: "Designed for comfort, privacy, and serene relaxation with waterfront views." }
+    ],
+    bathroomsDetail: [
+      "Modern bathroom fitted with high-end sanitaryware."
+    ],
+    livingSpaceDetail: [
+      "Spacious living room with elegant decor.",
+      "Fully equipped kitchen with appliances, utensils, and cookware."
+    ],
+    amenitiesDetail: [
+      "Beautiful waterfront views",
+      "High-speed Wi-Fi and Smart TV",
+      "24/7 security and 24-hour power",
+      "Housekeeping visits scheduled every 2 days",
+      "Concierge services and elevator access"
+    ],
+    outdoorDetail: [
+      "Ample parking for guests and visitors",
+      "Waterfront jetty area with designated outdoor smoking"
+    ],
+    neighborhoodDetail: [
+      "Prime Benson Close, Awolowo, Ikoyi — peaceful, leafy, and central waterfront sanctuary."
+    ],
+    description: "Experience premium living in the heart of Ikoyi with this beautifully furnished 1-bedroom waterfront apartment, designed for comfort, privacy, and convenience. Whether you're visiting for business or leisure, this apartment offers a peaceful escape with stunning waterfront surroundings. Features concierge services, elevators, high-speed Wi-Fi, housekeeping every 2 days, and 24-hour power and security.",
     features: [
-      "Ultra-Prime Old Ikoyi Residential Address",
-      "High-Speed Starlink Satellite WiFi",
-      "24/7 Silent Clean Solar & Inverter Grid",
-      "Private Plunge Pool & Zen Garden Courtyard",
-      "Dedicated Housekeeping & Concierge Desk",
-      "Bespoke Italian Furnishings & Fine Art"
+      "Beautiful Waterfront Views",
+      "Spacious Living Room & Modern Bathroom",
+      "Fully Equipped Kitchen",
+      "High-Speed Wi-Fi & Smart TV",
+      "24/7 Security & Ample Parking",
+      "Ideal for Staycations, Business Trips & Weekend Getaways"
     ],
     metrics: [
       { label: "Portfolio Status", value: "Shortlet (Active)" },
-      { label: "Capacity", value: "1 Executive Suite" },
-      { label: "Category", value: "Short Stay" },
+      { label: "Capacity", value: "1 Executive Suite (Max 2 Guests)" },
+      { label: "Caution Fee", value: "₦200,000 (Refundable)" },
       { label: "Location", value: "Ikoyi, Lagos" }
     ],
     milestones: [
@@ -1120,7 +1291,7 @@ export const projects: Project[] = [
       { title: "Full Operational Deployment", date: "Active", progress: 100, status: "Completed" }
     ],
     phases: [
-      { name: "Presidential Shortlet Suite", status: "Selling Fast", units: "1 Suite", priceFrom: 280_000 }
+      { name: "Luxury Waterfront 1-Bedroom Suite", status: "Selling Fast", units: "1 Suite", priceFrom: 280_000 }
     ]
   },
 
@@ -1218,6 +1389,28 @@ export const projects: Project[] = [
   }
 ];
 
+export interface SuiteCancellationPolicy {
+  general: string;
+  tiers: { period: string; accommodationRefund: string; cautionRefund: string }[];
+  afterCheckIn: string;
+  rescheduling: string;
+  refundProcessingTime: string;
+  managementInitiated: string;
+}
+
+export interface SuiteDetailedRules {
+  conductNoise: string[];
+  visitors: string[];
+  smokingSubstances: string[];
+  fireSafety: string[];
+  propertyCare: string[];
+  cleaningHygiene: string[];
+  kitchenUse: string[];
+  utilities: string[];
+  pets: string;
+  penalties: string[];
+}
+
 export interface Suite {
   id: string;
   slug: string;
@@ -1236,6 +1429,18 @@ export interface Suite {
   amenities: string[];
   description: string;
   houseRules: string[];
+  cautionFeeRefundTerms?: string;
+  checkInTime?: string;
+  checkOutTime?: string;
+  earlyCheckInPolicy?: string;
+  lateCheckOutPolicy?: string;
+  keyPolicy?: string;
+  idRequirement?: string;
+  visitorPolicy?: string;
+  quietHours?: string;
+  smokingPolicy?: string;
+  cancellationPolicy?: SuiteCancellationPolicy;
+  detailedRules?: SuiteDetailedRules;
   reviews: { name: string; title: string; rating: number; date: string; comment: string }[];
 }
 
@@ -1244,9 +1449,9 @@ export const suites: Suite[] = [
     id: "benson-close-suite",
     slug: "benson-close-ikoyi-suite",
     name: "Benson Close Ikoyi Short-Stay Apartment",
-    tagline: "Waterfront Views · 24/7 Power · Starlink Wi-Fi · Housekeeping",
+    tagline: "Luxury 1-Bedroom Waterfront Short-let Apartment – Benson Close, Awolowo, Ikoyi",
     location: "Ikoyi",
-    address: "Benson Close, Old Ikoyi, Lagos",
+    address: "Benson Close, Awolowo, Old Ikoyi, Lagos",
     image: "/assets/benson-close-1.jpg",
     gallery: [
       "/assets/benson-close-1.jpg",
@@ -1256,30 +1461,130 @@ export const suites: Suite[] = [
     ],
     rate: 280_000,
     cleaningFee: 25_000,
-    securityDeposit: 120_000,
+    securityDeposit: 200_000,
+    cautionFeeRefundTerms: "Caution Fee is ₦200,000 and is fully refundable after inspection, provided there are no damages, missing items, or policy violations. Refund is processed within 24 hours if no damages or policy violations are found.",
+    checkInTime: "1:00 PM",
+    checkOutTime: "12:00 PM",
+    earlyCheckInPolicy: "Early check ins are subject to availability and 10% of the apartment’s fee would be charged.",
+    lateCheckOutPolicy: "Late check outs are also subject to availability and 10% for each hour stayed past 12:00pm will be charged.",
+    keyPolicy: "An access key will be given to you by the housekeeper at the point of check in. This is to be returned intact at the point of check out. If it is lost or damaged, a ₦50,000 deduction will be made from the caution fee deposit.",
+    idRequirement: "A valid government-issued ID (NIN Slip/Card, International Passport, Driver’s License, or Voter’s Card) is required for each guest.",
+    visitorPolicy: "Visitors are allowed only between 10:00 AM and 9:00 PM, unless otherwise agreed. Visitors are not allowed to sleep over.",
+    quietHours: "10:00 PM – 7:00 AM",
+    smokingPolicy: "Smoking is strictly prohibited inside the apartment and in all indoor areas. Guests who wish to smoke may do so outside the compound, towards the jetty area.",
     beds: 1,
-    baths: 1.5,
+    baths: 1,
     maxGuests: 2,
     amenities: [
-      "Fully Furnished 1-Bedroom Luxury Apartment",
-      "Scenic Waterfront & Coastal Lagoon Views",
-      "24/7 Continuous Electricity Guarantee",
-      "24/7 Fortified Gated Security & Biometrics",
-      "Fully Equipped Gourmet Kitchen & Appliances",
-      "High-Speed Uncapped Starlink Wi-Fi",
-      "Central Zoned Air Conditioning",
-      "Dedicated Secure Covered Parking",
-      "Daily White-Glove Housekeeping Services",
-      "Nespresso Coffee Bar & Organic Selection",
-      "King-Size Presidential Bed with Luxury Egyptian Linens"
+      "Beautiful waterfront views",
+      "Spacious living room",
+      "Fully equipped kitchen",
+      "Modern bathroom",
+      "High-speed Wi-Fi & Internet",
+      "Smart TV with streaming",
+      "24/7 security & Fortified gatehouse",
+      "Ample parking for residents and visitors",
+      "Concierge services & Elevators",
+      "Housekeeping visits scheduled every 2 days",
+      "24-hour uninterrupted power & clean solar supply"
     ],
-    description: "An ultra-exclusive private luxury 1-bedroom apartment situated on serene Benson Close in Old Ikoyi. Featuring breathtaking waterfront views, 24/7 clean power, full gourmet kitchen, high-speed Wi-Fi, and white-glove housekeeping for traveling executives, tourists, and diplomatic guests.",
+    description: "Welcome to our amazing one-bedroom waterfront apartment! Experience premium living in the heart of Ikoyi with this beautifully furnished 1-bedroom waterfront apartment, designed for comfort, privacy, and convenience. Whether you're visiting for business or leisure, this apartment offers a peaceful escape with stunning waterfront surroundings. Features concierge services, elevators, high-speed Wi-Fi, housekeeping every 2 days, and 24-hour power and security.",
     houseRules: [
-      "Check-in: 2:00 PM | Check-out: 11:30 AM",
-      "Strict No Smoking Inside Apartment Wings",
-      "Government-Issued ID Verification at Gatehouse",
-      "Quiet Hours Observed from 10:30 PM"
+      "Check-in time is 1:00 PM and check-out time is 12:00 PM",
+      "Caution Fee is ₦200,000 (fully refundable within 24 hours after inspection)",
+      "Maximum of 2 guests are allowed to stay in the apartment",
+      "All bookings must be confirmed with full payment before check-in",
+      "Valid government-issued ID (NIN, Passport, Driver’s License, or Voter’s Card) required",
+      "Lost or damaged access key attracts a ₦50,000 deduction from caution fee",
+      "Visitors allowed only between 10:00 AM and 9:00 PM (no overnight sleepovers)",
+      "Smoking strictly prohibited indoors; outdoor smoking permitted towards jetty area only",
+      "Quiet hours: 10:00 PM – 7:00 AM (parties and events strictly prohibited)",
+      "Housekeeping visits scheduled for every 2 days; care for towels & beddings",
+      "Pets are strictly not allowed"
     ],
+    cancellationPolicy: {
+      general: "All cancellations must be communicated directly to management via call or WhatsApp. Cancellation is only valid after management confirms receipt of the request and its alignment with cancellation policy.",
+      tiers: [
+        {
+          period: "7 Days or More Before Check-In",
+          accommodationRefund: "100% refund of accommodation fee",
+          cautionRefund: "Caution fee (if already paid) is fully refundable"
+        },
+        {
+          period: "3–6 Days Before Check-In",
+          accommodationRefund: "50% refund of accommodation fee",
+          cautionRefund: "Caution fee is fully refundable"
+        },
+        {
+          period: "Less Than 48 Hours Before Check-In / Day of Check-In / No-Show",
+          accommodationRefund: "No refund of accommodation fee (0%)",
+          cautionRefund: "Caution fee is fully refundable (if already paid)"
+        }
+      ],
+      afterCheckIn: "No refund for early check-out or shortened stay, regardless of the reason. Once a guest checks in, all accommodation fees become non-refundable.",
+      rescheduling: "Rescheduling is allowed only once, subject to availability. Requests must be made at least 72 hours before the original check-in date. Rescheduling less than 72 hours before check-in is treated as a cancellation (no refund).",
+      refundProcessingTime: "Refunds are processed within 24–72 hours after confirmation. All refunds are returned to the same account or payment channel used for booking.",
+      managementInitiated: "If management cancels a booking due to unforeseen circumstances (e.g., maintenance issues, safety concerns), the guest will receive a full refund, including accommodation fee and caution fee. Guest may also be offered a free date change or alternative apartment, if available."
+    },
+    detailedRules: {
+      conductNoise: [
+        "Loud music, shouting, or disruptive gatherings are not allowed.",
+        "Parties, events, and crowd gatherings are strictly prohibited.",
+        "Quiet hours: 10:00 PM – 7:00 AM.",
+        "Any disturbance at all during your stay that inconveniences the residence will lead to an immediate eviction without a refund.",
+        "No gatherings, events or get togethers are allowed in the apartment or public area as it's a strictly residential property.",
+        "Any illegal activity (fraud, drugs, prostitution, cybercrime, etc.) will lead to immediate eviction and forfeiture of payment and caution fee."
+      ],
+      visitors: [
+        "Visitors are allowed only between 10:00 AM and 9:00 PM, unless otherwise agreed.",
+        "Visitors are not allowed to sleep over.",
+        "Guests are fully responsible for the behavior of their visitors."
+      ],
+      smokingSubstances: [
+        "Smoking is strictly prohibited inside the apartment and in all indoor areas.",
+        "Guests who wish to smoke may do so outside the compound, towards the jetty area.",
+        "Reports of marijuana smoking or any other type of illegal drug use will lead to an eviction without refund of caution fee.",
+        "Excessive alcohol use leading to disturbance or property damage is prohibited."
+      ],
+      fireSafety: [
+        "Guests must not use open flames (candles, gas burners, shisha, etc.) inside the apartment.",
+        "All electrical appliances must be switched off when not in use, especially when leaving the apartment.",
+        "Tampering with smoke detectors, fire extinguishers, or any fire-safety equipment is strictly forbidden.",
+        "Any negligence that leads to a fire incident will result in charges for damages and possible legal action."
+      ],
+      propertyCare: [
+        "Guests must treat the property with care.",
+        "Any damages, stains, breakages, or missing items will be deducted from the caution fee.",
+        "If the cost of damage exceeds the caution fee, the guest must pay the balance immediately.",
+        "A fine will be charged for smoking indoors or causing smoke-related damage.",
+        "Any item(s) damaged as a result of smoking related activities will be fully replaced by the guest.",
+        "No rearranging of furniture, tampering with electrical installations, or removing items from the apartment."
+      ],
+      cleaningHygiene: [
+        "Guests must maintain basic cleanliness during their stay.",
+        "Extra cleaning charges will apply for extra attention and excessively dirty apartments.",
+        "Housekeeping visits are scheduled for every 2 days.",
+        "During housekeeping visits, guests are required to secure and safeguard their personal belongings and valuables.",
+        "Please note that towels and beddings are to be handled with care and only used for their purposes. If the towels or beddings are used for makeup, oil or any other permanently damaging products, they will be paid for.",
+        "The management will not be responsible for any missing or misplaced items if belongings are left unsecured during cleaning."
+      ],
+      kitchenUse: [
+        "Guests may cook using provided appliances.",
+        "Ensure proper ventilation while cooking.",
+        "Clean used utensils and surfaces after use; failure to clean may attract extra charges."
+      ],
+      utilities: [
+        "Please use electricity and water responsibly.",
+        "Do not tamper with: Security cameras, Wi-Fi router, or other Amenities. Any tampering will attract penalty charges."
+      ],
+      pets: "Pets are not allowed.",
+      penalties: [
+        "Immediate eviction without refund",
+        "Loss of caution fee",
+        "Additional charges for damages or disturbances",
+        "Possible police involvement for illegal activities"
+      ]
+    },
     reviews: [
       {
         name: "Capt. Tunde Williams",
@@ -1642,8 +1947,8 @@ export const servicesDetails: ServiceDetail[] = [
   {
     num: "01",
     title: "Building Construction",
-    tagline: "Modern architectural designs, smart home technology & sustainable building",
-    summary: "Nigson Properties provides luxurious yet affordable buildings while maintaining uncompromising quality, functionality, innovation, and cost-effectiveness across all structural developments.",
+    tagline: "Modern architectural designs, quality craftsmanship & innovative building solutions",
+    summary: "At the heart of our building construction services is a commitment to excellence and professionalism. We craft luxurious yet affordable buildings that align with your aspirations while maintaining exceptional value. Guided by integrity and trust, we oversee every step—from design to completion—with precision and innovation, ensuring your vision becomes a reality. Our resilient approach ensures we deliver quality structures that stand out for their elegance, functionality, and cost-effectiveness.",
     image: "/assets/villa.jpg",
     process: [
       { step: "01", title: "Site & Soil Mechanics Analysis", desc: "Geo-resistivity sounding, soil load bearing tests, and deep foundation engineering up to 45m." },
@@ -1663,8 +1968,8 @@ export const servicesDetails: ServiceDetail[] = [
   {
     num: "02",
     title: "Project Development",
-    tagline: "Concept → Feasibility → Design → Development → Construction → Completion",
-    summary: "Guiding real estate projects from visionary concept to completed reality through thorough feasibility studies, creative architectural design, rigorous planning, and sustainable execution.",
+    tagline: "Feasibility studies, innovative design & sustainable impactful solutions",
+    summary: "From concept to completion, our project development services are driven by a commitment to value and excellence. We conduct in-depth feasibility studies, craft innovative designs, and manage every phase of development with professionalism and trust. Our dedication to creating luxurious yet affordable properties reflect our empathy for client needs and our focus on delivering sustainable, impactful solutions.",
     image: "/assets/community.jpg",
     process: [
       { step: "01", title: "Feasibility Studies & Market Intel", desc: "Comprehensive demographic analysis, land tenure verification, and financial yield projections." },
@@ -1684,8 +1989,8 @@ export const servicesDetails: ServiceDetail[] = [
   {
     num: "03",
     title: "Property Management",
-    tagline: "Tenant relations, asset value preservation & financial optimization",
-    summary: "Comprehensive property management ensuring residential and commercial properties remain profitable, functional, well-maintained, and completely stress-free for both property owners and tenants.",
+    tagline: "Tenant relations, proactive maintenance & maximizing asset value",
+    summary: "We offer property management solutions that are rooted in empathy and a deep understanding of your needs. With a focus on value-driven services, we handle tenant relations, proactive maintenance, and financial management, ensuring your properties remain profitable and stress-free. By upholding professionalism and trust, we create seamless experiences for both property owners and tenants, maximizing asset value and satisfaction.",
     image: "/assets/banana-1.jpg",
     process: [
       { step: "01", title: "Tenant Screening & Relations", desc: "Rigorous corporate and diaspora background verification, credit checks, and airtight tenancy agreements." },
@@ -1703,29 +2008,9 @@ export const servicesDetails: ServiceDetail[] = [
   },
   {
     num: "04",
-    title: "Short-Stay Booking",
-    tagline: "Curated luxury serviced suites with seamless booking & 5-star hospitality",
-    summary: "Showcasing premium short-stay apartments across prime Lagos and Abuja addresses. Offering seamless online reservations, waterfront vistas, 24/7 power, and executive concierge services.",
-    image: "/assets/benson-close-1.jpg",
-    process: [
-      { step: "01", title: "Instant Online Booking Engine", desc: "Browse curated suites, select dates, view instant pricing, and reserve with encrypted security." },
-      { step: "02", title: "VIP Concierge Check-in", desc: "Seamless keycard handover, personalized orientation, and luggage assistance." },
-      { step: "03", title: "White-Glove In-Stay Hospitality", desc: "Daily housekeeping, on-demand private chef, airport chauffeur, and 24/7 client desk." }
-    ],
-    deliverables: [
-      "Fully Furnished 1, 2 & 3-Bedroom Luxury Suites",
-      "Guaranteed 24/7 Electricity & Clean Solar Power",
-      "High-Speed Uncapped Starlink Wi-Fi",
-      "Daily White-Glove Housekeeping & Linen Care",
-      "Waterfront Views & Serene Neighborhoods",
-      "24/7 Security & Dedicated Covered Parking"
-    ]
-  },
-  {
-    num: "05",
     title: "Project Management",
-    tagline: "Completing projects on time, within budget & to world-class standards",
-    summary: "Our certified Project Management Professional (PMP) teams deliver structured governance, risk assessment, budget monitoring, and strict timeline controls on every real estate development.",
+    tagline: "Meticulous planning, risk assessment, on time & within budget delivery",
+    summary: "Our project management services are designed to deliver excellence at every stage. With meticulous planning, risk assessment, and seamless coordination, we bring your vision to life. Guided by professionalism and integrity, we ensure projects are completed on time, within budget, and to the highest standards. Our resilient and flexible approach guarantees that your unique goals are met with precision and care.",
     image: "/assets/consultation.jpg",
     process: [
       { step: "01", title: "Project Charters & Work Breakdown", desc: "Establishing strict milestone schedules, critical path methodology, and resource allocations." },
@@ -1742,10 +2027,10 @@ export const servicesDetails: ServiceDetail[] = [
     ]
   },
   {
-    num: "06",
+    num: "05",
     title: "Facility Management",
-    tagline: "Preventive engineering, energy optimization & operational excellence",
-    summary: "Delivering institutional facility management that ensures buildings operate at peak efficiency, minimize energy costs, maximize space utility, and retain pristine long-term value.",
+    tagline: "Preventive maintenance, energy optimization & effective space utilization",
+    summary: "Our facility management services are designed with resilience and value at the core, ensuring your assets remain functional, efficient, and long-lasting. We prioritize professionalism in every interaction, providing preventive maintenance, energy optimization, and effective space utilization. Guided by integrity and empathy, we enhance the performance of your facilities while giving you peace of mind.",
     image: "/assets/towers.jpg",
     process: [
       { step: "01", title: "Facility Audit & Baseline Mapping", desc: "Comprehensive IoT sensor audits across generators, chillers, solar arrays, and water treatment." },
@@ -1762,24 +2047,129 @@ export const servicesDetails: ServiceDetail[] = [
     ]
   },
   {
-    num: "07",
-    title: "Property Sales",
-    tagline: "Turnkey luxury residential sales, verified titles & transparent advisory",
-    summary: "Connecting discerning buyers, families, and global investors to high-value residential homes across prime corridors with verified Governor’s Consent titles, transparent pricing, and personalized service.",
+    num: "06",
+    title: "Property Sales and Leasing Services",
+    tagline: "Buying, selling & leasing built on trust, integrity & market expertise",
+    summary: "Whether you’re buying, selling, or leasing, our property sales and leasing services are built on trust, integrity, and a deep understanding of the market. We help clients find the perfect property or secure the right tenants with professionalism and empathy. Our value-driven approach ensures that every transaction is seamless and tailored to meet your specific needs, while delivering the best possible outcomes.",
     image: "/assets/penthouse.jpg",
     process: [
-      { step: "01", title: "Buyer Consultation & Portfolio Selection", desc: "Understanding lifestyle goals, family space requirements, budget, and desired prime locations." },
+      { step: "01", title: "Buyer & Tenant Advisory Consultation", desc: "Understanding lifestyle goals, family space requirements, investment yield targets, and prime corridor locations." },
       { step: "02", title: "Private Property Viewings & Tours", desc: "Exclusive in-person VIP site inspections or 4K live interactive virtual inspections for diaspora clients." },
-      { step: "03", title: "Title Verification & Closing", desc: "Certified True Copies of C of O, Deed of Assignment execution, and seamless key handover." }
+      { step: "03", title: "Title Verification & Closing", desc: "Certified True Copies of C of O, Deed of Assignment execution, lease drafting, and seamless key handover." }
     ],
     deliverables: [
       "Curated Portfolio of Completed & Off-Plan Luxury Homes",
       "Verified Governor’s Consent & Certificate of Occupancy",
       "Direct Developer Pricing & Structured Payment Plans",
       "Dedicated Private Property Inspections (In-Person & Virtual)",
-      "Transparent Legal Conveyancing & Closing Support",
+      "Transparent Legal Conveyancing & Lease Structuring",
       "Snag-Free Handover & Comprehensive Resident Dossier"
     ]
+  },
+  {
+    num: "07",
+    title: "Short-Stay Hospitality & Booking",
+    tagline: "Curated luxury serviced suites with seamless booking & 5-star hospitality",
+    summary: "Showcasing premium short-stay apartments across prime Lagos addresses including our signature Benson Close waterfront 1-bedroom apartment in Ikoyi. Offering seamless WhatsApp reservations, waterfront vistas, 24/7 power, and executive concierge services.",
+    image: "/assets/benson-close-1.jpg",
+    process: [
+      { step: "01", title: "Instant Online Booking Engine", desc: "Browse curated suites, select dates, view instant pricing, and reserve with encrypted security." },
+      { step: "02", title: "VIP Concierge Check-in", desc: "Seamless key handover by housekeeper, personalized orientation, and luggage assistance." },
+      { step: "03", title: "White-Glove In-Stay Hospitality", desc: "Housekeeping visits every 2 days, on-demand private chef, airport chauffeur, and 24/7 client desk." }
+    ],
+    deliverables: [
+      "Fully Furnished Waterfront Luxury Suites (Benson Close, Ikoyi)",
+      "Guaranteed 24/7 Electricity & Clean Solar Power",
+      "High-Speed Uncapped Wi-Fi & Smart TV",
+      "Housekeeping Visits Scheduled Every 2 Days",
+      "Waterfront Views & Serene Old Ikoyi Neighborhood",
+      "24/7 Security & Dedicated Covered Parking"
+    ]
+  }
+];
+
+// ==========================================
+// BRAND IDENTITY, MISSION, VISION & CORE VALUES (From Client PDF 2)
+// ==========================================
+export interface CoreValueItem {
+  title: string;
+  desc: string;
+  icon?: string;
+}
+
+export const missionVision = {
+  aboutUsTitle: "Nigson Properties Limited - About Us",
+  aboutUs: "Nigson Properties is the real estate development and property management arm of the Nigson Group, committed to delivering affordable luxury homes across Nigeria. We combine modern architecture, quality craftsmanship, and innovative building solutions to create residences that offer comfort, style, security, and exceptional value.\n\nOur mission is to make luxury living accessible to everyone—from young professionals and growing families to seasoned homeowners and investors. Through a full-spectrum service approach, we ensure every development is thoughtfully planned, technologically advanced, and tailored to meet the evolving needs of today's property market.\n\nWe specialize in residential development, property sales, leasing, project management, and facility management services. Every Nigson Property is designed to deliver functionality, comfort, sustainability, and long-term investment value, providing our clients with homes and assets they can enjoy with confidence for years to come.",
+  mission: "We are a team of professionals that offer high-quality real estate and energy solutions that fulfills their business objectives using modern technology whilst also delivering superior returns to our shareholders.",
+  vision: "The leading partner of affordable luxury housing and energy solutions.",
+  visionPillars: [
+    { title: "Property Excellence", desc: "Uncompromising architectural design, European engineering standards, and durable construction." },
+    { title: "Investment Growth", desc: "Creating enduring capital appreciation and high rental yields across prime locations." },
+    { title: "Global Reach", desc: "Delivering trusted real estate solutions for local residents and diaspora investors worldwide." }
+  ]
+};
+
+export const coreValues: CoreValueItem[] = [
+  {
+    title: "Professionalism",
+    desc: "We demonstrate a high standard of conduct and competence, ensuring reliability and accountability in our services."
+  },
+  {
+    title: "Excellence",
+    desc: "We are committed to delivering superior quality in all our services, ensuring client satisfaction."
+  },
+  {
+    title: "Trust",
+    desc: "We foster confidence through transparency, honesty, and consistent delivery of promised results."
+  },
+  {
+    title: "Integrity",
+    desc: "We uphold transparency and honesty in all our dealings, building trust with our clients and partners."
+  },
+  {
+    title: "Value-Driven",
+    desc: "We are committed to adopting responsible practices that foster sustainable growth, create a positive impact on communities, and drive continuous innovation. By relentlessly exploring new ways to create and deliver value, we aim to provide solutions that align with our clients' needs while upholding our responsibility to the environment and society."
+  },
+  {
+    title: "Collaboration",
+    desc: "We value teamwork and partnerships to achieve greater results through shared goals and mutual respect."
+  },
+  {
+    title: "Customer-Centric",
+    desc: "Our clients are at the heart of everything we do, and we strive to provide tailored solutions for every need."
+  }
+];
+
+export const whyChooseUsPillars = [
+  {
+    title: "A Decade of Excellence",
+    desc: "With over 10 years of experience in real estate, we deliver quality developments that combine modern design, functionality, and affordability.",
+    iconName: "Award"
+  },
+  {
+    title: "Secure & Safe Living",
+    desc: "Our properties are designed to promote safety and peace of mind, with secure environments and carefully considered security features.",
+    iconName: "Shield"
+  },
+  {
+    title: "Sustainable Energy Solutions",
+    desc: "We incorporate solar panel installations to improve energy efficiency, promote sustainability, and enhance everyday convenience.",
+    iconName: "Sun"
+  },
+  {
+    title: "Ample Parking Spaces",
+    desc: "Our developments feature well-planned parking spaces that provide convenience for residents and visitors alike.",
+    iconName: "Car"
+  },
+  {
+    title: "Modern Amenities",
+    desc: "From contemporary facilities to thoughtfully designed living spaces, we integrate modern amenities that enhance comfort, functionality, and quality of life.",
+    iconName: "Sparkles"
+  },
+  {
+    title: "Proper Title Documentation",
+    desc: "We prioritize transparency and confidence in property ownership by ensuring appropriate title documentation and conducting due diligence to help clients make informed and secure property investments.",
+    iconName: "FileCheck"
   }
 ];
 

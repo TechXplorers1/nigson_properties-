@@ -83,23 +83,182 @@ import { suites, Suite, naira, waLink, addLead } from '../../models/data';
               <p class="kicker text-red-500">Suite Inclusions</p>
               <h2 class="font-serif text-2xl font-medium text-white mt-1 mb-4">Five-Star Amenities</h2>
               <div class="grid sm:grid-cols-2 gap-3">
-                <div *ngFor="let am of suite()!.amenities" class="flex items-center gap-3 p-3.5 bg-white/5 border border-white/10 rounded">
+                <div *ngFor="let am of suite()!.amenities" class="flex items-center gap-3 p-3.5 bg-white/5 border border-white/10 rounded-xl">
                   <div class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></div>
                   <span class="text-xs font-semibold text-zinc-200">{{ am }}</span>
                 </div>
               </div>
             </div>
 
-            <!-- House Rules -->
-            <div *ngIf="suite()!.houseRules">
-              <p class="kicker text-red-500">Stay Policy</p>
-              <h2 class="font-serif text-2xl font-medium text-white mt-1 mb-4">House Guidelines</h2>
-              <ul class="space-y-2.5 text-xs text-zinc-300">
-                <li *ngFor="let r of suite()!.houseRules" class="flex items-center gap-2">
-                  <svg class="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                  {{ r }}
-                </li>
-              </ul>
+            <!-- Key Reservation Protocols (Client PDF 1) -->
+            <div class="p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 space-y-4">
+              <div class="flex items-center gap-2">
+                <span class="text-red-500 text-base">📋</span>
+                <h3 class="font-serif text-xl font-medium text-white">Booking, Check-In & Caution Protocol</h3>
+              </div>
+              <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+                <div class="p-4 rounded-xl bg-black/40 border border-white/10">
+                  <span class="text-zinc-400 block text-[0.68rem] uppercase font-bold tracking-wider">Check-In / Out</span>
+                  <span class="text-white font-bold block mt-1 text-sm">Check-in: {{ suite()!.checkInTime || '1:00 PM' }}</span>
+                  <span class="text-zinc-300 block text-[0.72rem]">Check-out: {{ suite()!.checkOutTime || '12:00 PM' }}</span>
+                  <span class="text-[0.65rem] text-zinc-500 block mt-1">Early/Late check: 10% fee (subject to availability)</span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-black/40 border border-white/10">
+                  <span class="text-zinc-400 block text-[0.68rem] uppercase font-bold tracking-wider">Caution Fee Deposit</span>
+                  <span class="text-emerald-400 font-bold block mt-1 text-sm">{{ naira(suite()!.securityDeposit) }}</span>
+                  <span class="text-[0.68rem] text-zinc-300 block">Fully refundable after inspection</span>
+                  <span class="text-[0.65rem] text-zinc-500 block mt-1">Processed within 24 hours if no damages</span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-black/40 border border-white/10">
+                  <span class="text-zinc-400 block text-[0.68rem] uppercase font-bold tracking-wider">Occupancy & Security</span>
+                  <span class="text-white font-bold block mt-1 text-sm">Max 2 Guests</span>
+                  <span class="text-[0.68rem] text-zinc-300 block">Valid Govt-issued ID required</span>
+                  <span class="text-[0.65rem] text-zinc-500 block mt-1">Key lost fee: ₦50,000 deduction</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cancellation Policy (Client PDF 1 Section B) -->
+            <div *ngIf="suite()!.cancellationPolicy" class="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-6">
+              <div>
+                <p class="kicker text-red-500">Cancellation & Refund Policy</p>
+                <h3 class="font-serif text-2xl font-medium text-white mt-1">Transparent Cancellation Terms</h3>
+                <p class="text-xs text-zinc-400 mt-1 leading-relaxed">
+                  {{ suite()!.cancellationPolicy!.general }}
+                </p>
+              </div>
+
+              <!-- Cancellation Tiers Table -->
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr class="border-b border-white/10 text-zinc-400 uppercase tracking-wider text-[0.68rem]">
+                      <th class="py-2.5 px-3">Cancellation Timing</th>
+                      <th class="py-2.5 px-3">Accommodation Fee Refund</th>
+                      <th class="py-2.5 px-3">Caution Fee Refund</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/5 text-zinc-300">
+                    <tr *ngFor="let tier of suite()!.cancellationPolicy!.tiers" class="hover:bg-white/5">
+                      <td class="py-3 px-3 font-semibold text-white">{{ tier.period }}</td>
+                      <td class="py-3 px-3">
+                        <span class="inline-block px-2.5 py-0.5 rounded text-[0.68rem] font-bold"
+                          [ngClass]="tier.accommodationRefund.includes('100%') ? 'bg-emerald-500/20 text-emerald-300' : tier.accommodationRefund.includes('50%') ? 'bg-amber-500/20 text-amber-300' : 'bg-red-500/20 text-red-300'"
+                        >
+                          {{ tier.accommodationRefund }}
+                        </span>
+                      </td>
+                      <td class="py-3 px-3 text-emerald-400 font-medium">{{ tier.cautionRefund }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Rescheduling & Processing Sub-notes -->
+              <div class="grid sm:grid-cols-2 gap-3 text-xs pt-2">
+                <div class="p-3 bg-black/30 border border-white/5 rounded-xl">
+                  <span class="text-red-400 font-bold block mb-1">Date Change / Rescheduling:</span>
+                  <p class="text-zinc-400 text-[0.72rem] leading-relaxed">{{ suite()!.cancellationPolicy!.rescheduling }}</p>
+                </div>
+                <div class="p-3 bg-black/30 border border-white/5 rounded-xl">
+                  <span class="text-emerald-400 font-bold block mb-1">Refund Processing Time:</span>
+                  <p class="text-zinc-400 text-[0.72rem] leading-relaxed">{{ suite()!.cancellationPolicy!.refundProcessingTime }}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- House Rules & Conducts (Client PDF 1 Section C) -->
+            <div class="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-6">
+              <div>
+                <p class="kicker text-red-500">Official House Rules & Conduct</p>
+                <h3 class="font-serif text-2xl font-medium text-white mt-1">Peaceful & Respectful Living Guidelines</h3>
+                <p class="text-xs text-zinc-400 mt-1">Imperative information for all registered guests staying at Benson Close.</p>
+              </div>
+
+              <div *ngIf="suite()!.detailedRules" class="grid sm:grid-cols-2 gap-4 text-xs">
+                <!-- Conduct & Noise -->
+                <div class="p-4 bg-black/40 border border-white/10 rounded-xl space-y-2">
+                  <h4 class="font-bold text-white flex items-center gap-2">
+                    <span>🔇</span> 1. Conduct & Noise Control
+                  </h4>
+                  <ul class="space-y-1.5 text-zinc-400 text-[0.72rem] list-disc list-inside">
+                    <li *ngFor="let item of suite()!.detailedRules!.conductNoise">{{ item }}</li>
+                  </ul>
+                </div>
+
+                <!-- Visitors Policy -->
+                <div class="p-4 bg-black/40 border border-white/10 rounded-xl space-y-2">
+                  <h4 class="font-bold text-white flex items-center gap-2">
+                    <span>👥</span> 2. Visitors Policy
+                  </h4>
+                  <ul class="space-y-1.5 text-zinc-400 text-[0.72rem] list-disc list-inside">
+                    <li *ngFor="let item of suite()!.detailedRules!.visitors">{{ item }}</li>
+                  </ul>
+                </div>
+
+                <!-- Smoking, Alcohol & Substances -->
+                <div class="p-4 bg-black/40 border border-white/10 rounded-xl space-y-2">
+                  <h4 class="font-bold text-white flex items-center gap-2">
+                    <span>🚭</span> 3. Smoking & Substances
+                  </h4>
+                  <ul class="space-y-1.5 text-zinc-400 text-[0.72rem] list-disc list-inside">
+                    <li *ngFor="let item of suite()!.detailedRules!.smokingSubstances">{{ item }}</li>
+                  </ul>
+                </div>
+
+                <!-- Fire Safety -->
+                <div class="p-4 bg-black/40 border border-white/10 rounded-xl space-y-2">
+                  <h4 class="font-bold text-white flex items-center gap-2">
+                    <span>🧯</span> 4. Fire Safety & Prevention
+                  </h4>
+                  <ul class="space-y-1.5 text-zinc-400 text-[0.72rem] list-disc list-inside">
+                    <li *ngFor="let item of suite()!.detailedRules!.fireSafety">{{ item }}</li>
+                  </ul>
+                </div>
+
+                <!-- Property Care & Damages -->
+                <div class="p-4 bg-black/40 border border-white/10 rounded-xl space-y-2">
+                  <h4 class="font-bold text-white flex items-center gap-2">
+                    <span>🛡️</span> 5. Property Care & Damages
+                  </h4>
+                  <ul class="space-y-1.5 text-zinc-400 text-[0.72rem] list-disc list-inside">
+                    <li *ngFor="let item of suite()!.detailedRules!.propertyCare">{{ item }}</li>
+                  </ul>
+                </div>
+
+                <!-- Cleaning & Hygiene -->
+                <div class="p-4 bg-black/40 border border-white/10 rounded-xl space-y-2">
+                  <h4 class="font-bold text-white flex items-center gap-2">
+                    <span>✨</span> 6. Cleaning & Hygiene
+                  </h4>
+                  <ul class="space-y-1.5 text-zinc-400 text-[0.72rem] list-disc list-inside">
+                    <li *ngFor="let item of suite()!.detailedRules!.cleaningHygiene">{{ item }}</li>
+                  </ul>
+                </div>
+
+                <!-- Cooking & Kitchen Use -->
+                <div class="p-4 bg-black/40 border border-white/10 rounded-xl space-y-2">
+                  <h4 class="font-bold text-white flex items-center gap-2">
+                    <span>🍳</span> 7. Cooking & Kitchen Use
+                  </h4>
+                  <ul class="space-y-1.5 text-zinc-400 text-[0.72rem] list-disc list-inside">
+                    <li *ngFor="let item of suite()!.detailedRules!.kitchenUse">{{ item }}</li>
+                  </ul>
+                </div>
+
+                <!-- Utilities, Pets & Violations -->
+                <div class="p-4 bg-black/40 border border-white/10 rounded-xl space-y-2">
+                  <h4 class="font-bold text-white flex items-center gap-2">
+                    <span>🐾</span> 8. Pets, Utilities & Penalties
+                  </h4>
+                  <p class="text-[0.72rem] text-zinc-300 font-semibold">Pets: {{ suite()!.detailedRules!.pets }}</p>
+                  <ul class="space-y-1 text-zinc-400 text-[0.72rem] list-disc list-inside">
+                    <li *ngFor="let p of suite()!.detailedRules!.penalties">{{ p }}</li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
             <!-- Client Reviews -->
@@ -114,6 +273,23 @@ import { suites, Suite, naira, waLink, addLead } from '../../models/data';
                   </div>
                   <span class="text-xs text-zinc-400 block mb-2">{{ rv.title }} · {{ rv.date }}</span>
                   <p class="text-xs text-zinc-300 italic leading-relaxed">“{{ rv.comment }}”</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Management Contact Card (Client PDF 1 & 2 Contact Us) -->
+            <div class="p-6 rounded-2xl bg-zinc-900 border border-white/15 text-xs text-zinc-300 space-y-3">
+              <span class="text-[0.68rem] font-bold uppercase tracking-wider text-red-500 block">Shortlet Concierge & Management Desk</span>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <strong class="text-white block font-serif text-sm">Nigson Properties Limited</strong>
+                  <p class="mt-1 text-zinc-400">Plot 30B Block 110 Oladimeji Alo Street, Lekki Phase 1, Lagos</p>
+                  <p class="text-zinc-500 mt-0.5">Hours: Open 9:00 AM - 5:00 PM (Monday - Friday)</p>
+                </div>
+                <div>
+                  <span class="text-zinc-400 block">Inquiries & Direct Booking:</span>
+                  <a href="mailto:Hello@Nigson.com" class="text-red-400 font-semibold block mt-0.5 hover:underline">Hello&#64;Nigson.com</a>
+                  <a href="tel:08073467809" class="text-white font-bold block mt-0.5 hover:text-red-400">Properties Desk: 08073467809</a>
                 </div>
               </div>
             </div>
@@ -140,9 +316,7 @@ import { suites, Suite, naira, waLink, addLead } from '../../models/data';
                   <label class="block font-semibold mb-1 text-zinc-300">Guests</label>
                   <select [(ngModel)]="guests" class="w-full p-2.5 bg-black border border-white/20 rounded text-white text-xs outline-none">
                     <option [value]="1">1 Guest</option>
-                    <option [value]="2">2 Guests</option>
-                    <option [value]="4">4 Guests</option>
-                    <option [value]="6">6 Guests</option>
+                    <option [value]="2">2 Guests (Max)</option>
                   </select>
                 </div>
 
@@ -173,9 +347,12 @@ import { suites, Suite, naira, waLink, addLead } from '../../models/data';
                     <span class="text-white">{{ naira(suite()!.cleaningFee) }}</span>
                   </div>
                   <div class="flex justify-between">
-                    <span>Refundable Deposit</span>
-                    <span class="text-white">{{ naira(suite()!.securityDeposit) }}</span>
+                    <span class="text-emerald-400 font-medium">Refundable Caution Fee</span>
+                    <span class="text-emerald-400 font-bold tabular-nums">{{ naira(suite()!.securityDeposit) }}</span>
                   </div>
+                  <p class="text-[0.66rem] text-zinc-500 italic">
+                    Caution fee is ₦200,000 and is fully refunded within 24 hours after inspection upon check-out.
+                  </p>
                   <div class="flex justify-between text-base font-bold text-white pt-2 border-t border-white/10">
                     <span>Total Estimate</span>
                     <span class="text-red-500 tabular-nums">{{ naira(calculateTotal()) }}</span>
@@ -184,7 +361,7 @@ import { suites, Suite, naira, waLink, addLead } from '../../models/data';
 
                 <button
                   (click)="dispatchBooking()"
-                  class="btn-sweep w-full mt-4 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-widest rounded text-center transition-all"
+                  class="btn-sweep w-full mt-4 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-widest rounded text-center transition-all cursor-pointer"
                 >
                   Confirm on WhatsApp
                 </button>

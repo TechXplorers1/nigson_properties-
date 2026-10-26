@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SubpageHeroComponent } from '../../components/subpage-hero/subpage-hero.component';
 import { servicesDetails, ServiceDetail, waLink } from '../../models/data';
+import { CmsService } from '../../services/cms.service';
 
 @Component({
   selector: 'app-services-page',
@@ -11,17 +12,17 @@ import { servicesDetails, ServiceDetail, waLink } from '../../models/data';
   template: `
     <div class="min-h-screen bg-white text-zinc-900 font-sans flex flex-col">
       <app-subpage-hero
-        kicker="Our Services & Capabilities"
-        title="7 Core Real Estate"
-        highlight="Capabilities"
-        subtitle="End-to-end building construction, project development, facility management, short-stay bookings, and transparent property sales."
+        [kicker]="cms.hero.kicker"
+        [title]="cms.hero.title"
+        [highlight]="cms.hero.highlight"
+        [subtitle]="cms.hero.subtitle"
         [breadcrumbs]="[{ label: 'Our Services' }]"
-        bgImage="/assets/villa.jpg"
+        [bgImage]="cms.hero.bgImage"
       >
         <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-zinc-300 font-medium">
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Modern Architectural Design</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Guaranteed Title Perfection</span>
-          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> 24/7 Facility Operations</span>
+          <span *ngFor="let b of cms.hero.badges" class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> {{ b }}
+          </span>
         </div>
       </app-subpage-hero>
 
@@ -60,8 +61,8 @@ import { servicesDetails, ServiceDetail, waLink } from '../../models/data';
                 </div>
               </div>
 
-              <!-- Deliverables -->
-              <div class="p-4 bg-[#FAF9F6] border border-zinc-200 rounded-xl mb-6">
+              <!-- Deliverables if present -->
+              <div *ngIf="s.deliverables && s.deliverables.length" class="p-4 bg-[#FAF9F6] border border-zinc-200 rounded-xl mb-6">
                 <span class="text-[0.65rem] font-bold uppercase tracking-wider text-zinc-400 block mb-2">Key Deliverables</span>
                 <div class="flex flex-wrap gap-2">
                   <span *ngFor="let del of s.deliverables" class="px-3 py-1 bg-white border border-zinc-200 rounded text-xs font-medium text-zinc-700">
@@ -85,6 +86,14 @@ import { servicesDetails, ServiceDetail, waLink } from '../../models/data';
   `
 })
 export class ServicesPageComponent {
-  allServices = servicesDetails;
+  cmsService = inject(CmsService);
+  get cms() {
+    return this.cmsService.cmsData().services;
+  }
+
+  get allServices() {
+    return this.cms.servicesList && this.cms.servicesList.length ? this.cms.servicesList : servicesDetails;
+  }
+
   waLink = waLink;
 }
